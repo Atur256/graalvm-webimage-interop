@@ -1,51 +1,109 @@
-import demos.object.*;
+
+import demos.eval.EvalDemo;
+import demos.function.*;
+import demos.number.*;
+import demos.uri.*;
 
 
 public class Main {
 
     public static void main(String[] args) {
 
-
+//        // Object
+//
 //        AssignDemo.main(null);
-
-        CreateDemo.main(null);
-
-        CreateWithPropertiesDemo.main(null);
-
-        DefinePropertyDemo.main(null);
-
-        DefinePropertiesDemo.main(null);
-
-        EntriesDemo.main(null);
-
-        FreezeDemo.main(null);
-
+//
+//        CreateDemo.main(null);
+//
+//        CreateWithPropertiesDemo.main(null);
+//
+//        DefinePropertyDemo.main(null);
+//
+//        DefinePropertiesDemo.main(null);
+//
+//        EntriesDemo.main(null);
+//
+//        FreezeDemo.main(null);
+//
 //        FromEntriesDemo.main(null);
+//
+////        GetOwnPropertyDescriptorsDemo.main(null);
+//
+//        GetOwnPropertyNamesDemo.main(null);
+//
+////        GetOwnPropertySymbolsDemo.main(null);
+//
+//        GetPrototypeOfDemo.main(null);
+//
+//        GroupByDemo.main(null);
+//
+//        HasOwnDemo.main(null);
+//
+//        IsDemo.main(null);
+//
+//        IsExtensibleDemo.main(null);
+//
+//        IsFrozenDemo.main(null);
+//
+//        IsSealedDemo.main(null);
+//
+//        PreventExtensionsDemo.main(null);
+//
+//        SealDemo.main(null);
+//
+//        SetPrototypeOfDemo.main(null);
+//
+//        ValuesDemo.main(null);
+//
+        // Number
 
-//        GetOwnPropertyDescriptorsDemo.main(null);
+        IsFiniteDemo.main(null);
 
-        GetOwnPropertyNamesDemo.main(null);
+        IsNaNDemo.main(null);
 
-//        GetOwnPropertySymbolsDemo.main(null);
+        ParseFloatNumberDemo.main(null);
 
-        GetPrototypeOfDemo.main(null);
+        ParseFloatStringDemo.main(null);
 
-        HasOwnDemo.main(null);
+        ParseIntNumberDemo.main(null);
 
-        IsDemo.main(null);
+        ParseIntStringDemo.main(null);
 
-        IsExtensibleDemo.main(null);
+        ParseIntRadixDemo.main(null);
 
-        IsFrozenDemo.main(null);
+        // Eval
 
-        IsSealedDemo.main(null);
+        EvalDemo.main(null);
 
-        PreventExtensionsDemo.main(null);
+        // URI
 
-        SealDemo.main(null);
+        DecodeURIDemo.main(null);
 
-        SetPrototypeOfDemo.main(null);
+        EncodeURIDemo.main(null);
 
-        ValuesDemo.main(null);
+        DecodeURIComponentDemo.main(null);
+
+        EncodeURIComponentDemo.main(null);
+
+
+        // Function
+
+        ApplyDemo.main(null);
+
+        BindDemo.main(null);
+
+        CallDemo.main(null);
+
+        CallWithArgsDemo.main(null);
+
+        LengthDemo.main(null);
+
+        NameDemo.main(null);
+
+        PrototypeDemo.main(null);
+
+        ToStringDemo.main(null);
+
+
     }
 }

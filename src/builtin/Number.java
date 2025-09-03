@@ -2,15 +2,18 @@ package builtin;
 
 import org.graalvm.webimage.api.*;
 
+@JS.Import("Number")
+public class Number extends JSObject {
 
-public class Number {
+    // TODO: Add methods directly to JSNumber????
 
     @JS.Coerce
     @JS(value = "return isFinite(number)")
-    public native static Boolean isFinite(java.lang.Number number);
+    public native static boolean isFinite(java.lang.Number number);
 
+    @JS.Coerce
     @JS(value = "return isNaN(number)")
-    public native static JSBoolean isNaN(JSValue number);
+    public native static boolean isNaN(JSValue number);
 
     @JS.Coerce
     @JS(value = "return parseFloat(number)")
@@ -18,7 +21,7 @@ public class Number {
 
     @JS.Coerce
     @JS(value = "return parseFloat(number)")
-    public native static float parseFloat(String number);
+    public native static float parseFloat(java.lang.String number);
 
     @JS.Coerce
     @JS(value = "return parseInt(number)")
@@ -27,9 +30,9 @@ public class Number {
     // JSNumber instead of int as return value, because NaN is not defined for int
     @JS.Coerce
     @JS(value = "return parseInt(number)")
-    public native static JSNumber parseInt(String number);
+    public native static JSNumber parseInt(java.lang.String  number);
 
     @JS.Coerce
     @JS(value = "return parseInt(number, radix)")
-    public native static int parseInt(String number, int radix);
+    public native static int parseInt(java.lang.String  number, int radix);
 }

@@ -1,6 +1,7 @@
 package demos.object;
 
 import builtin.Object;
+import org.graalvm.webimage.api.JS;
 import org.graalvm.webimage.api.JSObject;
 
 public class FromEntriesDemo {
@@ -9,15 +10,15 @@ public class FromEntriesDemo {
 
         System.out.println("\n=== Object.fromEntries Demo ===");
 
-        JSObject pair1 = JSObject.create();
+        JSObject pair1 = createArray();
         pair1.set("0", "a");
         pair1.set("1", 10);
 
-        JSObject pair2 = JSObject.create();
+        JSObject pair2 = createArray();
         pair2.set("0", "b");
         pair2.set("1", 20);
 
-        JSObject entriesArray = JSObject.create();
+        JSObject entriesArray = createArray();
         entriesArray.set("0", pair1);
         entriesArray.set("1", pair2);
 
@@ -25,4 +26,6 @@ public class FromEntriesDemo {
         System.out.println("FromEntries: " + Object.entries(obj));
     }
 
+    @JS("return [];")
+    public native static JSObject createArray();
 }

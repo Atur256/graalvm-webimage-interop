@@ -6,17 +6,17 @@ import org.graalvm.webimage.api.JS;
 public class URI {
     @JS.Coerce
     @JS(value = "return encodeURI(uri)")
-    public native static String encodeURI(String uri);
+    public native static java.lang.String  encodeURI(java.lang.String  uri);
 
     @JS.Coerce
     @JS(value = "return decodeURI(uri)")
-    public native static String decodeURI(String uri);
+    public native static java.lang.String  decodeURI(java.lang.String  uri);
 
     @JS.Coerce
     @JS(value = "return encodeURIComponent(uri)")
-    public native static String encodeURIComponent(String uri);
+    public native static java.lang.String  encodeURIComponent(java.lang.String  uri);
 
     @JS.Coerce
     @JS(value = "return decodeURIComponent(uri)")
-    public native static String decodeURIComponent(String uri);
+    public native static java.lang.String  decodeURIComponent(java.lang.String  uri);
 }

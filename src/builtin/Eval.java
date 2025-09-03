@@ -10,5 +10,5 @@ public class Eval {
 
     @JS.Coerce
     @JS(value = "return eval(script)")
-    public native static JSValue eval(String script);
+    public native static JSValue eval(java.lang.String  script);
 }
