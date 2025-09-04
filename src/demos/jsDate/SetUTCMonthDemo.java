@@ -1,0 +1,15 @@
+package demos.jsDate;
+
+import builtin.JSDate;
+
+
+public class SetUTCMonthDemo {
+
+    public static void main(String[] args) {
+        System.out.println("\n=== JSDate.setUTCMonth Demo ===");
+        JSDate date = new JSDate();
+        date.setUTCMonth(0); // January
+        System.out.println("Updated UTC month: " + date.getUTCMonth());
+        // Expected: Updated UTC month: 0
+    }
+}

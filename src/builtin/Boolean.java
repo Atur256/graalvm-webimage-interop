@@ -6,4 +6,6 @@ import org.graalvm.webimage.api.JSObject;
 @JS.Import("Boolean")
 public class Boolean extends JSObject {
 
+    // TODO: Add methods directly to JSBoolean????
+
 }
