@@ -47,4 +47,10 @@ public class JSPromise extends JSObject {
     @JS.Coerce
     @JS(value = "return this.finally(onFinally)")
     public native JSPromise finally_(JSValue onFinally);
+
+    @JS.Coerce
+    @JS(value = "return Promise.withResolvers()")
+    public static native JSObject withResolvers();
 }
+
+

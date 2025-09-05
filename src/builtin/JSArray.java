@@ -14,7 +14,7 @@ public class JSArray extends JSObject {
 
     @JS.Coerce
     @JS(value = "return Array.from(arrayLike)")
-    public static native JSArray from(JSValue arrayLike);
+    public static native JSArray from(JSValue arrayLike); // example: "1234", String[] {"a","b"}...
 
     @JS.Coerce
     @JS(value = "return Array.fromAsync(arrayLike)")
@@ -26,7 +26,7 @@ public class JSArray extends JSObject {
 
     @JS.Coerce
     @JS(value = "return Array.of.apply(null, values)")
-    public static native JSArray of(JSValue[] values);
+    public static native JSArray of(JSValue[] values); // .of from java objects
 
     @JS.Coerce
     @JS(value = "return this.at(index)")
@@ -34,7 +34,7 @@ public class JSArray extends JSObject {
 
     @JS.Coerce
     @JS(value = "return Array.prototype.concat.apply(this, jsArrays)")
-    public native JSArray concat(JSArray[] jsArrays);
+    public native JSArray concat(JSArray[] jsArrays); // TODO: also java arrays
 
     @JS.Coerce
     @JS(value = "return this.copyWithin(target, start, end)")

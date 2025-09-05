@@ -10,6 +10,12 @@ import java.lang.String;
 @JS.Import("Function")
 public class JSFunction extends JSObject {
 
+    public int length;
+
+    public String name;
+
+    public JSValue prototype;
+
     @JS.Coerce
     @JS(value = "return new Function('arg', body)")
     public static native JSFunction fromBody(String body);
@@ -38,15 +44,4 @@ public class JSFunction extends JSObject {
     @JS(value = "return this.toString()")
     public native String toStringJS();
 
-    @JS.Coerce
-    @JS(value = "return this.length")
-    public native int length();
-
-    @JS.Coerce
-    @JS(value = "return this.name")
-    public native String name();
-
-    @JS.Coerce
-    @JS(value = "return this.prototype")
-    public native JSValue prototype();
 }

@@ -1,9 +1,6 @@
-
-import demos.jsMap.EntriesDemo;
-import demos.jsMap.ForEachDemo;
-import demos.jsMap.KeysDemo;
-import demos.jsMap.ValuesDemo;
+import demos.jsIterator.FromDemo;
 import demos.jsMap.*;
+import demos.jsRegExp.*;
 
 
 public class Main {
@@ -211,6 +208,12 @@ public class Main {
 //
 //        PromiseAnyDemo.main(null);
 //
+//        WithResolversDemo.main(null);
+//
+//
+//
+//
+//
 //        // JSDate
 //
 //        NowDemo.main(null);
@@ -304,29 +307,219 @@ public class Main {
 //        ToUTCStringDemo.main(null);
 //
 //        ValueOfDemo.main(null);
-
+//
         // JSMap
 
-        ClearDemo.main(null);
+//        GroupByDemo.main(null);
+//
+//        ClearDemo.main(null);
+//
+//        DeleteDemo.main(null);
+//
+//        EntriesDemo.main(null);
+//
+//        ForEachDemo.main(null);
+//
+//        GetDemo.main(null);
+//
+//        HasDemo.main(null);
+//
+//        KeysDemo.main(null);
+//
+//        SetDemo.main(null);
+//
+//        ValuesDemo.main(null);
+//
+//        SizeDemo.main(null);
 
-        DeleteDemo.main(null);
+        // JSIterator
 
-        EntriesDemo.main(null);
+        FromDemo.main(null);
 
-        ForEachDemo.main(null);
-
-        GetDemo.main(null);
-
-        HasDemo.main(null);
-
-        KeysDemo.main(null);
-
-        SetDemo.main(null);
-
-        ValuesDemo.main(null);
-
-        SizeDemo.main(null);
+//        JSFunction info = JSFunction.fromBody("console.log('Engine:', typeof Iterator, typeof Promise, typeof Symbol)");
+//        info.call(null);
+//
+//        JSFunction test = JSFunction.fromBody("console.log('Map.from groupBy:', typeof Map?.groupBy === 'function')");
+//        test.call(null);
+//
+//        JSFunction test2 = JSFunction.fromBody("console.log('Promise.from try:', typeof Promise?.try === 'function')");
+//        test2.call(null);
+//
+//        JSFunction test3 = JSFunction.fromBody("console.log('Promise.from withResolvers:', typeof Promise?.withResolvers === 'function')");
+//        test3.call(null);
 
 
+//
+//        JSFunction inspect = JSFunction.fromBody("console.log(Iterator?.from?.toString?.())");
+//        inspect.call(null);
+//
+//        JSFunction version = JSFunction.fromBody("console.log('GraalVM version:', typeof graalvmVersion !== 'undefined' ? graalvmVersion : 'unknown')");
+//        version.call(null);
+//
+//
+//        // JSSet
+//
+//        AddDemo.main(null);
+//
+//        ClearDemo.main(null);
+//
+//        DeleteDemo.main(null);
+//
+//        DifferenceDemo.main(null);
+//
+//        EntriesDemo.main(null);
+//
+//        ForEachDemo.main(null);
+//
+//        HasDemo.main(null);
+//
+//        IntersectionDemo.main(null);
+//
+//        IsDisjointFromDemo.main(null);
+//
+//        IsSubsetOfDemo.main(null);
+//
+//        IsSupersetOfDemo.main(null);
+//
+//        KeysDemo.main(null);
+//
+//        SymmetricDifferenceDemo.main(null);
+//
+//        UnionDemo.main(null);
+//
+//        ValuesDemo.main(null);
+//
+//        SizeDemo.main(null);
+//
+//        // JSMath
+//
+//        EConstantDemo.main(null);
+//
+//        LN2ConstantDemo.main(null);
+//
+//        LN10ConstantDemo.main(null);
+//
+//        LOG2EConstantDemo.main(null);
+//
+//        LOG10EConstantDemo.main(null);
+//
+//        PIConstantDemo.main(null);
+//
+//        SQRT1_2ConstantDemo.main(null);
+//
+//        SQRT2ConstantDemo.main(null);
+//
+//        AbsDemo.main(null);
+//
+//        AcosDemo.main(null);
+//
+//        AcoshDemo.main(null);
+//
+//        AsinDemo.main(null);
+//
+//        AsinhDemo.main(null);
+//
+//        AtanDemo.main(null);
+//
+//        Atan2Demo.main(null);
+//
+//        AtanhDemo.main(null);
+//
+//        CbrtDemo.main(null);
+//
+//        CeilDemo.main(null);
+//
+//        Clz32Demo.main(null);
+//
+//        CosDemo.main(null);
+//
+//        CoshDemo.main(null);
+//
+//        ExpDemo.main(null);
+//
+//        Expm1Demo.main(null);
+//
+//        FloorDemo.main(null);
+//
+//        FroundDemo.main(null);
+//
+//        HypotDemo.main(null);
+//
+//        ImulDemo.main(null);
+//
+//        LogDemo.main(null);
+//
+//        Log1pDemo.main(null);
+//
+//        Log2Demo.main(null);
+//
+//        Log10Demo.main(null);
+//
+//        MaxDemo.main(null);
+//
+//        MinDemo.main(null);
+//
+//        PowDemo.main(null);
+//
+//        RandomDemo.main(null);
+//
+//        RoundDemo.main(null);
+//
+//        SignDemo.main(null);
+//
+//        SinDemo.main(null);
+//
+//        SinhDemo.main(null);
+//
+//        SqrtDemo.main(null);
+//
+//        TanDemo.main(null);
+//
+//        TanhDemo.main(null);
+//
+//        TruncDemo.main(null);
+//
+//        // JSJson
+//
+//        ParseDemo.main(null);
+//
+//        StringifyDemo.main(null);
+//
+//        RawJSONDemo.main(null);
+//
+//        IsRawJSONDemo.main(null);
+
+//        JSFunction test = JSFunction.fromBody("console.log('RegExp.escape:', typeof RegExp?.escape === 'function')");
+//        test.call(null);
+
+        // JSRegExp
+
+//        ExecDemo.main(null);
+//
+//        TestDemo.main(null);
+//
+//        ToStringDemo.main(null);
+//
+//        LastIndexDemo.main(null);
+//
+//        DotAllDemo.main(null);
+//
+//        FlagsDemo.main(null);
+//
+//        GlobalDemo.main(null);
+//
+//        HasIndicesDemo.main(null);
+//
+//        IgnoreCaseDemo.main(null);
+//
+//        MultilineDemo.main(null);
+//
+//        SourceDemo.main(null);
+//
+//        StickyDemo.main(null);
+//
+//        UnicodeDemo.main(null);
+//
+//        UnicodeSetsDemo.main(null);
     }
 }

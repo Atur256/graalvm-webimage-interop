@@ -9,7 +9,7 @@ public class NameDemo {
         System.out.println("\n=== JSFunction.name Demo ===");
 
         JSFunction f = JSFunction.fromBody("return 'test';");
-        System.out.println("JSFunction name: " + f.name());
+        System.out.println("JSFunction name: " + f.name);
         // Expected: "anonymous"
     }
 }

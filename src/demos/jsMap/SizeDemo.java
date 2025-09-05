@@ -13,7 +13,7 @@ public class SizeDemo {
         map.set(JSString.of("a"), JSString.of("1"));
         map.set(JSString.of("b"), JSString.of("2"));
 
-        System.out.println("Size: " + map.size());
+        System.out.println("Size: " + map.size);
         // Expected: Size: 2
     }
 }

@@ -16,6 +16,7 @@ public class Object extends JSObject {
     @JS("return Object.assign.apply(Object, [target].concat(Array.from(sources)));")
     public static native JSObject assign(JSObject target, JSObject... sources);
 
+    @JS.Coerce
     @JS(value = "return Object.create(proto)")
     public static native JSObject create(JSObject proto);
 

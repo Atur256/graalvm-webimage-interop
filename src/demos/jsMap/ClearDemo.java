@@ -11,10 +11,10 @@ public class ClearDemo {
 
         JSMap map = new JSMap();
         map.set(JSString.of("key"), JSString.of("value"));
-        System.out.println("Size before clear: " + map.size());
+        System.out.println("Size before clear: " + map.size);
 
         map.clear();
-        System.out.println("Size after clear: " + map.size());
+        System.out.println("Size after clear: " + map.size);
         // Expected: Size before clear: 1, Size after clear: 0
     }
 }

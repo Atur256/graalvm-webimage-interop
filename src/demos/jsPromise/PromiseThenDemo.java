@@ -17,7 +17,6 @@ public class PromiseThenDemo {
 
         // Attach handlers using .then
         promise.then(onFulfilled, onRejected);
-
         // Expected output: Then resolved with: Done
     }
 }
