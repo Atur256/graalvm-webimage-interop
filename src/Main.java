@@ -1,3 +1,5 @@
+import demos.jsFunction.*;
+import demos.jsFunction.ToStringDemo;
 import demos.jsIterator.FromDemo;
 import demos.jsMap.*;
 import demos.jsRegExp.*;
@@ -86,25 +88,38 @@ public class Main {
 //
 //        // JSFunction
 //
-//        FromBodyDemo.main(null);
-//
-//        FromArgsDemo.main(null);
-//
-//        ApplyDemo.main(null);
-//
-//        BindDemo.main(null);
-//
-//        CallDemo.main(null);
-//
-//        CallWithArgsDemo.main(null);
-//
-//        LengthDemo.main(null);
-//
-//        NameDemo.main(null);
-//
-//        PrototypeDemo.main(null);
-//
-//        ToStringDemo.main(null);
+        FromBodyDemo.main(null);
+
+        FromArgsDemo.main(null);
+
+        FromJavaFunctionDemo.main(null);
+
+        FromRunnableDemo.main(null);
+
+        FromConsumerDemo.main(null);
+
+        FromSupplierDemo.main(null);
+
+        CallJSDemo.main(null);
+
+        CallDemo.main(null);
+
+        ApplyDemo.main(null);
+
+
+
+
+        BindDemo.main(null);
+
+        CallWithArgsDemo.main(null);
+
+        LengthDemo.main(null);
+
+        NameDemo.main(null);
+
+        PrototypeDemo.main(null);
+
+        ToStringDemo.main(null);
 
 //        // JSArray
 //
@@ -334,7 +349,7 @@ public class Main {
 
         // JSIterator
 
-        FromDemo.main(null);
+//        FromDemo.main(null);
 
 //        JSFunction info = JSFunction.fromBody("console.log('Engine:', typeof Iterator, typeof Promise, typeof Symbol)");
 //        info.call(null);

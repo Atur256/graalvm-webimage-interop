@@ -9,10 +9,9 @@ public class FromBodyDemo {
     public static void main(String[] args) {
         System.out.println("\n=== JSFunction.fromBody Demo ===");
 
-        JSFunction logArg = JSFunction.fromBody("console.log('Received:', arg)");
-
-        logArg.call(JSString.of("Hello from fromBody"));
-        // Expected Output:
-        // Received: Hello from fromBody
+        JSFunction greet = JSFunction.fromBody("return 'Hello ' + arg;");
+        JSString result = greet.callJS("Alice");
+        System.out.println("Result: " + result.as(String.class));
+        // Expected: Hello Alice
     }
 }
