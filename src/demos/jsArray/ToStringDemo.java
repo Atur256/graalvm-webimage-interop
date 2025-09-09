@@ -14,8 +14,8 @@ public class ToStringDemo {
                 JSString.of("apple"), JSString.of("banana"), JSString.of("cherry")
         });
 
-        String result = arr.toStringJS();
+        String result = arr.toString();
         System.out.println("Array as string: " + result);
-        // Expected: "apple,banana,cherry"
+        // Expected: ["apple","banana","cherry"]
     }
 }

@@ -15,7 +15,7 @@ public class ToSortedDemo {
         });
 
         JSArray sorted = arr.toSorted();
-        System.out.println("Original array: " + arr.toStringJS()); // Expected: ["zebra", "apple", "mango"]
-        System.out.println("Sorted copy: " + sorted.toStringJS()); // Expected: ["apple", "mango", "zebra"]
+        System.out.println("Original array: " + arr);            // Expected: ["zebra", "apple", "mango"]
+        System.out.println("Sorted copy: " + sorted.toString()); // Expected: ["apple", "mango", "zebra"]
     }
 }

@@ -15,6 +15,6 @@ public class SortDemo {
         });
 
         arr.sort();
-        System.out.println("Sorted array: " + arr.toStringJS()); // Expected: ["apple", "banana", "cherry"]
+        System.out.println("Sorted array: " + arr); // Expected: ["apple", "banana", "cherry"]
     }
 }

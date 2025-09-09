@@ -17,8 +17,7 @@ public class ConcatDemo {
         JSArray a3 = JSArray.of(5);
 
         JSArray result = a1.concat(new JSArray[]{a2, a3});
-        System.out.println("Concatenated: " + result.toStringJS()); // Expected: [1, 2, 3, 4, 5]
-
+        System.out.println("Concatenated: " + result.toString()); // Expected: [1, 2, 3, 4, 5]
 
         JSArray base = JSArray.of("base");
 
@@ -28,11 +27,11 @@ public class ConcatDemo {
         boolean[] flags = {true, false};
 
         JSArray result1 = base.concat(nums, fruits, flags);
-        System.out.println("Result: " + result1.toStringJS()); // ["base",1,2,3,"apple","banana",true,false]
+        System.out.println("Result: " + result1.toString()); // ["base",1,2,3,"apple","banana",true,false]
 
         // Concatenate with List
         List<String> extras = List.of("x", "y");
         JSArray result2 = base.concat(extras);
-        System.out.println("With List: " + result2.toStringJS()); // ["base","x","y"]
+        System.out.println("With List: " + result2.toString()); // ["base","x","y"]
     }
 }

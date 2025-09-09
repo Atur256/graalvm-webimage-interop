@@ -12,6 +12,6 @@ public class SliceDemo {
 
         JSArray arr = JSArray.of(new JSValue[] { JSNumber.of(1), JSNumber.of(2), JSNumber.of(3) });
         JSArray sliced = arr.slice(1, 3);
-        System.out.println("Sliced: " + sliced.toStringJS()); // Expected: [2, 3]
+        System.out.println("Sliced: " + sliced.toString()); // Expected: [2, 3]
     }
 }

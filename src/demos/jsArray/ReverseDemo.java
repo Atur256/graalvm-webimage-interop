@@ -12,6 +12,6 @@ public class ReverseDemo {
 
         JSArray arr = JSArray.of(new JSValue[]{JSNumber.of(1), JSNumber.of(2), JSNumber.of(3)});
         arr.reverse();
-        System.out.println("Reversed: " + arr.toStringJS()); // Expected: [3, 2, 1]
+        System.out.println("Reversed: " + arr); // Expected: [3, 2, 1]
     }
 }

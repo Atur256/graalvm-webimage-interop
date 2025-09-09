@@ -15,7 +15,7 @@ public class ToSplicedDemo {
         });
 
         JSArray spliced = arr.toSpliced(1, 1);
-        System.out.println("Original array: " + arr.toStringJS()); // Expected: ["a", "b", "c"]
-        System.out.println("Spliced copy: " + spliced.toStringJS()); // Expected: ["a", "c"]
+        System.out.println("Original array: " + arr);               // Expected: ["a", "b", "c"]
+        System.out.println("Spliced copy: " + spliced.toString());  // Expected: ["a", "c"]
     }
 }

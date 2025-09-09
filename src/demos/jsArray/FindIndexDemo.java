@@ -17,7 +17,6 @@ public class FindIndexDemo {
         int index = arr.findIndex(isOdd);
         System.out.println("First odd index: " + index); // Expected: 0
 
-
         JSArray javaArr = JSArray.of(3, 7, 8, 9);
         JSFunction isEven = JSFunction.fromFunction((JSNumber arg) -> JSBoolean.of(arg.as(Integer.class) % 2 == 0));
         int index2 = javaArr.findIndex(isEven);

@@ -16,6 +16,6 @@ public class SpliceDemo {
 
         JSArray removed = arr.splice(1, 2);
         System.out.println("Removed elements: " + removed.toString()); // Expected: ["b", "c"]
-        System.out.println("Remaining array: " + arr.toStringJS()); // Expected: ["a", "d"]
+        System.out.println("Remaining array: " + arr); // Expected: ["a", "d"]
     }
 }

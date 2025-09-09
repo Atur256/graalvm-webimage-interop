@@ -116,28 +116,28 @@ public class Main {
 //
         // JSArray
 
-//        FromDemo.main(null);
-//
-//        FromAsyncDemo.main(null);
-//
-//        IsArrayDemo.main(null);
+        FromDemo.main(null);
 
-//        OfDemo.main(null);
-//
-//        IndexOfDemo.main(null);
-//
-//        AtDemo.main(null);
-//
-//        ConcatDemo.main(null);
-//
-//        CopyWithinDemo.main(null);
-//
-//        EntriesDemo.main(null);
-//
-//        EveryDemo.main(null);
-//
-//        FillDemo.main(null);
-//
+        FromAsyncDemo.main(null);
+
+        IsArrayDemo.main(null);
+
+        OfDemo.main(null);
+
+        IndexOfDemo.main(null);
+
+        AtDemo.main(null);
+
+        ConcatDemo.main(null);
+
+        CopyWithinDemo.main(null);
+
+        EntriesDemo.main(null);
+
+        EveryDemo.main(null);
+
+        FillDemo.main(null);
+
         FilterDemo.main(null);
 
         FindIndexDemo.main(null);
@@ -151,52 +151,52 @@ public class Main {
         FlatMapDemo.main(null);
 
         ForEachDemo.main(null);
-//
-//        IncludesDemo.main(null);
-//
-//        IndexOfDemo.main(null);
-//
-//        JoinDemo.main(null);
-//
-//        KeysDemo.main(null);
-//
-//        LastIndexOfDemo.main(null);
+
+        IncludesDemo.main(null);
+
+        IndexOfDemo.main(null);
+
+        JoinDemo.main(null);
+
+        KeysDemo.main(null);
+
+        LastIndexOfDemo.main(null);
 
         MapDemo.main(null);
 
-//        PopDemo.main(null);
-//
-//        PushDemo.main(null);
-//
-//        ReduceDemo.main(null);
-//
-//        ReduceRightDemo.main(null);
-//
-//        ReverseDemo.main(null);
-//
-//        ShiftDemo.main(null);
-//
-//        SliceDemo.main(null);
+        PopDemo.main(null);
+
+        PushDemo.main(null);
+
+        ReduceDemo.main(null);
+
+        ReduceRightDemo.main(null);
+
+        ReverseDemo.main(null);
+
+        ShiftDemo.main(null);
+
+        SliceDemo.main(null);
 
         SomeDemo.main(null);
 
-//        SortDemo.main(null);
-//
-//        ToLocaleStringDemo.main(null);
-//
-//        ToReversedDemo.main(null);
-//
-//        ToSortedDemo.main(null);
-//
-//        ToSplicedDemo.main(null);
-//
-//        ToStringDemo.main(null);
-//
-//        UnshiftDemo.main(null);
-//
-//        ValuesDemo.main(null);
-//
-//        WithDemo.main(null);
+        SortDemo.main(null);
+
+        ToLocaleStringDemo.main(null);
+
+        ToReversedDemo.main(null);
+
+        ToSortedDemo.main(null);
+
+        ToSplicedDemo.main(null);
+
+        ToStringDemo.main(null);
+
+        UnshiftDemo.main(null);
+
+        ValuesDemo.main(null);
+
+        WithDemo.main(null);
 //
 //        // JSPromise
 //

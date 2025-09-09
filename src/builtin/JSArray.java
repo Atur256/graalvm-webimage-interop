@@ -64,15 +64,9 @@ public class JSArray extends JSObject {
     @JS(value = "return Array.of.apply(null, values)")
     public static native JSArray of(JSValue[] values);
 
-//    @JS.Coerce
-//    @JS(value = "return Array.of.apply(null, values)")
-    public static JSArray of(int... values) {
-        JSValue[] jsValues = new JSValue[values.length];
-        for(int i = 0; i < values.length; i++) {
-            jsValues[i] = JSNumber.of(values[i]);
-        }
-        return JSArray.of(jsValues);
-    }
+    @JS.Coerce
+    @JS(value = "return Array.of.apply(null, values)")
+    public static native JSArray of(int... values);
 
     @JS.Coerce
     @JS(value = "return Array.of.apply(null, values)")
@@ -216,7 +210,7 @@ public class JSArray extends JSObject {
 
     @JS.Coerce
     @JS(value = "return this.entries()")
-    public native JSValue entries();
+    public native JSValue entries(); // TODO: return JSIterator
 
     @JS.Coerce
     @JS(value = "return this.every(callback)")
@@ -260,23 +254,83 @@ public class JSArray extends JSObject {
 
     @JS.Coerce
     @JS(value = "return this.includes(value)")
-    public native boolean includes(JSValue value); // TODO: adopt to also support java data types
+    public native boolean includes(JSValue value);
+
+    @JS.Coerce
+    @JS(value = "return this.includes(value)")
+    public native boolean includes(int value);
+
+    @JS.Coerce
+    @JS(value = "return this.includes(value)")
+    public native boolean includes(double value);
+
+    @JS.Coerce
+    @JS(value = "return this.includes(value)")
+    public native boolean includes(boolean value);
+
+    @JS.Coerce
+    @JS(value = "return this.includes(value)")
+    public native boolean includes(String value);
+
+    @JS.Coerce
+    @JS(value = "return this.includes(value)")
+    public native boolean includes(Object value);
 
     @JS.Coerce
     @JS(value = "return this.indexOf(value)")
-    public native int indexOf(JSValue value); // TODO: adopt to also support java data types
+    public native int indexOf(JSValue value);
+
+    @JS.Coerce
+    @JS(value = "return this.indexOf(value)")
+    public native int indexOf(int value);
+
+    @JS.Coerce
+    @JS(value = "return this.indexOf(value)")
+    public native int indexOf(double value);
+
+    @JS.Coerce
+    @JS(value = "return this.indexOf(value)")
+    public native int indexOf(boolean value);
+
+    @JS.Coerce
+    @JS(value = "return this.indexOf(value)")
+    public native int indexOf(String value);
+
+    @JS.Coerce
+    @JS(value = "return this.indexOf(value)")
+    public native int indexOf(Object value);
 
     @JS.Coerce
     @JS(value = "return this.join(separator)")
-    public native String join(String separator); // TODO: adopt to also support java data types
+    public native String join(String separator);
 
     @JS.Coerce
     @JS(value = "return this.keys()")
-    public native JSValue keys();
+    public native JSValue keys(); // TODO: return JSIterator
 
     @JS.Coerce
     @JS(value = "return this.lastIndexOf(value)")
-    public native int lastIndexOf(JSValue value); // TODO: adopt to also support java data types
+    public native int lastIndexOf(JSValue value);
+
+    @JS.Coerce
+    @JS(value = "return this.lastIndexOf(value)")
+    public native int lastIndexOf(int value);
+
+    @JS.Coerce
+    @JS(value = "return this.lastIndexOf(value)")
+    public native int lastIndexOf(double value);
+
+    @JS.Coerce
+    @JS(value = "return this.lastIndexOf(value)")
+    public native int lastIndexOf(boolean value);
+
+    @JS.Coerce
+    @JS(value = "return this.lastIndexOf(value)")
+    public native int lastIndexOf(String value);
+
+    @JS.Coerce
+    @JS(value = "return this.lastIndexOf(value)")
+    public native int lastIndexOf(Object value);
 
     @JS.Coerce
     @JS(value = "return this.map(callback)")
@@ -288,15 +342,75 @@ public class JSArray extends JSObject {
 
     @JS.Coerce
     @JS(value = "this.push(value); return this")
-    public native JSArray push(JSValue value);  // TODO: adopt to also support java data types
+    public native JSArray push(JSValue value);
+
+    @JS.Coerce
+    @JS(value = "this.push(value); return this")
+    public native JSArray push(int value);
+
+    @JS.Coerce
+    @JS(value = "this.push(value); return this")
+    public native JSArray push(double value);
+
+    @JS.Coerce
+    @JS(value = "this.push(value); return this")
+    public native JSArray push(boolean value);
+
+    @JS.Coerce
+    @JS(value = "this.push(value); return this")
+    public native JSArray push(String value);
+
+    @JS.Coerce
+    @JS(value = "this.push(value); return this")
+    public native JSArray push(Object value);
 
     @JS.Coerce
     @JS(value = "return this.reduce(callback, initialValue)")
-    public native JSValue reduce(JSFunction callback, JSValue initialValue);  // TODO: adopt to also support java data types and replace with JSFunction
+    public native JSValue reduce(JSFunction callback, JSValue initialValue);
+
+    @JS.Coerce
+    @JS(value = "return this.reduce(callback, initialValue)")
+    public native JSValue reduce(JSFunction callback, int initialValue);
+
+    @JS.Coerce
+    @JS(value = "return this.reduce(callback, initialValue)")
+    public native JSValue reduce(JSFunction callback, double initialValue);
+
+    @JS.Coerce
+    @JS(value = "return this.reduce(callback, initialValue)")
+    public native JSValue reduce(JSFunction callback, boolean initialValue);
+
+    @JS.Coerce
+    @JS(value = "return this.reduce(callback, initialValue)")
+    public native JSValue reduce(JSFunction callback, String initialValue);
+
+    @JS.Coerce
+    @JS(value = "return this.reduce(callback, initialValue)")
+    public native JSValue reduce(JSFunction callback, Object initialValue);
 
     @JS.Coerce
     @JS(value = "return this.reduceRight(callback, initialValue)")
-    public native JSValue reduceRight(JSFunction callback, JSValue initialValue); // TODO: adopt to also support java data types and replace with JSFunction
+    public native JSValue reduceRight(JSFunction callback, JSValue initialValue);
+
+    @JS.Coerce
+    @JS(value = "return this.reduceRight(callback, initialValue)")
+    public native JSValue reduceRight(JSFunction callback, int initialValue);
+
+    @JS.Coerce
+    @JS(value = "return this.reduceRight(callback, initialValue)")
+    public native JSValue reduceRight(JSFunction callback, double initialValue);
+
+    @JS.Coerce
+    @JS(value = "return this.reduceRight(callback, initialValue)")
+    public native JSValue reduceRight(JSFunction callback, boolean initialValue);
+
+    @JS.Coerce
+    @JS(value = "return this.reduceRight(callback, initialValue)")
+    public native JSValue reduceRight(JSFunction callback, String initialValue);
+
+    @JS.Coerce
+    @JS(value = "return this.reduceRight(callback, initialValue)")
+    public native JSValue reduceRight(JSFunction callback, Object initialValue);
 
     @JS.Coerce
     @JS(value = "this.reverse(); return this")
@@ -340,17 +454,62 @@ public class JSArray extends JSObject {
 
     @JS.Coerce
     @JS(value = "return this.toString()")
-    public native String toStringJS();
+    private native String toJSString();
+
+    public String toString() {
+        return "[" + toJSString() + "]";
+    }
 
     @JS.Coerce
-    @JS(value = "this.unshift(value); return this")
-    public native JSArray unshift(JSValue value); // TODO: adopt to also support java data types
+    @JS(value = "return this.unshift(value);")
+    public native int unshift(JSValue value);
+
+    @JS.Coerce
+    @JS(value = "return this.unshift(value);")
+    public native int unshift(int value);
+
+    @JS.Coerce
+    @JS(value = "return this.unshift(value);")
+    public native int unshift(double value);
+
+    @JS.Coerce
+    @JS(value = "return this.unshift(value);")
+    public native int unshift(boolean value);
+
+    @JS.Coerce
+    @JS(value = "return this.unshift(value);")
+    public native int unshift(String value);
+
+    @JS.Coerce
+    @JS(value = "return this.unshift(value);")
+    public native int unshift(Object value);
 
     @JS.Coerce
     @JS(value = "return this.values()")
-    public native JSValue values();
+    public native JSValue values(); // TODO: return JSIterator
 
     @JS.Coerce
     @JS(value = "return this.with(index, value)")
-    public native JSArray with(int index, JSValue value); // TODO: adopt to also support java data types
+    public native JSArray with(int index, JSValue value);
+
+    @JS.Coerce
+    @JS(value = "return this.with(index, value)")
+    public native JSArray with(int index, int value);
+
+    @JS.Coerce
+    @JS(value = "return this.with(index, value)")
+    public native JSArray with(int index, double value);
+
+    @JS.Coerce
+    @JS(value = "return this.with(index, value)")
+    public native JSArray with(int index, boolean value);
+
+    @JS.Coerce
+    @JS(value = "return this.with(index, value)")
+    public native JSArray with(int index, String value);
+
+    @JS.Coerce
+    @JS(value = "return this.with(index, value)")
+    public native JSArray with(int index, Object value);
+
 }

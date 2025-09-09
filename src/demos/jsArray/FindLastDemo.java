@@ -17,7 +17,6 @@ public class FindLastDemo {
         int result = arr.findLast(greaterThan5).as(Integer.class);
         System.out.println("Last match > 5: " + result); // Expected: 15
 
-
         JSArray javaArr = JSArray.of(5, 10, 15);
         JSFunction smallerThan15 = JSFunction.fromFunction((JSNumber arg) -> JSBoolean.of(arg.as(Integer.class) < 15));
         int result2 = javaArr.findLast(smallerThan15).as(Integer.class);

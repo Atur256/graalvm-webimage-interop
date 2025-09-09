@@ -12,6 +12,6 @@ public class CopyWithinDemo {
 
         JSArray arr = JSArray.of(new JSValue[] { JSNumber.of(1), JSNumber.of(2), JSNumber.of(3), JSNumber.of(4) });
         arr.copyWithin(0, 2, 4);
-        System.out.println("After copyWithin: " + arr.toStringJS()); // Expected: [3, 4, 3, 4]
+        System.out.println("After copyWithin: " + arr); // Expected: [3, 4, 3, 4]
     }
 }

@@ -15,7 +15,7 @@ public class ToReversedDemo {
         });
 
         JSArray reversed = arr.toReversed();
-        System.out.println("Original array: " + arr.toStringJS()); // Expected: [1, 2, 3]
-        System.out.println("Reversed copy: " + reversed.toStringJS()); // Expected: [3, 2, 1]
+        System.out.println("Original array: " + arr);                // Expected: [1, 2, 3]
+        System.out.println("Reversed copy: " + reversed.toString()); // Expected: [3, 2, 1]
     }
 }
