@@ -12,5 +12,10 @@ public class AtDemo {
 
         JSArray arr = JSArray.of(new JSValue[] { JSString.of("a"), JSString.of("b"), JSString.of("c") });
         System.out.println("Element at index -1: " + arr.at(-1)); // Expected: "c"
+
+        int[] scores = {10, 20, 30};
+        JSArray scoreArr = JSArray.from(scores);
+        System.out.println("int[] First: " + scoreArr.at(0, Integer.class)); // Expected: 10
+
     }
 }

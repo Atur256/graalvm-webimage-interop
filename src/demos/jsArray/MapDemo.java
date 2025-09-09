@@ -11,9 +11,14 @@ public class MapDemo {
     public static void main(String[] args) {
         System.out.println("\n=== JSArray.map Demo ===");
 
-        JSArray arr = JSArray.of(new JSValue[] { JSNumber.of(1), JSNumber.of(2), JSNumber.of(3) });
+        JSArray arr = JSArray.of(new JSValue[]{JSNumber.of(1), JSNumber.of(2), JSNumber.of(3)});
         JSFunction doubleFn = JSFunction.fromBody("return arg * 2;");
         JSArray mapped = arr.map(doubleFn);
         System.out.println("Mapped: " + mapped.toStringJS()); // Expected: [2, 4, 6]
+
+        JSArray javaArr = JSArray.of(1, 2, 3);
+        JSFunction tripleFn = JSFunction.fromFunction((JSNumber arg )-> JSNumber.of(arg.as(Integer.class) * 3));
+        JSArray mapped2 = javaArr.map(tripleFn);
+        System.out.println("Mapped: " + mapped2.toStringJS()); // Expected: [3, 6, 9]
     }
 }

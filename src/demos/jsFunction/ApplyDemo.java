@@ -29,31 +29,15 @@ public class ApplyDemo {
         System.out.println("Java types: " + result2.as(String.class)); // Expected: JavaString | 42 | false
 
         // === Java-defined function:
-        JSFunction javaDescriber = JSFunction.fromJavaFunction((JSValue arg) -> {
-            System.out.println(arg);
-            if (!(arg instanceof JSArray array)) {
-                return "Expected JSArray but got " + arg.getClass().getSimpleName();
-            }
-
-            StringBuilder sb = new StringBuilder("Received: ");
-            for (int i = 0; i < array.length; i++) {
-                JSValue item = array.at(i);
-                sb.append(item.as(Object.class));
-                if (i < array.length - 1) sb.append(" | ");
-            }
-
-            return JSString.of(sb.toString());
-        });
-        String result4 = javaDescriber.apply(JSValue.undefined(), jsArgs);
+        JSFunction javaDescriber = JSFunction.fromFunction((JSString arg) -> "Hello, " + arg.as(String.class) + "!");
+        String result4 = javaDescriber.apply(null, "Alice");
         System.out.println("Java function result: " + result4);
-        // Expected: JavaFunction received: Hello, 123, true, CustomClass(Arthur)
-    }
+        // Expected: Hello, Alice
 
-    record CustomClass(String name) {
-
-        @Override
-        public String toString() {
-            return "CustomClass(" + name + ")";
-        }
+        // === Java-defined function:
+        JSFunction javaDescriber2 = JSFunction.fromFunction((JSNumber arg) -> "Number: " + arg.as(Integer.class));
+        String result42 = javaDescriber2.apply(null, 20);
+        System.out.println("Java function result: " + result42);
+        // Expected: Number: 20
     }
 }

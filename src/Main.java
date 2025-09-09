@@ -1,8 +1,5 @@
-import demos.jsFunction.*;
-import demos.jsFunction.ToStringDemo;
-import demos.jsIterator.FromDemo;
-import demos.jsMap.*;
-import demos.jsRegExp.*;
+import demos.jsArray.*;
+import demos.jsPromise.*;
 
 
 public class Main {
@@ -85,49 +82,47 @@ public class Main {
 //
 //        EncodeURIComponentDemo.main(null);
 //
-//
 //        // JSFunction
 //
-        FromBodyDemo.main(null);
-
-        FromArgsDemo.main(null);
-
-        FromJavaFunctionDemo.main(null);
-
-        FromRunnableDemo.main(null);
-
-        FromConsumerDemo.main(null);
-
-        FromSupplierDemo.main(null);
-
-        CallJSDemo.main(null);
-
-        CallDemo.main(null);
-
-        ApplyDemo.main(null);
-
-
-
-
-        BindDemo.main(null);
-
-        CallWithArgsDemo.main(null);
-
-        LengthDemo.main(null);
-
-        NameDemo.main(null);
-
-        PrototypeDemo.main(null);
-
-        ToStringDemo.main(null);
-
-//        // JSArray
+//        FromBodyDemo.main(null);
 //
+//        FromArgsDemo.main(null);
+//
+//        FromJavaFunctionDemo.main(null);
+//
+//        FromRunnableDemo.main(null);
+//
+//        FromConsumerDemo.main(null);
+//
+//        FromSupplierDemo.main(null);
+//
+//        CallJSDemo.main(null);
+//
+//        CallDemo.main(null);
+//
+//        ApplyDemo.main(null);
+//
+//        BindDemo.main(null);
+//
+//        CallWithSpreadArgsDemo.main(null);
+//
+//        LengthDemo.main(null);
+//
+//        NameDemo.main(null);
+//
+//        PrototypeDemo.main(null);
+//
+//        ToStringDemo.main(null);
+//
+        // JSArray
+
 //        FromDemo.main(null);
 //
 //        FromAsyncDemo.main(null);
 //
 //        IsArrayDemo.main(null);
+
+//        OfDemo.main(null);
 //
 //        IndexOfDemo.main(null);
 //
@@ -143,19 +138,19 @@ public class Main {
 //
 //        FillDemo.main(null);
 //
-//        FilterDemo.main(null);
-//
-//        FindIndexDemo.main(null);
-//
-//        FindLastDemo.main(null);
-//
-//        FindLastIndexDemo.main(null);
-//
-//        FlatDemo.main(null);
-//
-//        FlatMapDemo.main(null);
-//
-//        ForEachDemo.main(null);
+        FilterDemo.main(null);
+
+        FindIndexDemo.main(null);
+
+        FindLastDemo.main(null);
+
+        FindLastIndexDemo.main(null);
+
+        FlatDemo.main(null);
+
+        FlatMapDemo.main(null);
+
+        ForEachDemo.main(null);
 //
 //        IncludesDemo.main(null);
 //
@@ -166,9 +161,9 @@ public class Main {
 //        KeysDemo.main(null);
 //
 //        LastIndexOfDemo.main(null);
-//
-//        MapDemo.main(null);
-//
+
+        MapDemo.main(null);
+
 //        PopDemo.main(null);
 //
 //        PushDemo.main(null);
@@ -182,9 +177,9 @@ public class Main {
 //        ShiftDemo.main(null);
 //
 //        SliceDemo.main(null);
-//
-//        SomeDemo.main(null);
-//
+
+        SomeDemo.main(null);
+
 //        SortDemo.main(null);
 //
 //        ToLocaleStringDemo.main(null);

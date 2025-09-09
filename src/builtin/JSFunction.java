@@ -4,6 +4,9 @@ import org.graalvm.webimage.api.*;
 
 import java.lang.Boolean;
 import java.lang.String;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 
 @JS.Import("Function")
@@ -29,19 +32,27 @@ public class JSFunction extends JSObject {
 
     @JS.Coerce
     @JS(value = "return function(args) { return javaFunc.apply(args); }")
-    public static native <T, R> JSFunction fromJavaFunction(JSFunctionInterface<T, R> javaFunc);
+    public static native <T, R> JSFunction fromFunction(Function<T, R> javaFunc);
+
+    @JS.Coerce
+    @JS(value = "return function(a, b) { return javaBiFunc.apply(a, b); }")
+    public static native <A, B, R> JSFunction fromBiFunction(java.util.function.BiFunction<A, B, R> javaBiFunc);
 
     @JS.Coerce
     @JS(value = "return function() { javaRunnable.run(); }")
-    public static native JSFunction fromRunnable(JSRunnable javaRunnable);
+    public static native JSFunction fromRunnable(Runnable javaRunnable);
 
     @JS.Coerce
     @JS(value = "return function(arg) { javaConsumer.accept(arg); }")
-    public static native <T> JSFunction fromConsumer(JSConsumer<T> javaConsumer);
+    public static native <T> JSFunction fromConsumer(Consumer<T> javaConsumer);
+
+    @JS.Coerce
+    @JS(value = "return function(a, b) { javaBiConsumer.accept(a, b); }")
+    public static native <A, B> JSFunction fromBiConsumer(java.util.function.BiConsumer<A, B> javaBiConsumer);
 
     @JS.Coerce
     @JS(value = "return function() { return javaSupplier.get(); }")
-    public static native <T> JSFunction fromSupplier(JSSupplier<T> javaSupplier);
+    public static native <T> JSFunction fromSupplier(Supplier<T> javaSupplier);
 
     // === Call Overloads ===
 
@@ -50,7 +61,10 @@ public class JSFunction extends JSObject {
     public native <T, R> R callJS(T arg); // If function is a JS function and not a Java function
 
     @JS(value = "return this(arg)")
-    public native <T, R> R call(T arg); // TODO: Add a call function with multiple parameters (varargs??)
+    public native <T, R> R call(T arg);
+
+    @JS(value = "return this(arg1, arg2)")
+    public native <T, R, Q> R call(T arg1, Q arg2);
 
     @JS.Coerce
     @JS(value = "return this()")
@@ -99,10 +113,9 @@ public class JSFunction extends JSObject {
             case Byte b -> JSNumber.of(b.longValue());
             case Float f -> JSNumber.of(f.doubleValue());
             case Double d -> JSNumber.of(d);
-            default -> JSString.of(arg.toString()); // fallback for custom classes
+            default -> JSString.of(arg.toString()); // TODO: custom classes do currently not work
         };
     }
-
 
     // === Bind ===
 
@@ -110,11 +123,24 @@ public class JSFunction extends JSObject {
     @JS(value = "return this.bind(thisArg)")
     public native JSFunction bind(JSValue thisArg);
 
+    public final <T> JSFunction bind(T thisArg) {
+        return bind(toJSValue(thisArg));
+    }
+
     // === Call with Spread ===
 
     @JS.Coerce
     @JS(value = "return this.call.apply(this, [thisArg, ...args])")
-    public native JSValue callWithArgs(JSValue thisArg, JSArray args);
+    public native <R> R callWithSpreadArgs(JSValue thisArg, JSArray args);
+
+    @SafeVarargs
+    public final <T, R> R callWithSpreadArgs(JSValue thisArg, T... args) {
+        JSArray jsArgs = new JSArray();
+        for(T arg : args) {
+            jsArgs.push(toJSValue(arg));
+        }
+        return callWithSpreadArgs(thisArg, jsArgs);
+    }
 
     // === ToString ===
 

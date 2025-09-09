@@ -37,6 +37,25 @@ public class FromConsumerDemo {
                 System.out.println("Consumed CustomClass: " + arg));
         customConsumer.call(new CustomClass("Alice"));
         // Expected: Consumed CustomClass: CustomClass(Alice)
+
+        // // === BiConsumer: (String, String) → void
+        JSFunction biStringConsumer = JSFunction.fromBiConsumer((String a, String b) ->
+                System.out.println("BiConsumer Strings: " + a + " & " + b));
+        biStringConsumer.call("Hello", "World");
+        // Expected: BiConsumer Strings: Hello & World
+
+        // // === BiConsumer: (String, Integer) → void
+        JSFunction biMixedConsumer = JSFunction.fromBiConsumer((String label, Integer value) ->
+                System.out.println("BiConsumer Mixed: " + label + " = " + value.toString()));
+        biMixedConsumer.call("Age", 30);
+        // Expected: BiConsumer Mixed: Age = 30
+
+        // // === BiConsumer: (CustomClass, CustomClass) → void
+        JSFunction biCustomConsumer = JSFunction.fromBiConsumer((CustomClass a, CustomClass b) ->
+                System.out.println("BiConsumer CustomClasses: " + a + " | " + b));
+        biCustomConsumer.call(new CustomClass("Alice"), new CustomClass("Bob"));
+        // Expected: BiConsumer CustomClasses: CustomClass(Alice) | CustomClass(Bob)
+
     }
 
     record CustomClass(String name) {

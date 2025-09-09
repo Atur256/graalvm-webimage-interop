@@ -10,27 +10,35 @@ public class JSPromise extends JSObject {
 
     @JS.Coerce
     @JS(value = "return Promise.all(promises)")
-    public static native JSPromise all(JSValue promises);
+    public static native <T> JSPromise all(T promises);
 
     @JS.Coerce
     @JS(value = "return Promise.allSettled(promises)")
-    public static native JSPromise allSettled(JSValue promises);
+    public static native <T> JSPromise allSettled(T promises);
 
     @JS.Coerce
     @JS(value = "return Promise.any(promises)")
-    public static native JSPromise any(JSValue promises);
+    public static native <T> JSPromise any(T promises);
 
     @JS.Coerce
     @JS(value = "return Promise.race(promises)")
-    public static native JSPromise race(JSValue promises);
+    public static native <T> JSPromise race(T promises);
+
+//    @JS.Coerce
+//    @JS(value = "return Promise.reject(reason)")
+//    public static native JSPromise reject(JSValue reason);
 
     @JS.Coerce
     @JS(value = "return Promise.reject(reason)")
-    public static native JSPromise reject(JSValue reason);
+    public static native <T> JSPromise reject(T reason); // TODO: custom classes don't work
+
+//    @JS.Coerce
+//    @JS(value = "return Promise.resolve(value)")
+//    public static native JSPromise resolve(JSValue value);
 
     @JS.Coerce
     @JS(value = "return Promise.resolve(value)")
-    public static native JSPromise resolve(JSValue value);
+    public static native <T> JSPromise resolve(T value);  // TODO: custom classes don't work
 
     @JS.Coerce
     @JS(value = "return this.then(onFulfilled)")

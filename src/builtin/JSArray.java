@@ -1,10 +1,10 @@
 package builtin;
 
-import org.graalvm.webimage.api.JS;
-import org.graalvm.webimage.api.JSObject;
-import org.graalvm.webimage.api.JSValue;
+import org.graalvm.webimage.api.*;
 
+import java.lang.Object;
 import java.lang.String;
+import java.util.List;
 
 
 @JS.Import("Array")
@@ -14,7 +14,39 @@ public class JSArray extends JSObject {
 
     @JS.Coerce
     @JS(value = "return Array.from(arrayLike)")
-    public static native JSArray from(JSValue arrayLike); // example: "1234", String[] {"a","b"}...
+    public static native JSArray from(JSValue arrayLike);
+
+    @JS.Coerce
+    @JS(value = "return Array.from(str)")
+    public static native JSArray from(String str);
+
+    @JS.Coerce
+    @JS(value = "return Array.from(arrayLike)")
+    public static native JSArray from(int[] arrayLike);
+
+    @JS.Coerce
+    @JS(value = "return Array.from(arrayLike)")
+    public static native JSArray from(double[] arrayLike);
+
+    public static JSArray from(boolean[] arrayLike) {
+        JSValue[] jsValues = new JSValue[arrayLike.length];
+        for(int i = 0; i < arrayLike.length; i++) {
+            jsValues[i] = JSBoolean.of(arrayLike[i]);
+        }
+        return JSArray.of(jsValues);
+    }
+
+    public static JSArray from(String[] arrayLike) {
+        JSValue[] jsValues = new JSValue[arrayLike.length];
+        for(int i = 0; i < arrayLike.length; i++) {
+            jsValues[i] = JSString.of(arrayLike[i]);
+        }
+        return JSArray.of(jsValues);
+    }
+
+    @JS.Coerce
+    @JS(value = "return Array.from(arrayLike)")
+    public static native JSArray from(Object[] arrayLike);
 
     @JS.Coerce
     @JS(value = "return Array.fromAsync(arrayLike)")
@@ -25,16 +57,158 @@ public class JSArray extends JSObject {
     public static native boolean isArray(JSValue value);
 
     @JS.Coerce
+    @JS(value = "return Array.of.apply(null, value)")
+    public static native JSArray of(JSValue value);
+
+    @JS.Coerce
     @JS(value = "return Array.of.apply(null, values)")
-    public static native JSArray of(JSValue[] values); // .of from java objects
+    public static native JSArray of(JSValue[] values);
+
+//    @JS.Coerce
+//    @JS(value = "return Array.of.apply(null, values)")
+    public static JSArray of(int... values) {
+        JSValue[] jsValues = new JSValue[values.length];
+        for(int i = 0; i < values.length; i++) {
+            jsValues[i] = JSNumber.of(values[i]);
+        }
+        return JSArray.of(jsValues);
+    }
+
+    @JS.Coerce
+    @JS(value = "return Array.of.apply(null, values)")
+    public static native JSArray of(double... values);
+
+    public static JSArray of(boolean... values) {
+        JSValue[] jsValues = new JSValue[values.length];
+        for(int i = 0; i < values.length; i++) {
+            jsValues[i] = JSBoolean.of(values[i]);
+        }
+        return JSArray.of(jsValues);
+    }
+
+    public static JSArray of(String... values) {
+        JSValue[] jsValues = new JSValue[values.length];
+        for(int i = 0; i < values.length; i++) {
+            jsValues[i] = JSString.of(values[i]);
+        }
+        return JSArray.of(jsValues);
+    }
+
+    @JS.Coerce
+    @JS(value = "return Array.of.apply(null, values)")
+    public static native JSArray of(Object[] values);
 
     @JS.Coerce
     @JS(value = "return this.at(index)")
     public native JSValue at(int index);
 
+    public <R> R at(int index, Class<R> cls) {
+        return at(index).as(cls);
+    }
+
     @JS.Coerce
     @JS(value = "return Array.prototype.concat.apply(this, jsArrays)")
-    public native JSArray concat(JSArray[] jsArrays); // TODO: also java arrays
+    public native JSArray concat(JSArray[] jsArrays);
+
+    public JSArray concat(Object... arrays) {
+        JSArray[] jsArrays = new JSArray[arrays.length];
+        for(int i = 0; i < arrays.length; i++) {
+            jsArrays[i] = convertToJSArray(arrays[i]);
+        }
+        return concat(jsArrays);
+    }
+
+    private static JSArray convertToJSArray(Object arrayLike) {
+        if(arrayLike instanceof JSArray jsArray) return jsArray;
+
+        if(arrayLike instanceof Object[] array) return JSArray.from(array);
+        if(arrayLike instanceof int[] array) return JSArray.from(array);
+        if(arrayLike instanceof double[] array) return JSArray.from(array);
+        if(arrayLike instanceof boolean[] array) return JSArray.from(array);
+
+        if(arrayLike instanceof Iterable<?> iterable) {
+            JSValue[] values = new JSValue[((List<?>) iterable).size()];
+            int i = 0;
+            for(Object item : iterable) {
+                values[i++] = toJSValue(item);
+            }
+            return JSArray.of(values);
+        }
+
+        return JSArray.of(toJSValue(arrayLike)); // fallback: wrap single object
+    }
+
+    private static JSValue toJSValue(Object arg) {
+        switch(arg) {
+            case null -> {
+                return JSValue.undefined();
+            }
+
+            case JSValue jsValue -> {
+                return jsValue;
+            }
+
+            // Handle primitive arrays
+            case int[] array -> {
+                JSArray jsArray = new JSArray();
+                for(int item : array) jsArray.push(JSNumber.of(item));
+                return jsArray;
+            }
+            case double[] array -> {
+                JSArray jsArray = new JSArray();
+                for(double item : array) jsArray.push(JSNumber.of(item));
+                return jsArray;
+            }
+            case boolean[] array -> {
+                JSArray jsArray = new JSArray();
+                for(boolean item : array) jsArray.push(JSBoolean.of(item));
+                return jsArray;
+            }
+
+            // Handle object arrays
+            case Object[] array -> {
+                JSArray jsArray = new JSArray();
+                for(Object item : array) jsArray.push(toJSValue(item));
+                return jsArray;
+            }
+
+            // Handle common boxed types
+            case String s -> {
+                return JSString.of(s);
+            }
+            case Integer i -> {
+                return JSNumber.of(i.longValue());
+            }
+            case Long l -> {
+                return JSNumber.of(l);
+            }
+            case Short s -> {
+                return JSNumber.of(s.longValue());
+            }
+            case Byte b -> {
+                return JSNumber.of(b.longValue());
+            }
+            case Float f -> {
+                return JSNumber.of(f.doubleValue());
+            }
+            case Double d -> {
+                return JSNumber.of(d);
+            }
+
+            // Handle Iterable (e.g., List, Set)
+            case Iterable<?> iterable -> {
+                JSArray jsArray = new JSArray();
+                for(Object item : iterable) jsArray.push(toJSValue(item));
+                return jsArray;
+            }
+            default -> {
+            }
+        }
+
+        // Fallback: treat as custom object
+        return JSString.of(arg.toString());
+    }
+
 
     @JS.Coerce
     @JS(value = "return this.copyWithin(target, start, end)")
@@ -54,23 +228,23 @@ public class JSArray extends JSObject {
 
     @JS.Coerce
     @JS(value = "return this.filter(callback)")
-    public native JSArray filter(JSValue callback);
+    public native JSArray filter(JSFunction callback);
 
     @JS.Coerce
     @JS(value = "return this.find(callback)")
-    public native JSValue find(JSValue callback);
+    public native JSValue find(JSFunction callback);
 
     @JS.Coerce
     @JS(value = "return this.findIndex(callback)")
-    public native int findIndex(JSValue callback);
+    public native int findIndex(JSFunction callback);
 
     @JS.Coerce
     @JS(value = "return this.findLast(callback)")
-    public native JSValue findLast(JSValue callback);
+    public native JSValue findLast(JSFunction callback);
 
     @JS.Coerce
     @JS(value = "return this.findLastIndex(callback)")
-    public native int findLastIndex(JSValue callback);
+    public native int findLastIndex(JSFunction callback);
 
     @JS.Coerce
     @JS(value = "return this.flat(depth)")
@@ -78,23 +252,23 @@ public class JSArray extends JSObject {
 
     @JS.Coerce
     @JS(value = "return this.flatMap(callback)")
-    public native JSArray flatMap(JSValue callback);
+    public native JSArray flatMap(JSFunction callback);
 
     @JS.Coerce
     @JS(value = "this.forEach(callback)")
-    public native void forEach(JSValue callback);
+    public native void forEach(JSFunction callback);
 
     @JS.Coerce
     @JS(value = "return this.includes(value)")
-    public native boolean includes(JSValue value);
+    public native boolean includes(JSValue value); // TODO: adopt to also support java data types
 
     @JS.Coerce
     @JS(value = "return this.indexOf(value)")
-    public native int indexOf(JSValue value);
+    public native int indexOf(JSValue value); // TODO: adopt to also support java data types
 
     @JS.Coerce
     @JS(value = "return this.join(separator)")
-    public native String join(String separator);
+    public native String join(String separator); // TODO: adopt to also support java data types
 
     @JS.Coerce
     @JS(value = "return this.keys()")
@@ -102,11 +276,11 @@ public class JSArray extends JSObject {
 
     @JS.Coerce
     @JS(value = "return this.lastIndexOf(value)")
-    public native int lastIndexOf(JSValue value);
+    public native int lastIndexOf(JSValue value); // TODO: adopt to also support java data types
 
     @JS.Coerce
     @JS(value = "return this.map(callback)")
-    public native JSArray map(JSValue callback);
+    public native JSArray map(JSFunction callback);
 
     @JS.Coerce
     @JS(value = "return this.pop()")
@@ -114,15 +288,15 @@ public class JSArray extends JSObject {
 
     @JS.Coerce
     @JS(value = "this.push(value); return this")
-    public native JSArray push(JSValue value);
+    public native JSArray push(JSValue value);  // TODO: adopt to also support java data types
 
     @JS.Coerce
     @JS(value = "return this.reduce(callback, initialValue)")
-    public native JSValue reduce(JSValue callback, JSValue initialValue);
+    public native JSValue reduce(JSFunction callback, JSValue initialValue);  // TODO: adopt to also support java data types and replace with JSFunction
 
     @JS.Coerce
     @JS(value = "return this.reduceRight(callback, initialValue)")
-    public native JSValue reduceRight(JSValue callback, JSValue initialValue);
+    public native JSValue reduceRight(JSFunction callback, JSValue initialValue); // TODO: adopt to also support java data types and replace with JSFunction
 
     @JS.Coerce
     @JS(value = "this.reverse(); return this")
@@ -138,7 +312,7 @@ public class JSArray extends JSObject {
 
     @JS.Coerce
     @JS(value = "return this.some(callback)")
-    public native boolean some(JSValue callback);
+    public native boolean some(JSFunction callback);
 
     @JS.Coerce
     @JS(value = "this.sort(); return this")
@@ -170,7 +344,7 @@ public class JSArray extends JSObject {
 
     @JS.Coerce
     @JS(value = "this.unshift(value); return this")
-    public native JSArray unshift(JSValue value);
+    public native JSArray unshift(JSValue value); // TODO: adopt to also support java data types
 
     @JS.Coerce
     @JS(value = "return this.values()")
@@ -178,5 +352,5 @@ public class JSArray extends JSObject {
 
     @JS.Coerce
     @JS(value = "return this.with(index, value)")
-    public native JSArray with(int index, JSValue value);
+    public native JSArray with(int index, JSValue value); // TODO: adopt to also support java data types
 }

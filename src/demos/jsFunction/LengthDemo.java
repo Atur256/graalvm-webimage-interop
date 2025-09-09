@@ -12,7 +12,7 @@ public class LengthDemo {
         System.out.println("Declared parameters: " + jsF.length);
         // Expected: 3
 
-        JSFunction javaF = JSFunction.fromJavaFunction((String arg) -> "Hello, " + arg);
+        JSFunction javaF = JSFunction.fromFunction((String arg) -> "Hello, " + arg);
         System.out.println("Declared parameters: " + javaF.length);
         // Expected: 3
     }

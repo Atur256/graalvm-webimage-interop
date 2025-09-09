@@ -11,7 +11,7 @@ public class CallDemo {
         System.out.println("\n=== JSFunction.call Demo ===");
 
         // Java function: describe type and value
-        JSFunction describe = JSFunction.fromJavaFunction((Object arg) -> {
+        JSFunction describe = JSFunction.fromFunction((Object arg) -> {
             if(arg == null) return "null: null";
             return arg.getClass().getSimpleName() + ": " + arg;
         });
@@ -39,6 +39,15 @@ public class CallDemo {
         JSFunction noArg = JSFunction.fromSupplier(() -> "No args called");
         System.out.println("call(): " + noArg.call());
         // Expected: No args called
+
+        // Java biFunction: describe type and value with prefix
+        JSFunction describeBi = JSFunction.fromBiFunction((String prefix, Object arg) -> {
+            if(arg == null) return "null: null";
+            return prefix + arg.getClass().getSimpleName() + ": " + arg;
+        });
+
+        System.out.println("String: " + describeBi.call("Prefix: ", "Java string"));
+        // Expected: Prefix: String: Java string
     }
 
     record CustomClass(String name) {
