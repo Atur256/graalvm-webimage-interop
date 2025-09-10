@@ -2,6 +2,7 @@ package demos.jsPromise;
 
 import builtin.JSFunction;
 import builtin.JSPromise;
+import org.graalvm.webimage.api.JSObject;
 import org.graalvm.webimage.api.JSString;
 
 
@@ -38,12 +39,16 @@ public class PromiseRejectDemo {
         // === Custom Class ===
         CustomError custom = new CustomError("Something went wrong");
         JSPromise customPromise = JSPromise.reject(custom);
-        customPromise.catch_(JSFunction.fromBody("console.error('Caught Custom:', arg)"));
+        customPromise.catch_(JSFunction.fromBody("console.error('Caught Custom:', arg.toString())"));
         // Expected: Caught Custom: CustomError(Something went wrong)
     }
 
-    // Simple record for custom error object
-    record CustomError(String message) {
+    static class CustomError extends JSObject {
+        public String message;
+
+        public CustomError(String message) {
+            this.message = message;
+        }
 
         @Override
         public String toString() {

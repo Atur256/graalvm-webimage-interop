@@ -1,7 +1,7 @@
 package demos.jsFunction;
 
+import builtin.JSArray;
 import builtin.JSFunction;
-import org.graalvm.webimage.api.JSNumber;
 
 
 public class FromArgsDemo {
@@ -9,9 +9,9 @@ public class FromArgsDemo {
     public static void main(String[] args) {
         System.out.println("\n=== JSFunction.fromArgs Demo ===");
 
-        JSFunction sum = JSFunction.fromArgs(new String[]{"a", "b", "return a + b;"});
-        JSNumber result = sum.apply(null, 5, 7);
-        System.out.println("Result: " + result.as(Integer.class));
+        JSFunction sum = JSFunction.fromArgs("a", "b", "return a + b;");
+        Integer result = sum.applyJS(null, JSArray.of(5, 7), Integer.class);
+        System.out.println("Result: " + result);
         // Expected: 12
     }
 }

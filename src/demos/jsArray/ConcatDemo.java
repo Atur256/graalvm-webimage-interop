@@ -22,11 +22,11 @@ public class ConcatDemo {
         JSArray base = JSArray.of("base");
 
         // Concatenate with Java arrays
-        int[] nums = {1, 2, 3};
+        int[] num = {1, 2, 3};
         String[] fruits = {"apple", "banana"};
         boolean[] flags = {true, false};
 
-        JSArray result1 = base.concat(nums, fruits, flags);
+        JSArray result1 = base.concat(num, fruits, flags);
         System.out.println("Result: " + result1.toString()); // ["base",1,2,3,"apple","banana",true,false]
 
         // Concatenate with List

@@ -23,21 +23,18 @@ public class FromDemo {
         System.out.println("Java String First char: " + secondChar); // Expected: "e"
 
         // === Java String[] → JSArray ===
-        String[] names = {"Alice", "Bob", "Charlie"};
-        JSArray nameArr = JSArray.from(names);
+        JSArray nameArr = JSArray.from("Alice", "Bob", "Charlie");
         System.out.println("String[] Length: " + nameArr.length); // Expected: 3
         String firstName = nameArr.at(0, String.class);
         System.out.println("String[] First: " + firstName); // Expected: "Alice"
 
         // === Java int[] → JSArray ===
-        int[] scores = {10, 20, 30};
-        JSArray scoreArr = JSArray.from(scores);
+        JSArray scoreArr = JSArray.from(10, 20, 30);
         System.out.println("int[] Length: " + scoreArr.length); // Expected: 3
         System.out.println("int[] First: " + scoreArr.at(0, Integer.class)); // Expected: 10
 
         // === Java double[] → JSArray ===
-        double[] prices = {9.99, 14.99, 29.99};
-        JSArray priceArr = JSArray.from(prices);
+        JSArray priceArr = JSArray.from(9.99, 14.99, 29.99);
         System.out.println("double[] Length: " + priceArr.length); // Expected: 3
         System.out.println("double[] First: " + priceArr.at(0, Double.class)); // Expected: 9.99
 

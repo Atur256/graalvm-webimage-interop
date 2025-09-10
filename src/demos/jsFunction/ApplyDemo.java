@@ -29,13 +29,13 @@ public class ApplyDemo {
         System.out.println("Java types: " + result2.as(String.class)); // Expected: JavaString | 42 | false
 
         // === Java-defined function:
-        JSFunction javaDescriber = JSFunction.fromFunction((JSString arg) -> "Hello, " + arg.as(String.class) + "!");
+        JSFunction javaDescriber = JSFunction.fromGeneralFunction((String arg) -> "Hello, " + arg + "!");
         String result4 = javaDescriber.apply(null, "Alice");
         System.out.println("Java function result: " + result4);
         // Expected: Hello, Alice
 
         // === Java-defined function:
-        JSFunction javaDescriber2 = JSFunction.fromFunction((JSNumber arg) -> "Number: " + arg.as(Integer.class));
+        JSFunction javaDescriber2 = JSFunction.fromGeneralFunction((Integer arg) -> "Number: " + arg);
         String result42 = javaDescriber2.apply(null, 20);
         System.out.println("Java function result: " + result42);
         // Expected: Number: 20

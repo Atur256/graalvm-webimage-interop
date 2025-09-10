@@ -17,7 +17,7 @@ public class MapDemo {
         System.out.println("Mapped: " + mapped.toString()); // Expected: [2, 4, 6]
 
         JSArray javaArr = JSArray.of(1, 2, 3);
-        JSFunction tripleFn = JSFunction.fromFunction((JSNumber arg )-> JSNumber.of(arg.as(Integer.class) * 3));
+        JSFunction tripleFn = JSFunction.fromGeneralFunction((Integer arg )-> JSNumber.of(arg * 3));
         JSArray mapped2 = javaArr.map(tripleFn);
         System.out.println("Mapped: " + mapped2.toString()); // Expected: [3, 6, 9]
     }

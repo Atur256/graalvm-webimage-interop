@@ -22,7 +22,7 @@ public class UnshiftDemo {
         // Expected: [4, 1, 2, 3] with length: 4
 
         JSArray javaArr2 = JSArray.of(1.1, 2.2, 3.3);
-        int newLength3 = javaArr2.unshift(JSNumber.of(4.4));
+        int newLength3 = javaArr2.unshift(4.4);
         System.out.println("After unshift: " + javaArr2 + " with length: " + newLength3);
         // Expected: [4.4, 1.1, 2.2, 3.3] with length: 4
 

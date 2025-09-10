@@ -17,7 +17,7 @@ public class ForEachDemo {
         // Expected: logs "a", "b" to console
 
         JSArray javaArr = JSArray.of("a", "b");
-        JSFunction print = JSFunction.fromConsumer((JSString arg) -> System.out.println(arg.as(String.class)));
+        JSFunction print = JSFunction.fromGeneralConsumer((String arg) -> System.out.println(arg));
         javaArr.forEach(print);
         // Expected: a \n b
     }

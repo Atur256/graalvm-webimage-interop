@@ -10,8 +10,8 @@ public class FromBodyDemo {
         System.out.println("\n=== JSFunction.fromBody Demo ===");
 
         JSFunction greet = JSFunction.fromBody("return 'Hello ' + arg;");
-        JSString result = greet.callJS("Alice");
-        System.out.println("Result: " + result.as(String.class));
+        String result = greet.callJS("Alice", String.class);
+        System.out.println("Result: " + result);
         // Expected: Hello Alice
     }
 }

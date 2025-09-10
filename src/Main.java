@@ -1,4 +1,7 @@
 import demos.jsArray.*;
+import demos.jsArray.LengthDemo;
+import demos.jsArray.ToStringDemo;
+import demos.jsFunction.*;
 import demos.jsPromise.*;
 
 
@@ -114,7 +117,7 @@ public class Main {
 //
 //        ToStringDemo.main(null);
 //
-        // JSArray
+          // JSArray
 
         FromDemo.main(null);
 
@@ -139,6 +142,8 @@ public class Main {
         FillDemo.main(null);
 
         FilterDemo.main(null);
+
+        FindDemo.main(null);
 
         FindIndexDemo.main(null);
 

@@ -21,32 +21,24 @@ public class JSArray extends JSObject {
     public static native JSArray from(String str);
 
     @JS.Coerce
-    @JS(value = "return Array.from(arrayLike)")
-    public static native JSArray from(int[] arrayLike);
+    @JS(value = "return Array.from(values)")
+    public static native JSArray from(int[] values);
 
     @JS.Coerce
-    @JS(value = "return Array.from(arrayLike)")
-    public static native JSArray from(double[] arrayLike);
+    @JS(value = "return Array.from(values)")
+    public static native JSArray from(double[] values);
 
-    public static JSArray from(boolean[] arrayLike) {
-        JSValue[] jsValues = new JSValue[arrayLike.length];
-        for(int i = 0; i < arrayLike.length; i++) {
-            jsValues[i] = JSBoolean.of(arrayLike[i]);
-        }
-        return JSArray.of(jsValues);
-    }
-
-    public static JSArray from(String[] arrayLike) {
-        JSValue[] jsValues = new JSValue[arrayLike.length];
-        for(int i = 0; i < arrayLike.length; i++) {
-            jsValues[i] = JSString.of(arrayLike[i]);
+    public static JSArray from(boolean[] values) {
+        JSValue[] jsValues = new JSValue[values.length];
+        for(int i = 0; i < values.length; i++) {
+            jsValues[i] = JSBoolean.of(values[i]);
         }
         return JSArray.of(jsValues);
     }
 
     @JS.Coerce
-    @JS(value = "return Array.from(arrayLike)")
-    public static native JSArray from(Object[] arrayLike);
+    @JS(value = "return Array.from(values)")
+    public static native JSArray from(Object... values);
 
     @JS.Coerce
     @JS(value = "return Array.fromAsync(arrayLike)")
@@ -66,13 +58,13 @@ public class JSArray extends JSObject {
 
     @JS.Coerce
     @JS(value = "return Array.of.apply(null, values)")
-    public static native JSArray of(int... values);
+    public static native JSArray of(int[] values);
 
     @JS.Coerce
     @JS(value = "return Array.of.apply(null, values)")
-    public static native JSArray of(double... values);
+    public static native JSArray of(double[] values);
 
-    public static JSArray of(boolean... values) {
+    public static JSArray of(boolean[] values) {
         JSValue[] jsValues = new JSValue[values.length];
         for(int i = 0; i < values.length; i++) {
             jsValues[i] = JSBoolean.of(values[i]);
@@ -80,24 +72,19 @@ public class JSArray extends JSObject {
         return JSArray.of(jsValues);
     }
 
-    public static JSArray of(String... values) {
-        JSValue[] jsValues = new JSValue[values.length];
-        for(int i = 0; i < values.length; i++) {
-            jsValues[i] = JSString.of(values[i]);
-        }
-        return JSArray.of(jsValues);
-    }
-
     @JS.Coerce
     @JS(value = "return Array.of.apply(null, values)")
-    public static native JSArray of(Object[] values);
+    public static native JSArray of(Object... values);
 
     @JS.Coerce
     @JS(value = "return this.at(index)")
-    public native JSValue at(int index);
+    public native Object at(int index);
 
+    @SuppressWarnings("unchecked")
     public <R> R at(int index, Class<R> cls) {
-        return at(index).as(cls);
+        java.lang.Object result = at(index); // TODO: move to JSValue as static checkedCoerce
+        if(result instanceof JSValue jsResult) return jsResult.as(cls);
+        return (R) result;
     }
 
     @JS.Coerce
@@ -270,10 +257,6 @@ public class JSArray extends JSObject {
 
     @JS.Coerce
     @JS(value = "return this.includes(value)")
-    public native boolean includes(String value);
-
-    @JS.Coerce
-    @JS(value = "return this.includes(value)")
     public native boolean includes(Object value);
 
     @JS.Coerce
@@ -291,10 +274,6 @@ public class JSArray extends JSObject {
     @JS.Coerce
     @JS(value = "return this.indexOf(value)")
     public native int indexOf(boolean value);
-
-    @JS.Coerce
-    @JS(value = "return this.indexOf(value)")
-    public native int indexOf(String value);
 
     @JS.Coerce
     @JS(value = "return this.indexOf(value)")
@@ -326,10 +305,6 @@ public class JSArray extends JSObject {
 
     @JS.Coerce
     @JS(value = "return this.lastIndexOf(value)")
-    public native int lastIndexOf(String value);
-
-    @JS.Coerce
-    @JS(value = "return this.lastIndexOf(value)")
     public native int lastIndexOf(Object value);
 
     @JS.Coerce
@@ -358,10 +333,6 @@ public class JSArray extends JSObject {
 
     @JS.Coerce
     @JS(value = "this.push(value); return this")
-    public native JSArray push(String value);
-
-    @JS.Coerce
-    @JS(value = "this.push(value); return this")
     public native JSArray push(Object value);
 
     @JS.Coerce
@@ -382,10 +353,6 @@ public class JSArray extends JSObject {
 
     @JS.Coerce
     @JS(value = "return this.reduce(callback, initialValue)")
-    public native JSValue reduce(JSFunction callback, String initialValue);
-
-    @JS.Coerce
-    @JS(value = "return this.reduce(callback, initialValue)")
     public native JSValue reduce(JSFunction callback, Object initialValue);
 
     @JS.Coerce
@@ -403,10 +370,6 @@ public class JSArray extends JSObject {
     @JS.Coerce
     @JS(value = "return this.reduceRight(callback, initialValue)")
     public native JSValue reduceRight(JSFunction callback, boolean initialValue);
-
-    @JS.Coerce
-    @JS(value = "return this.reduceRight(callback, initialValue)")
-    public native JSValue reduceRight(JSFunction callback, String initialValue);
 
     @JS.Coerce
     @JS(value = "return this.reduceRight(callback, initialValue)")
@@ -478,10 +441,6 @@ public class JSArray extends JSObject {
 
     @JS.Coerce
     @JS(value = "return this.unshift(value);")
-    public native int unshift(String value);
-
-    @JS.Coerce
-    @JS(value = "return this.unshift(value);")
     public native int unshift(Object value);
 
     @JS.Coerce
@@ -506,10 +465,5 @@ public class JSArray extends JSObject {
 
     @JS.Coerce
     @JS(value = "return this.with(index, value)")
-    public native JSArray with(int index, String value);
-
-    @JS.Coerce
-    @JS(value = "return this.with(index, value)")
     public native JSArray with(int index, Object value);
-
 }

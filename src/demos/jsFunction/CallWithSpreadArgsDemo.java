@@ -13,7 +13,7 @@ public class CallWithSpreadArgsDemo {
         System.out.println("\n=== JSFunction.callWithSpreadArgs Demo ===");
 
         // === JS-defined function ===
-        JSFunction multiply = JSFunction.fromArgs(new String[]{"a", "b", "return a * b;"});
+        JSFunction multiply = JSFunction.fromArgs("a", "b", "return a * b;");
         JSArray jsArgs = new JSArray();
         jsArgs.push(JSNumber.of(6));
         jsArgs.push(JSNumber.of(7));
@@ -21,13 +21,13 @@ public class CallWithSpreadArgsDemo {
         System.out.println("JS-defined multiply result: " + jsResult1.as(Integer.class));
         // Expected: 42
 
-        JSFunction concat = JSFunction.fromArgs(new String[]{"a", "b", "return a + ' - ' + b;"});
+        JSFunction concat = JSFunction.fromArgs("a", "b", "return a + ' - ' + b;");
         JSValue jsResult2 = concat.callWithSpreadArgs(JSValue.undefined(), "Hello", "World");
         System.out.println("JS-defined concat result: " + jsResult2.as(String.class));
         // Expected:  Hello - World
 
         // Needs to use a JSString in the function as the args spreading prevents the use of Java data types (Solutions: use .call(arg1, arg2) to call a function with two Java data types
-        JSFunction javaConcat = JSFunction.fromBiFunction((JSString prefix, JSString message) -> prefix.as(String.class) + " - " + message.as(String.class));
+        JSFunction javaConcat = JSFunction.fromGeneralBiFunction((JSString prefix, JSString message) -> prefix.as(String.class) + " - " + message.as(String.class));
         String javaResult = javaConcat.callWithSpreadArgs(JSValue.undefined(), "Hello", "World");
         System.out.println("JS-defined concat result: " + javaResult);
         // Expected:  Hello - World

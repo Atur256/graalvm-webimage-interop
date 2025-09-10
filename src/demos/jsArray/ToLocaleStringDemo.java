@@ -10,9 +10,7 @@ public class ToLocaleStringDemo {
     public static void main(String[] args) {
         System.out.println("\n=== JSArray.toLocaleString Demo ===");
 
-        JSArray arr = JSArray.of(new JSValue[] {
-                JSNumber.of(123456.789), JSNumber.of(987654.321)
-        });
+        JSArray arr = JSArray.of(123456.789, 987654.321);
 
         String localized = arr.toLocaleString();
         System.out.println("Localized string: " + localized);

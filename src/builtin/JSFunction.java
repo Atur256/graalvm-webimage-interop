@@ -26,17 +26,25 @@ public class JSFunction extends JSObject {
 
     @JS.Coerce
     @JS(value = "return Function.apply(null, args)")
-    public static native JSFunction fromArgs(String[] args);
+    public static native JSFunction fromArgs(String... args);
 
     // === Java Lambda Wrappers ===
 
     @JS.Coerce
     @JS(value = "return function(args) { return javaFunc.apply(args); }")
-    public static native <T, R> JSFunction fromFunction(Function<T, R> javaFunc);
+    public static native <T, R> JSFunction fromGeneralFunction(Function<T, R> javaFunc);
+
+    @JS.Coerce
+    @JS(value = "return function(args) { return javaFunc.apply(args); }")
+    public static native <T extends JSValue, R extends JSValue> JSFunction fromFunction(Function<T, R> javaFunc);
 
     @JS.Coerce
     @JS(value = "return function(a, b) { return javaBiFunc.apply(a, b); }")
-    public static native <A, B, R> JSFunction fromBiFunction(java.util.function.BiFunction<A, B, R> javaBiFunc);
+    public static native <A, B, R> JSFunction fromGeneralBiFunction(java.util.function.BiFunction<A, B, R> javaBiFunc);
+
+    @JS.Coerce
+    @JS(value = "return function(a, b) { return javaBiFunc.apply(a, b); }")
+    public static native <A extends JSValue, B extends JSValue, R extends JSValue> JSFunction fromBiFunction(java.util.function.BiFunction<A, B, R> javaBiFunc);
 
     @JS.Coerce
     @JS(value = "return function() { javaRunnable.run(); }")
@@ -44,11 +52,19 @@ public class JSFunction extends JSObject {
 
     @JS.Coerce
     @JS(value = "return function(arg) { javaConsumer.accept(arg); }")
-    public static native <T> JSFunction fromConsumer(Consumer<T> javaConsumer);
+    public static native <T> JSFunction fromGeneralConsumer(Consumer<T> javaConsumer);
+
+    @JS.Coerce
+    @JS(value = "return function(arg) { javaConsumer.accept(arg); }")
+    public static native <T extends JSValue> JSFunction fromConsumer(Consumer<T> javaConsumer);
 
     @JS.Coerce
     @JS(value = "return function(a, b) { javaBiConsumer.accept(a, b); }")
-    public static native <A, B> JSFunction fromBiConsumer(java.util.function.BiConsumer<A, B> javaBiConsumer);
+    public static native <A, B> JSFunction fromGeneralBiConsumer(java.util.function.BiConsumer<A, B> javaBiConsumer);
+
+    @JS.Coerce
+    @JS(value = "return function(a, b) { javaBiConsumer.accept(a, b); }")
+    public static native <A extends JSValue, B extends JSValue> JSFunction fromBiConsumer(java.util.function.BiConsumer<A, B> javaBiConsumer);
 
     @JS.Coerce
     @JS(value = "return function() { return javaSupplier.get(); }")
@@ -58,7 +74,14 @@ public class JSFunction extends JSObject {
 
     @JS.Coerce
     @JS(value = "return this(arg)")
-    public native <T, R> R callJS(T arg); // If function is a JS function and not a Java function
+    public native <T> java.lang.Object callJS(T arg); // Call with arg and no coercion (raw Object return)
+
+    @SuppressWarnings("unchecked")
+    public <T, R> R callJS(T args, Class<R> cls) {
+        java.lang.Object result = callJS(args); // TODO: move to JSValue as static checkedCoerce
+        if(result instanceof JSValue jsResult) return jsResult.as(cls);
+        return (R) result;
+    }
 
     @JS(value = "return this(arg)")
     public native <T, R> R call(T arg);
@@ -74,15 +97,32 @@ public class JSFunction extends JSObject {
 
     @JS.Coerce
     @JS(value = "return this.apply(thisArg, argsJSArray)")
+    public native java.lang.Object applyGeneral(JSValue thisArg, JSValue argsJSArray);
+
+    @JS.Coerce
+    @JS(value = "return this.apply(thisArg, argsJSArray)")
     public native <R> R apply(JSValue thisArg, JSValue argsJSArray);
 
     @SafeVarargs
-    public final <T, R, Q> R apply(Q thisArg, T... args) {
-        JSArray jsArgs = new JSArray();
-        for(T arg : args) {
-            jsArgs.push(toJSValue(arg));
-        }
-        return apply(toJSValue(thisArg), jsArgs);
+    @JS.Coerce
+    @JS(value = "return this.apply(thisArg, args)")
+    public final native <T, R, Q> R apply(Q thisArg, T... args);
+
+    @SafeVarargs
+    @JS(value = "return this.apply(thisArg, args)")
+    public final native <T, Q> Object applyRaw(Q thisArg, T... args); // Apply with varargs and no coercion (raw Object return)
+
+    // === ApplyJS Overloads ===
+
+    @JS.Coerce
+    @JS(value = "return this.apply(thisArg, args)")
+    public native <T> java.lang.Object applyJS(java.lang.Object thisArg, T args);
+
+    @SuppressWarnings("unchecked")
+    public <T, R> R applyJS(java.lang.Object thisArg, T args, Class<R> cls) {
+        java.lang.Object result = applyJS(thisArg, args);
+        if(result instanceof JSValue jsResult) return jsResult.as(cls);
+        return (R) result;
     }
 
     private JSValue toJSValue(java.lang.Object arg) {

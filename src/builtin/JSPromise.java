@@ -4,6 +4,9 @@ import org.graalvm.webimage.api.JS;
 import org.graalvm.webimage.api.JSObject;
 import org.graalvm.webimage.api.JSValue;
 
+import java.lang.Object;
+import java.lang.String;
+
 
 @JS.Import("Promise")
 public class JSPromise extends JSObject {
@@ -24,21 +27,53 @@ public class JSPromise extends JSObject {
     @JS(value = "return Promise.race(promises)")
     public static native <T> JSPromise race(T promises);
 
-//    @JS.Coerce
-//    @JS(value = "return Promise.reject(reason)")
-//    public static native JSPromise reject(JSValue reason);
+    @JS.Coerce
+    @JS(value = "return Promise.reject(reason)")
+    public static native JSPromise reject(JSValue reason);
 
     @JS.Coerce
     @JS(value = "return Promise.reject(reason)")
-    public static native <T> JSPromise reject(T reason); // TODO: custom classes don't work
+    public static native JSPromise reject(int reason);
 
-//    @JS.Coerce
-//    @JS(value = "return Promise.resolve(value)")
-//    public static native JSPromise resolve(JSValue value);
+    @JS.Coerce
+    @JS(value = "return Promise.reject(reason)")
+    public static native JSPromise reject(double reason);
+
+    @JS.Coerce
+    @JS(value = "return Promise.reject(reason)")
+    public static native JSPromise reject(boolean reason);
+
+    @JS.Coerce
+    @JS(value = "return Promise.reject(reason)")
+    public static native JSPromise reject(String reason);
+
+    @JS.Coerce
+    @JS(value = "return Promise.reject(reason)")
+    public static native JSPromise reject(Object reason);
 
     @JS.Coerce
     @JS(value = "return Promise.resolve(value)")
-    public static native <T> JSPromise resolve(T value);  // TODO: custom classes don't work
+    public static native JSPromise resolve(JSValue value);
+
+    @JS.Coerce
+    @JS(value = "return Promise.resolve(value)")
+    public static native JSPromise resolve(int value);
+
+    @JS.Coerce
+    @JS(value = "return Promise.resolve(value)")
+    public static native JSPromise resolve(double value);
+
+    @JS.Coerce
+    @JS(value = "return Promise.resolve(value)")
+    public static native JSPromise resolve(boolean value);
+
+    @JS.Coerce
+    @JS(value = "return Promise.resolve(value)")
+    public static native JSPromise resolve(String value);
+
+    @JS.Coerce
+    @JS(value = "return Promise.resolve(value)")
+    public static native JSPromise resolve(Object value);
 
     @JS.Coerce
     @JS(value = "return this.then(onFulfilled)")

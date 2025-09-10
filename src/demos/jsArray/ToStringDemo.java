@@ -10,9 +10,7 @@ public class ToStringDemo {
     public static void main(String[] args) {
         System.out.println("\n=== JSArray.toStringJS Demo ===");
 
-        JSArray arr = JSArray.of(new JSValue[] {
-                JSString.of("apple"), JSString.of("banana"), JSString.of("cherry")
-        });
+        JSArray arr = JSArray.of("apple", "banana", "cherry");
 
         String result = arr.toString();
         System.out.println("Array as string: " + result);

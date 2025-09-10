@@ -2,7 +2,10 @@ package demos.jsPromise;
 
 import builtin.JSFunction;
 import builtin.JSPromise;
+import org.graalvm.webimage.api.JSObject;
 import org.graalvm.webimage.api.JSString;
+
+import java.util.SplittableRandom;
 
 
 public class PromiseResolveDemo {
@@ -18,7 +21,7 @@ public class PromiseResolveDemo {
         // === String ===
         JSPromise stringPromise = JSPromise.resolve("Success: String");
         stringPromise.then(
-                JSFunction.fromBody("console.log('Resolved String:', arg)"),
+                JSFunction.fromConsumer((JSString arg) -> System.out.println(arg.as(String.class))),
                 JSFunction.fromBody("console.error(arg)")
         );
         // Expected: Resolved String: Success: String
@@ -51,14 +54,19 @@ public class PromiseResolveDemo {
         CustomResult custom = new CustomResult("Operation complete");
         JSPromise customPromise = JSPromise.resolve(custom);
         customPromise.then(
-                JSFunction.fromBody("console.log('Resolved Custom:', arg)"),
+                JSFunction.fromBody("console.log('Resolved Custom:', arg.toString())"),
                 JSFunction.fromBody("console.error(arg)")
         );
         // Expected: Resolved Custom: CustomResult(Operation complete)
     }
 
-    // Simple record for custom result object
-    record CustomResult(String message) {
+    static class CustomResult extends JSObject {
+
+        public String message;
+
+        public CustomResult(String message) {
+            this.message = message;
+        }
 
         @Override
         public String toString() {

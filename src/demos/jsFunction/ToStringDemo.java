@@ -13,7 +13,7 @@ public class ToStringDemo {
         // Expected: function anonymous(arg) { return 42; }
 
 
-        JSFunction javaF = JSFunction.fromFunction((String arg) -> "Hello, " + arg);
+        JSFunction javaF = JSFunction.fromGeneralFunction((String arg) -> "Hello, " + arg);
         System.out.println("JSFunction source: " + javaF.toStringJS());
         // Expected: function anonymous(arg) { return 42; }
     }

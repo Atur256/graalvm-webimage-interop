@@ -18,7 +18,7 @@ public class FilterDemo {
         System.out.println("Filtered: " + filtered.toString()); // Expected: [2]
 
         JSArray javaArr = JSArray.of(1, 4, 9);
-        JSFunction isOdd = JSFunction.fromFunction((JSNumber arg) -> JSBoolean.of(arg.as(Integer.class) % 2 != 0));
+        JSFunction isOdd = JSFunction.fromGeneralFunction((Integer arg) -> arg % 2 != 0);
         JSArray filtered2 = javaArr.filter(isOdd);
         System.out.println("Filtered: " + filtered2.toString()); // Expected: [1,9]
     }
