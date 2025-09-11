@@ -1,6 +1,7 @@
 package demos.jsArray;
 
 import builtin.JSArray;
+import builtin.JSIterator;
 import org.graalvm.webimage.api.JSString;
 import org.graalvm.webimage.api.JSValue;
 
@@ -11,8 +12,8 @@ public class KeysDemo {
         System.out.println("\n=== JSArray.keys Demo ===");
 
         JSArray arr = JSArray.of(new JSValue[] { JSString.of("a"), JSString.of("b") });
-        JSValue keys = arr.keys();
-        // TODO: Iterator currently not implemented
-        System.out.println("Keys iterator: " + keys); // Expected: 0, 1
+        JSIterator keys = arr.keys();
+        System.out.println("Keys iterator: " + keys.toArray().toString());
+        // Expected: Keys iterator: [0,1]
     }
 }

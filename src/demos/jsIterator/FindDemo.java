@@ -1,0 +1,23 @@
+package demos.jsIterator;
+
+import builtin.*;
+import org.graalvm.webimage.api.JSBoolean;
+import org.graalvm.webimage.api.JSValue;
+
+import java.lang.String;
+
+
+public class FindDemo {
+
+    public static void main(String[] args) {
+        System.out.println("\n=== JSIterator.find Demo ===");
+
+        JSArray array = JSArray.of("apple", "banana", "cherry");
+        JSIterator iterator = JSIterator.from(array);
+        JSFunction startsWithB = JSFunction.fromGeneralFunction((String arg) -> JSBoolean.of(arg.startsWith("b")));
+
+        String found = iterator.find(startsWithB, String.class);
+        System.out.println("First element starting with 'b': " + found);
+        // Expected Output: First element starting with 'b': "banana"
+    }
+}

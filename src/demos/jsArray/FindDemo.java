@@ -14,12 +14,12 @@ public class FindDemo {
 
         JSArray arr = JSArray.of(new JSValue[] { JSNumber.of(5), JSNumber.of(10), JSNumber.of(15) });
         JSFunction greaterThan10 = JSFunction.fromBody("return arg > 10;");
-        int found1 = arr.find(greaterThan10).as(Integer.class);
+        int found1 = arr.find(greaterThan10, Integer.class);
         System.out.println("Found: " + found1); // Expected: 15
 
-        JSArray JavaArr = JSArray.of(new JSValue[] { JSNumber.of(5), JSNumber.of(10), JSNumber.of(15) });
-        JSFunction smallerThan10 = JSFunction.fromGeneralFunction((JSNumber arg) -> JSBoolean.of(arg.as(Integer.class) < 10));
-        int found2 = JavaArr.find(smallerThan10).as(Integer.class);
-        System.out.println("Found: " + found2); // Expected: 5
+        JSArray JavaArr = JSArray.of(5,10,15);
+        JSFunction smallerThan10 = JSFunction.fromGeneralFunction((Integer arg) -> JSBoolean.of(arg < 10));
+        int found2 = JavaArr.find(smallerThan10, Integer.class);
+        System.out.println("Found: " + found2); // Expected: 5r
     }
 }

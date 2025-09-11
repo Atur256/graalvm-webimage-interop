@@ -29,7 +29,7 @@ public class LastIndexOfDemo {
         int index4 = javaArr3.lastIndexOf(1.3);
         System.out.println("Last index of '1.3': " + index4); // Expected: 2
 
-        JSArray javaArr4 = JSArray.of(new JSBoolean[]{JSBoolean.of(true), JSBoolean.of(true), JSBoolean.of(false)});
+        JSArray javaArr4 = JSArray.of(new boolean[]{true, true, false});
         int index5 = javaArr4.lastIndexOf(true);
         System.out.println("Last index of 'true': " + index5); // Expected: 1
     }

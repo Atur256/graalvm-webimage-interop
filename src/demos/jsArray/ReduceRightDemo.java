@@ -17,34 +17,40 @@ public class ReduceRightDemo {
         JSFunction sumRightFunction = JSFunction.fromArgs("acc", "val", "return acc + val;");
         JSValue sumRightResult = sumArray.reduceRight(sumRightFunction, JSNumber.of(0));
         System.out.println("Sum (right to left) of [1, 2, 3]: " + sumRightResult.as(Integer.class));
-        // Expected: 6
+        // Expected: Sum (right to left) of [1, 2, 3]: 6
 
-        JSArray productArray = JSArray.of(new int[]{2, 4, 10});
-        JSFunction multiplyRightFunction = JSFunction.fromGeneralBiFunction((JSNumber acc, JSNumber val) ->
-                JSNumber.of(acc.as(Integer.class) * val.as(Integer.class)));
-        JSValue productRightResult = productArray.reduceRight(multiplyRightFunction, 1);
-        System.out.println("Product (right to left) of [2, 4, 10]: " + productRightResult.as(Integer.class));
-        // Expected: 80
+        JSArray productArray1 = JSArray.of(2, 4, 10);
+        JSFunction multiplyRightFunction1 = JSFunction.fromGeneralBiFunction((JSNumber acc, Integer val) ->
+                JSNumber.of(acc.as(Integer.class) * val));
+        int productRightResult1 = productArray1.reduceRight(multiplyRightFunction1, 1);
+        System.out.println("Product (right to left) of [2, 4, 10]: " + productRightResult1);
+        // Expected: Product (right to left) of [2, 4, 10]: 80
 
-        JSArray subtractionArray = JSArray.of(new double[]{1.4, 2.6, 5.6, 7.0});
-        JSFunction subtractRightFunction = JSFunction.fromGeneralBiFunction((JSNumber acc, JSNumber val) ->
-                JSNumber.of(acc.as(Double.class) - val.as(Double.class)));
-        JSValue subtractionRightResult = subtractionArray.reduceRight(subtractRightFunction, 2.14);
-        System.out.println("Sequential subtraction (right to left): " + subtractionRightResult.as(Double.class));
-        // Expected: ~-14.46
+        JSArray productArray2 = JSArray.of(2, 4, 10);
+        JSFunction multiplyRightFunction2 = JSFunction.fromGeneralBiFunction((Integer acc, Integer val) -> acc * val);
+        int productRightResult2 = productArray2.reduceRight(multiplyRightFunction2, Integer.class);
+        System.out.println("Product (right to left) of [2, 4, 10]: " + productRightResult2);
+        // Expected: Product (right to left) of [2, 4, 10]: 80
+
+        JSArray subtractionArray = JSArray.of(1.4, 2.6, 5.6, 7.0);
+        JSFunction subtractRightFunction = JSFunction.fromGeneralBiFunction((JSNumber acc, Double val) ->
+                JSNumber.of(acc.as(Double.class) - val));
+        double subtractionRightResult = subtractionArray.reduceRight(subtractRightFunction, 2.14);
+        System.out.println("Sequential subtraction (right to left): " + subtractionRightResult);
+        // Expected: Sequential subtraction (right to left): ~-14.46
 
         JSArray fruitsArray = JSArray.of("apple", "banana", "orange");
         JSFunction concatRightFunction = JSFunction.fromGeneralBiFunction((JSString acc, String val) ->
-               JSString.of (acc.as(String.class) + " | " + val));
-        JSValue concatRightResult = fruitsArray.reduceRight(concatRightFunction, "fruits:");
-        System.out.println("Concatenated fruit list (right to left): " + concatRightResult.as(String.class));
-        // Expected: fruits: | orange | banana | apple
+                JSString.of(acc.as(String.class) + " | " + val));
+        String concatRightResult = fruitsArray.reduceRight(concatRightFunction, "fruits:");
+        System.out.println("Concatenated fruit list (right to left): " + concatRightResult);
+        // Expected: Concatenated fruit list (right to left): fruits: | orange | banana | apple
 
         JSArray boolArray = JSArray.of(new boolean[]{false, true, false});
         JSFunction andRightFunction = JSFunction.fromGeneralBiFunction((JSBoolean acc, JSBoolean val) ->
                 JSBoolean.of(acc.as(Boolean.class) && val.as(Boolean.class)));
-        JSValue andRightResult = boolArray.reduceRight(andRightFunction, true);
-        System.out.println("Logical AND (right to left) of [true, false, true, false]: " + andRightResult.as(Boolean.class));
-        // Expected: false
+        boolean andRightResult = boolArray.reduceRight(andRightFunction, true);
+        System.out.println("Logical AND (right to left) of [true, false, true, false]: " + andRightResult);
+        // Expected: Logical AND (right to left) of [true, false, true, false]: false
     }
 }

@@ -4,6 +4,8 @@ import org.graalvm.webimage.api.JS;
 import org.graalvm.webimage.api.JSObject;
 import org.graalvm.webimage.api.JSValue;
 
+import java.lang.Object;
+
 
 @JS.Import("Iterator")
 public class JSIterator extends JSObject {
@@ -12,6 +14,7 @@ public class JSIterator extends JSObject {
     @JS(value = "return Iterator.from(iterable)")
     public static native JSIterator from(JSValue iterable);
 
+    @JS.Coerce
     @JS(value = "return this.drop(n)")
     public native JSIterator drop(int n);
 
@@ -19,31 +22,62 @@ public class JSIterator extends JSObject {
     @JS(value = "return this.every(callback)")
     public native boolean every(JSFunction callback);
 
+    @JS.Coerce
     @JS(value = "return this.filter(callback)")
     public native JSIterator filter(JSFunction callback);
 
+    @JS.Coerce
     @JS(value = "return this.find(callback)")
-    public native JSValue find(JSFunction callback);
+    public native Object find(JSFunction callback);
 
+    @SuppressWarnings("unchecked")
+    public <R> R find(JSFunction callback, Class<R> cls) {
+        java.lang.Object result = find(callback); // TODO: move to JSValue as static checkedCoerce
+        if(result instanceof JSValue jsResult) return jsResult.as(cls);
+        return (R) result;
+    }
+
+    @JS.Coerce
     @JS(value = "return this.flatMap(callback)")
     public native JSIterator flatMap(JSFunction callback);
 
+    @JS.Coerce
     @JS(value = "this.forEach(callback)")
     public native void forEach(JSFunction callback);
 
+    @JS.Coerce
     @JS(value = "return this.map(callback)")
     public native JSIterator map(JSFunction callback);
 
+    @JS.Coerce
     @JS(value = "return this.reduce(callback)")
-    public native JSValue reduce(JSFunction callback);
+    private native Object reduceJS(JSFunction callback);
 
+    @SuppressWarnings("unchecked")
+    public <R> R reduce(JSFunction callback, Class<R> cls) {
+        java.lang.Object result = reduceJS(callback); // TODO: move to JSValue as static checkedCoerce
+        if(result instanceof JSValue jsResult) return jsResult.as(cls);
+        return (R) result;
+    }
+
+    @JS.Coerce
     @JS(value = "return this.reduce(callback, initialValue)")
-    public native JSValue reduce(JSFunction callback, JSValue initialValue);
+    private native <T> Object reduceJS(JSFunction callback, T initialValue);
+
+    @SuppressWarnings("unchecked")
+    public <R> R reduce(JSFunction callback, R initialValue) {
+        Object result = reduceJS(callback, initialValue);
+        if(result instanceof JSValue jsResult) {
+            return jsResult.as((Class<R>) initialValue.getClass());
+        }
+        return (R) result;
+    }
 
     @JS.Coerce
     @JS(value = "return this.some(callback)")
     public native boolean some(JSFunction callback);
 
+    @JS.Coerce
     @JS(value = "return this.take(n)")
     public native JSIterator take(int n);
 

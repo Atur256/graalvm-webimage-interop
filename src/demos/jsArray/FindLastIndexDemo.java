@@ -17,8 +17,8 @@ public class FindLastIndexDemo {
         int index = arr.findLastIndex(isOdd);
         System.out.println("Last odd index: " + index); // Expected: 2
 
-        JSArray javaArr = JSArray.of(new int[]{4, 6, 9});
-        JSFunction isEven = JSFunction.fromFunction((JSNumber arg) -> JSBoolean.of(arg.as(Integer.class) % 2 == 0));
+        JSArray javaArr = JSArray.of(4, 6, 9);
+        JSFunction isEven = JSFunction.fromGeneralFunction((Integer arg) -> JSBoolean.of(arg % 2 == 0));
         int index2 = javaArr.findLastIndex(isEven);
         System.out.println("Last odd index: " + index2); // Expected: 1
     }

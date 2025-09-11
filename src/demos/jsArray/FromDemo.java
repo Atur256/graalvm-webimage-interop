@@ -45,8 +45,7 @@ public class FromDemo {
         System.out.println("boolean[] First: " + flagArr.at(0, Boolean.class)); // Expected: 1
 
         // === Custom class[] → JSArray of strings ===
-        Custom[] customs = {new Custom("X"), new Custom("Y")};
-        JSArray customArr = JSArray.from(customs);
+        JSArray customArr = JSArray.from(new Custom("X"), new Custom("Y"));
         System.out.println("Custom[] Length: " + customArr.length); // Expected: 2
         System.out.println("Custom[] First: " + customArr.at(0, Custom.class).toString()); // Expected: Custom(X)
     }

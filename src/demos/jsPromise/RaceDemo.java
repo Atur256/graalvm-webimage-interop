@@ -7,7 +7,7 @@ import org.graalvm.webimage.api.JSString;
 import org.graalvm.webimage.api.JSValue;
 
 
-public class PromiseRaceDemo {
+public class RaceDemo {
 
     public static void main(String[] args) {
         System.out.println("\n=== JSPromise.race Demo ===");

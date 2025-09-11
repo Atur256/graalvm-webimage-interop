@@ -17,8 +17,8 @@ public class SomeDemo {
         boolean result = arr.some(isEven);
         System.out.println("Has even: " + result); // Expected: true
 
-        JSArray javaArr = JSArray.of(new JSValue[]{JSNumber.of(2), JSNumber.of(4), JSNumber.of(6)});
-        JSFunction isOdd = JSFunction.fromFunction((JSNumber arg) -> JSBoolean.of(arg.as(Integer.class) % 2 != 0));
+        JSArray javaArr = JSArray.of(2, 4, 6);
+        JSFunction isOdd = JSFunction.fromGeneralFunction((Integer arg) -> JSBoolean.of(arg % 2 != 0));
         boolean result2 = javaArr.some(isOdd);
         System.out.println("Has even: " + result2); // Expected: false
     }

@@ -6,7 +6,7 @@ import org.graalvm.webimage.api.JSObject;
 import org.graalvm.webimage.api.JSString;
 
 
-public class PromiseRejectDemo {
+public class RejectDemo {
 
     public static void main(String[] args) {
         System.out.println("\n=== JSPromise.reject Demo ===");

@@ -1,7 +1,4 @@
-import demos.jsArray.*;
-import demos.jsArray.LengthDemo;
-import demos.jsArray.ToStringDemo;
-import demos.jsFunction.*;
+
 import demos.jsPromise.*;
 
 
@@ -117,113 +114,119 @@ public class Main {
 //
 //        ToStringDemo.main(null);
 //
-          // JSArray
-
-        FromDemo.main(null);
-
-        FromAsyncDemo.main(null);
-
-        IsArrayDemo.main(null);
-
-        OfDemo.main(null);
-
-        IndexOfDemo.main(null);
-
-        AtDemo.main(null);
-
-        ConcatDemo.main(null);
-
-        CopyWithinDemo.main(null);
-
-        EntriesDemo.main(null);
-
-        EveryDemo.main(null);
-
-        FillDemo.main(null);
-
-        FilterDemo.main(null);
-
-        FindDemo.main(null);
-
-        FindIndexDemo.main(null);
-
-        FindLastDemo.main(null);
-
-        FindLastIndexDemo.main(null);
-
-        FlatDemo.main(null);
-
-        FlatMapDemo.main(null);
-
-        ForEachDemo.main(null);
-
-        IncludesDemo.main(null);
-
-        IndexOfDemo.main(null);
-
-        JoinDemo.main(null);
-
-        KeysDemo.main(null);
-
-        LastIndexOfDemo.main(null);
-
-        MapDemo.main(null);
-
-        PopDemo.main(null);
-
-        PushDemo.main(null);
-
-        ReduceDemo.main(null);
-
-        ReduceRightDemo.main(null);
-
-        ReverseDemo.main(null);
-
-        ShiftDemo.main(null);
-
-        SliceDemo.main(null);
-
-        SomeDemo.main(null);
-
-        SortDemo.main(null);
-
-        ToLocaleStringDemo.main(null);
-
-        ToReversedDemo.main(null);
-
-        ToSortedDemo.main(null);
-
-        ToSplicedDemo.main(null);
-
-        ToStringDemo.main(null);
-
-        UnshiftDemo.main(null);
-
-        ValuesDemo.main(null);
-
-        WithDemo.main(null);
+//          // JSArray
 //
-//        // JSPromise
+//        FromDemo.main(null);
 //
-//        PromiseResolveDemo.main(null);
+//        FromAsyncDemo.main(null);
 //
-//        PromiseRejectDemo.main(null);
+//        IsArrayDemo.main(null);
 //
-//        PromiseAllDemo.main(null);
+//        OfDemo.main(null);
 //
-//        PromiseRaceDemo.main(null);
+//        IndexOfDemo.main(null);
 //
-//        PromiseThenDemo.main(null);
+//        AtDemo.main(null);
 //
-//        PromiseCatchDemo.main(null);
+//        ConcatDemo.main(null);
 //
-//        PromiseFinallyDemo.main(null);
+//        CopyWithinDemo.main(null);
 //
-//        PromiseAllSettledDemo.main(null);
+//        EntriesDemo.main(null);
 //
-//        PromiseAnyDemo.main(null);
+//        EveryDemo.main(null);
 //
+//        FillDemo.main(null);
+//
+//        FilterDemo.main(null);
+//
+//        FindDemo.main(null);
+//
+//        FindIndexDemo.main(null);
+//
+//        FindLastDemo.main(null);
+//
+//        FindLastIndexDemo.main(null);
+//
+//        FlatDemo.main(null);
+//
+//        FlatMapDemo.main(null);
+//
+//        ForEachDemo.main(null);
+//
+//        IncludesDemo.main(null);
+//
+//        IndexOfDemo.main(null);
+//
+//        JoinDemo.main(null);
+//
+//        KeysDemo.main(null);
+//
+//        LastIndexOfDemo.main(null);
+//
+//        MapDemo.main(null);
+//
+//        PopDemo.main(null);
+//
+//        PushDemo.main(null);
+//
+//        ReduceDemo.main(null);
+//
+//        ReduceRightDemo.main(null);
+//
+//        ReverseDemo.main(null);
+//
+//        ShiftDemo.main(null);
+//
+//        SliceDemo.main(null);
+//
+//        SomeDemo.main(null);
+//
+//        SortDemo.main(null);
+//
+//        ToLocaleStringDemo.main(null);
+//
+//        ToReversedDemo.main(null);
+//
+//        ToSortedDemo.main(null);
+//
+//        ToSplicedDemo.main(null);
+//
+//        ToStringDemo.main(null);
+//
+//        UnshiftDemo.main(null);
+//
+//        ValuesDemo.main(null);
+//
+//        WithDemo.main(null);
+//
+        // JSPromise
+
+        AllDemo.main(null);
+
+        AllSettledDemo.main(null);
+
+        AnyDemo.main(null);
+
+        // TODO:
+//        RaceDemo.main(null);
+
+        RejectDemo.main(null);
+
+        ResolveDemo.main(null);
+
+        // TODO:
+//        TryDemo.main(null);
+
+        // TODO:
 //        WithResolversDemo.main(null);
+//
+        CatchDemo.main(null);
+
+        FinallyDemo.main(null);
+
+        ThenDemo.main(null);
+
 //
 //
 //
@@ -346,11 +349,32 @@ public class Main {
 //        ValuesDemo.main(null);
 //
 //        SizeDemo.main(null);
-
-        // JSIterator
-
+//
+//        // JSIterator
+//
 //        FromDemo.main(null);
-
+//
+//        DropDemo.main(null);
+//
+//        EveryDemo.main(null);
+//
+//        FilterDemo.main(null);
+//
+//        FindDemo.main(null);
+//
+//        FlatMapDemo.main(null);
+//
+//        ForEachDemo.main(null);
+//
+//        MapDemo.main(null);
+//
+//        ReduceDemo.main(null);
+//
+//        SomeDemo.main(null);
+//
+//        TakeDemo.main(null);
+//
+//        ToArrayDemo.main(null);
 //        JSFunction info = JSFunction.fromBody("console.log('Engine:', typeof Iterator, typeof Promise, typeof Symbol)");
 //        info.call(null);
 //

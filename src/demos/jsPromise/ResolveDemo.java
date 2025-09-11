@@ -5,10 +5,8 @@ import builtin.JSPromise;
 import org.graalvm.webimage.api.JSObject;
 import org.graalvm.webimage.api.JSString;
 
-import java.util.SplittableRandom;
 
-
-public class PromiseResolveDemo {
+public class ResolveDemo {
 
     public static void main(String[] args) {
         System.out.println("\n=== JSPromise.resolve Demo ===");

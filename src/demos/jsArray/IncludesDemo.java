@@ -29,7 +29,7 @@ public class IncludesDemo {
         boolean result5 = javaArr3.includes(4.1);
         System.out.println("Includes '4.1': " + result5); // Expected: false
 
-        JSArray javaArr4 = JSArray.of(new JSBoolean[]{JSBoolean.of(true), JSBoolean.of(true)});
+        JSArray javaArr4 = JSArray.of(new boolean[]{true, true});
         boolean result6 = javaArr4.includes(true);
         System.out.println("Includes 'true': " + result6); // Expected: true
         boolean result7 = javaArr4.includes(false);

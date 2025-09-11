@@ -14,12 +14,12 @@ public class FindLastDemo {
 
         JSArray arr = JSArray.of(new JSValue[]{JSNumber.of(5), JSNumber.of(10), JSNumber.of(15)});
         JSFunction greaterThan5 = JSFunction.fromBody("return arg > 5;");
-        int result = arr.findLast(greaterThan5).as(Integer.class);
+        int result = arr.findLast(greaterThan5, Integer.class);
         System.out.println("Last match > 5: " + result); // Expected: 15
 
-        JSArray javaArr = JSArray.of(new int[]{5, 10, 15});
-        JSFunction smallerThan15 = JSFunction.fromGeneralFunction((JSNumber arg) -> JSBoolean.of(arg.as(Integer.class) < 15));
-        int result2 = javaArr.findLast(smallerThan15).as(Integer.class);
+        JSArray javaArr = JSArray.of(5, 10, 15);
+        JSFunction smallerThan15 = JSFunction.fromGeneralFunction((Integer arg) -> JSBoolean.of(arg < 15));
+        int result2 = javaArr.findLast(smallerThan15, Integer.class);
         System.out.println("Last match < 15: " + result2); // Expected: 10
     }
 }

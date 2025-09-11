@@ -11,7 +11,7 @@ public class IndexOfDemo {
     public static void main(String[] args) {
         System.out.println("\n=== JSArray.indexOf Demo ===");
 
-        JSArray arr = JSArray.of(new JSValue[] { JSString.of("a"), JSString.of("b") });
+        JSArray arr = JSArray.of(new JSValue[]{JSString.of("a"), JSString.of("b")});
         int index1 = arr.indexOf(JSString.of("b"));
         System.out.println("Index of 'b': " + index1); // Expected: 1
 
@@ -29,7 +29,7 @@ public class IndexOfDemo {
         int index5 = javaArr3.indexOf(1.4);
         System.out.println("Index of '1.4': " + index5); // Expected: 0
 
-        JSArray javaArr4 = JSArray.of(new JSBoolean[]{JSBoolean.of(false), JSBoolean.of(false)});
+        JSArray javaArr4 = JSArray.of(new boolean[]{false, true});
         int index6 = javaArr4.indexOf(false);
         System.out.println("Index of 'false': " + index6); // Expected: 0
         int index7 = javaArr4.indexOf(true);

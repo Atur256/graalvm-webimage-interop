@@ -10,9 +10,7 @@ public class SortDemo {
     public static void main(String[] args) {
         System.out.println("\n=== JSArray.sort Demo ===");
 
-        JSArray arr = JSArray.of(new JSValue[]{
-                JSString.of("banana"), JSString.of("apple"), JSString.of("cherry")
-        });
+        JSArray arr = JSArray.of("banana", "apple", "cherry");
 
         arr.sort();
         System.out.println("Sorted array: " + arr); // Expected: ["apple", "banana", "cherry"]

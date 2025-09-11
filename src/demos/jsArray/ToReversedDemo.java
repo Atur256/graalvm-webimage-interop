@@ -10,9 +10,7 @@ public class ToReversedDemo {
     public static void main(String[] args) {
         System.out.println("\n=== JSArray.toReversed Demo ===");
 
-        JSArray arr = JSArray.of(new JSValue[]{
-                JSNumber.of(1), JSNumber.of(2), JSNumber.of(3)
-        });
+        JSArray arr = JSArray.of(1,2,3);
 
         JSArray reversed = arr.toReversed();
         System.out.println("Original array: " + arr);                // Expected: [1, 2, 3]
