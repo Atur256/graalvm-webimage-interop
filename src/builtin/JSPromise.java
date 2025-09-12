@@ -69,7 +69,19 @@ public class JSPromise extends JSObject {
 
     @JS.Coerce
     @JS(value = "return Promise.race(promises)")
-    public static native <T> JSPromise race(T promises);
+    public static native JSPromise race(JSIterator promises);
+
+    public static JSPromise race(JSArray promises) {
+        return any(JSIterator.from(promises));
+    }
+
+    public static JSPromise race(JSPromise... promises) {
+        return any(fromPromises(promises));
+    }
+
+    public static JSPromise race(List<JSPromise> promises) {
+        return any(fromPromises(promises.toArray(new JSPromise[0])));
+    }
 
     @JS.Coerce
     @JS(value = "return Promise.reject(reason)")

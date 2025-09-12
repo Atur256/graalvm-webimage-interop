@@ -1,7 +1,6 @@
 package demos.jsMap;
 
 import builtin.JSMap;
-import org.graalvm.webimage.api.JSString;
 
 
 public class ClearDemo {
@@ -10,11 +9,13 @@ public class ClearDemo {
         System.out.println("\n=== JSMap.clear Demo ===");
 
         JSMap map = new JSMap();
-        map.set(JSString.of("key"), JSString.of("value"));
+        map.set("key", "value");
         System.out.println("Size before clear: " + map.size);
 
         map.clear();
         System.out.println("Size after clear: " + map.size);
-        // Expected: Size before clear: 1, Size after clear: 0
+        // Expected:
+        // Size before clear: 1
+        // Size after clear: 0
     }
 }

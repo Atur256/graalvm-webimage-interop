@@ -1,8 +1,7 @@
 package demos.jsMap;
 
+import builtin.JSIterator;
 import builtin.JSMap;
-import org.graalvm.webimage.api.JSNumber;
-import org.graalvm.webimage.api.JSString;
 
 
 public class EntriesDemo {
@@ -11,10 +10,12 @@ public class EntriesDemo {
         System.out.println("\n=== JSMap.entries Demo ===");
 
         JSMap map = new JSMap();
-        map.set(JSString.of("a"), JSNumber.of(1));
-        map.set(JSString.of("b"), JSNumber.of(2));
+        map.set("a", 1);
+        map.set("b", 2);
 
-        System.out.println("Entries object: " + map.entries());
-        // Expected: JS iterable object (not yet wrapped as Iterator)
+
+        JSIterator entries = map.entries();
+        System.out.println("Entries iterator: " + entries.toArray().toString());
+        // Expected: Entries iterator: [a,1,b,2]
     }
 }

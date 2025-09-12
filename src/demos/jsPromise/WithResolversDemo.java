@@ -1,9 +1,11 @@
 package demos.jsPromise;
 
 import builtin.JSEval;
+import builtin.JSFunction;
 import builtin.JSPromise;
 import org.graalvm.webimage.api.JSObject;
 import org.graalvm.webimage.api.JSString;
+import org.graalvm.webimage.api.JSValue;
 
 
 public class WithResolversDemo {
@@ -18,7 +20,8 @@ public class WithResolversDemo {
         JSObject rejectFn = (JSObject) control.get("reject");
 
         JSObject thenFn = (JSObject) promise.get("then");
-        JSObject callback = (JSObject) JSEval.eval("(value => console.log('Resolved with:', value))");
+        JSFunction callback = JSFunction.fromConsumer((JSValue value )-> System.out.println("Resolved with: " + value.as(String.class)));
+
 
         thenFn.call(promise, callback);
 

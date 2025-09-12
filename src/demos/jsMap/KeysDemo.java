@@ -1,7 +1,7 @@
 package demos.jsMap;
 
+import builtin.JSIterator;
 import builtin.JSMap;
-import org.graalvm.webimage.api.JSString;
 
 
 public class KeysDemo {
@@ -10,9 +10,12 @@ public class KeysDemo {
         System.out.println("\n=== JSMap.keys Demo ===");
 
         JSMap map = new JSMap();
-        map.set(JSString.of("foo"), JSString.of("bar"));
+        map.set("foo", "bar");
+        map.set("0", "zero");
+        map.set(1, "one");
 
-        System.out.println("Keys object: " + map.keys());
-        // Expected: JS iterable object (not yet wrapped as Iterator)
+        JSIterator keys = map.keys();
+        System.out.println("Keys iterator: " + keys.toArray().toString());
+        // Expected: Keys iterator: Keys iterator: [foo,0,1]
     }
 }

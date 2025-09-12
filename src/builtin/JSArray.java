@@ -497,7 +497,7 @@ public class JSArray extends JSObject {
 
     @JS.Coerce
     @JS(value = "return this.values()")
-    public native JSIterator values(); // TODO: return JSIterator
+    public native JSIterator values();
 
     @JS.Coerce
     @JS(value = "return this.with(index, value)")

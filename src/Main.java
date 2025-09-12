@@ -1,5 +1,17 @@
 
+import builtin.JSFunction;
+import demos.jsArray.*;
+import demos.jsEval.EvalDemo;
+import demos.jsMap.*;
+import demos.jsMap.EntriesDemo;
+import demos.jsMap.ForEachDemo;
+import demos.jsMap.KeysDemo;
+import demos.jsMap.ValuesDemo;
 import demos.jsPromise.*;
+import demos.jsUri.DecodeURIComponentDemo;
+import demos.jsUri.DecodeURIDemo;
+import demos.jsUri.EncodeURIComponentDemo;
+import demos.jsUri.EncodeURIDemo;
 
 
 public class Main {
@@ -201,31 +213,26 @@ public class Main {
 //        WithDemo.main(null);
 //
         // JSPromise
+//
+//        AllDemo.main(null);
 
-        AllDemo.main(null);
-
-        AllSettledDemo.main(null);
-
-        AnyDemo.main(null);
-
-        // TODO:
+//        AllSettledDemo.main(null);
+//
+//        AnyDemo.main(null);
+//
 //        RaceDemo.main(null);
-
-        RejectDemo.main(null);
-
-        ResolveDemo.main(null);
-
-        // TODO:
-//        TryDemo.main(null);
-
-        // TODO:
+//
+//        RejectDemo.main(null);
+//
+//        ResolveDemo.main(null);
+//
 //        WithResolversDemo.main(null);
 //
-        CatchDemo.main(null);
-
-        FinallyDemo.main(null);
-
-        ThenDemo.main(null);
+//        CatchDemo.main(null);
+//
+//        FinallyDemo.main(null);
+//
+//        ThenDemo.main(null);
 
 //
 //
@@ -328,27 +335,27 @@ public class Main {
 //
         // JSMap
 
-//        GroupByDemo.main(null);
-//
-//        ClearDemo.main(null);
-//
-//        DeleteDemo.main(null);
-//
-//        EntriesDemo.main(null);
-//
-//        ForEachDemo.main(null);
-//
-//        GetDemo.main(null);
-//
-//        HasDemo.main(null);
-//
-//        KeysDemo.main(null);
-//
-//        SetDemo.main(null);
-//
-//        ValuesDemo.main(null);
-//
-//        SizeDemo.main(null);
+        GroupByDemo.main(null);
+
+        ClearDemo.main(null);
+
+        DeleteDemo.main(null);
+
+        EntriesDemo.main(null);
+
+        ForEachDemo.main(null);
+
+        GetDemo.main(null);
+
+        HasDemo.main(null);
+
+        KeysDemo.main(null);
+
+        SetDemo.main(null);
+
+        ValuesDemo.main(null);
+
+        SizeDemo.main(null);
 //
 //        // JSIterator
 //
