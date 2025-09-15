@@ -4,7 +4,6 @@ import demos.jsArray.*;
 import demos.jsEval.EvalDemo;
 import demos.jsFunction.FromConsumerDemo;
 import demos.jsMap.*;
-import demos.jsMap.SizeDemo;
 import demos.jsPromise.*;
 import demos.jsSet.*;
 import demos.jsSet.ClearDemo;
@@ -13,11 +12,13 @@ import demos.jsSet.EntriesDemo;
 import demos.jsSet.ForEachDemo;
 import demos.jsSet.HasDemo;
 import demos.jsSet.KeysDemo;
+import demos.jsSet.SizeDemo;
 import demos.jsSet.ValuesDemo;
 import demos.jsUri.DecodeURIComponentDemo;
 import demos.jsUri.DecodeURIDemo;
 import demos.jsUri.EncodeURIComponentDemo;
 import demos.jsUri.EncodeURIDemo;
+import org.graalvm.webimage.api.JSString;
 
 
 public class Main {

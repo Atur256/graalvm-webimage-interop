@@ -1,7 +1,6 @@
 package demos.jsSet;
 
 import builtin.JSSet;
-import org.graalvm.webimage.api.JSString;
 
 
 public class SizeDemo {
@@ -10,19 +9,18 @@ public class SizeDemo {
         System.out.println("\n=== JSSet.size Demo ===");
 
         JSSet set = new JSSet();
+
         System.out.println("Initial size: " + set.size);
-        // Expected Output: Initial size: 0
-
-        set.add(JSString.of("apple"));
+        set.add("apple");
         System.out.println("Size after adding 'apple': " + set.size);
-        // Expected Output: Size after adding 'apple': 1
-
-        set.add(JSString.of("banana"));
+        set.add("banana");
         System.out.println("Size after adding 'banana': " + set.size);
-        // Expected Output: Size after adding 'banana': 2
-
-        set.add(JSString.of("apple")); // duplicate
+        set.add("apple"); // duplicate
         System.out.println("Size after adding duplicate 'apple': " + set.size);
-        // Expected Output: Size after adding duplicate 'apple': 2
+        // Expected:
+        // Initial size: 0
+        // Size after adding 'apple': 1
+        // Size after adding 'banana': 2
+        // Size after adding duplicate 'apple': 2
     }
 }
