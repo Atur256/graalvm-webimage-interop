@@ -56,6 +56,23 @@ public class FromConsumerDemo {
         biCustomConsumer.call(new CustomClass("Alice"), new CustomClass("Bob"));
         // Expected: BiConsumer CustomClasses: CustomClass(Alice) | CustomClass(Bob)
 
+        // // === BiTriConsumer: (String, String, String) → void
+        JSFunction triStringConsumer = JSFunction.fromGeneralTriConsumer((String a, String b, String c) ->
+                System.out.println("TriConsumer Strings: " + a + " & " + b + " & " + c));
+        triStringConsumer.call("Hello", "World", "!");
+        // Expected: TriConsumer Strings: Hello & World & !
+
+        // // === BiTriConsumer: (String, Integer, Double) → void
+        JSFunction triMixedConsumer = JSFunction.fromGeneralTriConsumer((String label, Integer value1, Double value2) ->
+                System.out.println("TriConsumer Mixed: " + label + ": " + value1.toString() + " | " + value2.toString()));
+        triMixedConsumer.call("Age and Height", 30, 186.35);
+        // Expected: TriConsumer Mixed: Age = 30 |
+
+        // // === BiTriConsumer: (CustomClass, CustomClass, CustomClass) → void
+        JSFunction triCustomConsumer = JSFunction.fromGeneralTriConsumer((CustomClass a, CustomClass b, CustomClass c) ->
+                System.out.println("TriConsumer CustomClasses: " + a + " | " + b + " | " + c));
+        triCustomConsumer.call(new CustomClass("Alice"), new CustomClass("Bob"), new CustomClass("Anna"));
+        // Expected: TriConsumer CustomClasses: CustomClass(Alice) | CustomClass(Bob) | CustomClass(Anna)
     }
 
     record CustomClass(String name) {

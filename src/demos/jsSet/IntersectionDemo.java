@@ -10,15 +10,16 @@ public class IntersectionDemo {
         System.out.println("\n=== JSSet.intersection Demo ===");
 
         JSSet a = new JSSet();
-        a.add(JSString.of("apple")).add(JSString.of("banana"));
+        a.add("apple").add("banana");
 
         JSSet b = new JSSet();
-        b.add(JSString.of("banana")).add(JSString.of("cherry"));
+        b.add("banana").add("cherry");
 
         JSSet result = a.intersection(b);
-        System.out.println("Has 'banana'? " + result.has(JSString.of("banana")));
-        // Expected Output: Has 'banana'? true
-        System.out.println("Has 'apple'? " + result.has(JSString.of("apple")));
-        // Expected Output: Has 'apple'? false
+        System.out.println("Has 'banana'? " + result.has("banana"));
+        System.out.println("Has 'apple'? " + result.has("apple"));
+        // Expected Output:
+        // Has 'banana'? true
+        // Has 'apple'? false
     }
 }

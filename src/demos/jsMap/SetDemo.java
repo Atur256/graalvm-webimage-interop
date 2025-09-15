@@ -13,39 +13,44 @@ public class SetDemo {
         JSMap map = new JSMap();
 
         // JSValue key
-        map.set(JSString.of("language"), JSString.of("JavaScript"));
-        map.set(JSString.of("year"), 1995);
-        map.set(JSString.of("version"), 1.8);
-        map.set(JSString.of("isPopular"), true);
-        map.set(JSString.of("creator"), "Brendan Eich");
+        map
+                .set(JSString.of("language"), JSString.of("JavaScript"))
+                .set(JSString.of("year"), 1995)
+                .set(JSString.of("version"), 1.8)
+                .set(JSString.of("isPopular"), true)
+                .set(JSString.of("creator"), "Brendan Eich");
 
         // int key
-        map.set(1, JSString.of("one"));
-        map.set(2, 200);
-        map.set(3, 3.14);
-        map.set(4, false);
-        map.set(5, "five");
+        map
+                .set(1, JSString.of("one"))
+                .set(2, 200)
+                .set(3, 3.14)
+                .set(4, false)
+                .set(5, "five");
 
         // double key
-        map.set(1.1, JSString.of("pi-ish"));
-        map.set(2.2, 220);
-        map.set(3.3, 33.33);
-        map.set(4.4, true);
-        map.set(5.5, "double-key");
+        map
+                .set(1.1, JSString.of("pi-ish"))
+                .set(2.2, 220)
+                .set(3.3, 33.33)
+                .set(4.4, true)
+                .set(5.5, "double-key");
 
         // boolean key
-        map.set(true, JSString.of("yes"));
-        map.set(false, 0);
-        map.set(true, 1.0);
-        map.set(false, false);
-        map.set(true, "truthy");
+        map
+                .set(true, JSString.of("yes"))
+                .set(false, 0)
+                .set(true, 1.0)
+                .set(false, false)
+                .set(true, "truthy");
 
         // Object key
-        map.set("customKey", JSString.of("customValue"));
-        map.set("intKey", 123);
-        map.set("doubleKey", 456.789);
-        map.set("boolKey", true);
-        map.set("objectKey", "objectValue");
+        map
+                .set("customKey", JSString.of("customValue"))
+                .set("intKey", 123)
+                .set("doubleKey", 456.789)
+                .set("boolKey", true)
+                .set("objectKey", "objectValue");
 
         JSFunction printFun = JSFunction.fromGeneralBiConsumer((JSValue value, JSValue key) -> System.out.println(key + ": " + value));
 

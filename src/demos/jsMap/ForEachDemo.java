@@ -2,8 +2,8 @@ package demos.jsMap;
 
 import builtin.JSFunction;
 import builtin.JSMap;
-import org.graalvm.webimage.api.JSNumber;
-import org.graalvm.webimage.api.JSString;
+import org.graalvm.webimage.api.*;
+
 
 public class ForEachDemo {
 
@@ -25,7 +25,8 @@ public class ForEachDemo {
 
         // forEach(callback, JSValue thisArg)
         System.out.println("\n-- forEach(callback, JSValue thisArg) --");
-        JSFunction callbackWithJSValue = JSFunction.fromArgs("value", "key", "console.log(this + key + '=' + value);");
+        JSFunction callbackWithJSValue = JSFunction.fromTriConsumer((JSValue thisArg, JSNumber value, JSString key) ->
+                System.out.println(thisArg.as(String.class) + ": " + key.as(String.class) + "=" + value.as(Integer.class)));
         map.forEach(callbackWithJSValue, JSString.of("JSValue: "));
         // Expected:
         // JSValue: a=1
@@ -33,7 +34,8 @@ public class ForEachDemo {
 
         // forEach(callback, int thisArg)
         System.out.println("\n-- forEach(callback, int thisArg) --");
-        JSFunction callbackWithInt = JSFunction.fromArgs("value", "key", "console.log(this + ': ' + key + '=' + value);");
+        JSFunction callbackWithInt = JSFunction.fromTriConsumer((JSNumber thisArg, JSNumber value, JSString key) ->
+                System.out.println(thisArg.as(Integer.class) + ": " + key.as(String.class) + "=" + value.as(Integer.class)));
         map.forEach(callbackWithInt, 100);
         // Expected:
         // 100: a=1
@@ -41,7 +43,8 @@ public class ForEachDemo {
 
         // forEach(callback, double thisArg)
         System.out.println("\n-- forEach(callback, double thisArg) --");
-        JSFunction callbackWithDouble = JSFunction.fromArgs("value", "key", "console.log(this + ': ' + key + '=' + value);");
+        JSFunction callbackWithDouble = JSFunction.fromTriConsumer((JSNumber thisArg, JSNumber value, JSString key) ->
+                System.out.println(thisArg.as(Double.class) + ": " + key.as(String.class) + "=" + value.as(Integer.class)));
         map.forEach(callbackWithDouble, 3.14);
         // Expected:
         // 3.14: a=1
@@ -49,7 +52,8 @@ public class ForEachDemo {
 
         // forEach(callback, boolean thisArg)
         System.out.println("\n-- forEach(callback, boolean thisArg) --");
-        JSFunction callbackWithBoolean = JSFunction.fromArgs("value", "key", "console.log(this + ': ' + key + '=' + value);");
+        JSFunction callbackWithBoolean = JSFunction.fromTriConsumer((JSBoolean thisArg, JSNumber value, JSString key) ->
+                System.out.println(thisArg.as(Boolean.class) + ": " + key.as(String.class) + "=" + value.as(Integer.class)));
         map.forEach(callbackWithBoolean, true);
         // Expected:
         // true: a=1
@@ -57,7 +61,8 @@ public class ForEachDemo {
 
         // forEach(callback, Object thisArg)
         System.out.println("\n-- forEach(callback, Object thisArg) --");
-        JSFunction callbackWithObject = JSFunction.fromArgs("value", "key", "console.log(this + ': ' + key + '=' + value);");
+        JSFunction callbackWithObject = JSFunction.fromTriConsumer((JSString thisArg, JSNumber value, JSString key) ->
+                System.out.println(thisArg.as(String.class) + ": " + key.as(String.class) + "=" + value.as(Integer.class)));
         map.forEach(callbackWithObject, "CustomObject");
         // Expected:
         // CustomObject: a=1

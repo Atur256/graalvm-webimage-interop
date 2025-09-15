@@ -67,6 +67,14 @@ public class JSFunction extends JSObject {
     public static native <A extends JSValue, B extends JSValue> JSFunction fromBiConsumer(java.util.function.BiConsumer<A, B> javaBiConsumer);
 
     @JS.Coerce
+    @JS(value = "return function(value, key) { javaTriConsumer.accept(this, value, key); }")
+    public static native <A, B, C> JSFunction fromGeneralTriConsumer(TriConsumer<A, B, C> javaTriConsumer);
+
+    @JS.Coerce
+    @JS(value = "return function(value, key) { javaTriConsumer.accept(this, value, key); }")
+    public static native <A extends JSValue, B extends JSValue, C extends JSValue> JSFunction fromTriConsumer(TriConsumer<A, B, C> javaTriConsumer);
+
+    @JS.Coerce
     @JS(value = "return function() { return javaSupplier.get(); }")
     public static native <T> JSFunction fromSupplier(Supplier<T> javaSupplier);
 
@@ -188,5 +196,6 @@ public class JSFunction extends JSObject {
     @JS(value = "return this.toString()")
     public native String toStringJS();
 }
+
 
 

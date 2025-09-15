@@ -1,7 +1,6 @@
 package demos.jsSet;
 
 import builtin.JSSet;
-import org.graalvm.webimage.api.JSString;
 
 
 public class IsSupersetOfDemo {
@@ -9,13 +8,19 @@ public class IsSupersetOfDemo {
     public static void main(String[] args) {
         System.out.println("\n=== JSSet.isSupersetOf Demo ===");
 
-        JSSet a = new JSSet();
-        a.add(JSString.of("apple")).add(JSString.of("banana"));
+        JSSet a = new JSSet().add("apple").add("banana");
+        JSSet b = new JSSet().add("apple");
+        JSSet c = new JSSet().add("orange").add("banana");
 
-        JSSet b = new JSSet();
-        b.add(JSString.of("apple"));
-
-        System.out.println("Superset? " + a.isSupersetOf(b));
-        // Expected Output: Superset? true
+        boolean aIsSupersetOfb = a.isSupersetOf(b);
+        boolean bIsSupersetOfa = b.isSupersetOf(a);
+        boolean aIsSupersetOfc = a.isSupersetOf(c);
+        System.out.println("Set a is superset of set b?: " + aIsSupersetOfb);
+        System.out.println("Set b is superset of set a?: " + bIsSupersetOfa);
+        System.out.println("Set a is superset of set c?: " + aIsSupersetOfc);
+        // Expected Output:
+        // Set a is superset of set b?: true
+        // Set b is superset of set a?: false
+        // Set a is superset of set c?: false
     }
 }

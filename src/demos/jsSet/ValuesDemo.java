@@ -1,7 +1,7 @@
 package demos.jsSet;
 
+import builtin.JSIterator;
 import builtin.JSSet;
-import org.graalvm.webimage.api.JSString;
 
 
 public class ValuesDemo {
@@ -9,10 +9,10 @@ public class ValuesDemo {
     public static void main(String[] args) {
         System.out.println("\n=== JSSet.values Demo ===");
 
-        JSSet set = new JSSet();
-        set.add(JSString.of("apple")).add(JSString.of("banana"));
+        JSSet set = new JSSet().add("apple").add("banana");
 
-        System.out.println("Entries object: " + set.values());
-        // Expected: JS iterable object (not yet wrapped as Iterator)
+        JSIterator values = set.values();
+        System.out.println("Values iterator: " + values.toArray().toString());
+        // Expected: Values iterator: Values iterator: ["apple","banana"]
     }
 }

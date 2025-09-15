@@ -1,7 +1,6 @@
 package demos.jsSet;
 
 import builtin.JSSet;
-import org.graalvm.webimage.api.JSString;
 
 
 public class IsDisjointFromDemo {
@@ -9,13 +8,19 @@ public class IsDisjointFromDemo {
     public static void main(String[] args) {
         System.out.println("\n=== JSSet.isDisjointFrom Demo ===");
 
-        JSSet a = new JSSet();
-        a.add(JSString.of("apple"));
+        JSSet a = new JSSet().add("apple").add("orange");
+        JSSet b = new JSSet().add("banana").add("cherry");
+        JSSet c = new JSSet().add("orange").add("peach");
 
-        JSSet b = new JSSet();
-        b.add(JSString.of("banana"));
-
-        System.out.println("Disjoint? " + a.isDisjointFrom(b));
-        // Expected Output: Disjoint? true
+        boolean abDisjoint = a.isDisjointFrom(b);
+        boolean bcDisjoint = b.isDisjointFrom(c);
+        boolean acDisjoint = a.isDisjointFrom(c);
+        System.out.println("Set a and b disjoint?: " + abDisjoint);
+        System.out.println("Set b and c disjoint?: " + bcDisjoint);
+        System.out.println("Set a and c disjoint?: " + acDisjoint);
+        // Expected Output:
+        // Set a and b disjoint?: true
+        // Set b and c disjoint?: true
+        // Set a and c disjoint?: false
     }
 }

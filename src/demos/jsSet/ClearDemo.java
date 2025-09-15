@@ -11,9 +11,14 @@ public class ClearDemo {
 
         JSSet set = new JSSet();
         set.add(JSString.of("apple"));
-        set.clear();
 
-        System.out.println("Has 'apple'? " + set.has(JSString.of("apple")));
-        // Expected Output: Has 'apple'? false
+        System.out.println("Size before clear: " + set.size);
+        set.clear();
+        System.out.println("Size after clear: " + set.size);
+        System.out.println("Has 'apple'?: " + set.has(JSString.of("apple")));
+        // Expected:
+        // Size before clear: 1
+        // Size after clear: 0
+        // Has 'apple'?: false
     }
 }

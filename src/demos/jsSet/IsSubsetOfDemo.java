@@ -1,7 +1,6 @@
 package demos.jsSet;
 
 import builtin.JSSet;
-import org.graalvm.webimage.api.JSString;
 
 
 public class IsSubsetOfDemo {
@@ -9,13 +8,19 @@ public class IsSubsetOfDemo {
     public static void main(String[] args) {
         System.out.println("\n=== JSSet.isSubsetOf Demo ===");
 
-        JSSet a = new JSSet();
-        a.add(JSString.of("apple"));
+        JSSet a = new JSSet().add("apple");
+        JSSet b = new JSSet().add("apple").add("banana");
+        JSSet c = new JSSet().add("orange");
 
-        JSSet b = new JSSet();
-        b.add(JSString.of("apple")).add(JSString.of("banana"));
-
-        System.out.println("Subset? " + a.isSubsetOf(b));
-        // Expected Output: Subset? true
+        boolean aIsSubsetOfb = a.isSubsetOf(b);
+        boolean bIsSubsetOfa = b.isSubsetOf(a);
+        boolean aIsSubsetOfc = a.isSubsetOf(c);
+        System.out.println("Set a is subset of set b?: " + aIsSubsetOfb);
+        System.out.println("Set b is subset of set a?: " + bIsSubsetOfa);
+        System.out.println("Set a is subset of set c?: " + aIsSubsetOfc);
+        // Expected Output:
+        // Set a is subset of set b?: true
+        // Set b is subset of set a?: false
+        // Set a is subset of set c?: false
     }
 }

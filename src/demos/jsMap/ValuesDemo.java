@@ -11,9 +11,7 @@ public class ValuesDemo {
     public static void main(String[] args) {
         System.out.println("\n=== JSMap.values Demo ===");
 
-        JSMap map = new JSMap();
-        map.set(JSString.of("one"), JSNumber.of(1));
-        map.set(JSString.of("two"), JSNumber.of(2));
+        JSMap map = new JSMap().set("one", 1).set("two", 2);
 
         JSIterator values = map.values();
         System.out.println("Values iterator: " + values.toArray().toString());

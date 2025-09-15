@@ -148,103 +148,103 @@ public class JSMap extends JSObject {
 
     @JS.Coerce
     @JS(value = "return this.set(key, value)")
-    public native void set(JSValue key, JSValue value);
+    public native JSMap set(JSValue key, JSValue value);
 
     @JS.Coerce
     @JS(value = "return this.set(key, value)")
-    public native void set(JSValue key, int value);
+    public native JSMap set(JSValue key, int value);
 
     @JS.Coerce
     @JS(value = "return this.set(key, value)")
-    public native void set(JSValue key, double value);
+    public native JSMap set(JSValue key, double value);
 
     @JS.Coerce
     @JS(value = "return this.set(key, value)")
-    public native void set(JSValue key, boolean value);
+    public native JSMap set(JSValue key, boolean value);
 
     @JS.Coerce
     @JS(value = "return this.set(key, value)")
-    public native void set(JSValue key, Object value);
+    public native JSMap set(JSValue key, Object value);
 
     @JS.Coerce
     @JS(value = "return this.set(key, value)")
-    public native void set(int key, JSValue value);
+    public native JSMap set(int key, JSValue value);
 
     @JS.Coerce
     @JS(value = "return this.set(key, value)")
-    public native void set(int key, int value);
+    public native JSMap set(int key, int value);
 
     @JS.Coerce
     @JS(value = "return this.set(key, value)")
-    public native void set(int key, double value);
+    public native JSMap set(int key, double value);
 
     @JS.Coerce
     @JS(value = "return this.set(key, value)")
-    public native void set(int key, boolean value);
+    public native JSMap set(int key, boolean value);
 
     @JS.Coerce
     @JS(value = "return this.set(key, value)")
-    public native void set(int key, Object value);
+    public native JSMap set(int key, Object value);
 
     @JS.Coerce
     @JS(value = "return this.set(key, value)")
-    public native void set(double key, JSValue value);
+    public native JSMap set(double key, JSValue value);
 
     @JS.Coerce
     @JS(value = "return this.set(key, value)")
-    public native void set(double key, int value);
+    public native JSMap set(double key, int value);
 
     @JS.Coerce
     @JS(value = "return this.set(key, value)")
-    public native void set(double key, double value);
+    public native JSMap set(double key, double value);
 
     @JS.Coerce
     @JS(value = "return this.set(key, value)")
-    public native void set(double key, boolean value);
+    public native JSMap set(double key, boolean value);
 
     @JS.Coerce
     @JS(value = "return this.set(key, value)")
-    public native void set(double key, Object value);
+    public native JSMap set(double key, Object value);
 
     @JS.Coerce
     @JS(value = "return this.set(key, value)")
-    public native void set(boolean key, JSValue value);
+    public native JSMap set(boolean key, JSValue value);
 
     @JS.Coerce
     @JS(value = "return this.set(key, value)")
-    public native void set(boolean key, int value);
+    public native JSMap set(boolean key, int value);
 
     @JS.Coerce
     @JS(value = "return this.set(key, value)")
-    public native void set(boolean key, double value);
+    public native JSMap set(boolean key, double value);
 
     @JS.Coerce
     @JS(value = "return this.set(key, value)")
-    public native void set(boolean key, boolean value);
+    public native JSMap set(boolean key, boolean value);
 
     @JS.Coerce
     @JS(value = "return this.set(key, value)")
-    public native void set(boolean key, Object value);
+    public native JSMap set(boolean key, Object value);
 
     @JS.Coerce
     @JS(value = "return this.set(key, value)")
-    public native void set(Object key, JSValue value);
+    public native JSMap set(Object key, JSValue value);
 
     @JS.Coerce
     @JS(value = "return this.set(key, value)")
-    public native void set(Object key, int value);
+    public native JSMap set(Object key, int value);
 
     @JS.Coerce
     @JS(value = "return this.set(key, value)")
-    public native void set(Object key, double value);
+    public native JSMap set(Object key, double value);
 
     @JS.Coerce
     @JS(value = "return this.set(key, value)")
-    public native void set(Object key, boolean value);
+    public native JSMap set(Object key, boolean value);
 
     @JS.Coerce
     @JS(value = "return this.set(key, value)")
-    public native void set(Object key, Object value);
+    public native void set(Object key, Object value); // Return tye needs to be void because of overwriting of the set method from JSObject
 
     @JS.Coerce
     @JS(value = "return this.values()")
