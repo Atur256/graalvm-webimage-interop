@@ -1,24 +1,8 @@
 
-import builtin.JSFunction;
-import demos.jsArray.*;
-import demos.jsEval.EvalDemo;
-import demos.jsFunction.FromConsumerDemo;
-import demos.jsMap.*;
-import demos.jsPromise.*;
-import demos.jsSet.*;
-import demos.jsSet.ClearDemo;
-import demos.jsSet.DeleteDemo;
-import demos.jsSet.EntriesDemo;
-import demos.jsSet.ForEachDemo;
-import demos.jsSet.HasDemo;
-import demos.jsSet.KeysDemo;
-import demos.jsSet.SizeDemo;
-import demos.jsSet.ValuesDemo;
-import demos.jsUri.DecodeURIComponentDemo;
-import demos.jsUri.DecodeURIDemo;
-import demos.jsUri.EncodeURIComponentDemo;
-import demos.jsUri.EncodeURIDemo;
-import org.graalvm.webimage.api.JSString;
+import demos.jsJson.IsRawJSONDemo;
+import demos.jsJson.ParseDemo;
+import demos.jsJson.RawJSONDemo;
+import demos.jsJson.StringifyDemo;
 
 
 public class Main {
@@ -363,40 +347,50 @@ public class Main {
 //        ValuesDemo.main(null);
 //
 //        SizeDemo.main(null);
+//
+//        // JSSet
+//
+//        AddDemo.main(null);
+//
+//        ClearDemo.main(null);
+//
+//        DeleteDemo.main(null);
+//
+//        DifferenceDemo.main(null);
+//
+//        EntriesDemo.main(null);
+//
+//        ForEachDemo.main(null);
+//
+//        HasDemo.main(null);
+//
+//        IntersectionDemo.main(null);
+//
+//        IsDisjointFromDemo.main(null);
+//
+//        IsSubsetOfDemo.main(null);
+//
+//        IsSupersetOfDemo.main(null);
+//
+//        KeysDemo.main(null);
+//
+//        SymmetricDifferenceDemo.main(null);
+//
+//        UnionDemo.main(null);
+//
+//        ValuesDemo.main(null);
+//
+//        SizeDemo.main(null);
 
-        // JSSet
 
-        AddDemo.main(null);
 
-        ClearDemo.main(null);
+        ParseDemo.main(null);
 
-        DeleteDemo.main(null);
+        StringifyDemo.main(null);
 
-        DifferenceDemo.main(null);
+        RawJSONDemo.main(null);
 
-        EntriesDemo.main(null);
-
-        ForEachDemo.main(null);
-
-        HasDemo.main(null);
-
-        IntersectionDemo.main(null);
-
-        IsDisjointFromDemo.main(null);
-
-        IsSubsetOfDemo.main(null);
-
-        IsSupersetOfDemo.main(null);
-
-        KeysDemo.main(null);
-
-        SymmetricDifferenceDemo.main(null);
-
-        UnionDemo.main(null);
-
-        ValuesDemo.main(null);
-
-        SizeDemo.main(null);
+        IsRawJSONDemo.main(null);
 
 //        // JSIterator
 //

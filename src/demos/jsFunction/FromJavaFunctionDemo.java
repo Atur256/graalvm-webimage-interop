@@ -1,6 +1,8 @@
 package demos.jsFunction;
 
 import builtin.JSFunction;
+import org.graalvm.webimage.api.JSNumber;
+import org.graalvm.webimage.api.JSString;
 
 
 public class FromJavaFunctionDemo {
@@ -48,6 +50,13 @@ public class FromJavaFunctionDemo {
         JSFunction biMultiply = JSFunction.fromGeneralBiFunction((Double x, Double y) -> x * y);
         System.out.println("BiFunction multiply: " + biMultiply.call(6.0, 7.0));
         // Expected: 42.0
+
+        // === BiFunction: (JSString, JSNumber) → JSString
+        JSFunction biMixed = JSFunction.fromBiFunction((JSString name, JSNumber age) ->
+                JSString.of(name.as(String.class) + " is " + age.as(Integer.class) + " years old."));
+        JSString result = biMixed.call(JSString.of("Alice"), JSNumber.of(25));
+        System.out.println("BiFunction biMixed: " + result.as(String.class));
+        // Expected: BiFunction biMixed: Alice is 25 years old.
     }
 
     record CustomClass(String name) {

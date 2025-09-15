@@ -30,11 +30,8 @@ public class JSIterator extends JSObject {
     @JS(value = "return this.find(callback)")
     public native Object find(JSFunction callback);
 
-    @SuppressWarnings("unchecked")
     public <R> R find(JSFunction callback, Class<R> cls) {
-        java.lang.Object result = find(callback); // TODO: move to JSValue as static checkedCoerce
-        if(result instanceof JSValue jsResult) return jsResult.as(cls);
-        return (R) result;
+        return JSValue.checkedCoerce(find(callback), cls);
     }
 
     @JS.Coerce
@@ -53,11 +50,8 @@ public class JSIterator extends JSObject {
     @JS(value = "return this.reduce(callback)")
     private native Object reduceJS(JSFunction callback);
 
-    @SuppressWarnings("unchecked")
     public <R> R reduce(JSFunction callback, Class<R> cls) {
-        java.lang.Object result = reduceJS(callback); // TODO: move to JSValue as static checkedCoerce
-        if(result instanceof JSValue jsResult) return jsResult.as(cls);
-        return (R) result;
+        return JSValue.checkedCoerce(reduceJS(callback), cls);
     }
 
     @JS.Coerce

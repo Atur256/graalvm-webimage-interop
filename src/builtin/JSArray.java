@@ -80,11 +80,8 @@ public class JSArray extends JSObject {
     @JS(value = "return this.at(index)")
     public native Object at(int index);
 
-    @SuppressWarnings("unchecked")
     public <R> R at(int index, Class<R> cls) {
-        java.lang.Object result = at(index); // TODO: move to JSValue as static checkedCoerce
-        if(result instanceof JSValue jsResult) return jsResult.as(cls);
-        return (R) result;
+        return JSValue.checkedCoerce(at(index), cls);
     }
 
     @JS.Coerce
@@ -231,11 +228,8 @@ public class JSArray extends JSObject {
     @JS(value = "return this.find(callback)")
     public native Object find(JSFunction callback);
 
-    @SuppressWarnings("unchecked")
     public <R> R find(JSFunction callback, Class<R> cls) {
-        java.lang.Object result = find(callback); // TODO: move to JSValue as static checkedCoerce
-        if(result instanceof JSValue jsResult) return jsResult.as(cls);
-        return (R) result;
+        return JSValue.checkedCoerce(find(callback), cls);
     }
 
     @JS.Coerce
@@ -246,11 +240,8 @@ public class JSArray extends JSObject {
     @JS(value = "return this.findLast(callback)")
     public native Object findLast(JSFunction callback);
 
-    @SuppressWarnings("unchecked")
     public <R> R findLast(JSFunction callback, Class<R> cls) {
-        java.lang.Object result = findLast(callback); // TODO: move to JSValue as static checkedCoerce
-        if(result instanceof JSValue jsResult) return jsResult.as(cls);
-        return (R) result;
+        return JSValue.checkedCoerce(findLast(callback), cls);
     }
 
     @JS.Coerce
@@ -345,11 +336,8 @@ public class JSArray extends JSObject {
     @JS(value = "return this.pop()")
     public native Object pop();
 
-    @SuppressWarnings("unchecked")
     public <R> R pop(Class<R> cls) {
-        java.lang.Object result = pop(); // TODO: move to JSValue as static checkedCoerce
-        if(result instanceof JSValue jsResult) return jsResult.as(cls);
-        return (R) result;
+        return JSValue.checkedCoerce(pop(), cls);
     }
 
     @JS.Coerce
@@ -376,11 +364,8 @@ public class JSArray extends JSObject {
     @JS(value = "return this.reduce(callback)")
     private native Object reduceJS(JSFunction callback);
 
-    @SuppressWarnings("unchecked")
     public <R> R reduce(JSFunction callback, Class<R> cls) {
-        java.lang.Object result = reduceJS(callback); // TODO: move to JSValue as static checkedCoerce
-        if(result instanceof JSValue jsResult) return jsResult.as(cls);
-        return (R) result;
+        return JSValue.checkedCoerce(reduceJS(callback), cls);
     }
 
     @JS.Coerce
@@ -400,11 +385,8 @@ public class JSArray extends JSObject {
     @JS(value = "return this.reduceRight(callback)")
     private native Object reduceRightJS(JSFunction callback);
 
-    @SuppressWarnings("unchecked")
     public <R> R reduceRight(JSFunction callback, Class<R> cls) {
-        java.lang.Object result = reduceRightJS(callback); // TODO: move to JSValue as static checkedCoerce
-        if(result instanceof JSValue jsResult) return jsResult.as(cls);
-        return (R) result;
+        return JSValue.checkedCoerce(reduceRightJS(callback), cls);
     }
 
     @JS.Coerce
@@ -428,11 +410,8 @@ public class JSArray extends JSObject {
     @JS(value = "return this.shift()")
     public native Object shift();
 
-    @SuppressWarnings("unchecked")
     public <R> R shift(Class<R> cls) {
-        java.lang.Object result = shift(); // TODO: move to JSValue as static checkedCoerce
-        if(result instanceof JSValue jsResult) return jsResult.as(cls);
-        return (R) result;
+        return JSValue.checkedCoerce(shift(), cls);
     }
 
     @JS.Coerce

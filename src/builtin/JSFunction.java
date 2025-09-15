@@ -84,11 +84,8 @@ public class JSFunction extends JSObject {
     @JS(value = "return this(arg)")
     public native <T> java.lang.Object callJS(T arg); // Call with arg and no coercion (raw Object return)
 
-    @SuppressWarnings("unchecked")
     public <T, R> R callJS(T args, Class<R> cls) {
-        java.lang.Object result = callJS(args); // TODO: move to JSValue as static checkedCoerce
-        if(result instanceof JSValue jsResult) return jsResult.as(cls);
-        return (R) result;
+        return JSValue.checkedCoerce(callJS(args), cls);
     }
 
     @JS(value = "return this(arg)")
@@ -118,7 +115,7 @@ public class JSFunction extends JSObject {
 
     @SafeVarargs
     @JS(value = "return this.apply(thisArg, args)")
-    public final native <T, Q> Object applyRaw(Q thisArg, T... args); // Apply with varargs and no coercion (raw Object return)
+    public final native <T, Q> java.lang.Object applyRaw(Q thisArg, T... args); // Apply with varargs and no coercion (raw Object return)
 
     // === ApplyJS Overloads ===
 
@@ -161,7 +158,7 @@ public class JSFunction extends JSObject {
             case Byte b -> JSNumber.of(b.longValue());
             case Float f -> JSNumber.of(f.doubleValue());
             case Double d -> JSNumber.of(d);
-            default -> JSString.of(arg.toString()); // TODO: custom classes do currently not work
+            default -> JSString.of(arg.toString());
         };
     }
 
