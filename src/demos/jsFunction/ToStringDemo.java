@@ -10,11 +10,10 @@ public class ToStringDemo {
 
         JSFunction jsF = JSFunction.fromBody("return 42;");
         System.out.println("JSFunction source: " + jsF.toStringJS());
-        // Expected: function anonymous(arg) { return 42; }
-
+        // Expected: JSFunction source: function anonymous(arg) { return 42; }
 
         JSFunction javaF = JSFunction.fromGeneralFunction((String arg) -> "Hello, " + arg);
         System.out.println("JSFunction source: " + javaF.toStringJS());
-        // Expected: function anonymous(arg) { return 42; }
+        // Expected: JSFunction source: function anonymous(arg) { return 42; }
     }
 }

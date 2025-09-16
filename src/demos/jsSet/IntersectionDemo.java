@@ -1,7 +1,6 @@
 package demos.jsSet;
 
 import builtin.JSSet;
-import org.graalvm.webimage.api.JSString;
 
 
 public class IntersectionDemo {

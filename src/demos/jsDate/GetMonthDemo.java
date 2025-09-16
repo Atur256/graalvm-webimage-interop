@@ -9,6 +9,6 @@ public class GetMonthDemo {
         System.out.println("\n=== JSDate.getMonth Demo ===");
         JSDate date = new JSDate();
         System.out.println("Month (0=Jan): " + date.getMonth());
-        // Expected: Month: <1-12>
+        // Expected: Month (0=Jan): <1-12>
     }
 }

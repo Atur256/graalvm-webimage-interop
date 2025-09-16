@@ -13,6 +13,7 @@ public class LengthDemo {
                 JSString.of("x"), JSString.of("y"), JSString.of("z")
         });
 
-        System.out.println("Array length: " + arr.length); // Expected: 3
+        System.out.println("Array length: " + arr.length);
+        // Expected: Array length: 3
     }
 }

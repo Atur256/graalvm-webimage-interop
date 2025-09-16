@@ -11,7 +11,7 @@ public class StringifyDemo {
         System.out.println("\n=== JSJson.stringify Demo ===");
 
         // Basic stringify (JSValue)
-        JSValue jsObj = JSEval.eval("({ name: 'Alice', age: 30 })");
+        JSValue jsObj = JSEval.eval("({ name: 'Alice', age: 30 })", JSValue.class);
         String json1 = JSJson.stringify(jsObj);
         System.out.println("Basic stringify (JSValue): " + json1);
         // Expected:

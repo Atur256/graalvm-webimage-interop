@@ -10,6 +10,6 @@ public class UnicodeDemo {
 
         JSRegExp regex = JSRegExp.of("\\u{1F600}", "u");
         System.out.println("Unicode? " + regex.unicode);
-        // Expected Output: Unicode? true
+        // Expected: Unicode? true
     }
 }

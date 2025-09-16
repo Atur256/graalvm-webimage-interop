@@ -10,6 +10,6 @@ public class ToStringDemo {
 
         JSRegExp regex = JSRegExp.of("abc", "g");
         System.out.println("Regex string: " + regex.toString());
-        // Expected Output: Regex string: /abc/g
+        // Expected: Regex string: /abc/g
     }
 }

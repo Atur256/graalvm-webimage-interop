@@ -1,8 +1,6 @@
 package demos.jsArray;
 
 import builtin.JSArray;
-import org.graalvm.webimage.api.JSString;
-import org.graalvm.webimage.api.JSValue;
 
 
 public class SortDemo {
@@ -13,6 +11,7 @@ public class SortDemo {
         JSArray arr = JSArray.of("banana", "apple", "cherry");
 
         arr.sort();
-        System.out.println("Sorted array: " + arr); // Expected: ["apple", "banana", "cherry"]
+        System.out.println("Sorted array: " + arr);
+        // Expected: Sorted array: ["apple", "banana", "cherry"]
     }
 }

@@ -15,11 +15,13 @@ public class SomeDemo {
         JSArray arr = JSArray.of(new JSValue[]{JSNumber.of(1), JSNumber.of(2), JSNumber.of(3)});
         JSFunction isEven = JSFunction.fromBody("return arg % 2 === 0;");
         boolean result = arr.some(isEven);
-        System.out.println("Has even: " + result); // Expected: true
+        System.out.println("Has even: " + result);
+        // Expected: Has even: true
 
         JSArray javaArr = JSArray.of(2, 4, 6);
         JSFunction isOdd = JSFunction.fromGeneralFunction((Integer arg) -> JSBoolean.of(arg % 2 != 0));
         boolean result2 = javaArr.some(isOdd);
-        System.out.println("Has even: " + result2); // Expected: false
+        System.out.println("Has even: " + result2);
+        // Expected: Has even: false
     }
 }

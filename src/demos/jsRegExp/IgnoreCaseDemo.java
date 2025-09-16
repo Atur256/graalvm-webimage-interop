@@ -8,6 +8,6 @@ public class IgnoreCaseDemo {
 
         JSRegExp regex = JSRegExp.of("x", "i");
         System.out.println("Ignore case? " + regex.ignoreCase);
-        // Expected Output: Ignore case? true
+        // Expected: Ignore case? true
     }
 }

@@ -1,6 +1,6 @@
 package demos.jsUri;
 
-import builtin.JSURI;
+import builtin.JSUri;
 
 
 public class EncodeURIComponentDemo {
@@ -9,11 +9,11 @@ public class EncodeURIComponentDemo {
         System.out.println("\n=== JSURI.encodeURIComponent Demo ===");
 
         System.out.println("encodeURIComponent(\"John Doe & Co.\"): " +
-                JSURI.encodeURIComponent("John Doe & Co."));
-        // Expected: John%20Doe%20%26%20Co.
+                JSUri.encodeURIComponent("John Doe & Co."));
+        // Expected: encodeURIComponent("John Doe & Co."): John%20Doe%20%26%20Co.
 
         System.out.println("encodeURIComponent(\"a+b=c&d\"): " +
-                JSURI.encodeURIComponent("a+b=c&d"));
-        // Expected: a%2Bb%3Dc%26d
+                JSUri.encodeURIComponent("a+b=c&d"));
+        // Expected: encodeURIComponent("a+b=c&d"): a%2Bb%3Dc%26d
     }
 }

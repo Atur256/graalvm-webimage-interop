@@ -10,6 +10,6 @@ public class HasIndicesDemo {
 
         JSRegExp regex = JSRegExp.of("x", "d");
         System.out.println("Has indices? " + regex.hasIndices);
-        // Expected Output: Has indices? true
+        // Expected: Has indices? true
     }
 }

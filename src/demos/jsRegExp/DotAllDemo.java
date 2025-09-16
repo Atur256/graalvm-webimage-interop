@@ -10,6 +10,6 @@ public class DotAllDemo {
 
         JSRegExp regex = JSRegExp.of(".", "s");
         System.out.println("dotAll enabled? " + regex.dotAll);
-        // Expected Output: dotAll enabled? true
+        // Expected: dotAll enabled? true
     }
 }

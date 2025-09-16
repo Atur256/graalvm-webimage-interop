@@ -2,8 +2,6 @@ package demos.jsArray;
 
 import builtin.JSArray;
 import builtin.JSIterator;
-import org.graalvm.webimage.api.JSNumber;
-import org.graalvm.webimage.api.JSValue;
 
 
 public class ValuesDemo {

@@ -4,8 +4,6 @@ import builtin.JSArray;
 import builtin.JSIterator;
 import builtin.JSPromise;
 import builtin.JSFunction;
-import org.graalvm.webimage.api.JS;
-import org.graalvm.webimage.api.JSString;
 import org.graalvm.webimage.api.JSValue;
 
 import java.util.List;

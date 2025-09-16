@@ -4,9 +4,8 @@ import org.graalvm.webimage.api.*;
 
 import java.lang.Boolean;
 import java.lang.String;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
+import java.util.function.*;
+import java.lang.Object;
 
 
 @JS.Import("Function")
@@ -18,8 +17,6 @@ public class JSFunction extends JSObject {
 
     public JSValue prototype;
 
-    // === JS Function Constructors ===
-
     @JS.Coerce
     @JS(value = "return new Function('arg', body)")
     public static native JSFunction fromBody(String body);
@@ -27,8 +24,6 @@ public class JSFunction extends JSObject {
     @JS.Coerce
     @JS(value = "return Function.apply(null, args)")
     public static native JSFunction fromArgs(String... args);
-
-    // === Java Lambda Wrappers ===
 
     @JS.Coerce
     @JS(value = "return function(args) { return javaFunc.apply(args); }")
@@ -40,11 +35,19 @@ public class JSFunction extends JSObject {
 
     @JS.Coerce
     @JS(value = "return function(a, b) { return javaBiFunc.apply(a, b); }")
-    public static native <A, B, R> JSFunction fromGeneralBiFunction(java.util.function.BiFunction<A, B, R> javaBiFunc);
+    public static native <A, B, R> JSFunction fromGeneralBiFunction(BiFunction<A, B, R> javaBiFunc);
 
     @JS.Coerce
     @JS(value = "return function(a, b) { return javaBiFunc.apply(a, b); }")
-    public static native <A extends JSValue, B extends JSValue, R extends JSValue> JSFunction fromBiFunction(java.util.function.BiFunction<A, B, R> javaBiFunc);
+    public static native <A extends JSValue, B extends JSValue, R extends JSValue> JSFunction fromBiFunction(BiFunction<A, B, R> javaBiFunc);
+
+    @JS.Coerce
+    @JS(value = "return function(a, b) { return javaTriFunction.apply(this, a, b); }")
+    public static native <A, B, C, R> JSFunction fromGeneralTriFunction(TriFunction<A, B, C, R> javaTriFunction);
+
+    @JS.Coerce
+    @JS(value = "return function(a, b) { return javaTriFunction.apply(this, a, b); }")
+    public static native <A extends JSValue, B extends JSValue, C extends JSValue, R extends JSValue> JSFunction fromTriFunction(TriFunction<A, B, C, R> javaTriFunction);
 
     @JS.Coerce
     @JS(value = "return function() { javaRunnable.run(); }")
@@ -60,11 +63,11 @@ public class JSFunction extends JSObject {
 
     @JS.Coerce
     @JS(value = "return function(a, b) { javaBiConsumer.accept(a, b); }")
-    public static native <A, B> JSFunction fromGeneralBiConsumer(java.util.function.BiConsumer<A, B> javaBiConsumer);
+    public static native <A, B> JSFunction fromGeneralBiConsumer(BiConsumer<A, B> javaBiConsumer);
 
     @JS.Coerce
     @JS(value = "return function(a, b) { javaBiConsumer.accept(a, b); }")
-    public static native <A extends JSValue, B extends JSValue> JSFunction fromBiConsumer(java.util.function.BiConsumer<A, B> javaBiConsumer);
+    public static native <A extends JSValue, B extends JSValue> JSFunction fromBiConsumer(BiConsumer<A, B> javaBiConsumer);
 
     @JS.Coerce
     @JS(value = "return function(value, key) { javaTriConsumer.accept(this, value, key); }")
@@ -78,11 +81,9 @@ public class JSFunction extends JSObject {
     @JS(value = "return function() { return javaSupplier.get(); }")
     public static native <T> JSFunction fromSupplier(Supplier<T> javaSupplier);
 
-    // === Call Overloads ===
-
     @JS.Coerce
     @JS(value = "return this(arg)")
-    public native <T> java.lang.Object callJS(T arg); // Call with arg and no coercion (raw Object return)
+    public native <T> Object callJS(T arg); // Call with arg and no coercion (raw Object return)
 
     public <T, R> R callJS(T args, Class<R> cls) {
         return JSValue.checkedCoerce(callJS(args), cls);
@@ -98,11 +99,9 @@ public class JSFunction extends JSObject {
     @JS(value = "return this()")
     public native <R> R call();
 
-    // === Apply Overloads ===
-
     @JS.Coerce
     @JS(value = "return this.apply(thisArg, argsJSArray)")
-    public native java.lang.Object applyGeneral(JSValue thisArg, JSValue argsJSArray);
+    public native Object applyGeneral(JSValue thisArg, JSValue argsJSArray);
 
     @JS.Coerce
     @JS(value = "return this.apply(thisArg, argsJSArray)")
@@ -115,22 +114,20 @@ public class JSFunction extends JSObject {
 
     @SafeVarargs
     @JS(value = "return this.apply(thisArg, args)")
-    public final native <T, Q> java.lang.Object applyRaw(Q thisArg, T... args); // Apply with varargs and no coercion (raw Object return)
-
-    // === ApplyJS Overloads ===
+    public final native <T, Q> Object applyRaw(Q thisArg, T... args); // Apply with varargs and no coercion (raw Object return)
 
     @JS.Coerce
     @JS(value = "return this.apply(thisArg, args)")
-    public native <T> java.lang.Object applyJS(java.lang.Object thisArg, T args);
+    public native <T> Object applyJS(Object thisArg, T args);
 
     @SuppressWarnings("unchecked")
-    public <T, R> R applyJS(java.lang.Object thisArg, T args, Class<R> cls) {
-        java.lang.Object result = applyJS(thisArg, args);
+    public <T, R> R applyJS(Object thisArg, T args, Class<R> cls) {
+        Object result = applyJS(thisArg, args);
         if(result instanceof JSValue jsResult) return jsResult.as(cls);
         return (R) result;
     }
 
-    private JSValue toJSValue(java.lang.Object arg) {
+    private JSValue toJSValue(Object arg) {
         if(arg instanceof Object[] array) {
             JSArray jsArray = new JSArray();
             for(Object item : array) {
@@ -162,8 +159,6 @@ public class JSFunction extends JSObject {
         };
     }
 
-    // === Bind ===
-
     @JS.Coerce
     @JS(value = "return this.bind(thisArg)")
     public native JSFunction bind(JSValue thisArg);
@@ -171,8 +166,6 @@ public class JSFunction extends JSObject {
     public final <T> JSFunction bind(T thisArg) {
         return bind(toJSValue(thisArg));
     }
-
-    // === Call with Spread ===
 
     @JS.Coerce
     @JS(value = "return this.call.apply(this, [thisArg, ...args])")
@@ -187,12 +180,7 @@ public class JSFunction extends JSObject {
         return callWithSpreadArgs(thisArg, jsArgs);
     }
 
-    // === ToString ===
-
     @JS.Coerce
     @JS(value = "return this.toString()")
     public native String toStringJS();
 }
-
-
-

@@ -12,6 +12,6 @@ public class PrototypeDemo {
         JSFunction f = JSFunction.fromBody("return true;");
         JSValue proto = f.prototype;
         System.out.println("JSFunction prototype: " + proto);
-        // Expected: [object Object]
+        // Expected: JSFunction prototype: JavaScript<object; [object Object]>
     }
 }

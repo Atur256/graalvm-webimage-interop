@@ -187,7 +187,6 @@ public class JSArray extends JSObject {
         return JSString.of(arg.toString());
     }
 
-
     @JS.Coerce
     @JS(value = "return this.copyWithin(target, start, end)")
     public native JSArray copyWithin(int target, int start, int end);

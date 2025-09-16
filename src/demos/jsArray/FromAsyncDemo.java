@@ -12,6 +12,6 @@ public class FromAsyncDemo {
 
         JSValue promise = JSArray.fromAsync(JSString.of("abc"));
         System.out.println("Promise from async iterable: " + promise);
-        // Expected: Promise object
+        // Expected: Promise from async iterable: JavaScript<object; [object Promise]>
     }
 }

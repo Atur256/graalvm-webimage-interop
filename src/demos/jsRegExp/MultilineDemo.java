@@ -8,6 +8,6 @@ public class MultilineDemo {
 
         JSRegExp regex = JSRegExp.of("^x", "m");
         System.out.println("Multiline? " + regex.multiline);
-        // Expected Output: Multiline? true
+        // Expected: Multiline? true
     }
 }

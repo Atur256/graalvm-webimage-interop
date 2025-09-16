@@ -2,7 +2,6 @@ package demos.jsIterator;
 
 import builtin.*;
 import org.graalvm.webimage.api.JSBoolean;
-import org.graalvm.webimage.api.JSValue;
 
 import java.lang.String;
 

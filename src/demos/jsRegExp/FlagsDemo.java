@@ -10,6 +10,6 @@ public class FlagsDemo {
 
         JSRegExp regex = JSRegExp.of("x", "gim");
         System.out.println("Flags: " + regex.flags);
-        // Expected Output: Flags: gim
+        // Expected: Flags: gim
     }
 }

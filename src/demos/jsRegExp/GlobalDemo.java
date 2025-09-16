@@ -8,6 +8,6 @@ public class GlobalDemo {
 
         JSRegExp regex = JSRegExp.of("x", "g");
         System.out.println("Global? " + regex.global);
-        // Expected Output: Global? true
+        // Expected: Global? true
     }
 }

@@ -11,6 +11,6 @@ public class ExecDemo {
         JSRegExp regex = JSRegExp.of("a(b)c", "");
         var result = regex.exec("abc");
         System.out.println("Exec result: " + result);
-        // Expected Output: Exec result: [abc, b]
+        // Expected: Exec result: JavaScript<object; abc,b>
     }
 }

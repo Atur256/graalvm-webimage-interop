@@ -1,8 +1,6 @@
 package demos.jsArray;
 
 import builtin.JSArray;
-import org.graalvm.webimage.api.JSString;
-import org.graalvm.webimage.api.JSValue;
 
 
 public class ToStringDemo {
@@ -14,6 +12,6 @@ public class ToStringDemo {
 
         String result = arr.toString();
         System.out.println("Array as string: " + result);
-        // Expected: ["apple","banana","cherry"]
+        // Expected: Array as string: ["apple","banana","cherry"]
     }
 }

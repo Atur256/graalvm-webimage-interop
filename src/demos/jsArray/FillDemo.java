@@ -12,22 +12,27 @@ public class FillDemo {
 
         JSArray arr = JSArray.of(new JSValue[]{JSNumber.of(1), JSNumber.of(2), JSNumber.of(3)});
         arr.fill(JSNumber.of(0), 1, 3);
-        System.out.println("After fill: " + arr); // Expected: [1, 0, 0]
+        System.out.println("After fill: " + arr);
+        // Expected: After fill: [1, 0, 0]
 
         JSArray javaArr1 = JSArray.of(1, 2, 3);
         javaArr1.fill(0, 1, 3);
-        System.out.println("After fill: " + javaArr1); // Expected: [1, 0, 0]
+        System.out.println("After fill: " + javaArr1);
+        // Expected: After fill: [1, 0, 0]
 
         JSArray javaArr2 = JSArray.of(1.1, 2.2, 3.3, 4.4);
         javaArr2.fill(11.1, 1, 2);
-        System.out.println("After fill: " + javaArr2); // Expected: [1.1,11.1,3.3,4.4]
+        System.out.println("After fill: " + javaArr2);
+        // Expected: After fill: [1.1, 11.1, 3.3, 4.4]
 
         JSArray javaArr3 = JSArray.of(new boolean[]{true, true, true, true});
         javaArr3.fill(false, 0, 1);
-        System.out.println("After fill: " + javaArr3); // Expected: [false,true,true,true]
+        System.out.println("After fill: " + javaArr3);
+        // Expected: After fill: [false,true,true,true]
 
         JSArray javaArr4 = JSArray.of("apple", "banana", "orange");
         javaArr4.fill("peach", 1, 2);
-        System.out.println("After fill: " + javaArr4); // Expected: [apple,peach,orange]
+        System.out.println("After fill: " + javaArr4);
+        // Expected: After fill: [apple,peach,orange]
     }
 }

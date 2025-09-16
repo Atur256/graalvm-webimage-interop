@@ -1,212 +1,172 @@
-
+import demos.jsArray.*;
+import demos.jsArray.EntriesDemo;
+import demos.jsArray.ForEachDemo;
+import demos.jsArray.KeysDemo;
+import demos.jsArray.ToLocaleStringDemo;
+import demos.jsArray.ValuesDemo;
+import demos.jsDate.*;
+import demos.jsEval.EvalDemo;
+import demos.jsFunction.*;
+import demos.jsFunction.LengthDemo;
+import demos.jsFunction.ToStringDemo;
 import demos.jsJson.IsRawJSONDemo;
-import demos.jsJson.ParseDemo;
 import demos.jsJson.RawJSONDemo;
 import demos.jsJson.StringifyDemo;
+import demos.jsMap.*;
+import demos.jsMap.ClearDemo;
+import demos.jsMap.DeleteDemo;
+import demos.jsMap.HasDemo;
+import demos.jsMap.SizeDemo;
+import demos.jsMath.*;
+import demos.jsPromise.*;
+import demos.jsRegExp.*;
+import demos.jsSet.*;
+import demos.jsUri.DecodeURIComponentDemo;
+import demos.jsUri.DecodeURIDemo;
+import demos.jsUri.EncodeURIComponentDemo;
+import demos.jsUri.EncodeURIDemo;
 
 
 public class Main {
 
     public static void main(String[] args) {
 
-//        // Object
-//
-//        AssignDemo.main(null);
-//
-//        CreateDemo.main(null);
-//
-//        CreateWithPropertiesDemo.main(null);
-//
-//        DefinePropertyDemo.main(null);
-//
-//        DefinePropertiesDemo.main(null);
-//
-//        EntriesDemo.main(null);
-//
-//        FreezeDemo.main(null);
-//
-//        FromEntriesDemo.main(null);
-//
-//        GetOwnPropertyDescriptorsDemo.main(null);
-//
-//        GetOwnPropertyNamesDemo.main(null);
-//
-//        GetOwnPropertySymbolsDemo.main(null);
-//
-//        GetPrototypeOfDemo.main(null);
-//
-//        GroupByDemo.main(null);
-//
-//        HasOwnDemo.main(null);
-//
-//        IsDemo.main(null);
-//
-//        IsExtensibleDemo.main(null);
-//
-//        IsFrozenDemo.main(null);
-//
-//        IsSealedDemo.main(null);
-//
-//        PreventExtensionsDemo.main(null);
-//
-//        SealDemo.main(null);
-//
-//        SetPrototypeOfDemo.main(null);
-//
-//        ValuesDemo.main(null);
-//
-//        // Number
-//
-//        IsFiniteDemo.main(null);
-//
-//        IsNaNDemo.main(null);
-//
-//        ParseFloatNumberDemo.main(null);
-//
-//        ParseFloatStringDemo.main(null);
-//
-//        ParseIntNumberDemo.main(null);
-//
-//        ParseIntStringDemo.main(null);
-//
-//        ParseIntRadixDemo.main(null);
-//
-//        // Eval
-//
-//        EvalDemo.main(null);
-//
-//        // URI
-//
-//        DecodeURIDemo.main(null);
-//
-//        EncodeURIDemo.main(null);
-//
-//        DecodeURIComponentDemo.main(null);
-//
-//        EncodeURIComponentDemo.main(null);
-//
-//        // JSFunction
-//
-//        FromBodyDemo.main(null);
-//
-//        FromArgsDemo.main(null);
-//
-//        FromJavaFunctionDemo.main(null);
-//
-//        FromRunnableDemo.main(null);
-//
-//        FromConsumerDemo.main(null);
-//
-//        FromSupplierDemo.main(null);
-//
-//        CallJSDemo.main(null);
-//
-//        CallDemo.main(null);
-//
-//        ApplyDemo.main(null);
-//
-//        BindDemo.main(null);
-//
-//        CallWithSpreadArgsDemo.main(null);
-//
-//        LengthDemo.main(null);
-//
-//        NameDemo.main(null);
-//
-//        PrototypeDemo.main(null);
-//
-//        ToStringDemo.main(null);
-//
-//          // JSArray
-//
-//        FromDemo.main(null);
-//
-//        FromAsyncDemo.main(null);
-//
-//        IsArrayDemo.main(null);
-//
-//        OfDemo.main(null);
-//
-//        IndexOfDemo.main(null);
-//
-//        AtDemo.main(null);
-//
-//        ConcatDemo.main(null);
-//
-//        CopyWithinDemo.main(null);
-//
-//        EntriesDemo.main(null);
-//
-//        EveryDemo.main(null);
-//
-//        FillDemo.main(null);
-//
-//        FilterDemo.main(null);
-//
-//        FindDemo.main(null);
-//
-//        FindIndexDemo.main(null);
-//
-//        FindLastDemo.main(null);
-//
-//        FindLastIndexDemo.main(null);
-//
-//        FlatDemo.main(null);
-//
-//        FlatMapDemo.main(null);
-//
-//        ForEachDemo.main(null);
-//
-//        IncludesDemo.main(null);
-//
-//        IndexOfDemo.main(null);
-//
-//        JoinDemo.main(null);
-//
-//        KeysDemo.main(null);
-//
-//        LastIndexOfDemo.main(null);
-//
-//        MapDemo.main(null);
-//
-//        PopDemo.main(null);
-//
-//        PushDemo.main(null);
-//
-//        ReduceDemo.main(null);
-//
-//        ReduceRightDemo.main(null);
-//
-//        ReverseDemo.main(null);
-//
-//        ShiftDemo.main(null);
-//
-//        SliceDemo.main(null);
-//
-//        SomeDemo.main(null);
-//
-//        SortDemo.main(null);
-//
-//        ToLocaleStringDemo.main(null);
-//
-//        ToReversedDemo.main(null);
-//
-//        ToSortedDemo.main(null);
-//
-//        ToSplicedDemo.main(null);
-//
-//        ToStringDemo.main(null);
-//
-//        UnshiftDemo.main(null);
-//
-//        ValuesDemo.main(null);
-//
-//        WithDemo.main(null);
-//
-        // JSPromise
+        // Eval
+
+        EvalDemo.main(null);
+
+        // URI
+
+        DecodeURIDemo.main(null);
+
+        EncodeURIDemo.main(null);
+
+        DecodeURIComponentDemo.main(null);
+
+        EncodeURIComponentDemo.main(null);
+
+        // JSFunction
+
+        FromBodyDemo.main(null);
+
+        FromArgsDemo.main(null);
+
+        FromJavaFunctionDemo.main(null);
+
+        FromRunnableDemo.main(null);
+
+        FromConsumerDemo.main(null);
+
+        FromSupplierDemo.main(null);
+
+        CallJSDemo.main(null);
+
+        CallDemo.main(null);
+
+        ApplyDemo.main(null);
+
+        BindDemo.main(null);
+
+        CallWithSpreadArgsDemo.main(null);
+
+        LengthDemo.main(null);
+
+        NameDemo.main(null);
+
+        PrototypeDemo.main(null);
+
+        ToStringDemo.main(null);
+
+        // JSArray
+
+        FromDemo.main(null);
+
+        FromAsyncDemo.main(null);
+
+        IsArrayDemo.main(null);
+
+        OfDemo.main(null);
+
+        IndexOfDemo.main(null);
+
+        AtDemo.main(null);
+
+        ConcatDemo.main(null);
+
+        CopyWithinDemo.main(null);
+
+        EntriesDemo.main(null);
+
+        EveryDemo.main(null);
+
+        FillDemo.main(null);
+
+        FilterDemo.main(null);
+
+        FindDemo.main(null);
+
+        FindIndexDemo.main(null);
+
+        FindLastDemo.main(null);
+
+        FindLastIndexDemo.main(null);
+
+        FlatDemo.main(null);
+
+        FlatMapDemo.main(null);
+
+        ForEachDemo.main(null);
+
+        IncludesDemo.main(null);
+
+        IndexOfDemo.main(null);
+
+        JoinDemo.main(null);
+
+        KeysDemo.main(null);
+
+        LastIndexOfDemo.main(null);
+
+        MapDemo.main(null);
+
+        PopDemo.main(null);
+
+        PushDemo.main(null);
+
+        ReduceDemo.main(null);
+
+        ReduceRightDemo.main(null);
+
+        ReverseDemo.main(null);
+
+        ShiftDemo.main(null);
+
+        SliceDemo.main(null);
+
+        SomeDemo.main(null);
+
+        SortDemo.main(null);
+
+        ToLocaleStringDemo.main(null);
+
+        ToReversedDemo.main(null);
+
+        ToSortedDemo.main(null);
+
+        ToSplicedDemo.main(null);
+
+        demos.jsArray.ToStringDemo.main(null);
+
+        UnshiftDemo.main(null);
+
+        ValuesDemo.main(null);
+
+        WithDemo.main(null);
+
+//        // JSPromise
 //
 //        AllDemo.main(null);
-
+//
 //        AllSettledDemo.main(null);
 //
 //        AnyDemo.main(null);
@@ -225,166 +185,273 @@ public class Main {
 //
 //        ThenDemo.main(null);
 
-//
-//
-//
-//
-//
-//        // JSDate
-//
-//        NowDemo.main(null);
-//
-//        ParseDemo.main(null);
-//
-//        UTCDemo.main(null);
-//
-//        GetDateDemo.main(null);
-//
-//        GetDayDemo.main(null);
-//
-//        GetFullYearDemo.main(null);
-//
-//        GetHoursDemo.main(null);
-//
-//        GetMillisecondsDemo.main(null);
-//
-//        GetMinutesDemo.main(null);
-//
-//        GetMonthDemo.main(null);
-//
-//        GetSecondsDemo.main(null);
-//
-//        GetTimeDemo.main(null);
-//
-//        GetTimezoneOffsetDemo.main(null);
-//
-//        GetUTCDateDemo.main(null);
-//
-//        GetUTCDayDemo.main(null);
-//
-//        GetUTCFullYearDemo.main(null);
-//
-//        GetUTCHoursDemo.main(null);
-//
-//        GetUTCMillisecondsDemo.main(null);
-//
-//        GetUTCMinutesDemo.main(null);
-//
-//        GetUTCMonthDemo.main(null);
-//
-//        GetUTCSecondsDemo.main(null);
-//
-//        SetDateDemo.main(null);
-//
-//        SetFullYearDemo.main(null);
-//
-//        SetHoursDemo.main(null);
-//
-//        SetMillisecondsDemo.main(null);
-//
-//        SetMinutesDemo.main(null);
-//
-//        SetMonthDemo.main(null);
-//
-//        SetSecondsDemo.main(null);
-//
-//        SetTimeDemo.main(null);
-//
-//        SetUTCDateDemo.main(null);
-//
-//        SetUTCFullYearDemo.main(null);
-//
-//        SetUTCHoursDemo.main(null);
-//
-//        SetUTCMillisecondsDemo.main(null);
-//
-//        SetUTCMinutesDemo.main(null);
-//
-//        SetUTCMonthDemo.main(null);
-//
-//        SetUTCSecondsDemo.main(null);
-//
-//        ToDateStringDemo.main(null);
-//
-//        ToISOStringDemo.main(null);
-//
-//        ToJSONDemo.main(null);
-//
-//        ToLocaleDateStringDemo.main(null);
-//
-//        ToLocaleStringDemo.main(null);
-//
-//        ToLocaleTimeStringDemo.main(null);
-//
-//        ToStringDemo.main(null);
-//
-//        ToTimeStringDemo.main(null);
-//
-//        ToUTCStringDemo.main(null);
-//
-//        ValueOfDemo.main(null);
-//
-//        // JSMap
-//
-//        GroupByDemo.main(null);
-//
-//        ClearDemo.main(null);
-//
-//        DeleteDemo.main(null);
-//
-//        EntriesDemo.main(null);
-//
-//        ForEachDemo.main(null);
-//
-//        GetDemo.main(null);
-//
-//        HasDemo.main(null);
-//
-//        KeysDemo.main(null);
-//
-//        SetDemo.main(null);
-//
-//        ValuesDemo.main(null);
-//
-//        SizeDemo.main(null);
-//
-//        // JSSet
-//
-//        AddDemo.main(null);
-//
-//        ClearDemo.main(null);
-//
-//        DeleteDemo.main(null);
-//
-//        DifferenceDemo.main(null);
-//
-//        EntriesDemo.main(null);
-//
-//        ForEachDemo.main(null);
-//
-//        HasDemo.main(null);
-//
-//        IntersectionDemo.main(null);
-//
-//        IsDisjointFromDemo.main(null);
-//
-//        IsSubsetOfDemo.main(null);
-//
-//        IsSupersetOfDemo.main(null);
-//
-//        KeysDemo.main(null);
-//
-//        SymmetricDifferenceDemo.main(null);
-//
-//        UnionDemo.main(null);
-//
-//        ValuesDemo.main(null);
-//
-//        SizeDemo.main(null);
+        // JSDate
 
-
+        NowDemo.main(null);
 
         ParseDemo.main(null);
+
+        UTCDemo.main(null);
+
+        GetDateDemo.main(null);
+
+        GetDayDemo.main(null);
+
+        GetFullYearDemo.main(null);
+
+        GetHoursDemo.main(null);
+
+        GetMillisecondsDemo.main(null);
+
+        GetMinutesDemo.main(null);
+
+        GetMonthDemo.main(null);
+
+        GetSecondsDemo.main(null);
+
+        GetTimeDemo.main(null);
+
+        GetTimezoneOffsetDemo.main(null);
+
+        GetUTCDateDemo.main(null);
+
+        GetUTCDayDemo.main(null);
+
+        GetUTCFullYearDemo.main(null);
+
+        GetUTCHoursDemo.main(null);
+
+        GetUTCMillisecondsDemo.main(null);
+
+        GetUTCMinutesDemo.main(null);
+
+        GetUTCMonthDemo.main(null);
+
+        GetUTCSecondsDemo.main(null);
+
+        SetDateDemo.main(null);
+
+        SetFullYearDemo.main(null);
+
+        SetHoursDemo.main(null);
+
+        SetMillisecondsDemo.main(null);
+
+        SetMinutesDemo.main(null);
+
+        SetMonthDemo.main(null);
+
+        SetSecondsDemo.main(null);
+
+        SetTimeDemo.main(null);
+
+        SetUTCDateDemo.main(null);
+
+        SetUTCFullYearDemo.main(null);
+
+        SetUTCHoursDemo.main(null);
+
+        SetUTCMillisecondsDemo.main(null);
+
+        SetUTCMinutesDemo.main(null);
+
+        SetUTCMonthDemo.main(null);
+
+        SetUTCSecondsDemo.main(null);
+
+        ToDateStringDemo.main(null);
+
+        ToISOStringDemo.main(null);
+
+        ToJSONDemo.main(null);
+
+        ToLocaleDateStringDemo.main(null);
+
+        demos.jsDate.ToLocaleStringDemo.main(null);
+
+        ToLocaleTimeStringDemo.main(null);
+
+        demos.jsDate.ToStringDemo.main(null);
+
+        ToTimeStringDemo.main(null);
+
+        ToUTCStringDemo.main(null);
+
+        ValueOfDemo.main(null);
+
+        // JSMap
+
+        GroupByDemo.main(null);
+
+        ClearDemo.main(null);
+
+        DeleteDemo.main(null);
+
+        demos.jsMap.EntriesDemo.main(null);
+
+        demos.jsMap.ForEachDemo.main(null);
+
+        GetDemo.main(null);
+
+        HasDemo.main(null);
+
+        demos.jsMap.KeysDemo.main(null);
+
+        SetDemo.main(null);
+
+        demos.jsMap.ValuesDemo.main(null);
+
+        SizeDemo.main(null);
+
+        // JSSet
+
+        AddDemo.main(null);
+
+        demos.jsSet.ClearDemo.main(null);
+
+        demos.jsSet.DeleteDemo.main(null);
+
+        DifferenceDemo.main(null);
+
+        demos.jsSet.EntriesDemo.main(null);
+
+        demos.jsSet.ForEachDemo.main(null);
+
+        demos.jsSet.HasDemo.main(null);
+
+        IntersectionDemo.main(null);
+
+        IsDisjointFromDemo.main(null);
+
+        IsSubsetOfDemo.main(null);
+
+        IsSupersetOfDemo.main(null);
+
+        demos.jsSet.KeysDemo.main(null);
+
+        SymmetricDifferenceDemo.main(null);
+
+        UnionDemo.main(null);
+
+        demos.jsSet.ValuesDemo.main(null);
+
+        demos.jsSet.SizeDemo.main(null);
+
+        // JSIterator
+
+        demos.jsIterator.FromDemo.main(null);
+
+        demos.jsIterator.DropDemo.main(null);
+
+        demos.jsIterator.EveryDemo.main(null);
+
+        demos.jsIterator.FilterDemo.main(null);
+
+        demos.jsIterator.FindDemo.main(null);
+
+        demos.jsIterator.FlatMapDemo.main(null);
+
+        demos.jsIterator.ForEachDemo.main(null);
+
+        demos.jsIterator.MapDemo.main(null);
+
+        demos.jsIterator.ReduceDemo.main(null);
+
+        demos.jsIterator.SomeDemo.main(null);
+
+        demos.jsIterator.TakeDemo.main(null);
+
+        // JSMath
+
+        EConstantDemo.main(null);
+
+        LN2ConstantDemo.main(null);
+
+        LN10ConstantDemo.main(null);
+
+        LOG2EConstantDemo.main(null);
+
+        LOG10EConstantDemo.main(null);
+
+        PIConstantDemo.main(null);
+
+        SQRT1_2ConstantDemo.main(null);
+
+        SQRT2ConstantDemo.main(null);
+
+        AbsDemo.main(null);
+
+        AcosDemo.main(null);
+
+        AcoshDemo.main(null);
+
+        AsinDemo.main(null);
+
+        AsinhDemo.main(null);
+
+        AtanDemo.main(null);
+
+        Atan2Demo.main(null);
+
+        AtanhDemo.main(null);
+
+        CbrtDemo.main(null);
+
+        CeilDemo.main(null);
+
+        Clz32Demo.main(null);
+
+        CosDemo.main(null);
+
+        CoshDemo.main(null);
+
+        ExpDemo.main(null);
+
+        Expm1Demo.main(null);
+
+        FloorDemo.main(null);
+
+        FroundDemo.main(null);
+
+        HypotDemo.main(null);
+
+        ImulDemo.main(null);
+
+        LogDemo.main(null);
+
+        Log1pDemo.main(null);
+
+        Log2Demo.main(null);
+
+        Log10Demo.main(null);
+
+        MaxDemo.main(null);
+
+        MinDemo.main(null);
+
+        PowDemo.main(null);
+
+        RandomDemo.main(null);
+
+        RoundDemo.main(null);
+
+        SignDemo.main(null);
+
+        SinDemo.main(null);
+
+        SinhDemo.main(null);
+
+        SqrtDemo.main(null);
+
+        TanDemo.main(null);
+
+        TanhDemo.main(null);
+
+        TruncDemo.main(null);
+
+        // JSJson
+
+        demos.jsJson.ParseDemo.main(null);
 
         StringifyDemo.main(null);
 
@@ -392,183 +459,34 @@ public class Main {
 
         IsRawJSONDemo.main(null);
 
-//        // JSIterator
-//
-//        FromDemo.main(null);
-//
-//        DropDemo.main(null);
-//
-//        EveryDemo.main(null);
-//
-//        FilterDemo.main(null);
-//
-//        FindDemo.main(null);
-//
-//        FlatMapDemo.main(null);
-//
-//        ForEachDemo.main(null);
-//
-//        MapDemo.main(null);
-//
-//        ReduceDemo.main(null);
-//
-//        SomeDemo.main(null);
-//
-//        TakeDemo.main(null);
-//
-//        ToArrayDemo.main(null);
-//        JSFunction info = JSFunction.fromBody("console.log('Engine:', typeof Iterator, typeof Promise, typeof Symbol)");
-//        info.call(null);
-//
-//        JSFunction test = JSFunction.fromBody("console.log('Map.from groupBy:', typeof Map?.groupBy === 'function')");
-//        test.call(null);
-//
-//        JSFunction test2 = JSFunction.fromBody("console.log('Promise.from try:', typeof Promise?.try === 'function')");
-//        test2.call(null);
-//
-//        JSFunction test3 = JSFunction.fromBody("console.log('Promise.from withResolvers:', typeof Promise?.withResolvers === 'function')");
-//        test3.call(null);
-
-
-//
-//        JSFunction inspect = JSFunction.fromBody("console.log(Iterator?.from?.toString?.())");
-//        inspect.call(null);
-//
-//        JSFunction version = JSFunction.fromBody("console.log('GraalVM version:', typeof graalvmVersion !== 'undefined' ? graalvmVersion : 'unknown')");
-//        version.call(null);
-//
-//
-
-//
-//        // JSMath
-//
-//        EConstantDemo.main(null);
-//
-//        LN2ConstantDemo.main(null);
-//
-//        LN10ConstantDemo.main(null);
-//
-//        LOG2EConstantDemo.main(null);
-//
-//        LOG10EConstantDemo.main(null);
-//
-//        PIConstantDemo.main(null);
-//
-//        SQRT1_2ConstantDemo.main(null);
-//
-//        SQRT2ConstantDemo.main(null);
-//
-//        AbsDemo.main(null);
-//
-//        AcosDemo.main(null);
-//
-//        AcoshDemo.main(null);
-//
-//        AsinDemo.main(null);
-//
-//        AsinhDemo.main(null);
-//
-//        AtanDemo.main(null);
-//
-//        Atan2Demo.main(null);
-//
-//        AtanhDemo.main(null);
-//
-//        CbrtDemo.main(null);
-//
-//        CeilDemo.main(null);
-//
-//        Clz32Demo.main(null);
-//
-//        CosDemo.main(null);
-//
-//        CoshDemo.main(null);
-//
-//        ExpDemo.main(null);
-//
-//        Expm1Demo.main(null);
-//
-//        FloorDemo.main(null);
-//
-//        FroundDemo.main(null);
-//
-//        HypotDemo.main(null);
-//
-//        ImulDemo.main(null);
-//
-//        LogDemo.main(null);
-//
-//        Log1pDemo.main(null);
-//
-//        Log2Demo.main(null);
-//
-//        Log10Demo.main(null);
-//
-//        MaxDemo.main(null);
-//
-//        MinDemo.main(null);
-//
-//        PowDemo.main(null);
-//
-//        RandomDemo.main(null);
-//
-//        RoundDemo.main(null);
-//
-//        SignDemo.main(null);
-//
-//        SinDemo.main(null);
-//
-//        SinhDemo.main(null);
-//
-//        SqrtDemo.main(null);
-//
-//        TanDemo.main(null);
-//
-//        TanhDemo.main(null);
-//
-//        TruncDemo.main(null);
-//
-//        // JSJson
-//
-//        ParseDemo.main(null);
-//
-//        StringifyDemo.main(null);
-//
-//        RawJSONDemo.main(null);
-//
-//        IsRawJSONDemo.main(null);
-
-//        JSFunction test = JSFunction.fromBody("console.log('RegExp.escape:', typeof RegExp?.escape === 'function')");
-//        test.call(null);
-
         // JSRegExp
 
-//        ExecDemo.main(null);
-//
-//        TestDemo.main(null);
-//
-//        ToStringDemo.main(null);
-//
-//        LastIndexDemo.main(null);
-//
-//        DotAllDemo.main(null);
-//
-//        FlagsDemo.main(null);
-//
-//        GlobalDemo.main(null);
-//
-//        HasIndicesDemo.main(null);
-//
-//        IgnoreCaseDemo.main(null);
-//
-//        MultilineDemo.main(null);
-//
-//        SourceDemo.main(null);
-//
-//        StickyDemo.main(null);
-//
-//        UnicodeDemo.main(null);
-//
-//        UnicodeSetsDemo.main(null);
+        ExecDemo.main(null);
+
+        TestDemo.main(null);
+
+        demos.jsRegExp.ToStringDemo.main(null);
+
+        LastIndexDemo.main(null);
+
+        DotAllDemo.main(null);
+
+        FlagsDemo.main(null);
+
+        GlobalDemo.main(null);
+
+        HasIndicesDemo.main(null);
+
+        IgnoreCaseDemo.main(null);
+
+        MultilineDemo.main(null);
+
+        SourceDemo.main(null);
+
+        StickyDemo.main(null);
+
+        UnicodeDemo.main(null);
+
+        UnicodeSetsDemo.main(null);
     }
 }

@@ -66,7 +66,7 @@ public class FromConsumerDemo {
         JSFunction triMixedConsumer = JSFunction.fromGeneralTriConsumer((String label, Integer value1, Double value2) ->
                 System.out.println("TriConsumer Mixed: " + label + ": " + value1.toString() + " | " + value2.toString()));
         triMixedConsumer.call("Age and Height", 30, 186.35);
-        // Expected: TriConsumer Mixed: Age = 30 |
+        // Expected: TriConsumer Mixed: Age and Height: 30 | 186.35
 
         // // === BiTriConsumer: (CustomClass, CustomClass, CustomClass) → void
         JSFunction triCustomConsumer = JSFunction.fromGeneralTriConsumer((CustomClass a, CustomClass b, CustomClass c) ->

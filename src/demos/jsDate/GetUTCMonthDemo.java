@@ -9,6 +9,6 @@ public class GetUTCMonthDemo {
         System.out.println("\n=== JSDate.getUTCMonth Demo ===");
         JSDate date = new JSDate();
         System.out.println("UTC month (0=Jan): " + date.getUTCMonth());
-        // Expected: UTC month: <1-12>
+        // Expected: UTC month (0=Jan): <1-12>
     }
 }

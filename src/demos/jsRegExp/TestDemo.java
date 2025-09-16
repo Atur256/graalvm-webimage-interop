@@ -11,6 +11,6 @@ public class TestDemo {
         JSRegExp regex = JSRegExp.of("hello", "i");
         boolean result = regex.test("Hello world");
         System.out.println("Match found? " + result);
-        // Expected Output: Match found? true
+        // Expected: Match found? true
     }
 }

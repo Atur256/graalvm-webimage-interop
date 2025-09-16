@@ -14,11 +14,15 @@ public class ForEachDemo {
         JSArray arr = JSArray.of(new JSValue[]{JSString.of("a"), JSString.of("b")});
         JSFunction log = JSFunction.fromBody("console.log(arg);");
         arr.forEach(log);
-        // Expected: logs "a", "b" to console
+        // Expected:
+        // "a"
+        // "b"
 
         JSArray javaArr = JSArray.of("a", "b");
         JSFunction print = JSFunction.fromGeneralConsumer((String arg) -> System.out.println(arg));
         javaArr.forEach(print);
-        // Expected: a \n b
+        // Expected:
+        // "a"
+        // "b"
     }
 }

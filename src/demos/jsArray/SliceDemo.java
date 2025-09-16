@@ -1,8 +1,6 @@
 package demos.jsArray;
 
 import builtin.JSArray;
-import org.graalvm.webimage.api.JSNumber;
-import org.graalvm.webimage.api.JSValue;
 
 
 public class SliceDemo {
@@ -10,8 +8,14 @@ public class SliceDemo {
     public static void main(String[] args) {
         System.out.println("\n=== JSArray.slice Demo ===");
 
-        JSArray arr = JSArray.of(new JSValue[] { JSNumber.of(1), JSNumber.of(2), JSNumber.of(3) });
-        JSArray sliced = arr.slice(1, 3);
-        System.out.println("Sliced: " + sliced.toString()); // Expected: [2, 3]
+        JSArray arr1 = JSArray.of(1, 2, 3);
+        JSArray sliced1 = arr1.slice(1, 3);
+        System.out.println("Sliced: " + sliced1.toString());
+        // Expected: Sliced: [2, 3]
+
+        JSArray arr2 = JSArray.of("apple", "banana", "cherry");
+        JSArray sliced2 = arr2.slice(1, 2);
+        System.out.println("Sliced: " + sliced2.toString());
+        // Expected: Sliced: ["banana"]
     }
 }

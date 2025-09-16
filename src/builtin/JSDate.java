@@ -216,5 +216,4 @@ public class JSDate extends JSObject {
     @JS.Coerce
     @JS(value = "return this.valueOf()")
     public native double valueOf();
-
 }

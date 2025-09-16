@@ -8,6 +8,6 @@ public class SourceDemo {
 
         JSRegExp regex = JSRegExp.of("abc", "");
         System.out.println("Source: " + regex.source);
-        // Expected Output: Source: abc
+        // Expected: Source: abc
     }
 }

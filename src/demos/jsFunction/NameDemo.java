@@ -10,6 +10,6 @@ public class NameDemo {
 
         JSFunction f = JSFunction.fromBody("return 'test';");
         System.out.println("JSFunction name: " + f.name);
-        // Expected: "anonymous"
+        // Expected: JSFunction name: "anonymous"
     }
 }

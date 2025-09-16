@@ -8,6 +8,6 @@ public class StickyDemo {
 
         JSRegExp regex = JSRegExp.of("x", "y");
         System.out.println("Sticky? " + regex.sticky);
-        // Expected Output: Sticky? true
+        // Expected: Sticky? true
     }
 }

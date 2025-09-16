@@ -11,21 +11,26 @@ public class OfDemo {
 
         // Primitives
         JSArray numbers = JSArray.of(1, 2, 3);
-        System.out.println("Numbers: " + numbers.toString()); // Expected: [1,2,3]
+        System.out.println("Numbers: " + numbers.toString());
+        // Expected: Numbers: [1,2,3]
 
         JSArray numbers2 = JSArray.of(1.2, 2.234, 3.87);
-        System.out.println("Numbers: " + numbers2.toString()); // Expected: [1.2,2.234,3.87]
+        System.out.println("Numbers: " + numbers2.toString());
+        // Expected: Numbers: [1.2,2.234,3.87]
 
         JSArray booleans = JSArray.of(true, false, true);
-        System.out.println("Booleans: " + booleans.toString()); // Expected: [true,false,true]
+        System.out.println("Booleans: " + booleans.toString());
+        // Expected: Booleans: [true,false,true]
 
         JSArray strings = JSArray.of("apple", "banana", "cherry");
-        System.out.println("Strings: " + strings.toString()); // Expected: ["apple","banana","cherry"]
+        System.out.println("Strings: " + strings.toString());
+        // Expected: Strings: ["apple","banana","cherry"]
 
         // Custom objects
         Custom[] customs = {new Custom("X"), new Custom("Y")};
         JSArray customArr = JSArray.of((Object[]) customs);
-        System.out.println("Customs: " + customArr.toString()); // Expected: ["Custom(X)", "Custom(Y)"]
+        System.out.println("Customs: " + customArr.toString());
+        // Expected: Customs: ["Custom(X)", "Custom(Y)"]
     }
 
     // Simple class for custom object

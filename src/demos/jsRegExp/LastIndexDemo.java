@@ -10,6 +10,6 @@ public class LastIndexDemo {
 
         JSRegExp regex = JSRegExp.of("a", "g");
         System.out.println("Initial lastIndex: " + regex.lastIndex);
-        // Expected Output: Initial lastIndex: 0
+        // Expected: Initial lastIndex: 0
     }
 }

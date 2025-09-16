@@ -1,6 +1,5 @@
 package demos.object;
 
-import builtin.Object;
 import org.graalvm.webimage.api.JSObject;
 import org.graalvm.webimage.api.JSSymbol;
 

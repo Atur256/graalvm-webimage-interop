@@ -1,8 +1,6 @@
 package demos.jsArray;
 
 import builtin.JSArray;
-import org.graalvm.webimage.api.JSNumber;
-import org.graalvm.webimage.api.JSValue;
 
 
 public class ToLocaleStringDemo {

@@ -1,8 +1,6 @@
 package demos.jsArray;
 
 import builtin.JSArray;
-import org.graalvm.webimage.api.JSString;
-import org.graalvm.webimage.api.JSValue;
 
 
 public class ToSplicedDemo {
@@ -13,7 +11,10 @@ public class ToSplicedDemo {
         JSArray arr = JSArray.of("a", "b", "c");
 
         JSArray spliced = arr.toSpliced(1, 1);
-        System.out.println("Original array: " + arr);               // Expected: ["a", "b", "c"]
-        System.out.println("Spliced copy: " + spliced.toString());  // Expected: ["a", "c"]
+        System.out.println("Original array: " + arr);
+        System.out.println("Spliced copy: " + spliced.toString());
+        // Expected:
+        // Original array: ["a", "b", "c"]
+        // Spliced copy: ["a", "c"]
     }
 }

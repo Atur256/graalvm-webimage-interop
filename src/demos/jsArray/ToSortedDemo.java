@@ -1,8 +1,6 @@
 package demos.jsArray;
 
 import builtin.JSArray;
-import org.graalvm.webimage.api.JSString;
-import org.graalvm.webimage.api.JSValue;
 
 
 public class ToSortedDemo {
@@ -13,7 +11,10 @@ public class ToSortedDemo {
         JSArray arr = JSArray.of("zebra", "apple", "mango");
 
         JSArray sorted = arr.toSorted();
-        System.out.println("Original array: " + arr);            // Expected: ["zebra", "apple", "mango"]
-        System.out.println("Sorted copy: " + sorted.toString()); // Expected: ["apple", "mango", "zebra"]
+        System.out.println("Original array: " + arr);
+        System.out.println("Sorted copy: " + sorted.toString());
+        // Expected:
+        // Original array: ["zebra", "apple", "mango"]
+        // Sorted copy: ["apple", "mango", "zebra"]
     }
 }

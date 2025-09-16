@@ -13,8 +13,6 @@ import java.util.function.BiFunction;
 @JS.Import("JSON")
 public class JSJson extends JSObject {
 
-    // === Parse ===
-
     @JS.Coerce
     @JS(value = "return JSON.parse(text)")
     public static native JSValue parse(String text);
@@ -22,8 +20,6 @@ public class JSJson extends JSObject {
     @JS.Coerce
     @JS(value = "return JSON.parse(text, reviver)")
     public static native JSValue parse(String text, JSFunction reviver);
-
-    // === Stringify ===
 
     @JS.Coerce
     @JS(value = "return JSON.stringify(value)")
@@ -49,8 +45,6 @@ public class JSJson extends JSObject {
     @JS(value = "return JSON.stringify(value, null, space)")
     public static native String stringify(java.lang.Object value, int space);
 
-    // === Raw JSON ===
-
     @JS.Coerce
     @JS(value = "return JSON.rawJSON(text)")
     public static native JSValue rawJSON(JSString text);
@@ -58,8 +52,6 @@ public class JSJson extends JSObject {
     @JS.Coerce
     @JS(value = "return JSON.rawJSON(text)")
     public static native JSValue rawJSON(String text);
-
-    // === isRawJSON ===
 
     @JS.Coerce
     @JS(value = "return JSON.isRawJSON(value)")
@@ -69,13 +61,9 @@ public class JSJson extends JSObject {
     @JS(value = "return JSON.isRawJSON(value)")
     public static native boolean isRawJSON(Object value);
 
-    // === Utility: wrap Java BiFunction as reviver ===
-
     @JS.Coerce
     @JS(value = "return function(key, value) { return javaReviver.apply(key, value); }")
     public static native JSFunction fromReviver(BiFunction<JSString, JSValue, JSValue> javaReviver);
-
-    // === Utility: wrap Java BiFunction as replacer ===
 
     @JS.Coerce
     @JS(value = "return function(key, value) { return javaReplacer.apply(key, value); }")

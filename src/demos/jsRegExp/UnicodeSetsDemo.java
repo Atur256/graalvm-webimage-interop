@@ -10,6 +10,6 @@ public class UnicodeSetsDemo {
 
         JSRegExp regex = JSRegExp.of("\\p{Script=Latin}", "v");
         System.out.println("Unicode sets? " + regex.unicodeSets);
-        // Expected Output: Unicode sets? true
+        // Expected: Unicode sets? true
     }
 }

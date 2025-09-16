@@ -17,5 +17,9 @@ public class AtDemo {
         JSArray scoreArr = JSArray.from(10, 20, 30);
         System.out.println("Element at index 0: " + scoreArr.at(0, Integer.class));
         // Expected: Element at index 0: 10
+
+        JSArray stringArr = JSArray.from("apple","banana","cherry");
+        System.out.println("Element at index 2: " + stringArr.at(2, Integer.class));
+        // Expected: Element at index 2: "cherry"
     }
 }

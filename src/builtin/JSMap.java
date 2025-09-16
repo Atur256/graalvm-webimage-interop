@@ -87,39 +87,24 @@ public class JSMap extends JSObject {
     @JS(value = "return this.get(key)")
     public native Object get(Object key);
 
-    @SuppressWarnings("unchecked")
     public <R> R get(JSValue key, Class<R> cls) {
-        java.lang.Object result = get(key);
-        if(result instanceof JSValue jsResult) return jsResult.as(cls); // TODO: move to JSValue as static checkedCoerce
-        return (R) result;
+        return JSValue.checkedCoerce(get(key), cls);
     }
 
-    @SuppressWarnings("unchecked")
     public <R> R get(int key, Class<R> cls) {
-        java.lang.Object result = get(JSNumber.of(key));
-        if(result instanceof JSValue jsResult) return jsResult.as(cls); // TODO: move to JSValue as static checkedCoerce
-        return (R) result;
+        return JSValue.checkedCoerce(get(JSNumber.of(key)),cls);
     }
 
-    @SuppressWarnings("unchecked")
     public <R> R get(double key, Class<R> cls) {
-        java.lang.Object result = get(JSNumber.of(key));
-        if(result instanceof JSValue jsResult) return jsResult.as(cls); // TODO: move to JSValue as static checkedCoerce
-        return (R) result;
+        return JSValue.checkedCoerce(get(JSNumber.of(key)), cls);
     }
 
-    @SuppressWarnings("unchecked")
     public <R> R get(boolean key, Class<R> cls) {
-        java.lang.Object result = get(JSBoolean.of(key));
-        if(result instanceof JSValue jsResult) return jsResult.as(cls); // TODO: move to JSValue as static checkedCoerce
-        return (R) result;
+        return JSValue.checkedCoerce(get(JSBoolean.of(key)),cls);
     }
 
-    @SuppressWarnings("unchecked")
     public <R> R get(Object key, Class<R> cls) {
-        java.lang.Object result = get(key);
-        if(result instanceof JSValue jsResult) return jsResult.as(cls); // TODO: move to JSValue as static checkedCoerce
-        return (R) result;
+        return JSValue.checkedCoerce(get(key), cls);
     }
 
     @JS.Coerce

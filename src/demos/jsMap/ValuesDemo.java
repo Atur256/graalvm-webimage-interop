@@ -2,8 +2,6 @@ package demos.jsMap;
 
 import builtin.JSIterator;
 import builtin.JSMap;
-import org.graalvm.webimage.api.JSNumber;
-import org.graalvm.webimage.api.JSString;
 
 
 public class ValuesDemo {

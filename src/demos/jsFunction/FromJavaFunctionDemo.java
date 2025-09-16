@@ -1,6 +1,7 @@
 package demos.jsFunction;
 
 import builtin.JSFunction;
+import org.graalvm.webimage.api.JSBoolean;
 import org.graalvm.webimage.api.JSNumber;
 import org.graalvm.webimage.api.JSString;
 
@@ -54,9 +55,25 @@ public class FromJavaFunctionDemo {
         // === BiFunction: (JSString, JSNumber) → JSString
         JSFunction biMixed = JSFunction.fromBiFunction((JSString name, JSNumber age) ->
                 JSString.of(name.as(String.class) + " is " + age.as(Integer.class) + " years old."));
-        JSString result = biMixed.call(JSString.of("Alice"), JSNumber.of(25));
-        System.out.println("BiFunction biMixed: " + result.as(String.class));
+        JSString result1 = biMixed.call(JSString.of("Alice"), JSNumber.of(25));
+        System.out.println("BiFunction biMixed: " + result1.as(String.class));
         // Expected: BiFunction biMixed: Alice is 25 years old.
+
+        // === TriFunction: (String, Integer, Boolean) → String
+        JSFunction triGreet = JSFunction.fromGeneralTriFunction((String name, Integer age, Boolean vip) ->
+                "Name: " + name + ", Age: " + age + ", VIP: " + (vip ? "Yes" : "No"));
+        System.out.println("TriFunction: " + triGreet.call("Charlie", 28, true));
+        // Expected: Name: Charlie, Age: 28, VIP: Yes
+
+        // === TriFunction: (JSString, JSNumber, JSBoolean) → JSString
+        JSFunction triMixed = JSFunction.fromTriFunction((JSString name, JSNumber age, JSBoolean vip) -> {
+            String result2 = name.as(String.class) + " (" + age.as(Integer.class) + ")";
+            if(vip.as(Boolean.class)) result2 += " [VIP]";
+            return JSString.of(result2);
+        });
+        JSString triResult = (JSString) triMixed.call(JSString.of("Dana"), JSNumber.of(35), JSBoolean.of(true));
+        System.out.println("TriFunction triMixed: " + triResult.as(String.class));
+        // Expected: Dana (35) [VIP]
     }
 
     record CustomClass(String name) {

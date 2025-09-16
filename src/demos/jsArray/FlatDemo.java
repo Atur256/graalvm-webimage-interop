@@ -13,13 +13,8 @@ public class FlatDemo {
         JSArray level2 = JSArray.of(new JSValue[] { JSNumber.of(2), level3 });
         JSArray root = JSArray.of(new JSValue[] { JSNumber.of(1), level2 });
 
-        JSArray flat1 = root.flat(1);
-        System.out.println("Flat depth 1: " + flat1.toString()); // Expected: [1, [2, [3, [4]]]]
-
-        JSArray flat2 = root.flat(2);
-        System.out.println("Flat depth 2: " + flat2.toString()); // Expected: [1, 2, 3, [4]]
-
-        JSArray flat3 = root.flat(3);
-        System.out.println("Flat depth 3: " + flat3.toString()); // Expected: [1, 2, 3, 4]
+        JSArray flat = root.flat(3);
+        System.out.println("Flat: " + flat.toString());
+        // Expected: Flat : [1,2,3,4]
     }
 }

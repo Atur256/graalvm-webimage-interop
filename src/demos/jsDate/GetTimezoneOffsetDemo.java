@@ -9,6 +9,6 @@ public class GetTimezoneOffsetDemo {
         System.out.println("\n=== JSDate.getTimezoneOffset Demo ===");
         JSDate date = new JSDate();
         System.out.println("Timezone offset (minutes): " + date.getTimezoneOffset());
-        // Expected: Timezone offset: -120 (for CEST)
+        // Expected: Timezone offset (minutes): -120 (for CEST)
     }
 }

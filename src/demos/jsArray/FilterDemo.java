@@ -15,11 +15,13 @@ public class FilterDemo {
         JSArray arr = JSArray.of(new JSValue[]{JSNumber.of(1), JSNumber.of(2), JSNumber.of(3)});
         JSFunction isEven = JSFunction.fromBody("return arg % 2 === 0;");
         JSArray filtered = arr.filter(isEven);
-        System.out.println("Filtered: " + filtered.toString()); // Expected: [2]
+        System.out.println("Filtered: " + filtered.toString());
+        // Expected: Filtered: [2]
 
         JSArray javaArr = JSArray.of(1, 4, 9);
         JSFunction isOdd = JSFunction.fromGeneralFunction((Integer arg) -> JSBoolean.of(arg % 2 != 0));
         JSArray filtered2 = javaArr.filter(isOdd);
-        System.out.println("Filtered: " + filtered2.toString()); // Expected: [1,9]
+        System.out.println("Filtered: " + filtered2.toString());
+        // Expected: Filtered: [1,9]
     }
 }

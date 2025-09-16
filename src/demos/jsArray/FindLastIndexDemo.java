@@ -15,11 +15,13 @@ public class FindLastIndexDemo {
         JSArray arr = JSArray.of(new JSValue[]{JSNumber.of(3), JSNumber.of(7), JSNumber.of(9)});
         JSFunction isOdd = JSFunction.fromBody("return arg % 2 !== 0;");
         int index = arr.findLastIndex(isOdd);
-        System.out.println("Last odd index: " + index); // Expected: 2
+        System.out.println("Last odd index: " + index);
+        // Expected: Last odd index: 2
 
         JSArray javaArr = JSArray.of(4, 6, 9);
         JSFunction isEven = JSFunction.fromGeneralFunction((Integer arg) -> JSBoolean.of(arg % 2 == 0));
         int index2 = javaArr.findLastIndex(isEven);
-        System.out.println("Last odd index: " + index2); // Expected: 1
+        System.out.println("Last odd index: " + index2);
+        // Expected: Last odd index: 1
     }
 }
