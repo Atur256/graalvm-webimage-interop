@@ -29,7 +29,7 @@ public class FromDemo {
         // Java String First char:e
 
         // === Java String[] → JSArray ===
-        JSArray nameArr = JSArray.from("Alice", "Bob", "Charlie");
+        JSArray nameArr = JSArray.from(new String[]{"Alice", "Bob", "Charlie"});
         System.out.println("String[] Length: " + nameArr.length);
         String firstName = nameArr.at(0, String.class);
         System.out.println("String[] First: " + firstName);
@@ -38,7 +38,7 @@ public class FromDemo {
         // String[] First:Alice
 
         // === Java int[] → JSArray ===
-        JSArray scoreArr = JSArray.from(10, 20, 30);
+        JSArray scoreArr = JSArray.from(new int[]{10, 20, 30});
         System.out.println("int[] Length: " + scoreArr.length);
         System.out.println("int[] First: " + scoreArr.at(0, Integer.class));
         // Expected:
@@ -46,7 +46,7 @@ public class FromDemo {
         // int[] First:10
 
         // === Java double[] → JSArray ===
-        JSArray priceArr = JSArray.from(9.99, 14.99, 29.99);
+        JSArray priceArr = JSArray.from(new double[]{9.99, 14.99, 29.99});
         System.out.println("double[] Length: " + priceArr.length);
         System.out.println("double[] First: " + priceArr.at(0, Double.class));
         // Expected:
@@ -63,7 +63,7 @@ public class FromDemo {
         // boolean[] First:true
 
         // === Custom class[] → JSArray of strings ===
-        JSArray customArr = JSArray.from(new Custom("X"), new Custom("Y"));
+        JSArray customArr = JSArray.from(new Custom[]{new Custom("X"), new Custom("Y")});
         System.out.println("Custom[] Length: " + customArr.length);
         System.out.println("Custom[] First: " + customArr.at(0, Custom.class).toString());
         // Expected:

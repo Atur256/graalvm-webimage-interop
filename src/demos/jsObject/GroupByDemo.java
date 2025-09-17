@@ -1,4 +1,4 @@
-package demos.object;
+package demos.jsObject;
 
 import java.lang.String;
 

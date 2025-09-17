@@ -35,7 +35,7 @@ public class JSFunction extends JSObject {
 
     @JS.Coerce
     @JS(value = "return function(a, b) { return javaBiFunc.apply(a, b); }")
-    public static native <A, B, R> JSFunction fromGeneralBiFunction(BiFunction<A, B, R> javaBiFunc);
+    public static native <A, B, R> JSFunction fromGeneralBiFunction(BiFunction<A, B, R> javaBiFunc); // TODO: rename to fromJava
 
     @JS.Coerce
     @JS(value = "return function(a, b) { return javaBiFunc.apply(a, b); }")

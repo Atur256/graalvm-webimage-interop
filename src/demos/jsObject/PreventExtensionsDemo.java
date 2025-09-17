@@ -1,4 +1,4 @@
-package demos.object;
+package demos.jsObject;
 
 import builtin.Object;
 import org.graalvm.webimage.api.JSObject;

@@ -17,6 +17,10 @@ public class JSArray extends JSObject {
     public static native JSArray from(JSValue arrayLike);
 
     @JS.Coerce
+    @JS(value = "return Array.from(arrayLike)")
+    public static native JSArray from(JSValue[] arrayLike);
+
+    @JS.Coerce
     @JS(value = "return Array.from(str)")
     public static native JSArray from(String str);
 
@@ -33,12 +37,12 @@ public class JSArray extends JSObject {
         for(int i = 0; i < values.length; i++) {
             jsValues[i] = JSBoolean.of(values[i]);
         }
-        return JSArray.of(jsValues);
+        return JSArray.from(jsValues);
     }
 
     @JS.Coerce
     @JS(value = "return Array.from(values)")
-    public static native JSArray from(Object... values);
+    public static native JSArray from(Object[] values);
 
     @JS.Coerce
     @JS(value = "return Array.fromAsync(arrayLike)")
@@ -48,33 +52,33 @@ public class JSArray extends JSObject {
     @JS(value = "return Array.isArray(value)")
     public static native boolean isArray(JSValue value);
 
-    @JS.Coerce
-    @JS(value = "return Array.of.apply(null, value)")
-    public static native JSArray of(JSValue value);
+//    @JS.Coerce
+//    @JS(value = "return Array.of.apply(null, value)")
+//    public static native JSArray of(JSValue value);
+//
+//    @JS.Coerce
+//    @JS(value = "return Array.of.apply(null, values)")
+//    public static native JSArray of(int... values);
+//
+//    @JS.Coerce
+//    @JS(value = "return Array.of.apply(null, values)")
+//    public static native JSArray of(double... values);
+//
+//    public static JSArray of(boolean... values) {
+//        JSValue[] jsValues = new JSValue[values.length];
+//        for(int i = 0; i < values.length; i++) {
+//            jsValues[i] = JSBoolean.of(values[i]);
+//        }
+//        return JSArray.of(jsValues);
+//    }
 
-    @JS.Coerce
-    @JS(value = "return Array.of.apply(null, values)")
-    public static native JSArray of(JSValue[] values);
-
-    @JS.Coerce
-    @JS(value = "return Array.of.apply(null, values)")
-    public static native JSArray of(int[] values);
-
-    @JS.Coerce
-    @JS(value = "return Array.of.apply(null, values)")
-    public static native JSArray of(double[] values);
-
-    public static JSArray of(boolean[] values) {
-        JSValue[] jsValues = new JSValue[values.length];
-        for(int i = 0; i < values.length; i++) {
-            jsValues[i] = JSBoolean.of(values[i]);
+    public static JSArray of(Object... values) {
+        JSArray test = new JSArray();
+        for(Object value : values) {
+            test.push(toJSValue(value));
         }
-        return JSArray.of(jsValues);
+        return from(test);
     }
-
-    @JS.Coerce
-    @JS(value = "return Array.of.apply(null, values)")
-    public static native JSArray of(Object... values);
 
     @JS.Coerce
     @JS(value = "return this.at(index)")
@@ -110,7 +114,7 @@ public class JSArray extends JSObject {
             for(Object item : iterable) {
                 values[i++] = toJSValue(item);
             }
-            return JSArray.of(values);
+            return JSArray.from(values);
         }
 
         return JSArray.of(toJSValue(arrayLike)); // fallback: wrap single object
@@ -122,6 +126,7 @@ public class JSArray extends JSObject {
                 return JSValue.undefined();
             }
 
+            // Handle Iterable (e.g., List, Set)
             case JSValue jsValue -> {
                 return jsValue;
             }
@@ -151,6 +156,9 @@ public class JSArray extends JSObject {
             }
 
             // Handle common boxed types
+            case Boolean b -> {
+                return JSBoolean.of(b);
+            }
             case String s -> {
                 return JSString.of(s);
             }
@@ -172,8 +180,6 @@ public class JSArray extends JSObject {
             case Double d -> {
                 return JSNumber.of(d);
             }
-
-            // Handle Iterable (e.g., List, Set)
             case Iterable<?> iterable -> {
                 JSArray jsArray = new JSArray();
                 for(Object item : iterable) jsArray.push(toJSValue(item));

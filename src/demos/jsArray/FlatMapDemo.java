@@ -18,7 +18,7 @@ public class FlatMapDemo {
         // Expected: FlatMapped: [1, 1, 2, 2]
 
         JSArray javaArr = JSArray.of(1, 2);
-        JSFunction javaTriple = JSFunction.fromGeneralFunction((Integer arg) -> JSArray.from(arg, arg, arg));
+        JSFunction javaTriple = JSFunction.fromGeneralFunction((Integer arg) -> JSArray.of(arg, arg, arg));
         JSArray result2 = javaArr.flatMap(javaTriple);
         System.out.println("FlatMapped: " + result2.toString());
         // Expected: FlatMapped: [1, 1, 1, 2, 2, 2]

@@ -229,7 +229,7 @@ public class JSMap extends JSObject {
 
     @JS.Coerce
     @JS(value = "return this.set(key, value)")
-    public native void set(Object key, Object value); // Return tye needs to be void because of overwriting of the set method from JSObject
+    public native void set(Object key, Object value); // Return type needs to be void because of overwriting of the set method from JSObject
 
     @JS.Coerce
     @JS(value = "return this.values()")

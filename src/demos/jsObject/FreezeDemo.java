@@ -1,8 +1,9 @@
-package demos.object;
+package demos.jsObject;
 
 import builtin.Object;
 import org.graalvm.webimage.api.JSError;
 import org.graalvm.webimage.api.JSObject;
+import org.graalvm.webimage.api.JSValue;
 
 
 public class FreezeDemo {
@@ -14,12 +15,14 @@ public class FreezeDemo {
         JSObject obj = JSObject.create();
         obj.set("name", "Alice");
 
-        Object.freeze(obj);
+        JSObject.freeze(obj);
         try {
             obj.set("name", "Changed"); // ignored
         } catch (JSError e) {
             System.out.println("Frozen value: " + obj.get("name"));
         }
+        // Expected:
+        // Frozen value: Alice
     }
 }
 

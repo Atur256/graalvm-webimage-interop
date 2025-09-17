@@ -11,7 +11,7 @@ public class FlatMapDemo {
         System.out.println("\n=== JSIterator.flatMap Demo ===");
 
         JSArray array = JSArray.of(1, 2, 3);
-        JSFunction fun = JSFunction.fromGeneralFunction((Integer arg ) -> JSArray.from(arg, arg* 2));
+        JSFunction fun = JSFunction.fromGeneralFunction((Integer arg ) -> JSArray.of(arg, arg* 2));
 
         JSIterator iterator = JSIterator.from(array).flatMap(fun);
         System.out.println("FlatMapped: " + iterator.toArray());
