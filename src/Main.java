@@ -480,5 +480,37 @@ public class Main {
         GetOwnPropertyDescriptorDemo.main(null);
 
         GetOwnPropertyNamesDemo.main(null);
+
+        GroupByDemo.main(null);
+
+        HasOwnDemo.main(null);
+
+        IsDemo.main(null);
+
+        IsExtensibleDemo.main(null);
+
+        IsFrozenDemo.main(null);
+
+        IsSealedDemo.main(null);
+
+        KeysDemo.main(null);
+
+        PreventExtensionsDemo.main(null);
+
+        SealDemo.main(null);
+
+        SetPrototypeOfDemo.main(null);
+
+        ValuesDemo.main(null);
+
+        HasOwnPropertyDemo.main(null);
+
+        IsPrototypeOfDemo.main(null);
+
+        PropertyIsEnumerableDemo.main(null);
+
+        ToLocaleStringDemo.main(null);
+
+        ValueOfDemo.main(null);
     }
 }

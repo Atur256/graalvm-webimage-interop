@@ -1,9 +1,7 @@
 package demos.jsObject;
 
-import builtin.Object;
 import org.graalvm.webimage.api.JSError;
 import org.graalvm.webimage.api.JSObject;
-import org.graalvm.webimage.api.JSValue;
 
 
 public class FreezeDemo {

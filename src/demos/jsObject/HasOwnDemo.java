@@ -1,6 +1,5 @@
 package demos.jsObject;
 
-import builtin.Object;
 import org.graalvm.webimage.api.JSObject;
 
 
@@ -13,7 +12,12 @@ public class HasOwnDemo {
         JSObject obj = JSObject.create();
         obj.set("x", 10);
 
-        System.out.println("HasOwn x: " + Object.hasOwn(obj, "x"));
-        System.out.println("HasOwn y: " + Object.hasOwn(obj, "y"));
+        boolean result1 = JSObject.hasOwn(obj, "x");
+        boolean result2 = JSObject.hasOwn(obj, "y");
+        System.out.println("HasOwn x: " + result1);
+        System.out.println("HasOwn y: " + result2);
+        // Expected:
+        // HasOwn x: true
+        // HasOwn y: false
     }
 }

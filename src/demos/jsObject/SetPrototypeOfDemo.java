@@ -1,17 +1,31 @@
 package demos.jsObject;
 
-import builtin.Object;
+import builtin.JSFunction;
 import org.graalvm.webimage.api.JSObject;
+import org.graalvm.webimage.api.JSValue;
+
 
 public class SetPrototypeOfDemo {
 
     public static void main(String[] args) {
-
         System.out.println("\n=== Object.setPrototypeOf Demo ===");
 
-        JSObject protoA = JSObject.create();
-        JSObject protoB = JSObject.create();
-        JSObject result = Object.setPrototypeOf(protoA, protoB);
-        System.out.println("Prototype set: " + result);
+        // Create a plain object
+        JSObject obj = JSObject.create();
+        obj.set("name", "Alice");
+
+        // Create a prototype with a method using 'this' binding
+        JSObject proto = JSObject.create();
+        proto.set("describe", JSFunction.fromArgs("return 'I am ' + String(this.name);"));
+
+        // Set the prototype
+        JSObject result = JSObject.setPrototypeOf(obj, proto);
+
+        // Access inherited method via prototype chain
+        JSFunction describeFn = JSValue.checkedCoerce(result.get("describe"), JSFunction.class);
+        String description = JSValue.checkedCoerce(describeFn.applyRaw(result), String.class);
+
+        System.out.println("Inherited describe(): " + description);
+        // Expected: I am Alice
     }
 }

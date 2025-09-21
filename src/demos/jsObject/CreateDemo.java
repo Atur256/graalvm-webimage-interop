@@ -49,7 +49,5 @@ public class CreateDemo {
         System.out.println("Greeting from obj2: " + greeting2);
         // Expected: Greeting from obj2: Hello, World
     }
-
-
 }
 
