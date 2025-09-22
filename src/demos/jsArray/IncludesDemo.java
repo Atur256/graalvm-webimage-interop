@@ -2,7 +2,6 @@ package demos.jsArray;
 
 import builtin.JSArray;
 import org.graalvm.webimage.api.JSString;
-import org.graalvm.webimage.api.JSValue;
 
 
 public class IncludesDemo {
@@ -10,7 +9,7 @@ public class IncludesDemo {
     public static void main(String[] args) {
         System.out.println("\n=== JSArray.includes Demo ===");
 
-        JSArray arr = JSArray.of(new JSValue[]{JSString.of("x"), JSString.of("y")});
+        JSArray arr = JSArray.of(JSString.of("x"), JSString.of("y"));
         boolean result = arr.includes(JSString.of("y"));
         System.out.println("Includes 'y': " + result);
         // Expected:
@@ -37,7 +36,7 @@ public class IncludesDemo {
         // Expected:
         // Includes '4.1': false
 
-        JSArray javaArr4 = JSArray.of(new boolean[]{true, true});
+        JSArray javaArr4 = JSArray.of(true, true);
         boolean result6 = javaArr4.includes(true);
         System.out.println("Includes 'true': " + result6);
         boolean result7 = javaArr4.includes(false);

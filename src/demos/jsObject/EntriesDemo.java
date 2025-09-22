@@ -8,7 +8,7 @@ public class EntriesDemo {
 
     public static void main(String[] args) {
 
-        System.out.println("\n=== Object.entries Demo ===");
+        System.out.println("\n=== JSObject.entries Demo ===");
 
         JSObject obj = JSObject.create();
         obj.set("language", "JavaScript");

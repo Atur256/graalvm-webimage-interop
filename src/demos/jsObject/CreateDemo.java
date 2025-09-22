@@ -8,7 +8,7 @@ public class CreateDemo {
 
     public static void main(String[] args) {
 
-        System.out.println("\n=== Object.create Demo ===");
+        System.out.println("\n=== JSObject.create Demo ===");
 
         // Create a prototype object with a method
         JSObject proto = JSObject.create();

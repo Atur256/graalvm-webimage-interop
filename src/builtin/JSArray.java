@@ -52,32 +52,12 @@ public class JSArray extends JSObject {
     @JS(value = "return Array.isArray(value)")
     public static native boolean isArray(JSValue value);
 
-//    @JS.Coerce
-//    @JS(value = "return Array.of.apply(null, value)")
-//    public static native JSArray of(JSValue value);
-//
-//    @JS.Coerce
-//    @JS(value = "return Array.of.apply(null, values)")
-//    public static native JSArray of(int... values);
-//
-//    @JS.Coerce
-//    @JS(value = "return Array.of.apply(null, values)")
-//    public static native JSArray of(double... values);
-//
-//    public static JSArray of(boolean... values) {
-//        JSValue[] jsValues = new JSValue[values.length];
-//        for(int i = 0; i < values.length; i++) {
-//            jsValues[i] = JSBoolean.of(values[i]);
-//        }
-//        return JSArray.of(jsValues);
-//    }
-
     public static JSArray of(Object... values) {
-        JSArray test = new JSArray();
+        JSArray jsArray = new JSArray();
         for(Object value : values) {
-            test.push(toJSValue(value));
+            jsArray.push(toJSValue(value));
         }
-        return from(test);
+        return from(jsArray);
     }
 
     @JS.Coerce

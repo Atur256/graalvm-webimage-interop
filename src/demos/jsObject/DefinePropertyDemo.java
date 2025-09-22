@@ -9,7 +9,7 @@ import org.graalvm.webimage.api.JSValue;
 public class DefinePropertyDemo {
 
     public static void main(String[] args) {
-        System.out.println("\n=== Object.defineProperty Demo ===");
+        System.out.println("\n=== JSObject.defineProperty Demo ===");
 
         // Create target object
         JSObject obj1 = JSObject.create();

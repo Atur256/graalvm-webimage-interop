@@ -7,7 +7,7 @@ public class IsSealedDemo {
 
     public static void main(String[] args) {
 
-        System.out.println("\n=== Object.isSealed Demo ===");
+        System.out.println("\n=== JSObject.isSealed Demo ===");
 
         JSObject obj = JSObject.create();
         obj.set("name", "Alice");

@@ -7,7 +7,7 @@ public class PreventExtensionsDemo {
 
     public static void main(String[] args) {
 
-        System.out.println("\n=== Object.preventExtensions Demo ===");
+        System.out.println("\n=== JSObject.preventExtensions Demo ===");
 
         JSObject obj = JSObject.create();
         obj.set("name", "Alice");

@@ -6,7 +6,7 @@ import org.graalvm.webimage.api.JSObject;
 public class HasOwnPropertyDemo {
 
     public static void main(String[] args) {
-        System.out.println("\n=== hasOwnProperty Demo ===");
+        System.out.println("\n=== JSObject.hasOwnProperty Demo ===");
 
         JSObject obj = JSObject.create();
         obj.set("name", "Alice");

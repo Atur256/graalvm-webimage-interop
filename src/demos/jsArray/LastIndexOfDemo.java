@@ -2,7 +2,6 @@ package demos.jsArray;
 
 import builtin.JSArray;
 import org.graalvm.webimage.api.JSString;
-import org.graalvm.webimage.api.JSValue;
 
 
 public class LastIndexOfDemo {

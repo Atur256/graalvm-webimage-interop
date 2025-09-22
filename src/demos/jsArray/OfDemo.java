@@ -1,7 +1,6 @@
 package demos.jsArray;
 
 import builtin.JSArray;
-import org.graalvm.webimage.api.JSObject;
 
 
 public class OfDemo {
@@ -34,7 +33,7 @@ public class OfDemo {
     }
 
     // Simple class for custom object
-    static class Custom extends JSObject {
+    static class Custom {
 
         public String label;
 

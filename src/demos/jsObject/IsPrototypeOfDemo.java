@@ -6,7 +6,7 @@ import org.graalvm.webimage.api.JSObject;
 public class IsPrototypeOfDemo {
 
     public static void main(String[] args) {
-        System.out.println("\n=== Object.isPrototypeOf Demo ===");
+        System.out.println("\n=== JSObject.isPrototypeOf Demo ===");
         JSObject proto = JSObject.create();
         JSObject obj = JSObject.create();
 

@@ -6,7 +6,7 @@ import org.graalvm.webimage.api.JSObject;
 public class ToLocaleStringDemo {
 
     public static void main(String[] args) {
-        System.out.println("\n=== toLocaleString Demo ===");
+        System.out.println("\n=== JSObject.toLocaleString Demo ===");
 
         JSObject obj = JSObject.create();
         obj.set("name", "Alice");

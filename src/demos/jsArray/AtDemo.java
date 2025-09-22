@@ -10,7 +10,7 @@ public class AtDemo {
     public static void main(String[] args) {
         System.out.println("\n=== JSArray.at Demo ===");
 
-        JSArray arr = JSArray.of(new JSValue[]{JSString.of("a"), JSString.of("b"), JSString.of("c")});
+        JSArray arr = JSArray.of(JSString.of("a"), JSString.of("b"), JSString.of("c"));
         System.out.println("Element at index -1: " + arr.at(-1, String.class));
         // Expected: Element at index -1: "c"
 
@@ -19,7 +19,7 @@ public class AtDemo {
         // Expected: Element at index 0: 10
 
         JSArray stringArr = JSArray.of("apple","banana","cherry");
-        System.out.println("Element at index 2: " + stringArr.at(2, Integer.class));
+        System.out.println("Element at index 2: " + stringArr.at(2, String.class));
         // Expected: Element at index 2: "cherry"
     }
 }

@@ -8,7 +8,7 @@ public class SealDemo {
 
     public static void main(String[] args) {
 
-        System.out.println("\n=== Object.seal Demo ===");
+        System.out.println("\n=== JSObject.seal Demo ===");
 
 
         JSObject obj = JSObject.create();

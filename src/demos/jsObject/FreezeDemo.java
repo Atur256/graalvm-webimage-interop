@@ -8,7 +8,7 @@ public class FreezeDemo {
 
     public static void main(String[] args) {
 
-        System.out.println("\n=== Object.freeze Demo ===");
+        System.out.println("\n=== JSObject.freeze Demo ===");
 
         JSObject obj = JSObject.create();
         obj.set("name", "Alice");

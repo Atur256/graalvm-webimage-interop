@@ -7,7 +7,7 @@ public class IsDemo {
 
     public static void main(String[] args) {
 
-        System.out.println("\n=== Object.is Demo ===");
+        System.out.println("\n=== JSObject.is Demo ===");
 
         // Basic equality
         boolean result1 = JSObject.is(JSString.of("hello"), JSString.of("hello"));

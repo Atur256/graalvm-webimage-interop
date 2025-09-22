@@ -21,8 +21,10 @@
           <root url="file://$MODULE_DIR$/../../graal/sdk/mxbuild/jdk26/dists/jdk21/webimage-preview.src.zip.files" />
         </SOURCES>
         <jarDirectory url="file://$MODULE_DIR$/../../graal/sdk/mxbuild/jdk26/dists/jdk21" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/../../graal/sdk/mxbuild/jdk26/dists/jdk21" recursive="false" />
         <jarDirectory url="file://$MODULE_DIR$/../../graal/sdk/mxbuild/jdk26/dists/jdk21" recursive="false" type="SOURCES" />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="reflections" level="project" />
   </component>
 </module>

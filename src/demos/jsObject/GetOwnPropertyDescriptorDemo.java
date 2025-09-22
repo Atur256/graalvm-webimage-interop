@@ -8,7 +8,7 @@ public class GetOwnPropertyDescriptorDemo {
 
     public static void main(String[] args) {
 
-        System.out.println("\n=== Object.getOwnPropertyDescriptor Demo ===");
+        System.out.println("\n=== JSObject.getOwnPropertyDescriptor Demo ===");
 
         JSObject obj = JSObject.create();
         obj.set("name", "Alice");

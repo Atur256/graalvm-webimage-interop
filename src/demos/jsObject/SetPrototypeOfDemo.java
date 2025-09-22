@@ -8,7 +8,7 @@ import org.graalvm.webimage.api.JSValue;
 public class SetPrototypeOfDemo {
 
     public static void main(String[] args) {
-        System.out.println("\n=== Object.setPrototypeOf Demo ===");
+        System.out.println("\n=== JSObject.setPrototypeOf Demo ===");
 
         // Create a plain object
         JSObject obj = JSObject.create();

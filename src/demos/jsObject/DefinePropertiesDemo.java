@@ -7,7 +7,7 @@ public class DefinePropertiesDemo {
 
     public static void main(String[] args) {
 
-        System.out.println("\n=== Object.defineProperties Demo ===");
+        System.out.println("\n=== JSObject.defineProperties Demo ===");
 
         JSObject target = JSObject.create();
 

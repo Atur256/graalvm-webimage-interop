@@ -9,7 +9,7 @@ public class ValuesDemo {
 
     public static void main(String[] args) {
 
-        System.out.println("\n=== Object.values Demo ===");
+        System.out.println("\n=== JSObject.values Demo ===");
 
         JSObject obj = JSObject.create();
         obj.set("name", "Alice");

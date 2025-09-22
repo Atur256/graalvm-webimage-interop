@@ -7,7 +7,7 @@ public class IsExtensibleDemo {
 
     public static void main(String[] args) {
 
-        System.out.println("\n=== Object.isExtensible Demo ===");
+        System.out.println("\n=== JSObject.isExtensible Demo ===");
 
         JSObject obj = JSObject.create();
         obj.set("name", "Alice");

@@ -8,7 +8,7 @@ import org.graalvm.webimage.api.*;
 public class GroupByDemo {
 
     public static void main(String[] args) {
-        System.out.println("\n=== Object.groupBy Demo ===");
+        System.out.println("\n=== JSObject.groupBy Demo ===");
 
         JSArray items = new JSArray();
         JSObject obj1 = JSObject.create();

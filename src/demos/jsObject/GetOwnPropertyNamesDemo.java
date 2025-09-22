@@ -7,7 +7,7 @@ public class GetOwnPropertyNamesDemo {
 
     public static void main(String[] args) {
 
-        System.out.println("\n=== Object.getOwnPropertyNames Demo ===");
+        System.out.println("\n=== JSObject.getOwnPropertyNames Demo ===");
 
         JSObject obj = JSObject.create();
         obj.set("x", 1);

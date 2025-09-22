@@ -7,7 +7,7 @@ import org.graalvm.webimage.api.*;
 public class KeysDemo {
 
     public static void main(String[] args) {
-        System.out.println("\n=== Object.keys Demo ===");
+        System.out.println("\n=== JSObject.keys Demo ===");
 
         JSObject obj = JSObject.create();
         obj.set("name", "Alice");

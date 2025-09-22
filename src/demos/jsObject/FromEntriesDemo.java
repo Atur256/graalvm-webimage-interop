@@ -9,7 +9,7 @@ public class FromEntriesDemo {
 
     public static void main(String[] args) {
 
-        System.out.println("\n=== Object.fromEntries Demo ===");
+        System.out.println("\n=== JSObject.fromEntries Demo ===");
 
         JSArray entries = new JSArray();
 

@@ -7,7 +7,7 @@ import org.graalvm.webimage.api.JSValue;
 public class ValueOfDemo {
 
     public static void main(String[] args) {
-        System.out.println("\n=== valueOf Demo ===");
+        System.out.println("\n=== JSObject.valueOf Demo ===");
 
         JSObject obj = JSObject.create();
         obj.set("id", 42);

@@ -3,6 +3,9 @@
     <output-path>$PROJECT_DIR$/out/artifacts/web_image_interop_jar</output-path>
     <root id="archive" name="web-image-interop.jar">
       <element id="module-output" name="web-image-interop" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/javassist-3.28.0-GA.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/jsr305-3.0.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/slf4j-api-1.7.32.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../../graal/sdk/mxbuild/jdk26/dists/jdk21/sdk-test.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../../graal/sdk/mxbuild/jdk26/dists/jdk21/sdk-test.src.zip" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../../graal/sdk/mxbuild/jdk26/dists/jdk21/webimage-preview.jar" path-in-jar="/" />

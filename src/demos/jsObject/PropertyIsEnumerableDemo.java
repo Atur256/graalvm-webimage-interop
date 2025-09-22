@@ -9,7 +9,7 @@ import org.graalvm.webimage.api.JSValue;
 public class PropertyIsEnumerableDemo {
 
     public static void main(String[] args) {
-        System.out.println("\n=== propertyIsEnumerable Demo ===");
+        System.out.println("\n=== JSObject.propertyIsEnumerable Demo ===");
 
         JSObject obj = JSObject.create();
         obj.set("visible", "yes");

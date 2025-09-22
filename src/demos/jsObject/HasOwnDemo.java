@@ -7,7 +7,7 @@ public class HasOwnDemo {
 
     public static void main(String[] args) {
 
-        System.out.println("\n=== Object.hasOwn Demo ===");
+        System.out.println("\n=== JSObject.hasOwn Demo ===");
 
         JSObject obj = JSObject.create();
         obj.set("x", 10);

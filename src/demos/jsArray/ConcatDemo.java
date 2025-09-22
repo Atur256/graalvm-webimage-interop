@@ -2,7 +2,6 @@ package demos.jsArray;
 
 import builtin.JSArray;
 import org.graalvm.webimage.api.JSNumber;
-import org.graalvm.webimage.api.JSValue;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ public class ConcatDemo {
 
         // Concatenate with JS arrays
         JSArray a1 = JSArray.of(1, 2);
-        JSArray a2 = JSArray.of(new JSValue[]{JSNumber.of(3), JSNumber.of(4)});
+        JSArray a2 = JSArray.of(JSNumber.of(3), JSNumber.of(4));
         JSArray a3 = JSArray.of(5);
 
         JSArray result = a1.concat(new JSArray[]{a2, a3});

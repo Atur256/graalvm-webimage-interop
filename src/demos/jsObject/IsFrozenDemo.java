@@ -7,7 +7,7 @@ public class IsFrozenDemo {
 
     public static void main(String[] args) {
 
-        System.out.println("\n=== Object.isFrozen Demo ===");
+        System.out.println("\n=== JSObject.isFrozen Demo ===");
 
         JSObject obj = JSObject.create();
         obj.set("name", "Alice");
