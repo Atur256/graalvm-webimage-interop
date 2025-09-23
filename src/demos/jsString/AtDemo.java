@@ -3,7 +3,7 @@ package demos.jsString;
 import org.graalvm.webimage.api.JSString;
 
 
-public class StringAtDemo {
+public class AtDemo {
 
     public static void main(String[] args) {
         System.out.println("=== JSString.at Demo ===");

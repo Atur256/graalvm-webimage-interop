@@ -5,7 +5,7 @@ import org.graalvm.webimage.api.JSString;
 import java.util.Map;
 
 
-public class StringLocaleCompareDemo {
+public class LocaleCompareDemo {
 
     public static void main(String[] args) {
         System.out.println("=== JSString.localeCompare Demo ===");

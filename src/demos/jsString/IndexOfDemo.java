@@ -3,7 +3,7 @@ package demos.jsString;
 import org.graalvm.webimage.api.JSString;
 
 
-public class StringIndexOfDemo {
+public class IndexOfDemo {
 
 
     public static void main(String[] args) {

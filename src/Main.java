@@ -1,6 +1,3 @@
-import demos.jsNumber.ToPrecision;
-
-
 public class Main {
 
     public static void main(String[] args) {
@@ -540,41 +537,128 @@ public class Main {
 //        demos.jsNumber.ToStringDemo.main(null);
 //
 //        demos.jsNumber.ValueOfDemo.main(null);
-
-        // JSString
-
-        demos.jsString.FromCharCodeDemo.main(null);
-
-        demos.jsString.FromCodePointDemo.main(null);
-
-        demos.jsString.StringRawDemo.main(null);
-
-        demos.jsString.StringAtDemo.main(null);
-
-        demos.jsString.StringCharAtDemo.main(null);
-
-        demos.jsString.CharCodeAtDemo.main(null);
-
-        demos.jsString.CharPointAtDemo.main(null);
-
-        demos.jsString.StringConcatDemo.main(null);
-
-        demos.jsString.StringEndsWithDemo.main(null);
-
-        demos.jsString.StringIncludesDemo.main(null);
-
-        demos.jsString.StringIndexOfDemo.main(null);
-
-        demos.jsString.StringIsWellFormedDemo.main(null);
-
-        demos.jsString.StringLastIndexOfDemo.main(null);
-
-        demos.jsString. StringLocaleCompareDemo.main(null);
-
-//        demos.jsString. .main(null);
 //
-//        demos.jsString. .main(null);
+//        // JSString
+//
+//        demos.jsString.FromCharCodeDemo.main(null);
+//
+//        demos.jsString.FromCodePointDemo.main(null);
+//
+//        demos.jsString.RawDemo.main(null);
+//
+//        demos.jsString.AtDemo.main(null);
+//
+//        demos.jsString.CharAtDemo.main(null);
+//
+//        demos.jsString.CharCodeAtDemo.main(null);
+//
+//        demos.jsString.CharPointAtDemo.main(null);
+//
+//        demos.jsString.ConcatDemo.main(null);
+//
+//        demos.jsString.EndsWithDemo.main(null);
+//
+//        demos.jsString.IncludesDemo.main(null);
+//
+//        demos.jsString.IndexOfDemo.main(null);
+//
+//        demos.jsString.IsWellFormedDemo.main(null);
+//
+//        demos.jsString.LastIndexOfDemo.main(null);
+//
+//        demos.jsString.LocaleCompareDemo.main(null);
+//
+//        demos.jsString.MatchDemo.main(null);
+//
+//        demos.jsString.MatchAllDemo.main(null);
+//
+//        demos.jsString.NormalizeDemo.main(null);
+//
+//        demos.jsString.PadEndDemo.main(null);
+//
+//        demos.jsString.PadStartDemo.main(null);
+//
+//        demos.jsString.RepeatDemo.main(null);
+//
+//        demos.jsString.ReplaceDemo.main(null);
+//
+//        demos.jsString.SearchDemo.main(null);
+//
+//        demos.jsString.SliceDemo.main(null);
+//
+//        demos.jsString.SplitDemo.main(null);
+//
+//        demos.jsString.StartsWithDemo.main(null);
+//
+//        demos.jsString.ToLocaleLowerCaseDemo.main(null);
+//
+//        demos.jsString.ToLocaleUpperCaseDemo.main(null);
+//
+//        demos.jsString.ToLowerCaseDemo.main(null);
+//
+//        demos.jsString.ToUpperCaseDemo.main(null);
+//
+//        demos.jsString.ToWellFormedDemo.main(null);
+//
+//        demos.jsString.TrimDemo.main(null);
+//
+//        demos.jsString.ValueOfDemo.main(null);
+//
+//        demos.jsString.LengthDemo.main(null);
 
+        // JSSymbol
+
+        demos.jsSymbol.ForDemo.main(null);
+
+        demos.jsSymbol.KeyForDemo.main(null);
+
+        demos.jsSymbol.AsyncDisposeDemo.main(null);
+
+        demos.jsSymbol.AsyncIteratorDemo.main(null);
+
+        demos.jsSymbol.DisposeDemo.main(null);
+
+        demos.jsSymbol.HasInstanceDemo.main(null);
+
+        demos.jsSymbol.IteratorDemo.main(null);
+
+        demos.jsSymbol.MatchDemo.main(null);
+
+        demos.jsSymbol.MatchAllDemo.main(null);
+
+        //        demos.jsSymbol.  .main(null);
+
+        //        demos.jsSymbol.  .main(null);
+
+        //        demos.jsSymbol.  .main(null);
+
+        //        demos.jsSymbol.  .main(null);
+
+        //        demos.jsSymbol.  .main(null);
+
+        //        demos.jsSymbol.  .main(null);
+
+        //        demos.jsSymbol.  .main(null);
+
+        //        demos.jsSymbol.  .main(null);
+
+        //        demos.jsSymbol.  .main(null);
+
+        //        demos.jsSymbol.  .main(null);
+
+        //        demos.jsSymbol.  .main(null);
+
+        //        demos.jsSymbol.  .main(null);
+
+        //        demos.jsSymbol.  .main(null);
+
+        //        demos.jsSymbol.  .main(null);
+
+        // JSIntl
+
+        demos.jsIntl.CanonicalLocalesDemo.main(null);
+
+        demos.jsIntl.SupportedValuesDemo.main(null);
 
     }
 }

@@ -33,5 +33,4 @@ public class FromCharCodeDemo {
         System.out.println("fromCharCode(0xD83D,0xDE00): \"" + emoji.as(String.class) + "\"");
         // Expected: fromCharCode(0xD83D,0xDE00): "😀"
     }
-
 }

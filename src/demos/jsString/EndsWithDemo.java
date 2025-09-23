@@ -3,14 +3,13 @@ package demos.jsString;
 import org.graalvm.webimage.api.JSString;
 
 
-public class StringEndsWithDemo {
+public class EndsWithDemo {
 
     public static void main(String[] args) {
         System.out.println("=== JSString.endsWith Demo ===");
 
         // ASCII: "Hello World"
         JSString phrase = JSString.of("Hello World");
-
         System.out.println("\"Hello World\".endsWith(\"World\"): " + phrase.endsWith("World"));
         System.out.println("\"Hello World\".endsWith(\"world\"): " + phrase.endsWith("world"));
         System.out.println("\"Hello World\".endsWith(\"Hello\"): " + phrase.endsWith("Hello"));

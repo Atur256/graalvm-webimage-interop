@@ -3,14 +3,13 @@ package demos.jsString;
 import org.graalvm.webimage.api.JSString;
 
 
-public class StringIncludesDemo {
+public class IncludesDemo {
 
     public static void main(String[] args) {
         System.out.println("=== JSString.includes Demo ===");
 
         // ASCII: "Hello World"
         JSString phrase = JSString.of("Hello World");
-
         System.out.println("\"Hello World\".includes(\"World\"): " + phrase.includes("World"));
         System.out.println("\"Hello World\".includes(\"world\"): " + phrase.includes("world"));
         System.out.println("\"Hello World\".includes(\"lo\"): " + phrase.includes("lo"));

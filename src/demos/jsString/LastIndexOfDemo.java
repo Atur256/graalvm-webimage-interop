@@ -3,14 +3,13 @@ package demos.jsString;
 import org.graalvm.webimage.api.JSString;
 
 
-public class StringLastIndexOfDemo {
+public class LastIndexOfDemo {
 
     public static void main(String[] args) {
         System.out.println("=== JSString.lastIndexOf Demo ===");
 
         // ASCII: "Hello Hello"
         JSString phrase = JSString.of("Hello Hello");
-
         System.out.println("\"Hello Hello\".lastIndexOf(\"Hello\"): " + phrase.lastIndexOf("Hello"));
         System.out.println("\"Hello Hello\".lastIndexOf(\"Hello\", 5): " + phrase.lastIndexOf("Hello", 5));
         System.out.println("\"Hello Hello\".lastIndexOf(\"lo\"): " + phrase.lastIndexOf("lo"));
