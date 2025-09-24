@@ -9,11 +9,11 @@ public class JSIntl extends JSObject {
 
     @JS.Coerce
     @JS(value = """
-    const args = [];
-            for (let i = 0; i < locales.length; i++) {
-                args.push(locales[i]);
-            }
-    return Intl.getCanonicalLocales(args);""")
+            const args = [];
+                    for (let i = 0; i < locales.length; i++) {
+                        args.push(locales[i]);
+                    }
+            return Intl.getCanonicalLocales(args);""")
     public static native JSArray getCanonicalLocales(String... locales);
 
     @JS.Coerce

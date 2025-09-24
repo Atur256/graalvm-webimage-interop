@@ -14,7 +14,7 @@ public class EntriesDemo {
         obj.set("language", "JavaScript");
         obj.set("version", "ES2025");
 
-        JSArray entryArray = JSObject.entries(obj).as(JSArray.class);
+        JSArray entryArray = JSArray.checkedCoerce(JSObject.entries(obj), JSArray.class);
 
         for (int i = 0; i < entryArray.length; i++) {
             JSArray pair = entryArray.at(i, JSArray.class);

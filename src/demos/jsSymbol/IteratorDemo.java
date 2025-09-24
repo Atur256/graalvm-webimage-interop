@@ -6,19 +6,19 @@ import org.graalvm.webimage.api.JSSymbol;
 public class IteratorDemo {
 
     public static void main(String[] args) {
-        System.out.println("=== Symbol.iterator Demo ===");
+        System.out.println("=== JSSymbol.iterator Demo ===");
 
-        Object sym = JSSymbol.iterator();
+        JSSymbol sym = JSSymbol.iterator();
 
-        System.out.println("Symbol.iterator: " + sym);
-        System.out.println("typeof Symbol.iterator: " + sym.getClass().getSimpleName());
+        System.out.println("JSSymbol.iterator: " + sym);
+        System.out.println("typeof JSSymbol.iterator: " + sym.getClass().getSimpleName());
         // Expected:
-        // Symbol.iterator: JavaScript<symbol; Symbol(Symbol.iterator)>
-        // typeof Symbol.iterator: JSSymbol
+        // JSSymbol.iterator: JavaScript<symbol; Symbol(Symbol.iterator)>
+        // typeof JSSymbol.iterator: JSSymbol
 
-        Object desc = JSSymbol.description(sym);
-        System.out.println("Symbol.iterator.description: " + (desc != null ? desc.toString() : "null"));
+        String desc = JSSymbol.description(sym);
+        System.out.println("JSSymbol.iterator.description: " + (desc != null ? desc : "null"));
         // Expected:
-        // Symbol.iterator.description: Symbol.iterator
+        // JSSymbol.iterator.description: Symbol.iterator
     }
 }

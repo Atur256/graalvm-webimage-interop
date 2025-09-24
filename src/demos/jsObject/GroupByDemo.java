@@ -40,7 +40,7 @@ public class GroupByDemo {
 
         JSObject grouped = JSObject.groupBy(items, groupByType);
 
-        JSArray keys = JSObject.keys(grouped).as(JSArray.class);
+        JSArray keys = JSValue.checkedCoerce(JSObject.keys(grouped), JSArray.class);
         for(int i = 0; i < keys.length; i++) {
             String key = ((JSValue) keys.get(i)).as(String.class);
             System.out.println("Group: " + key);

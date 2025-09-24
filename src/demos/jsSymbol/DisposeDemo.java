@@ -6,19 +6,19 @@ import org.graalvm.webimage.api.JSSymbol;
 public class DisposeDemo {
 
     public static void main(String[] args) {
-        System.out.println("=== Symbol.dispose Demo ===");
+        System.out.println("=== JSSymbol.dispose Demo ===");
 
-        Object sym = JSSymbol.dispose();
+        JSSymbol sym = JSSymbol.dispose();
 
-        System.out.println("Symbol.dispose: " + sym);
-        System.out.println("typeof Symbol.dispose: " + sym.getClass().getSimpleName());
+        System.out.println("JSSymbol.dispose: " + sym);
+        System.out.println("typeof JSSymbol.dispose: " + sym.getClass().getSimpleName());
         // Expected:
-        // Symbol.dispose: JavaScript<symbol; Symbol(nodejs.dispose)>
-        // typeof Symbol.dispose: JSSymbol
+        // JSSymbol.dispose: JavaScript<symbol; Symbol(nodejs.dispose)>
+        // typeof JSSymbol.dispose: JSSymbol
 
-        Object desc = JSSymbol.description(sym);
-        System.out.println("Symbol.dispose.description: " + (desc != null ? desc.toString() : "null"));
+        String  desc = JSSymbol.description(sym);
+        System.out.println("JSSymbol.dispose.description: " + (desc != null ? desc : "null"));
         // Expected:
-        // Symbol.dispose.description: nodejs.dispose
+        // JSSymbol.dispose.description: nodejs.dispose
     }
 }

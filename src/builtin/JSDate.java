@@ -212,9 +212,4 @@ public class JSDate extends JSObject {
     @JS.Coerce
     @JS(value = "return this.toUTCString()")
     public native java.lang.String toUTCString();
-
-    // TODO:
-//    @JS.Coerce
-//    @JS(value = "return this.valueOf()")
-//    public native double valueOf();
 }

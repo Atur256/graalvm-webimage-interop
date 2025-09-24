@@ -6,19 +6,19 @@ import org.graalvm.webimage.api.JSSymbol;
 public class AsyncIteratorDemo {
 
     public static void main(String[] args) {
-        System.out.println("=== Symbol.asyncIterator Demo ===");
+        System.out.println("=== JSSymbol.asyncIterator Demo ===");
 
-        Object sym = JSSymbol.asyncIterator();
+        JSSymbol sym = JSSymbol.asyncIterator();
 
-        System.out.println("Symbol.asyncIterator: " + sym);
-        System.out.println("typeof Symbol.asyncIterator: " + sym.getClass().getSimpleName());
+        System.out.println("JSSymbol.asyncIterator: " + sym);
+        System.out.println("typeof JSSymbol.asyncIterator: " + sym.getClass().getSimpleName());
         // Expected:
-        // Symbol.asyncIterator: Symbol(Symbol.asyncIterator)
-        // typeof Symbol.asyncIterator: JSSymbol
+        // JSSymbol.asyncIterator: Symbol(Symbol.asyncIterator)
+        // typeof JSSymbol.asyncIterator: JSSymbol
 
-        Object desc = JSSymbol.description(sym);
-        System.out.println("Symbol.asyncIterator.description: " + (desc != null ? desc.toString() : "null"));
+        String desc = JSSymbol.description(sym);
+        System.out.println("JSSymbol.asyncIterator.description: " + (desc != null ? desc : "null"));
         // Expected:
-        // Symbol.asyncIterator.description: Symbol.asyncIterator
+        // JSSymbol.asyncIterator.description: Symbol.asyncIterator
     }
 }

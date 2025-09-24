@@ -2,6 +2,7 @@ package demos.jsIterator;
 
 import builtin.*;
 import org.graalvm.webimage.api.JSBoolean;
+import org.graalvm.webimage.api.JSNumber;
 
 import java.lang.String;
 
@@ -12,7 +13,7 @@ public class SomeDemo {
 
         JSArray array1 = JSArray.of(1, 3, 5, 8);
         JSArray array2 = JSArray.of(1, 3, 5, 7);
-        JSFunction fun = JSFunction.fromGeneralFunction((Integer arg ) -> JSBoolean.of(arg % 2 == 0));
+        JSFunction fun = JSFunction.fromGeneralFunction((JSNumber arg ) -> JSBoolean.of(arg.as(Integer.class) % 2 == 0));
         JSIterator iterator1 = JSIterator.from(array1);
         JSIterator iterator2 = JSIterator.from(array2);
 

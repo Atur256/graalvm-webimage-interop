@@ -24,7 +24,7 @@ public class FromEntriesDemo {
         entries.push(pair1);
         entries.push(pair2);
 
-        JSObject result = JSObject.fromEntries(entries).as(JSObject.class);
+        JSObject result = JSObject.fromEntries(entries);
 
         System.out.println("framework: " + ((JSValue) result.get("framework")).as(String.class));
         System.out.println("mode: " + ((JSValue) result.get("mode")).as(String.class));

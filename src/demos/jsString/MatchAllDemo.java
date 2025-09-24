@@ -16,7 +16,7 @@ public class MatchAllDemo {
         JSString phrase = JSString.of("Price: $12, Discount: $5, Tax: $2");
 
         // Match all dollar amounts with capture group
-        JSValue iterator = phrase.matchAll(JSEval.eval("/\\$(\\d+)/g"));
+        JSObject iterator = phrase.matchAll(JSEval.eval("/\\$(\\d+)/g"));
         JSArray results = JSValue.checkedCoerce(iterator, JSIterator.class).toArray();
 
         for (int i = 0; i < results.length; i++) {

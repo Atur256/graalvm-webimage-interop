@@ -9,25 +9,26 @@ public class KeyForDemo {
 
 
     public static void main(String[] args) {
-        System.out.println("=== Symbol.keyFor Demo ===");
+        System.out.println("=== JSSymbol.keyFor Demo ===");
 
-        Object shared1 = JSSymbol.forKey("alpha");
-        Object shared2 = JSSymbol.forKey("beta");
+        JSSymbol shared1 = JSSymbol.forKey("alpha");
+        JSSymbol shared2 = JSSymbol.forKey("beta");
 
-        System.out.println("Symbol.keyFor(Symbol.for(\"alpha\")): " + JSValue.checkedCoerce(JSSymbol.keyFor(shared1), String.class));
-        System.out.println("Symbol.keyFor(Symbol.for(\"beta\")): " + JSValue.checkedCoerce(JSSymbol.keyFor(shared2), String.class));
+        System.out.println("JSSymbol.keyFor(Symbol.for(\"alpha\")): " + JSValue.checkedCoerce(JSSymbol.keyFor(shared1), String.class));
+        System.out.println("JSSymbol.keyFor(Symbol.for(\"beta\")): " + JSValue.checkedCoerce(JSSymbol.keyFor(shared2), String.class));
         // Expected:
-        // Symbol.keyFor(Symbol.for("alpha")): alpha
-        // Symbol.keyFor(Symbol.for("beta")): beta
+        // JSSymbol.keyFor(Symbol.for("alpha")): alpha
+        // JSSymbol.keyFor(Symbol.for("beta")): beta
 
         // Non-registry symbol: Symbol("gamma")
-        Object local = createLocalSymbol("gamma");
-        System.out.println("Symbol.keyFor(Symbol(\"gamma\")): " + JSSymbol.keyFor(local));
+        JSSymbol local = createLocalSymbol("gamma");
+
+        System.out.println("JSSymbol.keyFor(Symbol(\"gamma\")): " + JSSymbol.keyFor(local));
         // Expected:
-        // Symbol.keyFor(Symbol("gamma")): JavaScript<undefined; undefined>
+        // JSSymbol.keyFor(Symbol("gamma")): JavaScript<undefined; undefined>
     }
 
     @JS.Coerce
     @JS(value = "return Symbol(desc);")
-    public static native Object createLocalSymbol(String desc);
+    public static native JSSymbol createLocalSymbol(String desc);
 }

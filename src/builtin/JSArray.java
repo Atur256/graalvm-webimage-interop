@@ -13,23 +13,23 @@ public class JSArray extends JSObject {
     public int length;
 
     @JS.Coerce
-    @JS(value = "return Array.from(arrayLike)")
+    @JS(value = "return Array.from(arrayLike);")
     public static native JSArray from(JSValue arrayLike);
 
     @JS.Coerce
-    @JS(value = "return Array.from(arrayLike)")
+    @JS(value = "return Array.from(arrayLike);")
     public static native JSArray from(JSValue[] arrayLike);
 
     @JS.Coerce
-    @JS(value = "return Array.from(str)")
+    @JS(value = "return Array.from(str);")
     public static native JSArray from(String str);
 
     @JS.Coerce
-    @JS(value = "return Array.from(values)")
+    @JS(value = "return Array.from(values);")
     public static native JSArray from(int[] values);
 
     @JS.Coerce
-    @JS(value = "return Array.from(values)")
+    @JS(value = "return Array.from(values);")
     public static native JSArray from(double[] values);
 
     public static JSArray from(boolean[] values) {
@@ -41,15 +41,15 @@ public class JSArray extends JSObject {
     }
 
     @JS.Coerce
-    @JS(value = "return Array.from(values)")
+    @JS(value = "return Array.from(values);")
     public static native JSArray from(Object[] values);
 
     @JS.Coerce
-    @JS(value = "return Array.fromAsync(arrayLike)")
+    @JS(value = "return Array.fromAsync(arrayLike);")
     public static native JSValue fromAsync(JSValue arrayLike);
 
     @JS.Coerce
-    @JS(value = "return Array.isArray(value)")
+    @JS(value = "return Array.isArray(value);")
     public static native boolean isArray(JSValue value);
 
     public static JSArray of(Object... values) {
@@ -61,7 +61,7 @@ public class JSArray extends JSObject {
     }
 
     @JS.Coerce
-    @JS(value = "return this.at(index)")
+    @JS(value = "return this.at(index);")
     public native Object at(int index);
 
     public <R> R at(int index, Class<R> cls) {
@@ -69,7 +69,7 @@ public class JSArray extends JSObject {
     }
 
     @JS.Coerce
-    @JS(value = "return Array.prototype.concat.apply(this, jsArrays)")
+    @JS(value = "return Array.prototype.concat.apply(this, jsArrays);")
     public native JSArray concat(JSArray[] jsArrays);
 
     public JSArray concat(Object... arrays) {
@@ -174,15 +174,15 @@ public class JSArray extends JSObject {
     }
 
     @JS.Coerce
-    @JS(value = "return this.copyWithin(target, start, end)")
+    @JS(value = "return this.copyWithin(target, start, end);")
     public native JSArray copyWithin(int target, int start, int end);
 
     @JS.Coerce
-    @JS(value = "return this.entries()")
+    @JS(value = "return this.entries();")
     public native JSIterator entries();
 
     @JS.Coerce
-    @JS(value = "return this.every(callback)")
+    @JS(value = "return this.every(callback);")
     public native boolean every(JSValue callback);
 
     @JS.Coerce
@@ -206,11 +206,11 @@ public class JSArray extends JSObject {
     public native JSArray fill(Object value, int start, int end);
 
     @JS.Coerce
-    @JS(value = "return this.filter(callback)")
+    @JS(value = "return this.filter(callback);")
     public native JSArray filter(JSFunction callback);
 
     @JS.Coerce
-    @JS(value = "return this.find(callback)")
+    @JS(value = "return this.find(callback);")
     public native Object find(JSFunction callback);
 
     public <R> R find(JSFunction callback, Class<R> cls) {
@@ -218,11 +218,11 @@ public class JSArray extends JSObject {
     }
 
     @JS.Coerce
-    @JS(value = "return this.findIndex(callback)")
+    @JS(value = "return this.findIndex(callback);")
     public native int findIndex(JSFunction callback);
 
     @JS.Coerce
-    @JS(value = "return this.findLast(callback)")
+    @JS(value = "return this.findLast(callback);")
     public native Object findLast(JSFunction callback);
 
     public <R> R findLast(JSFunction callback, Class<R> cls) {
@@ -230,95 +230,95 @@ public class JSArray extends JSObject {
     }
 
     @JS.Coerce
-    @JS(value = "return this.findLastIndex(callback)")
+    @JS(value = "return this.findLastIndex(callback);")
     public native int findLastIndex(JSFunction callback);
 
     @JS.Coerce
-    @JS(value = "return this.flat(depth)")
+    @JS(value = "return this.flat(depth);")
     public native JSArray flat(int depth);
 
     @JS.Coerce
-    @JS(value = "return this.flatMap(callback)")
+    @JS(value = "return this.flatMap(callback);")
     public native JSArray flatMap(JSFunction callback);
 
     @JS.Coerce
-    @JS(value = "this.forEach(callback)")
+    @JS(value = "this.forEach(callback);")
     public native void forEach(JSFunction callback);
 
     @JS.Coerce
-    @JS(value = "return this.includes(value)")
+    @JS(value = "return this.includes(value);")
     public native boolean includes(JSValue value);
 
     @JS.Coerce
-    @JS(value = "return this.includes(value)")
+    @JS(value = "return this.includes(value);")
     public native boolean includes(int value);
 
     @JS.Coerce
-    @JS(value = "return this.includes(value)")
+    @JS(value = "return this.includes(value);")
     public native boolean includes(double value);
 
     @JS.Coerce
-    @JS(value = "return this.includes(value)")
+    @JS(value = "return this.includes(value);")
     public native boolean includes(boolean value);
 
     @JS.Coerce
-    @JS(value = "return this.includes(value)")
+    @JS(value = "return this.includes(value);")
     public native boolean includes(Object value);
 
     @JS.Coerce
-    @JS(value = "return this.indexOf(value)")
+    @JS(value = "return this.indexOf(value);")
     public native int indexOf(JSValue value);
 
     @JS.Coerce
-    @JS(value = "return this.indexOf(value)")
+    @JS(value = "return this.indexOf(value);")
     public native int indexOf(int value);
 
     @JS.Coerce
-    @JS(value = "return this.indexOf(value)")
+    @JS(value = "return this.indexOf(value);")
     public native int indexOf(double value);
 
     @JS.Coerce
-    @JS(value = "return this.indexOf(value)")
+    @JS(value = "return this.indexOf(value);")
     public native int indexOf(boolean value);
 
     @JS.Coerce
-    @JS(value = "return this.indexOf(value)")
+    @JS(value = "return this.indexOf(value);")
     public native int indexOf(Object value);
 
     @JS.Coerce
-    @JS(value = "return this.join(separator)")
+    @JS(value = "return this.join(separator);")
     public native String join(String separator);
 
     @JS.Coerce
-    @JS(value = "return this.keys()")
+    @JS(value = "return this.keys();")
     public native JSIterator keys();
 
     @JS.Coerce
-    @JS(value = "return this.lastIndexOf(value)")
+    @JS(value = "return this.lastIndexOf(value);")
     public native int lastIndexOf(JSValue value);
 
     @JS.Coerce
-    @JS(value = "return this.lastIndexOf(value)")
+    @JS(value = "return this.lastIndexOf(value);")
     public native int lastIndexOf(int value);
 
     @JS.Coerce
-    @JS(value = "return this.lastIndexOf(value)")
+    @JS(value = "return this.lastIndexOf(value);")
     public native int lastIndexOf(double value);
 
     @JS.Coerce
-    @JS(value = "return this.lastIndexOf(value)")
+    @JS(value = "return this.lastIndexOf(value);")
     public native int lastIndexOf(boolean value);
 
     @JS.Coerce
-    @JS(value = "return this.lastIndexOf(value)")
+    @JS(value = "return this.lastIndexOf(value);")
     public native int lastIndexOf(Object value);
 
     @JS.Coerce
-    @JS(value = "return this.map(callback)")
+    @JS(value = "return this.map(callback);")
     public native JSArray map(JSFunction callback);
 
     @JS.Coerce
-    @JS(value = "return this.pop()")
+    @JS(value = "return this.pop();")
     public native Object pop();
 
     public <R> R pop(Class<R> cls) {
@@ -346,7 +346,7 @@ public class JSArray extends JSObject {
     public native JSArray push(Object value);
 
     @JS.Coerce
-    @JS(value = "return this.reduce(callback)")
+    @JS(value = "return this.reduce(callback);")
     private native Object reduceJS(JSFunction callback);
 
     public <R> R reduce(JSFunction callback, Class<R> cls) {
@@ -354,7 +354,7 @@ public class JSArray extends JSObject {
     }
 
     @JS.Coerce
-    @JS(value = "return this.reduce(callback, initialValue)")
+    @JS(value = "return this.reduce(callback, initialValue);")
     private native <T> Object reduceJS(JSFunction callback, T initialValue);
 
     @SuppressWarnings("unchecked")
@@ -367,7 +367,7 @@ public class JSArray extends JSObject {
     }
 
     @JS.Coerce
-    @JS(value = "return this.reduceRight(callback)")
+    @JS(value = "return this.reduceRight(callback);")
     private native Object reduceRightJS(JSFunction callback);
 
     public <R> R reduceRight(JSFunction callback, Class<R> cls) {
@@ -375,7 +375,7 @@ public class JSArray extends JSObject {
     }
 
     @JS.Coerce
-    @JS(value = "return this.reduceRight(callback, initialValue)")
+    @JS(value = "return this.reduceRight(callback, initialValue);")
     private native <R> Object reduceRightJS(JSFunction callback, R initialValue);
 
     @SuppressWarnings("unchecked")
@@ -392,7 +392,7 @@ public class JSArray extends JSObject {
     public native JSArray reverse();
 
     @JS.Coerce
-    @JS(value = "return this.shift()")
+    @JS(value = "return this.shift();")
     public native Object shift();
 
     public <R> R shift(Class<R> cls) {
@@ -400,11 +400,11 @@ public class JSArray extends JSObject {
     }
 
     @JS.Coerce
-    @JS(value = "return this.slice(start, end)")
+    @JS(value = "return this.slice(start, end);")
     public native JSArray slice(int start, int end);
 
     @JS.Coerce
-    @JS(value = "return this.some(callback)")
+    @JS(value = "return this.some(callback);")
     public native boolean some(JSFunction callback);
 
     @JS.Coerce
@@ -412,27 +412,27 @@ public class JSArray extends JSObject {
     public native JSArray sort();
 
     @JS.Coerce
-    @JS(value = "return this.splice(start, deleteCount)")
+    @JS(value = "return this.splice(start, deleteCount);")
     public native JSArray splice(int start, int deleteCount);
 
     @JS.Coerce
-    @JS(value = "return this.toLocaleString()")
+    @JS(value = "return this.toLocaleString();")
     public native String toLocaleString();
 
     @JS.Coerce
-    @JS(value = "return this.toReversed()")
+    @JS(value = "return this.toReversed();")
     public native JSArray toReversed();
 
     @JS.Coerce
-    @JS(value = "return this.toSorted()")
+    @JS(value = "return this.toSorted();")
     public native JSArray toSorted();
 
     @JS.Coerce
-    @JS(value = "return this.toSpliced(start, deleteCount)")
+    @JS(value = "return this.toSpliced(start, deleteCount);")
     public native JSArray toSpliced(int start, int deleteCount);
 
     @JS.Coerce
-    @JS(value = "return this.toString()")
+    @JS(value = "return this.toString();")
     private native String toJSString();
 
     public String toString() {
@@ -460,26 +460,26 @@ public class JSArray extends JSObject {
     public native int unshift(Object value);
 
     @JS.Coerce
-    @JS(value = "return this.values()")
+    @JS(value = "return this.values();")
     public native JSIterator values();
 
     @JS.Coerce
-    @JS(value = "return this.with(index, value)")
+    @JS(value = "return this.with(index, value);")
     public native JSArray with(int index, JSValue value);
 
     @JS.Coerce
-    @JS(value = "return this.with(index, value)")
+    @JS(value = "return this.with(index, value);")
     public native JSArray with(int index, int value);
 
     @JS.Coerce
-    @JS(value = "return this.with(index, value)")
+    @JS(value = "return this.with(index, value);")
     public native JSArray with(int index, double value);
 
     @JS.Coerce
-    @JS(value = "return this.with(index, value)")
+    @JS(value = "return this.with(index, value);")
     public native JSArray with(int index, boolean value);
 
     @JS.Coerce
-    @JS(value = "return this.with(index, value)")
+    @JS(value = "return this.with(index, value);")
     public native JSArray with(int index, Object value);
 }

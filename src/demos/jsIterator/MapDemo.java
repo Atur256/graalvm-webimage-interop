@@ -1,6 +1,7 @@
 package demos.jsIterator;
 
 import builtin.*;
+import org.graalvm.webimage.api.JSNumber;
 
 import java.lang.String;
 
@@ -11,7 +12,7 @@ public class MapDemo {
         System.out.println("\n=== JSIterator.map Demo ===");
 
         JSArray array = JSArray.of(1, 2, 3);
-        JSFunction fun = JSFunction.fromGeneralFunction((Integer arg) -> arg * 10);
+        JSFunction fun = JSFunction.fromGeneralFunction((JSNumber arg) -> arg.as(Integer.class) * 10);
         JSIterator iterator = JSIterator.from(array).map(fun);
 
         System.out.println("Mapped to x * 10: " + iterator.toArray());

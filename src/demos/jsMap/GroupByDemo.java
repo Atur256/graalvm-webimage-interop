@@ -19,7 +19,7 @@ public class GroupByDemo {
         List<String> fruits = Arrays.asList("apple", "blueberry", "apricot", "cherry", "banana");
         JSArray jsArray = JSArray.of(fruits.toArray());
         JSIterator iterator = JSIterator.from(jsArray);
-        JSFunction callback1 = JSFunction.fromGeneralFunction((String item) -> JSString.of(item.substring(0, 1)));
+        JSFunction callback1 = JSFunction.fromGeneralFunction((JSString item) -> JSString.of(item.asString().substring(0, 1)));
         JSFunction callback2 = JSFunction.fromFunction((JSString item) -> JSString.of(item.as(String.class).substring(0, 1)));
 
         // Using JSIterator directly

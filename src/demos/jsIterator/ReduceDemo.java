@@ -15,7 +15,7 @@ public class ReduceDemo {
     public static void main(String[] args) {
         System.out.println("\n=== JSIterator.reduce Demo ===");
 
-        JSArray sumArray = JSArray.of(new JSNumber[]{JSNumber.of(1), JSNumber.of(2), JSNumber.of(3)});
+        JSArray sumArray = JSArray.of(JSNumber.of(1), JSNumber.of(2), JSNumber.of(3));
         JSIterator sumIterator = JSIterator.from(sumArray);
         JSFunction sumFunction = JSFunction.fromArgs("acc", "val", "return acc + val;");
         JSValue sumResult = sumIterator.reduce(sumFunction, JSNumber.of(0));
@@ -23,23 +23,24 @@ public class ReduceDemo {
         // Expected: Sum of [1, 2, 3]: 6
 
         JSArray productArray1 = JSArray.of(2, 4, 10);
-        JSFunction multiplyFunction1 = JSFunction.fromGeneralBiFunction((JSNumber acc, Integer val) ->
-                JSNumber.of(acc.as(Integer.class) * val));
+        JSFunction multiplyFunction1 = JSFunction.fromGeneralBiFunction((JSNumber acc, JSNumber val) ->
+                JSNumber.of(acc.as(Integer.class) * val.as(Integer.class)));
         JSIterator productIterator1 = JSIterator.from(productArray1);
         int productResult1 = productIterator1.reduce(multiplyFunction1, 1);
         System.out.println("Product of [2, 4, 10]: " + productResult1);
         // Expected: Product of [2, 4, 10]: 80
 
         JSArray productArray2 = JSArray.of(2, 4, 10);
-        JSFunction multiplyFunction2 = JSFunction.fromGeneralBiFunction((Integer acc, Integer val) -> acc * val);
+        JSFunction multiplyFunction2 = JSFunction.fromGeneralBiFunction((JSNumber acc, JSNumber val) ->
+             JSNumber.of(acc.as(Integer.class) * val.as(Integer.class)));
         JSIterator productIterator2 = JSIterator.from(productArray2);
-        int productResult2 = productIterator2.reduce(multiplyFunction2, Integer.class);
+        JSNumber productResult2 = productIterator2.reduce(multiplyFunction2, JSNumber.class);
         System.out.println("Product of [2, 4, 10]: " + productResult2);
         // Expected: Product of [2, 4, 10]: 80
 
         JSArray subtractionArray = JSArray.of(1.4, 2.6, 5.6, 7.0);
-        JSFunction subtractFunction = JSFunction.fromGeneralBiFunction((JSNumber acc, Double val) ->
-                JSNumber.of(acc.as(Double.class) - val));
+        JSFunction subtractFunction = JSFunction.fromGeneralBiFunction((JSNumber acc, JSNumber val) ->
+                JSNumber.of(acc.as(Double.class) - val.as(Double.class)));
         JSIterator subtractionIterator = JSIterator.from(subtractionArray);
         double subtractionResult = subtractionIterator.reduce(subtractFunction, 2.14);
         System.out.println("Result of sequential subtraction: " + subtractionResult);
@@ -47,14 +48,14 @@ public class ReduceDemo {
 
 
         JSArray fruitsArray = JSArray.of("apple", "banana", "orange");
-        JSFunction concatFunction = JSFunction.fromGeneralBiFunction((JSString acc, String val) ->
-                JSString.of(acc.as(String.class) + " | " + val));
+        JSFunction concatFunction = JSFunction.fromGeneralBiFunction((JSString acc, JSString val) ->
+                JSString.of(acc.asString() + " | " + val.asString()));
         JSIterator stringIterator = JSIterator.from(fruitsArray);
         String concatResult = stringIterator.reduce(concatFunction, "fruits:");
         System.out.println("Concatenated fruit list: " + concatResult);
         // Expected: Concatenated fruit list: fruits: | apple | banana | orange
 
-        JSArray boolArray = JSArray.of(new boolean[]{true, false, true, false});
+        JSArray boolArray = JSArray.of(true, false, true, false);
         JSFunction andFunction = JSFunction.fromGeneralBiFunction((JSBoolean acc, JSBoolean val) ->
                 JSBoolean.of(acc.as(Boolean.class) && val.as(Boolean.class)));
         JSIterator booleanIterator = JSIterator.from(boolArray);

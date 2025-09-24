@@ -14,7 +14,7 @@ public class KeysDemo {
         obj.set("age", "27");
         obj.set("active", "true");
 
-        JSArray keyArray = JSObject.keys(obj).as(JSArray.class);
+        JSArray keyArray = JSValue.checkedCoerce(JSObject.keys(obj), JSArray.class);
 
         System.out.println("Object keys:");
         for(int i = 0; i < keyArray.length; i++) {

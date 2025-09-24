@@ -2,6 +2,7 @@ package demos.jsIterator;
 
 import builtin.*;
 import org.graalvm.webimage.api.JSBoolean;
+import org.graalvm.webimage.api.JSNumber;
 
 import java.lang.String;
 
@@ -13,7 +14,7 @@ public class EveryDemo {
 
         JSIterator iterator1 = JSIterator.from(JSArray.of(2, 4, 6));
         JSIterator iterator2 = JSIterator.from(JSArray.of(2, 3, 6));
-        JSFunction isEven = JSFunction.fromGeneralFunction((Integer arg) -> JSBoolean.of(arg % 2 == 0));
+        JSFunction isEven = JSFunction.fromGeneralFunction((JSNumber arg) -> JSBoolean.of(arg.as(Integer.class) % 2 == 0));
 
         boolean allEven1 = iterator1.every(isEven);
         System.out.println("All elements are even: " + allEven1);

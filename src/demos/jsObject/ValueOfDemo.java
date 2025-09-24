@@ -12,7 +12,7 @@ public class ValueOfDemo {
         JSObject obj = JSObject.create();
         obj.set("id", 42);
 
-        JSObject result = obj.valueOf();
+        JSObject result = JSValue.checkedCoerce(obj.valueOf(), JSObject.class);
 
         System.out.println("valueOf().id = " + JSValue.checkedCoerce(result.get("id"), Integer.class));
         // Expected: valueOf().id = 42

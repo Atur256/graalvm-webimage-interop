@@ -67,35 +67,35 @@ public class Symbol extends JSObject {
 //    @JS(value = "return Symbol.search;")
 //    public static native Object search();
 
-    // Symbol.species
-    @JS.Coerce
-    @JS(value = "return Symbol.species;")
-    public static native Object species();
-
-    // Symbol.split
-    @JS.Coerce
-    @JS(value = "return Symbol.split;")
-    public static native Object split();
-
-    // Symbol.toPrimitive
-    @JS.Coerce
-    @JS(value = "return Symbol.toPrimitive;")
-    public static native Object toPrimitive();
-
-    // Symbol.toStringTag
-    @JS.Coerce
-    @JS(value = "return Symbol.toStringTag;")
-    public static native Object toStringTag();
-
-    // Symbol.unscopables
-    @JS.Coerce
-    @JS(value = "return Symbol.unscopables;")
-    public static native Object unscopables();
-
-    // Symbol.prototype.valueOf()
-    @JS.Coerce
-    @JS(value = "return sym.valueOf();")
-    public static native Object valueOf(Object sym);
+//    // Symbol.species
+//    @JS.Coerce
+//    @JS(value = "return Symbol.species;")
+//    public static native Object species();
+//
+//    // Symbol.split
+//    @JS.Coerce
+//    @JS(value = "return Symbol.split;")
+//    public static native Object split();
+//
+//    // Symbol.toPrimitive
+//    @JS.Coerce
+//    @JS(value = "return Symbol.toPrimitive;")
+//    public static native Object toPrimitive();
+//
+//    // Symbol.toStringTag
+//    @JS.Coerce
+//    @JS(value = "return Symbol.toStringTag;")
+//    public static native Object toStringTag();
+//
+//    // Symbol.unscopables
+//    @JS.Coerce
+//    @JS(value = "return Symbol.unscopables;")
+//    public static native Object unscopables();
+//
+//    // Symbol.prototype.valueOf()
+//    @JS.Coerce
+//    @JS(value = "return sym.valueOf();")
+//    public static native Object valueOf(Object sym);
 
 //    // Symbol.prototype.description
 //    @JS.Coerce

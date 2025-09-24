@@ -2,6 +2,7 @@ package demos.jsIterator;
 
 import builtin.*;
 import org.graalvm.webimage.api.JSBoolean;
+import org.graalvm.webimage.api.JSNumber;
 
 import java.lang.String;
 
@@ -12,7 +13,7 @@ public class FilterDemo {
         System.out.println("\n=== JSIterator.filter Demo ===");
 
         JSIterator iterator = JSIterator.from(JSArray.of(1, 2, 3, 4, 5, 6));
-        JSFunction isGreaterThan3 = JSFunction.fromGeneralFunction((Integer arg) -> JSBoolean.of(arg > 3));
+        JSFunction isGreaterThan3 = JSFunction.fromGeneralFunction((JSNumber arg) -> JSBoolean.of(arg.as(Integer.class) > 3));
 
         JSIterator filteredIterator = iterator.filter(isGreaterThan3);
         System.out.println("Filtered elements > 3: " + filteredIterator.toArray());

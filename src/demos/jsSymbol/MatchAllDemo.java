@@ -6,19 +6,19 @@ import org.graalvm.webimage.api.JSSymbol;
 public class MatchAllDemo {
 
     public static void main(String[] args) {
-        System.out.println("=== Symbol.matchAll Demo ===");
+        System.out.println("=== JSSymbol.matchAll Demo ===");
 
-        Object sym = JSSymbol.matchAll();
+        JSSymbol sym = JSSymbol.matchAll();
 
-        System.out.println("Symbol.matchAll: " + sym);
-        System.out.println("typeof Symbol.matchAll: " + sym.getClass().getSimpleName());
+        System.out.println("JSSymbol.matchAll: " + sym);
+        System.out.println("typeof JSSymbol.matchAll: " + sym.getClass().getSimpleName());
         // Expected:
-        // Symbol.matchAll: JavaScript<symbol; Symbol(Symbol.matchAll)>
-        // typeof Symbol.matchAll: JSSymbol
+        // JSSymbol.matchAll: JavaScript<symbol; Symbol(Symbol.matchAll)>
+        // typeof JSSymbol.matchAll: JSSymbol
 
-        Object desc = JSSymbol.description(sym);
-        System.out.println("Symbol.matchAll.description: " + (desc != null ? desc.toString() : "null"));
+        String desc = JSSymbol.description(sym);
+        System.out.println("JSSymbol.matchAll.description: " + (desc != null ? desc : "null"));
         // Expected:
-        // Symbol.matchAll.description: Symbol.matchAll
+        // JSSymbol.matchAll.description: Symbol.matchAll
     }
 }

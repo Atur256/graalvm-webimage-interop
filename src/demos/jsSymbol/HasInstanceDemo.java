@@ -6,19 +6,19 @@ import org.graalvm.webimage.api.JSSymbol;
 public class HasInstanceDemo {
 
     public static void main(String[] args) {
-        System.out.println("=== Symbol.hasInstance Demo ===");
+        System.out.println("=== JSSymbol.hasInstance Demo ===");
 
-        Object sym = JSSymbol.hasInstance();
+        JSSymbol sym = JSSymbol.hasInstance();
 
-        System.out.println("Symbol.hasInstance: " + sym);
-        System.out.println("typeof Symbol.hasInstance: " + sym.getClass().getSimpleName());
+        System.out.println("JSSymbol.hasInstance: " + sym);
+        System.out.println("typeof JSSymbol.hasInstance: " + sym.getClass().getSimpleName());
         // Expected:
-        // Symbol.hasInstance: JavaScript<symbol; Symbol(Symbol.hasInstance)>
-        // typeof Symbol.hasInstance: JSSymbol
+        // JSSymbol.hasInstance: JavaScript<symbol; Symbol(Symbol.hasInstance)>
+        // typeof JSSymbol.hasInstance: JSSymbol
 
-        Object desc = JSSymbol.description(sym);
-        System.out.println("Symbol.hasInstance.description: " + (desc != null ? desc.toString() : "null"));
+        String desc = JSSymbol.description(sym);
+        System.out.println("JSSymbol.hasInstance.description: " + (desc != null ? desc : "null"));
         // Expected:
-        // Symbol.hasInstance.description: Symbol.hasInstance
+        // JSSymbol.hasInstance.description: Symbol.hasInstance
     }
 }

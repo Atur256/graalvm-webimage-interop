@@ -1,6 +1,7 @@
 package demos.jsIterator;
 
 import builtin.*;
+import org.graalvm.webimage.api.JSString;
 
 import java.lang.String;
 
@@ -11,7 +12,7 @@ public class ForEachDemo {
         System.out.println("\n=== JSIterator.forEach Demo ===");
 
         JSArray array = JSArray.of("x", "y", "z");
-        JSFunction fun = JSFunction.fromGeneralConsumer((String arg) -> System.out.println("Item: " + arg));
+        JSFunction fun = JSFunction.fromGeneralConsumer((JSString arg) -> System.out.println("Item: " + arg.asString()));
         JSIterator iterator = JSIterator.from(array);
 
         iterator.forEach(fun);
