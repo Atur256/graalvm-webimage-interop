@@ -1,0 +1,14 @@
+package io.github.atur256.webimageinterop.demos.jsDate;
+
+import io.github.atur256.webimageinterop.builtin.JSDate;
+
+
+public class GetUTCDayDemo {
+
+    public static void main(String[] args) {
+        System.out.println("\n=== JSDate.getUTCDay Demo ===");
+        JSDate date = new JSDate();
+        System.out.println("UTC day of week (0=Sun): " + date.getUTCDay());
+        // Expected: UTC day of week (0=Sun): <1-7>
+    }
+}
