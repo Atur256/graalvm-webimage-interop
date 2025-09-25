@@ -14,51 +14,51 @@ import java.util.function.BiFunction;
 public class JSJson extends JSObject {
 
     @JS.Coerce
-    @JS(value = "return JSON.parse(text)")
+    @JS(value = "return JSON.parse(text);")
     public static native JSValue parse(String text);
 
     @JS.Coerce
-    @JS(value = "return JSON.parse(text, reviver)")
+    @JS(value = "return JSON.parse(text, reviver);")
     public static native JSValue parse(String text, JSFunction reviver);
 
     @JS.Coerce
-    @JS(value = "return JSON.stringify(value)")
+    @JS(value = "return JSON.stringify(value);")
     public static native String stringify(JSValue value);
 
     @JS.Coerce
-    @JS(value = "return JSON.stringify(value)")
+    @JS(value = "return JSON.stringify(value);")
     public static native String stringify(java.lang.Object value);
 
     @JS.Coerce
-    @JS(value = "return JSON.stringify(value, replacer)")
+    @JS(value = "return JSON.stringify(value, replacer);")
     public static native String stringify(JSValue value, JSFunction replacer);
 
     @JS.Coerce
-    @JS(value = "return JSON.stringify(value, replacer, space)")
+    @JS(value = "return JSON.stringify(value, replacer, space);")
     public static native String stringify(JSValue value, JSFunction replacer, int space);
 
     @JS.Coerce
-    @JS(value = "return JSON.stringify(value, null, space)")
+    @JS(value = "return JSON.stringify(value, null, space);")
     public static native String stringify(JSValue value, int space);
 
     @JS.Coerce
-    @JS(value = "return JSON.stringify(value, null, space)")
+    @JS(value = "return JSON.stringify(value, null, space);")
     public static native String stringify(java.lang.Object value, int space);
 
     @JS.Coerce
-    @JS(value = "return JSON.rawJSON(text)")
+    @JS(value = "return JSON.rawJSON(text);")
     public static native JSValue rawJSON(JSString text);
 
     @JS.Coerce
-    @JS(value = "return JSON.rawJSON(text)")
+    @JS(value = "return JSON.rawJSON(text);")
     public static native JSValue rawJSON(String text);
 
     @JS.Coerce
-    @JS(value = "return JSON.isRawJSON(value)")
+    @JS(value = "return JSON.isRawJSON(value);")
     public static native boolean isRawJSON(JSValue value);
 
     @JS.Coerce
-    @JS(value = "return JSON.isRawJSON(value)")
+    @JS(value = "return JSON.isRawJSON(value);")
     public static native boolean isRawJSON(Object value);
 
     @JS.Coerce

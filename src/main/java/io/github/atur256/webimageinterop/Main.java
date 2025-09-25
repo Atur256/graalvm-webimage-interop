@@ -1,12 +1,9 @@
 package io.github.atur256.webimageinterop;
 
-import static org.junit.Assert.assertEquals;
-
 
 public class Main {
 
     public static void main(String[] args) {
-
 
         // Eval
 
@@ -633,6 +630,16 @@ public class Main {
         io.github.atur256.webimageinterop.demos.jsIntl.CanonicalLocalesDemo.main(null);
 
         io.github.atur256.webimageinterop.demos.jsIntl.SupportedValuesDemo.main(null);
+
+        // JSError
+
+        io.github.atur256.webimageinterop.demos.jsError.CreateDemo.main(null);
+
+        io.github.atur256.webimageinterop.demos.jsError.CaptureStackTraceDemo.main(null);
+
+        io.github.atur256.webimageinterop.demos.jsError.ToStringDemo.main(null);
+
+        io.github.atur256.webimageinterop.demos.jsError.ErrorPropertiesDemo.main(null);
 
         // JSPromise
 

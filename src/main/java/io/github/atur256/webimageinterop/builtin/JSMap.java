@@ -92,7 +92,7 @@ public class JSMap extends JSObject {
     }
 
     public <R> R get(int key, Class<R> cls) {
-        return JSValue.checkedCoerce(get(JSNumber.of(key)),cls);
+        return JSValue.checkedCoerce(get(JSNumber.of(key)), cls);
     }
 
     public <R> R get(double key, Class<R> cls) {
@@ -100,7 +100,7 @@ public class JSMap extends JSObject {
     }
 
     public <R> R get(boolean key, Class<R> cls) {
-        return JSValue.checkedCoerce(get(JSBoolean.of(key)),cls);
+        return JSValue.checkedCoerce(get(JSBoolean.of(key)), cls);
     }
 
     public <R> R get(Object key, Class<R> cls) {

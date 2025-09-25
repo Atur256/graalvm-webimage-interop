@@ -10,206 +10,206 @@ import java.lang.String;
 public class JSDate extends JSObject {
 
     @JS.Coerce
-    @JS(value = "return Date.now()")
+    @JS(value = "return Date.now();")
     public static native double now();
 
     @JS.Coerce
-    @JS(value = "return Date.parse(dateString)")
+    @JS(value = "return Date.parse(dateString);")
     public static native double parse(String dateString);
 
     @JS.Coerce
-    @JS(value = "return Date.UTC(year)")
+    @JS(value = "return Date.UTC(year);")
     public static native double UTC(int year);
 
     @JS.Coerce
-    @JS(value = "return Date.UTC(year, month)")
+    @JS(value = "return Date.UTC(year, month);")
     public static native double UTC(int year, int month);
 
     @JS.Coerce
-    @JS(value = "return Date.UTC(year, month, day)")
+    @JS(value = "return Date.UTC(year, month, day);")
     public static native double UTC(int year, int month, int day);
 
     @JS.Coerce
-    @JS(value = "return Date.UTC(year, month, day, hours)")
+    @JS(value = "return Date.UTC(year, month, day, hours);")
     public static native double UTC(int year, int month, int day, int hours);
 
     @JS.Coerce
-    @JS(value = "return Date.UTC(year, month, day, hours, minutes)")
+    @JS(value = "return Date.UTC(year, month, day, hours, minutes);")
     public static native double UTC(int year, int month, int day, int hours, int minutes);
 
     @JS.Coerce
-    @JS(value = "return Date.UTC(year, month, day, hours, minutes, seconds)")
+    @JS(value = "return Date.UTC(year, month, day, hours, minutes, seconds);")
     public static native double UTC(int year, int month, int day, int hours, int minutes, int seconds);
 
     @JS.Coerce
-    @JS(value = "return Date.UTC(year, month, day, hours, minutes, seconds, ms)")
+    @JS(value = "return Date.UTC(year, month, day, hours, minutes, seconds, ms);")
     public static native double UTC(int year, int month, int day, int hours, int minutes, int seconds, int ms);
 
     @JS.Coerce
-    @JS(value = "return this.getDate()")
+    @JS(value = "return this.getDate();")
     public native int getDate();
 
     @JS.Coerce
-    @JS(value = "return this.getDay()")
+    @JS(value = "return this.getDay();")
     public native int getDay();
 
     @JS.Coerce
-    @JS(value = "return this.getFullYear()")
+    @JS(value = "return this.getFullYear();")
     public native int getFullYear();
 
     @JS.Coerce
-    @JS(value = "return this.getHours()")
+    @JS(value = "return this.getHours();")
     public native int getHours();
 
     @JS.Coerce
-    @JS(value = "return this.getMilliseconds()")
+    @JS(value = "return this.getMilliseconds();")
     public native int getMilliseconds();
 
     @JS.Coerce
-    @JS(value = "return this.getMinutes()")
+    @JS(value = "return this.getMinutes();")
     public native int getMinutes();
 
     @JS.Coerce
-    @JS(value = "return this.getMonth()")
+    @JS(value = "return this.getMonth();")
     public native int getMonth();
 
     @JS.Coerce
-    @JS(value = "return this.getSeconds()")
+    @JS(value = "return this.getSeconds();")
     public native int getSeconds();
 
     @JS.Coerce
-    @JS(value = "return this.getTime()")
+    @JS(value = "return this.getTime();")
     public native double getTime();
 
     @JS.Coerce
-    @JS(value = "return this.getTimezoneOffset()")
+    @JS(value = "return this.getTimezoneOffset();")
     public native int getTimezoneOffset();
 
     @JS.Coerce
-    @JS(value = "return this.getUTCDate()")
+    @JS(value = "return this.getUTCDate();")
     public native int getUTCDate();
 
     @JS.Coerce
-    @JS(value = "return this.getUTCDay()")
+    @JS(value = "return this.getUTCDay();")
     public native int getUTCDay();
 
     @JS.Coerce
-    @JS(value = "return this.getUTCFullYear()")
+    @JS(value = "return this.getUTCFullYear();")
     public native int getUTCFullYear();
 
     @JS.Coerce
-    @JS(value = "return this.getUTCHours()")
+    @JS(value = "return this.getUTCHours();")
     public native int getUTCHours();
 
     @JS.Coerce
-    @JS(value = "return this.getUTCMilliseconds()")
+    @JS(value = "return this.getUTCMilliseconds();")
     public native int getUTCMilliseconds();
 
     @JS.Coerce
-    @JS(value = "return this.getUTCMinutes()")
+    @JS(value = "return this.getUTCMinutes();")
     public native int getUTCMinutes();
 
     @JS.Coerce
-    @JS(value = "return this.getUTCMonth()")
+    @JS(value = "return this.getUTCMonth();")
     public native int getUTCMonth();
 
     @JS.Coerce
-    @JS(value = "return this.getUTCSeconds()")
+    @JS(value = "return this.getUTCSeconds();")
     public native int getUTCSeconds();
 
     @JS.Coerce
-    @JS(value = "return this.setDate(date)")
+    @JS(value = "return this.setDate(date);")
     public native void setDate(int date);
 
     @JS.Coerce
-    @JS(value = "return this.setFullYear(year)")
+    @JS(value = "return this.setFullYear(year);")
     public native void setFullYear(int year);
 
     @JS.Coerce
-    @JS(value = "return this.setHours(hours)")
+    @JS(value = "return this.setHours(hours);")
     public native void setHours(int hours);
 
     @JS.Coerce
-    @JS(value = "return this.setMilliseconds(ms)")
+    @JS(value = "return this.setMilliseconds(ms);")
     public native void setMilliseconds(int ms);
 
     @JS.Coerce
-    @JS(value = "return this.setMinutes(minutes)")
+    @JS(value = "return this.setMinutes(minutes);")
     public native void setMinutes(int minutes);
 
     @JS.Coerce
-    @JS(value = "return this.setMonth(month)")
+    @JS(value = "return this.setMonth(month);")
     public native void setMonth(int month);
 
     @JS.Coerce
-    @JS(value = "return this.setSeconds(seconds)")
+    @JS(value = "return this.setSeconds(seconds);")
     public native void setSeconds(int seconds);
 
     @JS.Coerce
-    @JS(value = "return this.setTime(time)")
+    @JS(value = "return this.setTime(time);")
     public native void setTime(double time);
 
     @JS.Coerce
-    @JS(value = "return this.setUTCDate(date)")
+    @JS(value = "return this.setUTCDate(date);")
     public native void setUTCDate(int date);
 
     @JS.Coerce
-    @JS(value = "return this.setUTCFullYear(year)")
+    @JS(value = "return this.setUTCFullYear(year);")
     public native void setUTCFullYear(int year);
 
     @JS.Coerce
-    @JS(value = "return this.setUTCHours(hours)")
+    @JS(value = "return this.setUTCHours(hours);")
     public native void setUTCHours(int hours);
 
     @JS.Coerce
-    @JS(value = "return this.setUTCMilliseconds(ms)")
+    @JS(value = "return this.setUTCMilliseconds(ms);")
     public native void setUTCMilliseconds(int ms);
 
     @JS.Coerce
-    @JS(value = "return this.setUTCMinutes(minutes)")
+    @JS(value = "return this.setUTCMinutes(minutes);")
     public native void setUTCMinutes(int minutes);
 
     @JS.Coerce
-    @JS(value = "return this.setUTCMonth(month)")
+    @JS(value = "return this.setUTCMonth(month);")
     public native void setUTCMonth(int month);
 
     @JS.Coerce
-    @JS(value = "return this.setUTCSeconds(seconds)")
+    @JS(value = "return this.setUTCSeconds(seconds);")
     public native void setUTCSeconds(int seconds);
 
     @JS.Coerce
-    @JS(value = "return this.toDateString()")
+    @JS(value = "return this.toDateString();")
     public native java.lang.String toDateString();
 
     @JS.Coerce
-    @JS(value = "return this.toISOString()")
+    @JS(value = "return this.toISOString();")
     public native java.lang.String toISOString();
 
     @JS.Coerce
-    @JS(value = "return this.toJSON()")
+    @JS(value = "return this.toJSON();")
     public native java.lang.String toJSON();
 
     @JS.Coerce
-    @JS(value = "return this.toLocaleDateString()")
+    @JS(value = "return this.toLocaleDateString();")
     public native java.lang.String toLocaleDateString();
 
     @JS.Coerce
-    @JS(value = "return this.toLocaleString()")
+    @JS(value = "return this.toLocaleString();")
     public native java.lang.String toLocaleString();
 
     @JS.Coerce
-    @JS(value = "return this.toLocaleTimeString()")
+    @JS(value = "return this.toLocaleTimeString();")
     public native java.lang.String toLocaleTimeString();
 
     @JS.Coerce
-    @JS(value = "return this.toString()")
+    @JS(value = "return this.toString();")
     public native java.lang.String toString();
 
     @JS.Coerce
-    @JS(value = "return this.toTimeString()")
+    @JS(value = "return this.toTimeString();")
     public native java.lang.String toTimeString();
 
     @JS.Coerce
-    @JS(value = "return this.toUTCString()")
+    @JS(value = "return this.toUTCString();")
     public native java.lang.String toUTCString();
 }

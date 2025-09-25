@@ -12,7 +12,7 @@ import java.util.List;
 public class JSPromise extends JSObject {
 
     @JS.Coerce
-    @JS(value = "return Promise.all(promises)")
+    @JS(value = "return Promise.all(promises);")
     public static native JSPromise all(JSIterator promises);
 
     public static JSPromise all(JSArray promises) {
@@ -29,14 +29,14 @@ public class JSPromise extends JSObject {
 
     private static JSIterator fromPromises(JSPromise[] promises) {
         JSArray jsArr = JSArray.of();
-        for (JSPromise promise : promises) {
+        for(JSPromise promise : promises) {
             jsArr.push(promise);
         }
         return JSIterator.from(jsArr);
     }
 
     @JS.Coerce
-    @JS(value = "return Promise.allSettled(promises)")
+    @JS(value = "return Promise.allSettled(promises);")
     public static native JSPromise allSettled(JSIterator promises);
 
     public static JSPromise allSettled(JSArray promises) {
@@ -52,7 +52,7 @@ public class JSPromise extends JSObject {
     }
 
     @JS.Coerce
-    @JS(value = "return Promise.any(promises)")
+    @JS(value = "return Promise.any(promises);")
     public static native JSPromise any(JSIterator promises);
 
     public static JSPromise any(JSArray promises) {
@@ -68,7 +68,7 @@ public class JSPromise extends JSObject {
     }
 
     @JS.Coerce
-    @JS(value = "return Promise.race(promises)")
+    @JS(value = "return Promise.race(promises);")
     public static native JSPromise race(JSIterator promises);
 
     public static JSPromise race(JSArray promises) {
@@ -84,64 +84,62 @@ public class JSPromise extends JSObject {
     }
 
     @JS.Coerce
-    @JS(value = "return Promise.reject(reason)")
+    @JS(value = "return Promise.reject(reason);")
     public static native JSPromise reject(JSValue reason);
 
     @JS.Coerce
-    @JS(value = "return Promise.reject(reason)")
+    @JS(value = "return Promise.reject(reason);")
     public static native JSPromise reject(int reason);
 
     @JS.Coerce
-    @JS(value = "return Promise.reject(reason)")
+    @JS(value = "return Promise.reject(reason);")
     public static native JSPromise reject(double reason);
 
     @JS.Coerce
-    @JS(value = "return Promise.reject(reason)")
+    @JS(value = "return Promise.reject(reason);")
     public static native JSPromise reject(boolean reason);
 
     @JS.Coerce
-    @JS(value = "return Promise.reject(reason)")
+    @JS(value = "return Promise.reject(reason);")
     public static native JSPromise reject(Object reason);
 
     @JS.Coerce
-    @JS(value = "return Promise.resolve(value)")
+    @JS(value = "return Promise.resolve(value);")
     public static native JSPromise resolve(JSValue value);
 
     @JS.Coerce
-    @JS(value = "return Promise.resolve(value)")
+    @JS(value = "return Promise.resolve(value);")
     public static native JSPromise resolve(int value);
 
     @JS.Coerce
-    @JS(value = "return Promise.resolve(value)")
+    @JS(value = "return Promise.resolve(value);")
     public static native JSPromise resolve(double value);
 
     @JS.Coerce
-    @JS(value = "return Promise.resolve(value)")
+    @JS(value = "return Promise.resolve(value);")
     public static native JSPromise resolve(boolean value);
 
     @JS.Coerce
-    @JS(value = "return Promise.resolve(value)")
+    @JS(value = "return Promise.resolve(value);")
     public static native JSPromise resolve(Object value);
 
     @JS.Coerce
-    @JS(value = "return this.then(onFulfilled)")
+    @JS(value = "return this.then(onFulfilled);")
     public native JSPromise then(JSFunction onFulfilled);
 
     @JS.Coerce
-    @JS(value = "return this.then(onFulfilled, onRejected)")
+    @JS(value = "return this.then(onFulfilled, onRejected);")
     public native JSPromise then(JSFunction onFulfilled, JSFunction onRejected);
 
     @JS.Coerce
-    @JS(value = "return this.catch(onRejected)")
+    @JS(value = "return this.catch(onRejected);")
     public native JSPromise catch_(JSFunction onRejected);
 
     @JS.Coerce
-    @JS(value = "return this.finally(onFinally)")
+    @JS(value = "return this.finally(onFinally);")
     public native JSPromise finally_(JSFunction onFinally);
 
     @JS.Coerce
-    @JS(value = "return Promise.withResolvers()")
+    @JS(value = "return Promise.withResolvers();")
     public static native JSObject withResolvers();
 }
-
-

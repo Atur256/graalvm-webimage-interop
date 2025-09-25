@@ -11,7 +11,7 @@ import java.lang.String;
 public class JSRegExp extends JSObject {
 
     @JS.Coerce
-    @JS(value = "return new RegExp(pattern, flags)")
+    @JS(value = "return new RegExp(pattern, flags);")
     public static native JSRegExp of(String pattern, String flags);
 
     public int lastIndex;
@@ -27,14 +27,14 @@ public class JSRegExp extends JSObject {
     public boolean unicodeSets;
 
     @JS.Coerce
-    @JS(value = "return this.exec(string)")
+    @JS(value = "return this.exec(string);")
     public native JSValue exec(String string);
 
     @JS.Coerce
-    @JS(value = "return this.test(string)")
+    @JS(value = "return this.test(string);")
     public native boolean test(String string);
 
     @JS.Coerce
-    @JS(value = "return this.toString()")
+    @JS(value = "return this.toString();")
     public native String toString();
 }

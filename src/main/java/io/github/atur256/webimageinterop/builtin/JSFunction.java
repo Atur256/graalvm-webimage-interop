@@ -18,11 +18,11 @@ public class JSFunction extends JSObject {
     public JSValue prototype;
 
     @JS.Coerce
-    @JS(value = "return new Function('arg', body)")
+    @JS(value = "return new Function('arg', body);")
     public static native JSFunction fromBody(String body);
 
     @JS.Coerce
-    @JS(value = "return Function.apply(null, args)")
+    @JS(value = "return Function.apply(null, args);")
     public static native JSFunction fromArgs(String... args);
 
     @JS.Coerce
@@ -82,42 +82,42 @@ public class JSFunction extends JSObject {
     public static native <T> JSFunction fromSupplier(Supplier<T> javaSupplier);
 
     @JS.Coerce
-    @JS(value = "return this(arg)")
+    @JS(value = "return this(arg);")
     public native <T> Object callJS(T arg); // Call with arg and no coercion (raw Object return)
 
     public <T, R> R callJS(T args, Class<R> cls) {
         return JSValue.checkedCoerce(callJS(args), cls);
     }
 
-    @JS(value = "return this(arg)")
+    @JS(value = "return this(arg);")
     public native <T, R> R call(T arg);
 
-    @JS(value = "return this(arg1, arg2)")
+    @JS(value = "return this(arg1, arg2);")
     public native <T, R, Q> R call(T arg1, Q arg2);
 
     @JS.Coerce
-    @JS(value = "return this()")
+    @JS(value = "return this();")
     public native <R> R call();
 
     @JS.Coerce
-    @JS(value = "return this.apply(thisArg, argsJSArray)")
+    @JS(value = "return this.apply(thisArg, argsJSArray);")
     public native Object applyGeneral(JSValue thisArg, JSValue argsJSArray);
 
     @JS.Coerce
-    @JS(value = "return this.apply(thisArg, argsJSArray)")
+    @JS(value = "return this.apply(thisArg, argsJSArray);")
     public native <R> R apply(JSValue thisArg, JSValue argsJSArray);
 
     @SafeVarargs
     @JS.Coerce
-    @JS(value = "return this.apply(thisArg, args)")
+    @JS(value = "return this.apply(thisArg, args);")
     public final native <T, R, Q> R apply(Q thisArg, T... args);
 
     @SafeVarargs
-    @JS(value = "return this.apply(thisArg, args)")
+    @JS(value = "return this.apply(thisArg, args);")
     public final native <T, Q> Object applyRaw(Q thisArg, T... args); // Apply with varargs and no coercion (raw Object return)
 
     @JS.Coerce
-    @JS(value = "return this.apply(thisArg, args)")
+    @JS(value = "return this.apply(thisArg, args);")
     public native <T> Object applyJS(Object thisArg, T args);
 
     @SuppressWarnings("unchecked")
@@ -160,7 +160,7 @@ public class JSFunction extends JSObject {
     }
 
     @JS.Coerce
-    @JS(value = "return this.bind(thisArg)")
+    @JS(value = "return this.bind(thisArg);")
     public native JSFunction bind(JSValue thisArg);
 
     public final <T> JSFunction bind(T thisArg) {
@@ -168,7 +168,7 @@ public class JSFunction extends JSObject {
     }
 
     @JS.Coerce
-    @JS(value = "return this.call.apply(this, [thisArg, ...args])")
+    @JS(value = "return this.call.apply(this, [thisArg, ...args]);")
     public native <R> R callWithSpreadArgs(JSValue thisArg, JSArray args);
 
     @SafeVarargs
@@ -181,6 +181,6 @@ public class JSFunction extends JSObject {
     }
 
     @JS.Coerce
-    @JS(value = "return this.toString()")
+    @JS(value = "return this.toString();")
     public native String toStringJS();
 }

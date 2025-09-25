@@ -186,23 +186,23 @@ public class JSArray extends JSObject {
     public native boolean every(JSValue callback);
 
     @JS.Coerce
-    @JS(value = "this.fill(value, start, end); return this")
+    @JS(value = "return this.fill(value, start, end);")
     public native JSArray fill(JSValue value, int start, int end);
 
     @JS.Coerce
-    @JS(value = "this.fill(value, start, end); return this")
+    @JS(value = "return this.fill(value, start, end);")
     public native JSArray fill(int value, int start, int end);
 
     @JS.Coerce
-    @JS(value = "this.fill(value, start, end); return this")
+    @JS(value = "return this.fill(value, start, end);")
     public native JSArray fill(double value, int start, int end);
 
     @JS.Coerce
-    @JS(value = "this.fill(value, start, end); return this")
+    @JS(value = "return this.fill(value, start, end);")
     public native JSArray fill(boolean value, int start, int end);
 
     @JS.Coerce
-    @JS(value = "this.fill(value, start, end); return this")
+    @JS(value = "return this.fill(value, start, end);")
     public native JSArray fill(Object value, int start, int end);
 
     @JS.Coerce
@@ -326,24 +326,24 @@ public class JSArray extends JSObject {
     }
 
     @JS.Coerce
-    @JS(value = "this.push(value); return this")
-    public native JSArray push(JSValue value);
+    @JS(value = "return this.push(value);")
+    public native int push(JSValue value);
 
     @JS.Coerce
-    @JS(value = "this.push(value); return this")
-    public native JSArray push(int value);
+    @JS(value = "return this.push(value);")
+    public native int push(int value);
 
     @JS.Coerce
-    @JS(value = "this.push(value); return this")
-    public native JSArray push(double value);
+    @JS(value = "return this.push(value);")
+    public native int push(double value);
 
     @JS.Coerce
-    @JS(value = "this.push(value); return this")
-    public native JSArray push(boolean value);
+    @JS(value = "return this.push(value);")
+    public native int push(boolean value);
 
     @JS.Coerce
-    @JS(value = "this.push(value); return this")
-    public native JSArray push(Object value);
+    @JS(value = "return this.push(value);")
+    public native int push(Object value);
 
     @JS.Coerce
     @JS(value = "return this.reduce(callback);")
@@ -388,7 +388,7 @@ public class JSArray extends JSObject {
     }
 
     @JS.Coerce
-    @JS(value = "this.reverse(); return this")
+    @JS(value = "return this.reverse();")
     public native JSArray reverse();
 
     @JS.Coerce
@@ -408,7 +408,7 @@ public class JSArray extends JSObject {
     public native boolean some(JSFunction callback);
 
     @JS.Coerce
-    @JS(value = "this.sort(); return this")
+    @JS(value = "return this.sort();")
     public native JSArray sort();
 
     @JS.Coerce
