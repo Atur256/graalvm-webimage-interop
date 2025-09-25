@@ -22,7 +22,7 @@ public class ResolveDemo {
                 JSFunction.fromConsumer((JSString arg) -> System.out.println(arg.as(String.class))),
                 JSFunction.fromBody("console.error(arg)")
         );
-        // Expected: Resolved String: Success: String
+        // Expected: Success: String
 
         // === Integer ===
         JSPromise intPromise = JSPromise.resolve(42);
@@ -58,7 +58,7 @@ public class ResolveDemo {
         // Expected: Resolved Custom: CustomResult(Operation complete)
     }
 
-    static class CustomResult extends JSObject {
+    static class CustomResult {
 
         public String message;
 
@@ -66,7 +66,6 @@ public class ResolveDemo {
             this.message = message;
         }
 
-        @Override
         public String toString() {
             return "CustomResult(" + message + ")";
         }
