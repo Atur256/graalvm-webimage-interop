@@ -5,6 +5,8 @@ import io.github.atur256.webimageinterop.builtin.JSFunction;
 import org.graalvm.webimage.api.JSBoolean;
 import org.graalvm.webimage.api.JSNumber;
 
+import static org.junit.Assert.assertEquals;
+
 
 public class FindIndexDemo {
 
@@ -13,13 +15,15 @@ public class FindIndexDemo {
 
         JSArray arr = JSArray.of(JSNumber.of(3), JSNumber.of(7), JSNumber.of(9));
         JSFunction isOdd = JSFunction.fromBody("return arg % 2 !== 0;");
-        int index = arr.findIndex(isOdd);
-        System.out.println("First odd index: " + index);
+        int index1 = arr.findIndex(isOdd);
+        assertEquals(0, index1);
+        System.out.println("First odd index: " + index1);
         // Expected: First odd index 0
 
         JSArray javaArr = JSArray.of(3, 7, 8, 9);
         JSFunction isEven = JSFunction.fromGeneralFunction((JSNumber arg) -> JSBoolean.of(arg.as(Integer.class) % 2 == 0));
         int index2 = javaArr.findIndex(isEven);
+        assertEquals(2, index2);
         System.out.println("First odd index: " + index2);
         // Expected: First odd index: 2
     }

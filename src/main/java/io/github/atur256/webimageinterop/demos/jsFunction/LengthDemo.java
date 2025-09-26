@@ -2,6 +2,8 @@ package io.github.atur256.webimageinterop.demos.jsFunction;
 
 import io.github.atur256.webimageinterop.builtin.JSFunction;
 
+import static org.junit.Assert.assertEquals;
+
 
 public class LengthDemo {
 
@@ -9,10 +11,12 @@ public class LengthDemo {
         System.out.println("\n=== JSFunction.length Demo ===");
 
         JSFunction jsF = JSFunction.fromArgs("x", "y", "z", "return x + y + z;");
+        assertEquals(3, jsF.length);
         System.out.println("Declared parameters: " + jsF.length);
         // Expected: Declared parameters: 3
 
         JSFunction javaF = JSFunction.fromGeneralFunction((String arg) -> "Hello, " + arg);
+        assertEquals(1, javaF.length);
         System.out.println("Declared parameters: " + javaF.length);
         // Expected: Declared parameters: 1
     }

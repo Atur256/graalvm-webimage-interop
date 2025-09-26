@@ -3,6 +3,8 @@ package io.github.atur256.webimageinterop.demos.jsArray;
 import io.github.atur256.webimageinterop.builtin.JSArray;
 import org.graalvm.webimage.api.JSString;
 
+import static org.junit.Assert.assertEquals;
+
 
 public class IndexOfDemo {
 
@@ -11,14 +13,17 @@ public class IndexOfDemo {
 
         JSArray arr = JSArray.of(JSString.of("a"), JSString.of("b"));
         int index1 = arr.indexOf(JSString.of("b"));
+        assertEquals(1, index1);
         System.out.println("Index of 'b': " + index1);
         // Expected:
         // Index of 'b': 1
 
         JSArray javaArr1 = JSArray.of("x", "y", "z");
         int index2 = javaArr1.indexOf("y");
+        assertEquals(1, index2);
         System.out.println("Index of 'y': " + index2);
         int index3 = javaArr1.indexOf("a");
+        assertEquals(-1, index3);
         System.out.println("Index of 'a': " + index3);
         // Expected:
         // Index of 'y': 1
@@ -26,20 +31,24 @@ public class IndexOfDemo {
 
         JSArray javaArr2 = JSArray.of(1, 3, 7, 2, 8);
         int index4 = javaArr2.indexOf(7);
+        assertEquals(2, index4);
         System.out.println("Index of '7': " + index4);
         // Expected:r
         // Index of '7': 2
 
         JSArray javaArr3 = JSArray.of(1.4, 3.64, 7.0, 2.12, 8.9);
         int index5 = javaArr3.indexOf(1.4);
+        assertEquals(0, index5);
         System.out.println("Index of '1.4': " + index5);
         // Expected:
         // Index of '1.4': 0
 
         JSArray javaArr4 = JSArray.of(false, true);
         int index6 = javaArr4.indexOf(false);
+        assertEquals(0, index6);
         System.out.println("Index of 'false': " + index6);
         int index7 = javaArr4.indexOf(true);
+        assertEquals(1, index7);
         System.out.println("Index of 'true': " + index7);
         // Expected:
         // Index of 'false': 0

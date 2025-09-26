@@ -5,6 +5,8 @@ import io.github.atur256.webimageinterop.builtin.JSFunction;
 import org.graalvm.webimage.api.JSBoolean;
 import org.graalvm.webimage.api.JSNumber;
 
+import static org.junit.Assert.assertTrue;
+
 
 public class EveryDemo {
 
@@ -16,6 +18,7 @@ public class EveryDemo {
                 JSBoolean.of(value.as(Integer.class) % 2 == 0));
         boolean result = arr.every(isEven);
         System.out.println("All even: " + result);
+        assertTrue(result);
         // Expected: All even: true
     }
 }

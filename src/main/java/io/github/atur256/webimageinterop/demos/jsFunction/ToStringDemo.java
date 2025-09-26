@@ -2,6 +2,8 @@ package io.github.atur256.webimageinterop.demos.jsFunction;
 
 import io.github.atur256.webimageinterop.builtin.JSFunction;
 
+import static org.junit.Assert.assertEquals;
+
 
 public class ToStringDemo {
 
@@ -9,11 +11,19 @@ public class ToStringDemo {
         System.out.println("\n=== JSFunction.toStringJS Demo ===");
 
         JSFunction jsF = JSFunction.fromBody("return 42;");
-        System.out.println("JSFunction source: " + jsF.toStringJS());
+        String result1 = jsF.toStringJS();
+        assertEquals("""
+                function anonymous(arg
+                ) {
+                return 42;
+                }""", result1);
+        System.out.println("JSFunction source: " + result1);
         // Expected: JSFunction source: function anonymous(arg) { return 42; }
 
         JSFunction javaF = JSFunction.fromGeneralFunction((String arg) -> "Hello, " + arg);
-        System.out.println("JSFunction source: " + javaF.toStringJS());
-        // Expected: JSFunction source: function anonymous(arg) { return 42; }
+        String result2 = javaF.toStringJS();
+        assertEquals("function(args) { return javaFunc.apply(args); }", result2);
+        System.out.println("JSFunction source: " + result2);
+        // Expected: JSFunction source: function(args) { return javaFunc.apply(args); }
     }
 }

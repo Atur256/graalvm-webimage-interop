@@ -2,18 +2,22 @@ package io.github.atur256.webimageinterop.demos.jsUri;
 
 import io.github.atur256.webimageinterop.builtin.JSUri;
 
+import static org.junit.Assert.assertEquals;
+
 
 public class EncodeURIDemo {
 
     public static void main(String[] args) {
-        System.out.println("\n=== JSURI.encodeURI Demo ===");
+        System.out.println("\n=== JSUri.encodeURI Demo ===");
 
-        System.out.println("encodeURI(\"https://example.com?name=John Doe&age=30\"): " +
-                JSUri.encodeURI("https://example.com?name=John Doe&age=30"));
+        String result1 = JSUri.encodeURI("https://example.com?name=John Doe&age=30");
+        assertEquals("https://example.com?name=John%20Doe&age=30", result1);
+        System.out.println("encodeURI(\"https://example.com?name=John Doe&age=30\"): " + result1);
         // Expected: encodeURI("https://example.com?name=John Doe&age=30"): https://example.com?name=John%20Doe&age=30
 
-        System.out.println("encodeURI(\"Hello World!\"): " +
-                JSUri.encodeURI("Hello World!"));
+        String result2 = JSUri.encodeURI("Hello World!");
+        assertEquals("Hello%20World!", result2);
+        System.out.println("encodeURI(\"Hello World!\"): " + result2);
         // Expected: encodeURI("Hello World!"): Hello%20World!
     }
 }

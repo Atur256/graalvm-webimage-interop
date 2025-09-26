@@ -4,6 +4,8 @@ import io.github.atur256.webimageinterop.builtin.JSFunction;
 import org.graalvm.webimage.api.JSString;
 import org.graalvm.webimage.api.JSValue;
 
+import static org.junit.Assert.assertEquals;
+
 
 public class CallJSDemo {
 
@@ -13,29 +15,34 @@ public class CallJSDemo {
         // JS function: return typeof arg + ": " + arg;
         JSFunction describe = JSFunction.fromBody("return typeof arg + ': ' + arg;");
 
-        // === Call with Java String
+        // Call with Java String
         String result1 = describe.callJS("Hello", String.class);
+        assertEquals("string: Hello", result1);
         System.out.println("callJS(String): " + result1);
         // Expected: callJS(String): string: Hello
 
-        // === Call with Integer
+        // Call with Integer
         String result2 = describe.callJS(42, String.class);
+        assertEquals("number: 42", result2);
         System.out.println("callJS(Integer): " + result2);
         // Expected: callJS(Integer): number: 42
 
-        // === Call with Double
+        // Call with Double
         String result3 = describe.callJS(3.14, String.class);
+        assertEquals("number: 3.14", result3);
         System.out.println("callJS(Double): " + result3);
         // Expected: callJS(Double): number: 3.14
 
-        // === Call with Boolean
+        // Call with Boolean
         String result4 = describe.callJS(true, String.class);
+        assertEquals("boolean: true", result4);
         System.out.println("callJS(Boolean): " + result4);
-        // Expected: Method…boolean: true
+        // Expected: callJS(Boolean): boolean: true
 
-        // === Call with JSValue
+        // Call with JSValue
         JSValue jsStr = JSString.of("JSValue string");
         String result5 = describe.callJS(jsStr, String.class);
+        assertEquals("string: JSValue string", result5);
         System.out.println("callJS(JSValue): " + result5);
         // Expected: callJS(JSValue): string: JSValue string
     }

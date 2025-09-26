@@ -1,6 +1,9 @@
 package io.github.atur256.webimageinterop.demos.jsArray;
 
 import io.github.atur256.webimageinterop.builtin.JSArray;
+import org.graalvm.webimage.api.JSValue;
+
+import static org.junit.Assert.assertEquals;
 
 
 public class OfDemo {
@@ -9,26 +12,31 @@ public class OfDemo {
         System.out.println("\n=== JSArray.of Demo ===");
 
         // Primitives
-        JSArray numbers = JSArray.of(1, 2, 3);
-        System.out.println("Numbers: " + numbers.toString());
+        JSArray arr1 = JSArray.of(1, 2, 3);
+        assertArray(arr1, Integer.class, 1, 2, 3);
+        System.out.println("Numbers: " + arr1);
         // Expected: Numbers: [1,2,3]
 
-        JSArray numbers2 = JSArray.of(1.2, 2.234, 3.87);
-        System.out.println("Numbers: " + numbers2.toString());
+        JSArray arr2 = JSArray.of(1.2, 2.234, 3.87);
+        assertArray(arr2, Double.class, 1.2, 2.234, 3.87);
+        System.out.println("Numbers: " + arr2);
         // Expected: Numbers: [1.2,2.234,3.87]
 
-        JSArray booleans = JSArray.of(true, false, true);
-        System.out.println("Booleans: " + booleans.toString());
+        JSArray arr3 = JSArray.of(true, false, true);
+        assertArray(arr3, Boolean.class, true, false, true);
+        System.out.println("Booleans: " + arr3);
         // Expected: Booleans: [true,false,true]
 
-        JSArray strings = JSArray.of("apple", "banana", "cherry");
-        System.out.println("Strings: " + strings.toString());
+        JSArray arr4 = JSArray.of("apple", "banana", "cherry");
+        assertArray(arr4, String.class, "apple", "banana", "cherry");
+        System.out.println("Strings: " + arr4);
         // Expected: Strings: ["apple","banana","cherry"]
 
         // Custom objects
-        Custom[] customs = {new Custom("X"), new Custom("Y")};
-        JSArray customArr = JSArray.of((Object[]) customs);
-        System.out.println("Customs: " + customArr.toString());
+        Custom[] customArr = {new Custom("X"), new Custom("Y")};
+        JSArray arr5 = JSArray.of((Object[]) customArr);
+        assertArray(arr5, String.class, "Custom(X)", "Custom(Y)");
+        System.out.println("Customs: " + arr5);
         // Expected: Customs: ["Custom(X)", "Custom(Y)"]
     }
 
@@ -44,6 +52,14 @@ public class OfDemo {
         @Override
         public String toString() {
             return "Custom(" + label + ")";
+        }
+    }
+
+    @SafeVarargs
+    private static <T> void assertArray(JSArray array, Class<T> cls, T... values) {
+        assertEquals(values.length, array.length);
+        for(int i = 0; i < values.length; i++) {
+            assertEquals(values[i], JSValue.checkedCoerce(array.get(i), cls));
         }
     }
 }

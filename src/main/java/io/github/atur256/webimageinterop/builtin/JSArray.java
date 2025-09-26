@@ -46,7 +46,7 @@ public class JSArray extends JSObject {
 
     @JS.Coerce
     @JS(value = "return Array.fromAsync(arrayLike);")
-    public static native JSValue fromAsync(JSValue arrayLike);
+    public static native JSPromise fromAsync(JSValue arrayLike);
 
     @JS.Coerce
     @JS(value = "return Array.isArray(value);")
