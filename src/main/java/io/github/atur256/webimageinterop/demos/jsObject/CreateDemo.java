@@ -3,6 +3,9 @@ package io.github.atur256.webimageinterop.demos.jsObject;
 import io.github.atur256.webimageinterop.builtin.JSFunction;
 import org.graalvm.webimage.api.*;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 
 public class CreateDemo {
 
@@ -18,6 +21,7 @@ public class CreateDemo {
         JSObject obj1 = JSObject.create(proto);
         JSFunction greetFn = ((JSValue) obj1.get("greet")).as(JSFunction.class);
         String greeting = greetFn.apply(null, "Alice");
+
         System.out.println("Greeting from proto method: " + greeting);
         // Expected: Greeting from proto method: Hello, Alice
 
@@ -33,12 +37,16 @@ public class CreateDemo {
 
         // Create an object with prototype and properties
         JSObject obj2 = JSObject.create(proto, properties);
+        boolean failed = false;
         try {
             obj2.set("name", "Alice");
         } catch (Exception e) {
+            failed = true;
             System.out.println("Error: Cannot assign to read only property 'name' of object.");
         }
-        System.out.println("obj2.name: " + ((JSValue) obj2.get("name")).as(String.class));
+
+        String result = JSValue.checkedCoerce(obj2.get("name"), String.class);
+        System.out.println("obj2.name: " + result);
         // Expected:
         // Error: Cannot assign to read only property 'name' of object.
         // obj2.name: Bob
@@ -48,6 +56,11 @@ public class CreateDemo {
         String greeting2 = greetFn2.apply(null, "World");
         System.out.println("Greeting from obj2: " + greeting2);
         // Expected: Greeting from obj2: Hello, World
+
+        // Assert values
+        assertEquals("Hello, Alice", greeting);
+        assertTrue(failed);
+        assertEquals("Bob", result);
+        assertEquals("Hello, World", greeting2);
     }
 }
-

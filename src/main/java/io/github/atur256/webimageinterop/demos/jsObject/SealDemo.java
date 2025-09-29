@@ -3,6 +3,8 @@ package io.github.atur256.webimageinterop.demos.jsObject;
 import org.graalvm.webimage.api.JSObject;
 import org.graalvm.webimage.api.JSValue;
 
+import static org.junit.Assert.*;
+
 
 public class SealDemo {
 
@@ -26,19 +28,23 @@ public class SealDemo {
         // Expected: After seal: isSealed = true
 
         // Try modifying an existing property
+        boolean failed1 = false;
         try {
             obj.set("name", "Bob");
             System.out.println("Modified 'name' successfully.");
         } catch (Exception e) {
+            failed1 = true;
             System.out.println("Failed to modify 'name': " + e.getMessage());
         }
         // Expected: Modified 'name' successfully.
 
         // Try adding a new property
+        boolean failed2 = false;
         try {
             obj.set("newProp", "test");
             System.out.println("Added 'newProp' successfully.");
         } catch (Exception e) {
+            failed2 = true;
             System.out.println("Failed to add 'newProp': " + e.getMessage());
         }
         // Expected: Failed to add 'newProp': JavaScript<object; TypeError: Cannot add property newProp, object is not extensible>
@@ -50,5 +56,13 @@ public class SealDemo {
         // Expected:
         // Final name: Bob
         // newProp exists? false
+
+        // Assert values
+        assertFalse(isSealedBefore);
+        assertTrue(isSealedAfter);
+        assertFalse(failed1);
+        assertTrue(failed2);
+        assertEquals("Bob", finalName);
+        assertFalse(exists);
     }
 }

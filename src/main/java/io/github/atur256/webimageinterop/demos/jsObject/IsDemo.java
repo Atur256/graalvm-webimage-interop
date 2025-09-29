@@ -2,6 +2,9 @@ package io.github.atur256.webimageinterop.demos.jsObject;
 
 import org.graalvm.webimage.api.*;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 
 public class IsDemo {
 
@@ -46,6 +49,15 @@ public class IsDemo {
         // Same object reference
         boolean result7 = JSObject.is(obj1, obj1);
         System.out.println("obj1 vs obj1: " + result7);
+        assertTrue(result7);
         // Expected: shared vs shared: true
+
+        // Assert values
+        assertTrue(result1);
+        assertFalse(result2);
+        assertTrue(result3);
+        assertFalse(result4);
+        assertTrue(result5);
+        assertFalse(result6);
     }
 }

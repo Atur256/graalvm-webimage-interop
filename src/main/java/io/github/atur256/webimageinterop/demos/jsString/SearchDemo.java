@@ -3,26 +3,34 @@ package io.github.atur256.webimageinterop.demos.jsString;
 import io.github.atur256.webimageinterop.builtin.JSEval;
 import org.graalvm.webimage.api.JSString;
 
+import static org.junit.Assert.assertEquals;
+
 
 public class SearchDemo {
 
     public static void main(String[] args) {
-        System.out.println("=== JSString.search Demo ===");
+        System.out.println("\n=== JSString.search Demo ===");
 
         JSString text = JSString.of("Find 42 here");
 
         // RegExp pattern
-        System.out.println("\"Find 42 here\".search(/\\d+/): " + text.search(JSEval.eval("/\\d+/")));
+        int result1 = text.search(JSEval.eval("/\\d+/"));
+        System.out.println("\"Find 42 here\".search(/\\d+/): " + result1);
         // Literal string pattern (converted to RegExp internally)
-        System.out.println("\"Find 42 here\".search(\"Find\"): " + text.search("Find"));
+        int result2 = text.search("Find");
+        System.out.println("\"Find 42 here\".search(\"Find\"): " + result2);
         // Case-sensitive search
-        System.out.println("\"Find 42 here\".search(/find/): " + text.search(JSEval.eval("/find/")));
+        int result3 = text.search(JSEval.eval("/find/"));
+        System.out.println("\"Find 42 here\".search(/find/): " + result3);
         // Case-insensitive search
-        System.out.println("\"Find 42 here\".search(/find/i): " + text.search(JSEval.eval("/find/i")));
+        int result4 = text.search(JSEval.eval("/find/i"));
+        System.out.println("\"Find 42 here\".search(/find/i): " + result4);
         // Anchored pattern
-        System.out.println("\"Find 42 here\".search(/^42/): " + text.search(JSEval.eval("/^42/")));
+        int result5 = text.search(JSEval.eval("/^42/"));
+        System.out.println("\"Find 42 here\".search(/^42/): " + result5);
         // No match
-        System.out.println("\"Find 42 here\".search(\"XYZ\"): " + text.search("XYZ"));
+        int result6 = text.search("XYZ");
+        System.out.println("\"Find 42 here\".search(\"XYZ\"): " + result6);
         // Expected:
         // "Find 42 here".search(/\d+/): 5
         // "Find 42 here".search("Find"): 0
@@ -30,5 +38,13 @@ public class SearchDemo {
         // "Find 42 here".search(/find/i): 0
         // "Find 42 here".search(/^42/): -1
         // "Find 42 here".search("XYZ"): -1
+
+        // Assert values
+        assertEquals(5, result1);
+        assertEquals(0, result2);
+        assertEquals(-1, result3);
+        assertEquals(0, result4);
+        assertEquals(-1,result5);
+        assertEquals(-1,result6);
     }
 }

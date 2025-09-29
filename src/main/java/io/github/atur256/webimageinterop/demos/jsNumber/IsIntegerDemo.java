@@ -2,6 +2,9 @@ package io.github.atur256.webimageinterop.demos.jsNumber;
 
 import org.graalvm.webimage.api.JSNumber;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 
 public class IsIntegerDemo {
 
@@ -14,10 +17,14 @@ public class IsIntegerDemo {
         JSNumber jsNaN = JSNumber.of(Double.NaN);
         JSNumber jsInfinity = JSNumber.of(Double.POSITIVE_INFINITY);
 
-        System.out.println("JSNumber 42 isInteger: " + JSNumber.isInteger(jsInt));
-        System.out.println("JSNumber 3.14 isInteger: " + JSNumber.isInteger(jsFloat));
-        System.out.println("JSNumber NaN isInteger: " + JSNumber.isInteger(jsNaN));
-        System.out.println("JSNumber Infinity isInteger: " + JSNumber.isInteger(jsInfinity));
+        boolean result1 = JSNumber.isInteger(jsInt);
+        boolean result2 = JSNumber.isInteger(jsFloat);
+        boolean result3 = JSNumber.isInteger(jsNaN);
+        boolean result4 = JSNumber.isInteger(jsInfinity);
+        System.out.println("JSNumber 42 isInteger: " + result1);
+        System.out.println("JSNumber 3.14 isInteger: " + result2);
+        System.out.println("JSNumber NaN isInteger: " + result3);
+        System.out.println("JSNumber Infinity isInteger: " + result4);
         // Expected:
         // JSNumber 42 isInteger: true
         // JSNumber 3.14 isInteger: false
@@ -30,15 +37,28 @@ public class IsIntegerDemo {
         Number javaNaN = Double.NaN;
         Number javaInfinity = Double.NEGATIVE_INFINITY;
 
-        System.out.println("Number 100 isInteger: " + JSNumber.isInteger(javaInt));
-        System.out.println("Number 2.718 isInteger: " + JSNumber.isInteger(javaFloat));
-        System.out.println("Number NaN isInteger: " + JSNumber.isInteger(javaNaN));
-        System.out.println("Number -Infinity isInteger: " + JSNumber.isInteger(javaInfinity));
+        boolean result5 = JSNumber.isInteger(javaInt);
+        boolean result6 = JSNumber.isInteger(javaFloat);
+        boolean result7 = JSNumber.isInteger(javaNaN);
+        boolean result8 = JSNumber.isInteger(javaInfinity);
+        System.out.println("Number 100 isInteger: " + result5);
+        System.out.println("Number 2.718 isInteger: " + result6);
+        System.out.println("Number NaN isInteger: " + result7);
+        System.out.println("Number -Infinity isInteger: " + result8);
         // Expected:
         // Number 100 isInteger: true
         // Number 2.718 isInteger: false
         // Number NaN isInteger: false
         // Number -Infinity isInteger: false
 
+        // Assert values
+        assertTrue(result1);
+        assertFalse(result2);
+        assertFalse(result3);
+        assertFalse(result4);
+        assertTrue(result5);
+        assertFalse(result6);
+        assertFalse(result7);
+        assertFalse(result8);
     }
 }

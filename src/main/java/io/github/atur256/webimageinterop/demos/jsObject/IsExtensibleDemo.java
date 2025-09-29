@@ -2,6 +2,9 @@ package io.github.atur256.webimageinterop.demos.jsObject;
 
 import org.graalvm.webimage.api.JSObject;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 
 public class IsExtensibleDemo {
 
@@ -23,10 +26,12 @@ public class IsExtensibleDemo {
         System.out.println("Is object extensible after preventExtensions? " + result2);
         // Expected: Is object extensible after preventExtensions? false
 
+        boolean failed = false;
         try {
             obj.set("newProp", "test");
             System.out.println("newProp added successfully.");
         } catch (Exception e) {
+            failed = true;
             System.out.println("Failed to add newProp: " + e.getMessage());
         }
         // Expected: Failed to add newProp: JavaScript<object; TypeError: Cannot add property newProp, object is not extensible>
@@ -34,5 +39,11 @@ public class IsExtensibleDemo {
         boolean exists = JSObject.hasOwn(obj, "newProp");
         System.out.println("New property added: " + exists);
         // Expected: New property added: false
+
+        // Assert values
+        assertTrue(result1);
+        assertFalse(result2);
+        assertTrue(failed);
+        assertFalse(exists);
     }
 }

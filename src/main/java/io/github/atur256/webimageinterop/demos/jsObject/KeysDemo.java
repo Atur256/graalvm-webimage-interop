@@ -1,7 +1,10 @@
 package io.github.atur256.webimageinterop.demos.jsObject;
 
 import io.github.atur256.webimageinterop.builtin.JSArray;
+import io.github.atur256.webimageinterop.demos.AssertArray;
 import org.graalvm.webimage.api.*;
+
+import static org.junit.Assert.assertEquals;
 
 
 public class KeysDemo {
@@ -38,5 +41,8 @@ public class KeysDemo {
         // name = Alice
         // age = 27
         // active = true
+
+        // Assert values
+        AssertArray.assertArray(keyArray, String.class, "name", "age", "active");
     }
 }

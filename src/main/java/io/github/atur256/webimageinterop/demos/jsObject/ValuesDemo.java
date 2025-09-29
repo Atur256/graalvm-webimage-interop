@@ -1,6 +1,7 @@
 package io.github.atur256.webimageinterop.demos.jsObject;
 
 import io.github.atur256.webimageinterop.builtin.JSArray;
+import io.github.atur256.webimageinterop.demos.AssertArray;
 import org.graalvm.webimage.api.JSObject;
 import org.graalvm.webimage.api.JSValue;
 
@@ -28,5 +29,8 @@ public class ValuesDemo {
         // - Alice
         // - 27
         // - true
+
+        // Assert values
+        AssertArray.assertArray(valueArray, String.class, "Alice", "27", "true");
     }
 }

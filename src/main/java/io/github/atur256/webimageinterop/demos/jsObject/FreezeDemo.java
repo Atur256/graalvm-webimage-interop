@@ -3,6 +3,8 @@ package io.github.atur256.webimageinterop.demos.jsObject;
 import org.graalvm.webimage.api.JSObject;
 import org.graalvm.webimage.api.ThrownFromJavaScript;
 
+import static org.junit.Assert.assertTrue;
+
 
 public class FreezeDemo {
 
@@ -14,14 +16,17 @@ public class FreezeDemo {
         obj.set("name", "Alice");
 
         JSObject.freeze(obj);
+        boolean failed = false;
         try {
             obj.set("name", "Changed"); // ignored
         } catch (ThrownFromJavaScript e) {
+            failed = true;
             System.out.println("Frozen value: " + obj.get("name"));
         }
         // Expected:
         // Frozen value: Alice
+
+        // Assert values
+        assertTrue(failed);
     }
 }
-
-

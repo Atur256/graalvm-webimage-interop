@@ -2,6 +2,9 @@ package io.github.atur256.webimageinterop.demos.jsObject;
 
 import org.graalvm.webimage.api.JSObject;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 
 public class HasOwnDemo {
 
@@ -19,5 +22,9 @@ public class HasOwnDemo {
         // Expected:
         // HasOwn x: true
         // HasOwn y: false
+
+        // Assert values
+        assertTrue(result1);
+        assertFalse(result2);
     }
 }

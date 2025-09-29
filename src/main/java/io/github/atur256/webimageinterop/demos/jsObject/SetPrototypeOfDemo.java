@@ -4,6 +4,8 @@ import io.github.atur256.webimageinterop.builtin.JSFunction;
 import org.graalvm.webimage.api.JSObject;
 import org.graalvm.webimage.api.JSValue;
 
+import static org.junit.Assert.assertEquals;
+
 
 public class SetPrototypeOfDemo {
 
@@ -27,5 +29,8 @@ public class SetPrototypeOfDemo {
 
         System.out.println("Inherited describe(): " + description);
         // Expected: I am Alice
+
+        // Assert values
+        assertEquals("I am Alice", description);
     }
 }

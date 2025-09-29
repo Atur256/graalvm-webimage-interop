@@ -2,6 +2,8 @@ package io.github.atur256.webimageinterop.demos.jsObject;
 
 import org.graalvm.webimage.api.JSObject;
 
+import static org.junit.Assert.assertEquals;
+
 
 public class ToLocaleStringDemo {
 
@@ -13,8 +15,10 @@ public class ToLocaleStringDemo {
         obj.set("region", "Austria");
 
         String result = obj.toLocaleString();
-
         System.out.println("toLocaleString(): " + result);
         // Expected: toLocaleString(): [object Object]
+
+        // Assert values
+        assertEquals("[object Object]", result);
     }
 }

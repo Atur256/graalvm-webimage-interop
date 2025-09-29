@@ -3,6 +3,9 @@ package io.github.atur256.webimageinterop.demos.jsNumber;
 import org.graalvm.webimage.api.JSNumber;
 import org.graalvm.webimage.api.JSValue;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 
 public class IsSafeIntegerDemo {
 
@@ -15,10 +18,14 @@ public class IsSafeIntegerDemo {
         JSValue jsFloat = JSNumber.of(3.14);
         JSValue jsNaN = JSNumber.of(Double.NaN);
 
-        System.out.println("JSValue 9007199254740991 isSafeInteger: " + JSNumber.isSafeInteger(jsSafe));
-        System.out.println("JSValue 9007199254740992 isSafeInteger: " + JSNumber.isSafeInteger(jsUnsafe));
-        System.out.println("JSValue 3.14 isSafeInteger: " + JSNumber.isSafeInteger(jsFloat));
-        System.out.println("JSValue NaN isSafeInteger: " + JSNumber.isSafeInteger(jsNaN));
+        boolean result1 = JSNumber.isSafeInteger(jsSafe);
+        boolean result2 = JSNumber.isSafeInteger(jsUnsafe);
+        boolean result3 = JSNumber.isSafeInteger(jsFloat);
+        boolean result4 = JSNumber.isSafeInteger(jsNaN);
+        System.out.println("JSValue 9007199254740991 isSafeInteger: " + result1);
+        System.out.println("JSValue 9007199254740992 isSafeInteger: " + result2);
+        System.out.println("JSValue 3.14 isSafeInteger: " + result3);
+        System.out.println("JSValue NaN isSafeInteger: " + result4);
         // Expected:
         // JSValue 9007199254740991 isSafeInteger: true
         // JSValue 9007199254740992 isSafeInteger: false
@@ -31,14 +38,28 @@ public class IsSafeIntegerDemo {
         Number javaFloat = 2.718;
         Number javaNaN = Double.NaN;
 
-        System.out.println("Number 42 isSafeInteger: " + JSNumber.isSafeInteger(javaSafe));
-        System.out.println("Number 1e100 isSafeInteger: " + JSNumber.isSafeInteger(javaUnsafe));
-        System.out.println("Number 2.718 isSafeInteger: " + JSNumber.isSafeInteger(javaFloat));
-        System.out.println("Number NaN isSafeInteger: " + JSNumber.isSafeInteger(javaNaN));
+        boolean result5 = JSNumber.isSafeInteger(javaSafe);
+        boolean result6 = JSNumber.isSafeInteger(javaUnsafe);
+        boolean result7 = JSNumber.isSafeInteger(javaFloat);
+        boolean result8 = JSNumber.isSafeInteger(javaNaN);
+        System.out.println("Number 42 isSafeInteger: " + result5);
+        System.out.println("Number 1e100 isSafeInteger: " + result6);
+        System.out.println("Number 2.718 isSafeInteger: " + result7);
+        System.out.println("Number NaN isSafeInteger: " + result8);
         // Expected:
         // Number 42 isSafeInteger: true
         // Number 1e100 isSafeInteger: false
         // Number 2.718 isSafeInteger: false
         // Number NaN isSafeInteger: false
+
+        // Assert values
+        assertTrue(result1);
+        assertFalse(result2);
+        assertFalse(result3);
+        assertFalse(result4);
+        assertTrue(result5);
+        assertFalse(result6);
+        assertFalse(result7);
+        assertFalse(result8);
     }
 }

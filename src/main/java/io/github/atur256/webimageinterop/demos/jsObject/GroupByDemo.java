@@ -2,7 +2,10 @@ package io.github.atur256.webimageinterop.demos.jsObject;
 
 import io.github.atur256.webimageinterop.builtin.JSArray;
 import io.github.atur256.webimageinterop.builtin.JSFunction;
+import io.github.atur256.webimageinterop.demos.AssertArray;
 import org.graalvm.webimage.api.*;
+
+import static org.junit.Assert.assertEquals;
 
 
 public class GroupByDemo {
@@ -39,8 +42,8 @@ public class GroupByDemo {
         JSFunction groupByType = JSFunction.fromGeneralFunction((JSObject item) -> item.get("type"));
 
         JSObject grouped = JSObject.groupBy(items, groupByType);
-
         JSArray keys = JSValue.checkedCoerce(JSObject.keys(grouped), JSArray.class);
+
         for(int i = 0; i < keys.length; i++) {
             String key = ((JSValue) keys.get(i)).as(String.class);
             System.out.println("Group: " + key);
@@ -59,5 +62,19 @@ public class GroupByDemo {
         // Group: meat
         //         - goat
         //         - fish
+
+        // Assert values
+        AssertArray.assertArray(keys, String.class,"vegetables", "fruit", "meat");
+        assertInnerArray(JSValue.checkedCoerce(grouped.get("vegetables"), JSArray.class), "asparagus");
+        assertInnerArray(JSValue.checkedCoerce(grouped.get("fruit"), JSArray.class), "bananas", "cherries");
+        assertInnerArray(JSValue.checkedCoerce(grouped.get("meat"), JSArray.class), "goat", "fish");
+    }
+
+    @SafeVarargs
+    private static <T> void assertInnerArray(JSArray array, T... values) {
+        assertEquals(values.length, array.length);
+        for(int i = 0; i < values.length; i++) {
+            assertEquals(values[i], JSValue.checkedCoerce(JSValue.checkedCoerce(array.get(i), JSObject.class).get("name"), String.class));
+        }
     }
 }

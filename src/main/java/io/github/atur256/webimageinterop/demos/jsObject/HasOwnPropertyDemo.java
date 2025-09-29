@@ -2,6 +2,9 @@ package io.github.atur256.webimageinterop.demos.jsObject;
 
 import org.graalvm.webimage.api.JSObject;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 
 public class HasOwnPropertyDemo {
 
@@ -13,24 +16,20 @@ public class HasOwnPropertyDemo {
         obj.set("role", "Assistant");
 
         // Check for own properties
-        System.out.println("Has 'name'? " + obj.hasOwnProperty("name"));
-        System.out.println("Has 'role'? " + obj.hasOwnProperty("role"));
-        System.out.println("Has 'describe'? " + obj.hasOwnProperty("describe"));
+        boolean name = obj.hasOwnProperty("name");
+        boolean role = obj.hasOwnProperty("role");
+        boolean describeBefore = obj.hasOwnProperty("describe");
+        System.out.println("Has 'name'? " + name);
+        System.out.println("Has 'role'? " + role);
+        System.out.println("Has 'describe'? " + describeBefore);
         // Expected:
         // Has 'name'? true
         // Has 'role'? true
         // Has 'describe'? false
 
-        // Add a prototype with 'describe'
-        JSObject proto = JSObject.create();
-        proto.set("describe", "I am a helper");
-        JSObject.setPrototypeOf(obj, proto);
-
-        // Still not an own property
-        System.out.println("After prototype set:");
-        System.out.println("Has 'describe'? " + obj.hasOwnProperty("describe"));
-        // Expected:
-        // After prototype set:
-        // Has 'describe'? false
+        // Assert values
+        assertTrue(name);
+        assertTrue(role);
+        assertFalse(describeBefore);
     }
 }

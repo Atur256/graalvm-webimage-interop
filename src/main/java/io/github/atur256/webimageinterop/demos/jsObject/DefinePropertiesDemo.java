@@ -2,6 +2,8 @@ package io.github.atur256.webimageinterop.demos.jsObject;
 
 import org.graalvm.webimage.api.*;
 
+import static org.junit.Assert.*;
+
 
 public class DefinePropertiesDemo {
 
@@ -30,24 +32,36 @@ public class DefinePropertiesDemo {
         JSObject result = JSObject.defineProperties(target, descriptors);
 
         // Access defined properties
-        System.out.println("name: " + ((JSValue) result.get("name")).as(String.class));
-        System.out.println("age: " + ((JSValue) result.get("age")).as(Double.class));
+        String name = JSValue.checkedCoerce(result.get("name"), String.class);
+        int age = JSValue.checkedCoerce(result.get("age"), Integer.class);
+        System.out.println("name: " + name);
+        System.out.println("age: " + age);
         // Expected:
         // name: Alice
         // age: 26
 
         // Try modifying writable vs non-writable properties
         result.set("name", JSString.of("Bob")); // Should succeed
-        System.out.println("Updated name: " + ((JSValue) result.get("name")).as(String.class));
+        String newName = JSValue.checkedCoerce(result.get("name"), String.class);
+        System.out.println("Updated name: " + newName);
+        // Expected:
+        // Updated name: Bob
 
+        boolean failed = false;
         try {
             result.set("age", JSNumber.of(21)); // Should fail silently or throw depending on context
             System.out.println("Updated age: " + ((JSValue) result.get("age")).as(Double.class));
         } catch (Exception e) {
+            failed = true;
             System.out.println("Failed to update 'age': " + e.getMessage());
         }
         // Expected:
-        // Updated name: Bob
         // Failed to update 'age': JavaScript<object; TypeError: Cannot assign to read only property 'age' of object '#<Object>'>
+
+        // Assert values
+        assertEquals("Alice", name);
+        assertEquals(26, age);
+        assertEquals("Bob", newName);
+        assertTrue(failed);
     }
 }

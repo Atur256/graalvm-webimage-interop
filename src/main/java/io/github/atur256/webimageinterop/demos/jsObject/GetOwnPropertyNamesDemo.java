@@ -1,6 +1,7 @@
 package io.github.atur256.webimageinterop.demos.jsObject;
 
 import io.github.atur256.webimageinterop.builtin.JSArray;
+import io.github.atur256.webimageinterop.demos.AssertArray;
 import org.graalvm.webimage.api.JSObject;
 import org.graalvm.webimage.api.JSValue;
 
@@ -17,11 +18,14 @@ public class GetOwnPropertyNamesDemo {
 
         JSArray names = JSValue.checkedCoerce(JSObject.getOwnPropertyNames(obj), JSArray.class);
 
-        for (int i = 0; i < names.length; i++) {
+        for(int i = 0; i < names.length; i++) {
             System.out.println("Property: " + names.at(i, String.class));
         }
         // Expected:
         // Property: x
         // Property: y
+
+        // Assert values
+        AssertArray.assertArray(names, String.class, "x", "y");
     }
 }

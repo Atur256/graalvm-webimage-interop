@@ -2,11 +2,13 @@ package io.github.atur256.webimageinterop.demos.jsSymbol;
 
 import org.graalvm.webimage.api.JSSymbol;
 
+import static org.junit.Assert.*;
+
 
 public class IsSameSymbolDemo {
 
     public static void main(String[] args) {
-        System.out.println("=== JSSymbol.for Identity Demo ===");
+        System.out.println("\n=== JSSymbol.for Identity Demo ===");
 
         boolean same = JSSymbol.isSameSymbol("alpha", "alpha");
         boolean different = JSSymbol.isSameSymbol("alpha", "beta");
@@ -16,5 +18,9 @@ public class IsSameSymbolDemo {
         // Expected:
         // JSSymbol.for('alpha') === JSSymbol.for('alpha'): true
         // JSSymbol.for('alpha') === JSSymbol.for('beta'): false
+
+        // Assert values
+        assertTrue(same);
+        assertFalse(different);
     }
 }

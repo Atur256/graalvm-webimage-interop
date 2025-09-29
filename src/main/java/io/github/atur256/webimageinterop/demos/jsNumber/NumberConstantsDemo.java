@@ -2,20 +2,31 @@ package io.github.atur256.webimageinterop.demos.jsNumber;
 
 import org.graalvm.webimage.api.JSNumber;
 
+import static org.junit.Assert.assertEquals;
+
 
 public class NumberConstantsDemo {
 
     public static void main(String[] args) {
         System.out.println("\n=== JSNumber Constants Demo ===");
 
-        print("EPSILON", JSNumber.EPSILON());
-        print("MAX_SAFE_INTEGER", JSNumber.MAX_SAFE_INTEGER());
-        print("MAX_VALUE", JSNumber.MAX_VALUE());
-        print("MIN_SAFE_INTEGER", JSNumber.MIN_SAFE_INTEGER());
-        print("MIN_VALUE", JSNumber.MIN_VALUE());
-        print("NaN", JSNumber.NaN());
-        print("NEGATIVE_INFINITY", JSNumber.NEGATIVE_INFINITY());
-        print("POSITIVE_INFINITY", JSNumber.POSITIVE_INFINITY());
+        double epsilon = JSNumber.EPSILON();
+        double maxSafeInteger = JSNumber.MAX_SAFE_INTEGER();
+        double maxValue = JSNumber.MAX_VALUE();
+        double minSafeInteger = JSNumber.MIN_SAFE_INTEGER();
+        double minValue = JSNumber.MIN_VALUE();
+        double nan = JSNumber.NaN();
+        double negativeInfinity = JSNumber.NEGATIVE_INFINITY();
+        double positiveInfinity = JSNumber.POSITIVE_INFINITY();
+
+        print("EPSILON", epsilon);
+        print("MAX_SAFE_INTEGER", maxSafeInteger);
+        print("MAX_VALUE", maxValue);
+        print("MIN_SAFE_INTEGER", minSafeInteger);
+        print("MIN_VALUE", minValue);
+        print("NaN", nan);
+        print("NEGATIVE_INFINITY", negativeInfinity);
+        print("POSITIVE_INFINITY", positiveInfinity);
         // Expected:
         // EPSILON: double: 2.220446e-16 | int: 0
         // MAX_SAFE_INTEGER: double: 9.007199e+15 | int: 2147483647
@@ -25,6 +36,16 @@ public class NumberConstantsDemo {
         // NaN: double: NaN | int: 0
         // NEGATIVE_INFINITY: double: -Infinity | int: -2147483648
         // POSITIVE_INFINITY: double: Infinity | int: 2147483647
+
+        // Assert values
+        assertEquals(2.220446e-16, epsilon, 1e-16);
+        assertEquals(9.007199e+15, maxSafeInteger, 0.000001e+15);
+        assertEquals(1.797693e+308, maxValue, 0.000001e+308);
+        assertEquals(-9.007199e+15, minSafeInteger, 0.000001e+15);
+        assertEquals(4.900000e-324, minValue, 1e-16);
+        assertEquals(Double.NaN, nan, 0.0);
+        assertEquals(Double.NEGATIVE_INFINITY, negativeInfinity, 0.0);
+        assertEquals(Double.POSITIVE_INFINITY, positiveInfinity, 0.0);
     }
 
     private static void print(String label, double value) {

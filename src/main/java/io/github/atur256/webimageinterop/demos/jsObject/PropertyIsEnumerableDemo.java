@@ -1,9 +1,12 @@
 package io.github.atur256.webimageinterop.demos.jsObject;
 
 import io.github.atur256.webimageinterop.builtin.JSArray;
+import io.github.atur256.webimageinterop.demos.AssertArray;
 import org.graalvm.webimage.api.JSBoolean;
 import org.graalvm.webimage.api.JSObject;
 import org.graalvm.webimage.api.JSValue;
+
+import static org.junit.Assert.*;
 
 
 public class PropertyIsEnumerableDemo {
@@ -21,9 +24,12 @@ public class PropertyIsEnumerableDemo {
         descriptors.set("hidden", hiddenDescriptor);
         JSObject.defineProperties(obj, descriptors);
 
-        System.out.println("Is 'visible' enumerable? " + obj.propertyIsEnumerable("visible"));
-        System.out.println("Is 'hidden' enumerable? " + obj.propertyIsEnumerable("hidden"));
-        System.out.println("Is 'missing' enumerable? " + obj.propertyIsEnumerable("missing"));
+        boolean visible = obj.propertyIsEnumerable("visible");
+        boolean hidden = obj.propertyIsEnumerable("hidden");
+        boolean missing = obj.propertyIsEnumerable("missing");
+        System.out.println("Is 'visible' enumerable? " + visible);
+        System.out.println("Is 'hidden' enumerable? " + hidden);
+        System.out.println("Is 'missing' enumerable? " + missing);
         // Expected:
         // Is 'visible' enumerable? true
         // Is 'hidden' enumerable? false
@@ -32,5 +38,11 @@ public class PropertyIsEnumerableDemo {
         JSArray keys = JSValue.checkedCoerce(obj.keys(), JSArray.class);
         System.out.println("Enumerable keys: " + keys);
         // Expected: Enumerable keys: [visible]
+
+        // Assert values
+        assertTrue(visible);
+        assertFalse(hidden);
+        assertFalse(missing);
+        AssertArray.assertArray(keys, String.class, "visible");
     }
 }

@@ -2,14 +2,18 @@ package io.github.atur256.webimageinterop.demos.jsString;
 
 import io.github.atur256.webimageinterop.builtin.JSArray;
 import io.github.atur256.webimageinterop.builtin.JSEval;
+import io.github.atur256.webimageinterop.demos.AssertArray;
 import org.graalvm.webimage.api.JSObject;
 import org.graalvm.webimage.api.JSString;
 import org.graalvm.webimage.api.JSValue;
 
+import static org.junit.Assert.assertEquals;
+
+
 public class SplitDemo {
 
     public static void main(String[] args) {
-        System.out.println("=== JSString.split Demo ===");
+        System.out.println("\n=== JSString.split Demo ===");
 
         JSString csv = JSString.of("red,green,blue,yellow");
 
@@ -42,5 +46,12 @@ public class SplitDemo {
         // "red,green,blue,yellow".split(JSObject(/,/)): [red, green, blue, yellow]
         // "red,green,blue,yellow".split(JSObject(/,/), 2): [red, green]
         // "red,green,blue,yellow".split(""): [r, e, d, ,, g, r, e, e, n, ,, b, l, u, e, ,, y, e, l, l, o, w]
+
+        // Assert values
+        AssertArray.assertArray(all1, String.class, "red", "green", "blue", "yellow");
+        AssertArray.assertArray(limited, String.class, "red", "green");
+        AssertArray.assertArray(allByObject, String.class, "red", "green", "blue", "yellow");
+        AssertArray.assertArray(limitedByObject, String.class, "red", "green");
+        AssertArray.assertArray(allChars, String.class, "r", "e", "d", ",", "g", "r", "e", "e", "n", ",", "b", "l", "u", "e", ",", "y", "e", "l", "l", "o", "w");
     }
 }
