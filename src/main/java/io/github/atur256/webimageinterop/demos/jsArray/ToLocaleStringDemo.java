@@ -13,8 +13,10 @@ public class ToLocaleStringDemo {
         JSArray arr = JSArray.of(123456.789, 987654.321);
 
         String localized = arr.toLocaleString();
-        assertTrue(localized.matches("\\d{3}[,.]\\d{3}[,.]\\d{3}[,]\\d{3}[,.]\\d{3}[,.]\\d{3}"));
         System.out.println("Localized string: " + localized);
         // Expected: Locale-formatted numbers, e.g. "123,456.789,987,654.321"
+
+        // Assert values
+        assertTrue(localized.matches("\\d{3}[,.]\\d{3}[,.]\\d{3},\\d{3}[,.]\\d{3}[,.]\\d{3}"));
     }
 }

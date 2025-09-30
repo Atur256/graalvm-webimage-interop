@@ -13,8 +13,10 @@ public class ToStringDemo {
         JSArray arr = JSArray.of("apple", "banana", "cherry");
 
         String result = arr.toString();
-        assertEquals("[apple,banana,cherry]", result);
         System.out.println("Array as string: " + result);
         // Expected: Array as string: [apple,banana,cherry]
+
+        // Assert values
+        assertEquals("[apple,banana,cherry]", result);
     }
 }

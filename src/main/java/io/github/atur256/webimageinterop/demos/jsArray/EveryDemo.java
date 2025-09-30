@@ -18,7 +18,9 @@ public class EveryDemo {
                 JSBoolean.of(value.as(Integer.class) % 2 == 0));
         boolean result = arr.every(isEven);
         System.out.println("All even: " + result);
-        assertTrue(result);
         // Expected: All even: true
+
+        // Assert values
+        assertTrue(result);
     }
 }

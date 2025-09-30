@@ -25,11 +25,13 @@ public class ForEachDemo {
         });
 
         javaArr.forEach(print);
-        assertEquals(2, results.size());
-        assertEquals("a", results.get(0));
-        assertEquals("b", results.get(1));
         // Expected:
         // "a"
         // "b"
+
+        // Assert values
+        assertEquals(2, results.size());
+        assertEquals("a", results.get(0));
+        assertEquals("b", results.get(1));
     }
 }

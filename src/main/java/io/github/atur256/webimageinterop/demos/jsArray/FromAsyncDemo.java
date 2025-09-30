@@ -14,8 +14,10 @@ public class FromAsyncDemo {
         System.out.println("\n=== JSArray.fromAsync Demo ===");
 
         JSPromise promise = JSArray.fromAsync(JSString.of("abc"));
-        assertEquals("JavaScript<object; [object Promise]>", promise.toString());
         System.out.println("Promise from async iterable: " + promise);
         // Expected: Promise from async iterable: JavaScript<object; [object Promise]>
+
+        // Assert values
+        assertEquals("JavaScript<object; [object Promise]>", promise.toString());
     }
 }

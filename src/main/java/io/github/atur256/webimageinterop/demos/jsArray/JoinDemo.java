@@ -13,20 +13,22 @@ public class JoinDemo {
 
         JSArray arr = JSArray.of(JSString.of("apple"), JSString.of("banana"));
         String result1 = arr.join(", ");
-        assertEquals("apple, banana", result1);
         System.out.println("Joined: " + result1);
         // Expected: Joined: "apple", "banana"
 
         JSArray javaArr1 = JSArray.of("apple", "banana", "orange");
         String result2 = javaArr1.join(", ");
-        assertEquals("apple, banana, orange", result2);
         System.out.println("Joined: " + result2);
         // Expected: Joined: "apple", "banana", "orange"
 
         JSArray javaArr2 = JSArray.of(1, 2, 3, 4, 5, 6);
         String result3 = javaArr2.join(" | ");
-        assertEquals("1 | 2 | 3 | 4 | 5 | 6", result3);
         System.out.println("Joined: " + result3);
         // Expected: Joined: 1 | 2 | 3 | 4 | 5 | 6
+
+        // Assert values
+        assertEquals("apple, banana", result1);
+        assertEquals("apple, banana, orange", result2);
+        assertEquals("1 | 2 | 3 | 4 | 5 | 6", result3);
     }
 }

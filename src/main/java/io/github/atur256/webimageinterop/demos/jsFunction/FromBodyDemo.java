@@ -12,8 +12,10 @@ public class FromBodyDemo {
 
         JSFunction greet = JSFunction.fromBody("return 'Hello ' + arg;");
         String result = greet.callJS("Alice", String.class);
-        assertEquals("Hello Alice", result);
         System.out.println("Result: " + result);
         // Expected: Result: Hello Alice
+
+        // Assert values
+        assertEquals("Hello Alice", result);
     }
 }

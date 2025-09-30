@@ -13,14 +13,16 @@ public class PopDemo {
 
         JSArray arr = JSArray.of(JSString.of("x"), JSString.of("y"));
         String result1 = arr.pop(String.class);
-        assertEquals("y", result1);
         System.out.println("Popped: " + result1);
         // Expected: Popped: "y"
 
         JSArray javaArr = JSArray.of(1, 2, 3);
         int result2 = javaArr.pop(Integer.class);
-        assertEquals(3, result2);
         System.out.println("Popped: " + result2);
         // Expected: Popped: 3
+
+        // Assert values
+        assertEquals("y", result1);
+        assertEquals(3, result2);
     }
 }

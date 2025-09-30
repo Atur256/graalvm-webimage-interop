@@ -3,7 +3,10 @@ package io.github.atur256.webimageinterop.demos.jsFunction;
 import io.github.atur256.webimageinterop.builtin.JSFunction;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 
 public class FromConsumerDemo {
@@ -12,114 +15,125 @@ public class FromConsumerDemo {
         System.out.println("\n=== JSFunction.fromConsumer Demo ===");
 
         // String consumer
-        String[] result1 = new String[]{""};
+        AtomicReference<String> captured1 = new AtomicReference<>();
         JSFunction stringConsumer = JSFunction.fromGeneralConsumer((String arg) -> {
-            result1[0] = "Consumed String: " + arg;
-            System.out.println(result1[0]);
+            captured1.set(arg);
+            System.out.println("Consumed String: " + arg);
         });
         stringConsumer.call("Hello");
-        assertEquals("Consumed String: Hello", result1[0]);
         // Expected: Consumed String: Hello
 
         // Integer consumer
-        String[] result2 = new String[]{""};
+        AtomicReference<Integer> captured2 = new AtomicReference<>();
         JSFunction intConsumer = JSFunction.fromGeneralConsumer((Integer arg) -> {
-            result2[0] = "Consumed Integer: " + arg;
-            System.out.println(result2[0]);
+            captured2.set(arg);
+            System.out.println("Consumed Integer: " + arg);
         });
         intConsumer.call(42);
-        assertEquals("Consumed Integer: 42", result2[0]);
         // Expected: Consumed Integer: 42
 
         // Double consumer
-        String[] result3 = new String[]{""};
+        AtomicReference<Double> captured3 = new AtomicReference<>();
         JSFunction doubleConsumer = JSFunction.fromGeneralConsumer((Double arg) -> {
-            result3[0] = "Consumed Double: " + arg;
-            System.out.println(result3[0]);
+            captured3.set(arg);
+            System.out.println("Consumed Double: " + arg);
         });
         doubleConsumer.call(3.14);
-        assertEquals("Consumed Double: 3.14", result3[0]);
         // Expected: Consumed Double: 3.14
 
         // Boolean consumer
-        String[] result4 = new String[]{""};
+        AtomicReference<Boolean> captured4 = new AtomicReference<>();
         JSFunction boolConsumer = JSFunction.fromGeneralConsumer((Boolean arg) -> {
-            result4[0] = "Consumed Boolean: " + arg;
-            System.out.println(result4[0]);
+            captured4.set(arg);
+            System.out.println("Consumed Boolean: " + arg);
         });
         boolConsumer.call(true);
-        assertEquals("Consumed Boolean: true", result4[0]);
         // Expected: Consumed Boolean: true
 
         // Custom class consumer
-        String[] result5 = new String[]{""};
+        AtomicReference<CustomClass> captured5 = new AtomicReference<>();
         JSFunction customConsumer = JSFunction.fromGeneralConsumer((CustomClass arg) -> {
-            result5[0] = "Consumed CustomClass: " + arg;
-            System.out.println(result5[0]);
+            captured5.set(arg);
+            System.out.println("Consumed CustomClass: " + arg);
         });
         customConsumer.call(new CustomClass("Alice"));
-        assertEquals("Consumed CustomClass: CustomClass(Alice)", result5[0]);
         // Expected: Consumed CustomClass: CustomClass(Alice)
 
         // BiConsumer: (String, String) → void
-        String[] result6 = new String[]{""};
+        AtomicReference<Pair<String, String>> captured6 = new AtomicReference<>();
         JSFunction biStringConsumer = JSFunction.fromGeneralBiConsumer((String a, String b) -> {
-            result6[0] = "BiConsumer Strings: " + a + " & " + b;
-            System.out.println(result6[0]);
+            captured6.set(Pair.of(a, b));
+            System.out.println("BiConsumer Strings: " + a + " & " + b);
         });
         biStringConsumer.call("Hello", "World");
-        assertEquals("BiConsumer Strings: Hello & World", result6[0]);
         // Expected: BiConsumer Strings: Hello & World
 
         // BiConsumer: (String, Integer) → void
-        String[] result7 = new String[]{""};
+        AtomicReference<Pair<String, Integer>> captured7 = new AtomicReference<>();
         JSFunction biMixedConsumer = JSFunction.fromGeneralBiConsumer((String label, Integer value) -> {
-            result7[0] = "BiConsumer Mixed: " + label + " = " + value.toString();
-            System.out.println(result7[0]);
+            captured7.set(Pair.of(label, value));
+            System.out.println("BiConsumer Mixed: " + label + " = " + value.toString());
         });
         biMixedConsumer.call("Age", 30);
-        assertEquals("BiConsumer Mixed: Age = 30", result7[0]);
         // Expected: BiConsumer Mixed: Age = 30
 
         // BiConsumer: (CustomClass, CustomClass) → void
-        String[] result8 = new String[]{""};
+        AtomicReference<Pair<CustomClass, CustomClass>> captured8 = new AtomicReference<>();
         JSFunction biCustomConsumer = JSFunction.fromGeneralBiConsumer((CustomClass a, CustomClass b) -> {
-            result8[0] = "BiConsumer CustomClasses: " + a + " | " + b;
-            System.out.println(result8[0]);
+            captured8.set(Pair.of(a, b));
+            System.out.println("BiConsumer CustomClasses: " + a + " | " + b);
         });
         biCustomConsumer.call(new CustomClass("Alice"), new CustomClass("Bob"));
-        assertEquals("BiConsumer CustomClasses: CustomClass(Alice) | CustomClass(Bob)", result8[0]);
         // Expected: BiConsumer CustomClasses: CustomClass(Alice) | CustomClass(Bob)
 
         // BiTriConsumer: (String, String, String) → void
-        String[] result9 = new String[]{""};
+        AtomicReference<Triple<String, String, String>> captured9 = new AtomicReference<>();
         JSFunction triStringConsumer = JSFunction.fromGeneralTriConsumer((String a, String b, String c) -> {
-            result9[0] = "TriConsumer Strings: " + a + " & " + b + " & " + c;
-            System.out.println(result9[0]);
+            captured9.set(Triple.of(a, b, c));
+            System.out.println("TriConsumer Strings: " + a + " & " + b + " & " + c);
         });
         triStringConsumer.call("Hello", "World", "!");
-        assertEquals("TriConsumer Strings: Hello & World & !", result9[0]);
         // Expected: TriConsumer Strings: Hello & World & !
 
         // BiTriConsumer: (String, Integer, Double) → void
-        String[] result10 = new String[]{""};
+        AtomicReference<Triple<String, Integer, Double>> captured10 = new AtomicReference<>();
         JSFunction triMixedConsumer = JSFunction.fromGeneralTriConsumer((String label, Integer value1, Double value2) -> {
-            result10[0] = "TriConsumer Mixed: " + label + ": " + value1.toString() + " | " + value2.toString();
-            System.out.println(result10[0]);
+            captured10.set(Triple.of(label, value1, value2));
+            System.out.println("TriConsumer Mixed: " + label + ": " + value1.toString() + " | " + value2.toString());
         });
         triMixedConsumer.call("Age and Height", 30, 186.35);
-        assertEquals("TriConsumer Mixed: Age and Height: 30 | 186.35", result10[0]);
         // Expected: TriConsumer Mixed: Age and Height: 30 | 186.35
 
         // BiTriConsumer: (CustomClass, CustomClass, CustomClass) → void
-        String[] result11 = new String[]{""};
+        AtomicReference<Triple<CustomClass, CustomClass, CustomClass>> captured11 = new AtomicReference<>();
         JSFunction triCustomConsumer = JSFunction.fromGeneralTriConsumer((CustomClass a, CustomClass b, CustomClass c) -> {
-            result11[0] = "TriConsumer CustomClasses: " + a + " | " + b + " | " + c;
-            System.out.println(result11[0]);
+            captured11.set(Triple.of(a, b, c));
+            System.out.println("TriConsumer CustomClasses: " + a + " | " + b + " | " + c);
         });
         triCustomConsumer.call(new CustomClass("Alice"), new CustomClass("Bob"), new CustomClass("Anna"));
-        assertEquals("TriConsumer CustomClasses: CustomClass(Alice) | CustomClass(Bob) | CustomClass(Anna)", result11[0]);
         // Expected: TriConsumer CustomClasses: CustomClass(Alice) | CustomClass(Bob) | CustomClass(Anna)
+
+        // Assert values
+        assertEquals("Hello", captured1.get());
+        assertEquals(Integer.valueOf(42), captured2.get());
+        assertEquals(3.14, captured3.get(), 0.0);
+        assertTrue(captured4.get());
+        assertEquals(new CustomClass("Alice"), captured5.get());
+        assertEquals("Hello", captured6.get().a);
+        assertEquals("World", captured6.get().b);
+        assertEquals("Age", captured7.get().a);
+        assertEquals(Integer.valueOf(30), captured7.get().b);
+        assertEquals(new CustomClass("Alice"), captured8.get().a);
+        assertEquals(new CustomClass("Bob"), captured8.get().b);
+        assertEquals("Hello", captured9.get().a);
+        assertEquals("World", captured9.get().b);
+        assertEquals("!", captured9.get().c);
+        assertEquals("Age and Height", captured10.get().a);
+        assertEquals(Integer.valueOf(30), captured10.get().b);
+        assertEquals(186.35, captured10.get().c, 0.0);
+        assertEquals(new CustomClass("Alice"), captured11.get().a);
+        assertEquals(new CustomClass("Bob"), captured11.get().b);
+        assertEquals(new CustomClass("Anna"), captured11.get().c);
     }
 
     record CustomClass(String name) {
@@ -128,6 +142,22 @@ public class FromConsumerDemo {
         @NotNull
         public String toString() {
             return "CustomClass(" + name + ")";
+        }
+    }
+
+    // Records for value capturing for assertions
+    public record Pair<A, B>(A a, B b) {
+
+        public static <A, B> Pair<A, B> of(A a, B b) {
+            return new Pair<>(a, b);
+        }
+    }
+
+    public record Triple<A, B, C>(A a, B b, C c) {
+
+
+        public static <A, B, C> Triple<A, B, C> of(A a, B b, C c) {
+            return new Triple<>(a, b, c);
         }
     }
 }

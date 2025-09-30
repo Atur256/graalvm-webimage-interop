@@ -11,13 +11,15 @@ public class DecodeURIComponentDemo {
         System.out.println("\n=== JSUri.decodeURIComponent Demo ===");
 
         String result1 = JSUri.decodeURIComponent("John%20Doe%20%26%20Co.");
-        assertEquals("John Doe & Co.", result1);
         System.out.println("decodeURIComponent(\"John%20Doe%20%26%20Co.\"): " + result1);
         // Expected: decodeURIComponent("John%20Doe%20%26%20Co."): John Doe & Co.
 
         String result2 = JSUri.decodeURIComponent("a%2Bb%3Dc%26d");
-        assertEquals("a+b=c&d", result2);
         System.out.println("decodeURIComponent(\"a%2Bb%3Dc%26d\"): " + result2);
         // Expected: decodeURIComponent("a%2Bb%3Dc%26d"): a+b=c&d
+
+        // Assert values
+        assertEquals("John Doe & Co.", result1);
+        assertEquals("a+b=c&d", result2);
     }
 }

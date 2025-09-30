@@ -14,8 +14,10 @@ public class FromArgsDemo {
 
         JSFunction sum = JSFunction.fromArgs("a", "b", "return a + b;");
         int result = sum.applyJS(null, JSArray.of(JSNumber.of(5), JSNumber.of(7)), Integer.class);
-        assertEquals(12, result);
         System.out.println("Result: " + result);
         // Expected: Result: 12
+
+        // Assert values
+        assertEquals(12, result);
     }
 }

@@ -13,14 +13,16 @@ public class ShiftDemo {
 
         JSArray arr = JSArray.of(JSString.of("first"), JSString.of("second"));
         String result1 = arr.shift(String.class);
-        assertEquals("first", result1);
         System.out.println("Shifted: " + result1);
         // Expected: Shifted: "first"
 
         JSArray javaArr = JSArray.of(1, 2, 3);
         int result2 = javaArr.shift(Integer.class);
-        assertEquals(1, result2);
         System.out.println("Shifted: " + result2);
         // Expected: Shifted: 1
+
+        // Assert values
+        assertEquals("first", result1);
+        assertEquals(1, result2);
     }
 }

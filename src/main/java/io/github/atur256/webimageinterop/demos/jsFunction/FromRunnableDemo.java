@@ -2,6 +2,8 @@ package io.github.atur256.webimageinterop.demos.jsFunction;
 
 import io.github.atur256.webimageinterop.builtin.JSFunction;
 
+import java.util.concurrent.CountDownLatch;
+
 import static org.junit.Assert.assertEquals;
 
 
@@ -10,12 +12,17 @@ public class FromRunnableDemo {
     public static void main(String[] args) {
         System.out.println("\n=== JSFunction.fromRunnable Demo ===");
 
-        String[] result = new String[]{""};
-        JSFunction runner = JSFunction.fromRunnable(() -> result[0] = "Runnable executed");
+        CountDownLatch latch = new CountDownLatch(1);
+
+        JSFunction runner = JSFunction.fromRunnable(() -> {
+            System.out.println("Runnable executed");
+            latch.countDown();
+        });
 
         runner.call();
-        assertEquals("Runnable executed", result[0]);
-        System.out.println(result[0]);
         // Expected: Runnable executed
+
+        // Assert values
+        assertEquals(0, latch.getCount());
     }
 }

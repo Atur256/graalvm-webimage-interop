@@ -13,8 +13,10 @@ public class PrototypeDemo {
 
         JSFunction f = JSFunction.fromBody("return true;");
         JSValue proto = f.prototype;
-        assertEquals("JavaScript<object; [object Object]>", proto.toString());
         System.out.println("JSFunction prototype: " + proto);
         // Expected: JSFunction prototype: JavaScript<object; [object Object]>
+
+        // Assert values
+        assertEquals("JavaScript<object; [object Object]>", proto.toString());
     }
 }

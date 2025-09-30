@@ -18,14 +18,16 @@ public class SomeDemo {
         JSFunction isEven = JSFunction.fromBody("return arg % 2 === 0;");
         boolean result1 = arr.some(isEven);
         System.out.println("Has even: " + result1);
-        assertTrue(result1);
         // Expected: Has even: true
 
         JSArray javaArr = JSArray.of(2, 4, 6);
         JSFunction isOdd = JSFunction.fromGeneralFunction((JSNumber arg) -> JSBoolean.of(arg.as(Integer.class) % 2 != 0));
         boolean result2 = javaArr.some(isOdd);
         System.out.println("Has even: " + result2);
-        assertFalse(result2);
         // Expected: Has even: false
+
+        // Assert values
+        assertTrue(result1);
+        assertFalse(result2);
     }
 }

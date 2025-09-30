@@ -13,7 +13,9 @@ public class IsArrayDemo {
         JSArray arr = JSArray.of(1, 2);
         boolean result = JSArray.isArray(arr);
         System.out.println("Is array: " + result);
-        assertTrue(result);
         // Expected: Is array: true
+
+        // Assert values
+        assertTrue(result);
     }
 }

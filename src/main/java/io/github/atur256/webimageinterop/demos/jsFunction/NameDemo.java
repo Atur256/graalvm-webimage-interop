@@ -11,8 +11,10 @@ public class NameDemo {
         System.out.println("\n=== JSFunction.name Demo ===");
 
         JSFunction f = JSFunction.fromBody("return 'test';");
-        assertEquals("anonymous", f.name);
         System.out.println("JSFunction name: " + f.name);
         // Expected: JSFunction name: anonymous
+
+        // Assert values
+        assertEquals("anonymous", f.name);
     }
 }

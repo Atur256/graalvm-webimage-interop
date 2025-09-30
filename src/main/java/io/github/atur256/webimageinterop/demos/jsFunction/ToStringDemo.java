@@ -12,18 +12,20 @@ public class ToStringDemo {
 
         JSFunction jsF = JSFunction.fromBody("return 42;");
         String result1 = jsF.toStringJS();
-        assertEquals("""
-                function anonymous(arg
-                ) {
-                return 42;
-                }""", result1);
         System.out.println("JSFunction source: " + result1);
         // Expected: JSFunction source: function anonymous(arg) { return 42; }
 
         JSFunction javaF = JSFunction.fromGeneralFunction((String arg) -> "Hello, " + arg);
         String result2 = javaF.toStringJS();
-        assertEquals("function(args) { return javaFunc.apply(args); }", result2);
         System.out.println("JSFunction source: " + result2);
         // Expected: JSFunction source: function(args) { return javaFunc.apply(args); }
+
+        // Assert values
+        assertEquals("""
+                function anonymous(arg
+                ) {
+                return 42;
+                }""", result1);
+        assertEquals("function(args) { return javaFunc.apply(args); }", result2);
     }
 }

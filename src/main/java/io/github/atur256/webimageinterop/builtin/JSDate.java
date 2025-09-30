@@ -11,39 +11,39 @@ public class JSDate extends JSObject {
 
     @JS.Coerce
     @JS(value = "return Date.now();")
-    public static native double now();
+    public static native long now();
 
     @JS.Coerce
     @JS(value = "return Date.parse(dateString);")
-    public static native double parse(String dateString);
+    public static native long parse(String dateString);
 
     @JS.Coerce
     @JS(value = "return Date.UTC(year);")
-    public static native double UTC(int year);
+    public static native long UTC(int year);
 
     @JS.Coerce
     @JS(value = "return Date.UTC(year, month);")
-    public static native double UTC(int year, int month);
+    public static native long UTC(int year, int month);
 
     @JS.Coerce
     @JS(value = "return Date.UTC(year, month, day);")
-    public static native double UTC(int year, int month, int day);
+    public static native long UTC(int year, int month, int day);
 
     @JS.Coerce
     @JS(value = "return Date.UTC(year, month, day, hours);")
-    public static native double UTC(int year, int month, int day, int hours);
+    public static native long UTC(int year, int month, int day, int hours);
 
     @JS.Coerce
     @JS(value = "return Date.UTC(year, month, day, hours, minutes);")
-    public static native double UTC(int year, int month, int day, int hours, int minutes);
+    public static native long UTC(int year, int month, int day, int hours, int minutes);
 
     @JS.Coerce
     @JS(value = "return Date.UTC(year, month, day, hours, minutes, seconds);")
-    public static native double UTC(int year, int month, int day, int hours, int minutes, int seconds);
+    public static native long UTC(int year, int month, int day, int hours, int minutes, int seconds);
 
     @JS.Coerce
     @JS(value = "return Date.UTC(year, month, day, hours, minutes, seconds, ms);")
-    public static native double UTC(int year, int month, int day, int hours, int minutes, int seconds, int ms);
+    public static native long UTC(int year, int month, int day, int hours, int minutes, int seconds, int ms);
 
     @JS.Coerce
     @JS(value = "return this.getDate();")
@@ -79,7 +79,7 @@ public class JSDate extends JSObject {
 
     @JS.Coerce
     @JS(value = "return this.getTime();")
-    public native double getTime();
+    public native long getTime();
 
     @JS.Coerce
     @JS(value = "return this.getTimezoneOffset();")
@@ -179,37 +179,37 @@ public class JSDate extends JSObject {
 
     @JS.Coerce
     @JS(value = "return this.toDateString();")
-    public native java.lang.String toDateString();
+    public native String toDateString();
 
     @JS.Coerce
     @JS(value = "return this.toISOString();")
-    public native java.lang.String toISOString();
+    public native String toISOString();
 
     @JS.Coerce
     @JS(value = "return this.toJSON();")
-    public native java.lang.String toJSON();
+    public native String toJSON();
 
     @JS.Coerce
     @JS(value = "return this.toLocaleDateString();")
-    public native java.lang.String toLocaleDateString();
+    public native String toLocaleDateString();
 
     @JS.Coerce
     @JS(value = "return this.toLocaleString();")
-    public native java.lang.String toLocaleString();
+    public native String toLocaleString();
 
     @JS.Coerce
     @JS(value = "return this.toLocaleTimeString();")
-    public native java.lang.String toLocaleTimeString();
+    public native String toLocaleTimeString();
 
     @JS.Coerce
     @JS(value = "return this.toString();")
-    public native java.lang.String toString();
+    public native String toString();
 
     @JS.Coerce
     @JS(value = "return this.toTimeString();")
-    public native java.lang.String toTimeString();
+    public native String toTimeString();
 
     @JS.Coerce
     @JS(value = "return this.toUTCString();")
-    public native java.lang.String toUTCString();
+    public native String toUTCString();
 }
