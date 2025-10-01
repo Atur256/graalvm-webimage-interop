@@ -125,11 +125,19 @@ See the [demo package](https://github.com/Atur256/web-image-interop/tree/master/
 
 ## Testing
 
-In addition to serving as usage examples, all demo classes act as validation harnesses. They include inline assertions (`assert` or JUnit-style) to verify correctness and runtime behavior.
+This project includes a dedicated test class for each wrapper object.
 
-The `Main` class invokes the execution of all demos. Running it will automatically invoke every demo and validate all implemented functionality.
+- **Per-class testing:** Each test class groups all tests for a specific wrapper  
+  (e.g., `JSArrayTest` contains all tests for `JSArray`).  
+  These can be executed individually.
+
+- **Full test suite:** The `Main` class automatically invokes all test classes  
+  and runs the full test suite in one go.
+
+All tests include inline **JUnit assertions** to verify correctness and runtime behavior.
 
 See the [Main class](https://github.com/Atur256/web-image-interop/blob/master/src/main/java/io/github/atur256/webimageinterop/Main.java)
+
 
 ## Further Extensions
 

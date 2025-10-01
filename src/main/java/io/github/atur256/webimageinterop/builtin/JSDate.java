@@ -10,8 +10,48 @@ import java.lang.String;
 public class JSDate extends JSObject {
 
     @JS.Coerce
+    @JS(value = "return new Date();")
+    public static native JSDate create(); // TODO: don't test it
+
+    @JS.Coerce
+    @JS(value = "return new Date(value);")
+    public static native JSDate create(double value); // TODO: use long and convert BigInt to Number
+
+    @JS.Coerce
+    @JS(value = "return new Date(dateString);")
+    public static native JSDate create(String dateString);
+
+    @JS.Coerce
+    @JS(value = "return new Date(dateObject);")
+    public static native JSDate create(JSDate dateObject);
+
+    @JS.Coerce
+    @JS(value = "return new Date(year, month);")
+    public static native JSDate create(int year, int month);
+
+    @JS.Coerce
+    @JS(value = "return new Date(year, month, day);")
+    public static native JSDate create(int year, int month, int day);
+
+    @JS.Coerce
+    @JS(value = "return new Date(year, month, day, hours);")
+    public static native JSDate create(int year, int month, int day, int hours);
+
+    @JS.Coerce
+    @JS(value = "return new Date(year, month, day, hours, minutes);")
+    public static native JSDate create(int year, int month, int day, int hours, int minutes);
+
+    @JS.Coerce
+    @JS(value = "return new Date(year, month, day, hours, minutes, seconds);")
+    public static native JSDate create(int year, int month, int day, int hours, int minutes, int seconds);
+
+    @JS.Coerce
+    @JS(value = "return new Date(year, month, day, hours, minutes, seconds, milliseconds);")
+    public static native JSDate create(int year, int month, int day, int hours, int minutes, int seconds, int milliseconds);
+
+    @JS.Coerce
     @JS(value = "return Date.now();")
-    public static native long now();
+    public static native long now(); // TODO: don't test it
 
     @JS.Coerce
     @JS(value = "return Date.parse(dateString);")
