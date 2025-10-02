@@ -1,10 +1,7 @@
 package io.github.atur256.webimageinterop;
 
 
-import io.github.atur256.webimageinterop.tests.JSArrayTests;
-import io.github.atur256.webimageinterop.tests.JSEvalTests;
-import io.github.atur256.webimageinterop.tests.JSFunctionTests;
-import io.github.atur256.webimageinterop.tests.JSUriTests;
+import io.github.atur256.webimageinterop.tests.*;
 
 
 public class Main {
@@ -15,21 +12,21 @@ public class Main {
 
 //        VueDemo.main(null);
 
-        // JSEval
+        // Run all test
 
+        // JSEval
         JSEvalTests.main(null);
 
         // JSUri
-
         JSUriTests.main(null);
 
         // JSFunction
-
         JSFunctionTests.main(null);
 
         // JSArray
-
         JSArrayTests.main(null);
+
+//        test.main(null);
 
         // JSDate
 

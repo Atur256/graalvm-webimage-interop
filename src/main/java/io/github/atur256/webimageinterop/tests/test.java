@@ -11,10 +11,10 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertFalse;
 
 
-public class JSFunctionTests {
+public class test {
+
 
     public static void main(String[] args) {
         testFromBody();
