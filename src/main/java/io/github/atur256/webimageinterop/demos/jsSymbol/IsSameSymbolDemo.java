@@ -10,8 +10,12 @@ public class IsSameSymbolDemo {
     public static void main(String[] args) {
         System.out.println("\n=== JSSymbol.for Identity Demo ===");
 
-        boolean same = JSSymbol.isSameSymbol("alpha", "alpha");
-        boolean different = JSSymbol.isSameSymbol("alpha", "beta");
+        JSSymbol sym1 = JSSymbol.forKey("alpha");
+        JSSymbol sym2 = JSSymbol.forKey("alpha");
+        JSSymbol sym3 = JSSymbol.forKey("beta");
+
+        boolean same = JSSymbol.isSameSymbol(sym1, sym2);
+        boolean different = JSSymbol.isSameSymbol(sym1, sym2);
 
         System.out.println("JSSymbol.for('alpha') === JSSymbol.for('alpha'): " + same);
         System.out.println("JSSymbol.for('alpha') === JSSymbol.for('beta'): " + different);

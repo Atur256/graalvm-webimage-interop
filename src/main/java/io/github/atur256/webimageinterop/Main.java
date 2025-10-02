@@ -1,18 +1,32 @@
 package io.github.atur256.webimageinterop;
 
 
-import io.github.atur256.webimageinterop.tests.*;
+import io.github.atur256.webimageinterop.tests.JSArrayTests;
+import io.github.atur256.webimageinterop.tests.JSEvalTests;
+import io.github.atur256.webimageinterop.tests.JSFunctionTests;
+import io.github.atur256.webimageinterop.tests.JSUriTests;
+import io.github.atur256.webimageinterop.tests.coreApi.JSNumberTests;
+import io.github.atur256.webimageinterop.tests.coreApi.JSSymbolTests;
 
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
 
+
         // TODO: update README.md
 
-//        VueDemo.main(null);
-
         // Run all test
+
+        // JSNumber
+        JSNumberTests.main(null);
+
+        // JSString
+        JSSymbolTests.main(null);
+
+        // JSSymbol
+
+        // JSObject
 
         // JSEval
         JSEvalTests.main(null);
@@ -386,34 +400,6 @@ public class Main {
 //
 //        io.github.atur256.webimageinterop.demos.jsObject.ValueOfDemo.main(null);
 //
-//        // JSNumber
-//
-//        io.github.atur256.webimageinterop.demos.jsNumber.IsFiniteDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsNumber.IsIntegerDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsNumber.IsNaNDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsNumber.IsSafeIntegerDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsNumber.ParseFloatDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsNumber.ParseIntDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsNumber.NumberConstantsDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsNumber.ToExponentialDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsNumber.ToFixedDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsNumber.ToLocaleStringDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsNumber.ToPrecision.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsNumber.ToStringDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsNumber.ValueOfDemo.main(null);
-//
 //        // JSString
 //
 //        io.github.atur256.webimageinterop.demos.jsString.FromCharCodeDemo.main(null);
@@ -482,46 +468,6 @@ public class Main {
 //
 //        io.github.atur256.webimageinterop.demos.jsString.LengthDemo.main(null);
 //
-//        // JSSymbol
-//
-//        io.github.atur256.webimageinterop.demos.jsSymbol.ForDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsSymbol.KeyForDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsSymbol.AsyncDisposeDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsSymbol.AsyncIteratorDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsSymbol.DisposeDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsSymbol.HasInstanceDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsSymbol.IteratorDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsSymbol.MatchDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsSymbol.MatchAllDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsSymbol.ReplaceDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsSymbol.SearchDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsSymbol.SpeciesDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsSymbol.SplitDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsSymbol.ToPrimitiveDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsSymbol.ToStringTagDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsSymbol.UnscopablesDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsSymbol.ValueOfDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsSymbol.IsSameSymbolDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsSymbol.DescriptionDemo.main(null);
-
 //        // JSIntl
 //
 //        io.github.atur256.webimageinterop.demos.jsIntl.CanonicalLocalesDemo.main(null);

@@ -45,7 +45,6 @@ public class ToLocaleStringDemo {
         // Expected: Fixed fraction (en-US): 1,234,567.8900
 
         // Assert values
-        System.out.println("Test - 1");
         assertTrue(result1.matches("\\d[,.]\\d{3}[,.]\\d{3}[,.]\\d{2}"));
         assertEquals("1 234 567,89", result2);
         assertEquals("1,234,567.89", result3);
