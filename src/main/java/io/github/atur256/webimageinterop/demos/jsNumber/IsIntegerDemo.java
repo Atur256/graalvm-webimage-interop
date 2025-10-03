@@ -32,10 +32,10 @@ public class IsIntegerDemo {
         // JSNumber Infinity isInteger: false
 
         // Java Number examples
-        Number javaInt = 100;
-        Number javaFloat = 2.718;
-        Number javaNaN = Double.NaN;
-        Number javaInfinity = Double.NEGATIVE_INFINITY;
+        int javaInt = 100;
+        double javaFloat = 2.718;
+        double javaNaN = Double.NaN;
+        double javaInfinity = Double.NEGATIVE_INFINITY;
 
         boolean result5 = JSNumber.isInteger(javaInt);
         boolean result6 = JSNumber.isInteger(javaFloat);

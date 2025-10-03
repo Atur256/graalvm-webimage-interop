@@ -182,5 +182,9 @@ public class JSFunction extends JSObject {
 
     @JS.Coerce
     @JS(value = "return this.toString();")
-    public native String toStringJS();
+    public native String toJSString();
+
+    public String toString() {
+        return "<JavaScript<" + typeof() + "; " + toJSString() + ">";
+    }
 }

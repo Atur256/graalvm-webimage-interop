@@ -436,7 +436,7 @@ public class JSArray extends JSObject {
     private native String toJSString();
 
     public String toString() {
-        return "[" + toJSString() + "]";
+        return "<JavaScript<" + typeof() + "; [" + toJSString() + "]>";
     }
 
     @JS.Coerce

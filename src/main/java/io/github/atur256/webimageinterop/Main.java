@@ -1,11 +1,10 @@
 package io.github.atur256.webimageinterop;
 
 
-import io.github.atur256.webimageinterop.tests.JSArrayTests;
-import io.github.atur256.webimageinterop.tests.JSEvalTests;
-import io.github.atur256.webimageinterop.tests.JSFunctionTests;
-import io.github.atur256.webimageinterop.tests.JSUriTests;
+import io.github.atur256.webimageinterop.tests.*;
 import io.github.atur256.webimageinterop.tests.coreApi.JSNumberTests;
+import io.github.atur256.webimageinterop.tests.coreApi.JSObjectTests;
+import io.github.atur256.webimageinterop.tests.coreApi.JSStringTests;
 import io.github.atur256.webimageinterop.tests.coreApi.JSSymbolTests;
 
 
@@ -13,20 +12,19 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-
-        // TODO: update README.md
-
         // Run all test
 
         // JSNumber
         JSNumberTests.main(null);
 
         // JSString
-        JSSymbolTests.main(null);
+        JSStringTests.main(null);
 
         // JSSymbol
+        JSSymbolTests.main(null);
 
         // JSObject
+        JSObjectTests.main(null);
 
         // JSEval
         JSEvalTests.main(null);

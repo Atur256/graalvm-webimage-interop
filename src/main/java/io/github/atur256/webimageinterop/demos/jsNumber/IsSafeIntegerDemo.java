@@ -33,10 +33,10 @@ public class IsSafeIntegerDemo {
         // JSValue NaN isSafeInteger: false
 
         // Java Number examples
-        Number javaSafe = 42;
-        Number javaUnsafe = 1e100;
-        Number javaFloat = 2.718;
-        Number javaNaN = Double.NaN;
+        int javaSafe = 42;
+        double javaUnsafe = 1e100;
+        double javaFloat = 2.718;
+        double javaNaN = Double.NaN;
 
         boolean result5 = JSNumber.isSafeInteger(javaSafe);
         boolean result6 = JSNumber.isSafeInteger(javaUnsafe);

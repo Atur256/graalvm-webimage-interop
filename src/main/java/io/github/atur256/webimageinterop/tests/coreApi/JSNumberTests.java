@@ -168,14 +168,14 @@ public class JSNumberTests {
         JSNumber pi = JSNumber.of(DOUBLE_SMALL);
         JSNumber neg = JSNumber.of(NEG_INT);
 
-        assertEquals("255", hex.toString());
-        assertEquals("3.14159", pi.toString());
-        assertEquals("-42", neg.toString());
+        assertEquals("JavaScript<number; 255.0>", hex.toString());
+        assertEquals("JavaScript<number; 3.14159>", pi.toString());
+        assertEquals("JavaScript<number; -42.0>", neg.toString());
 
-        assertEquals("11111111", hex.toString(2));
-        assertEquals("ff", hex.toString(16));
-        assertEquals("377", hex.toString(8));
-        assertEquals("-132", neg.toString(5));
+        assertEquals("JavaScript<number; 11111111>", hex.toString(2));
+        assertEquals("JavaScript<number; ff>", hex.toString(16));
+        assertEquals("JavaScript<number; 377>", hex.toString(8));
+        assertEquals("JavaScript<number; -132>", neg.toString(5));
     }
 
     public static void testValueOf() {

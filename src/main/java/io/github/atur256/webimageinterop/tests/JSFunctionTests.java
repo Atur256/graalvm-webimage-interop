@@ -320,18 +320,18 @@ public class JSFunctionTests {
         int result2 = fun2.length;
         String result3 = fun1.name;
         String result4 = fun2.prototype.toString();
-        String result5 = fun1.toStringJS();
-        String result6 = fun2.toStringJS();
+        String result5 = fun1.toString();
+        String result6 = fun2.toString();
 
         assertEquals(3, result1);
         assertEquals(1, result2);
         assertEquals("anonymous", result3);
         assertEquals("JavaScript<object; [object Object]>", result4);
         assertEquals("""
-                function anonymous(x,y,z
+                <JavaScript<function; function anonymous(x,y,z
                 ) {
                 return x + y + z;
-                }""", result5);
-        assertEquals("function(args) { return javaFunc.apply(args); }", result6);
+                }>""", result5);
+        assertEquals("<JavaScript<function; function(args) { return javaFunc.apply(args); }>", result6);
     }
 }

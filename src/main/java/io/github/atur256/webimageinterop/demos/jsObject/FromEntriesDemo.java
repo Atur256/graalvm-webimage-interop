@@ -1,7 +1,7 @@
 package io.github.atur256.webimageinterop.demos.jsObject;
 
 import io.github.atur256.webimageinterop.builtin.JSArray;
-import io.github.atur256.webimageinterop.demos.AssertArray;
+import io.github.atur256.webimageinterop.tests.testUtils.AssertArray;
 import org.graalvm.webimage.api.JSObject;
 import org.graalvm.webimage.api.JSValue;
 

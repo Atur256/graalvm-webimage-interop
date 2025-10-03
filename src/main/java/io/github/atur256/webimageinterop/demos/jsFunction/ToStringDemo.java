@@ -11,12 +11,12 @@ public class ToStringDemo {
         System.out.println("\n=== JSFunction.toStringJS Demo ===");
 
         JSFunction jsF = JSFunction.fromBody("return 42;");
-        String result1 = jsF.toStringJS();
+        String result1 = jsF.toString();
         System.out.println("JSFunction source: " + result1);
         // Expected: JSFunction source: function anonymous(arg) { return 42; }
 
         JSFunction javaF = JSFunction.fromGeneralFunction((String arg) -> "Hello, " + arg);
-        String result2 = javaF.toStringJS();
+        String result2 = javaF.toString();
         System.out.println("JSFunction source: " + result2);
         // Expected: JSFunction source: function(args) { return javaFunc.apply(args); }
 

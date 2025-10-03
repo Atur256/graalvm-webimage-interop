@@ -1,4 +1,4 @@
-package io.github.atur256.webimageinterop.demos;
+package io.github.atur256.webimageinterop.tests.testUtils;
 
 import io.github.atur256.webimageinterop.builtin.JSArray;
 import org.graalvm.webimage.api.JSValue;

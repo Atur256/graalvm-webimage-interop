@@ -28,10 +28,10 @@ public class IsNaNDemo {
         // JSValue Infinity isNaN: false
 
         // Java Number examples
-        Number javaIntValid = 123;
-        Number javaDoubleValid = 1.23;
-        Number javaNaN = Double.NaN;
-        Number javaInfinity = Double.NEGATIVE_INFINITY;
+        int javaIntValid = 123;
+        double javaDoubleValid = 1.23;
+        double javaNaN = Double.NaN;
+        double javaInfinity = Double.NEGATIVE_INFINITY;
 
         boolean result4 = JSNumber.isNaN(javaIntValid);
         boolean result5 = JSNumber.isNaN(javaDoubleValid);

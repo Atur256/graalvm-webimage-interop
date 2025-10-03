@@ -28,10 +28,10 @@ public class IsFiniteDemo {
         // JSNumber NaN isFinite: false
 
         // Java Number examples
-        Number javaIntFinite = 123;
-        Number javaDoubleFinite = 1.23;
-        Number javaInfinite = Double.NEGATIVE_INFINITY;
-        Number javaNaN = Double.NaN;
+        int javaIntFinite = 123;
+        double javaDoubleFinite = 1.23;
+        double javaInfinite = Double.NEGATIVE_INFINITY;
+        double javaNaN = Double.NaN;
 
         boolean result4 = JSNumber.isFinite(javaIntFinite);
         boolean result5 = JSNumber.isFinite(javaDoubleFinite);

@@ -1,7 +1,7 @@
 package io.github.atur256.webimageinterop.demos.jsArray;
 
 import io.github.atur256.webimageinterop.builtin.JSArray;
-import io.github.atur256.webimageinterop.demos.AssertArray;
+import io.github.atur256.webimageinterop.tests.testUtils.AssertArray;
 
 
 public class ToSplicedDemo {

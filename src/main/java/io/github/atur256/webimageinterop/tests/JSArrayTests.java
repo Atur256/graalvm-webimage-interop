@@ -3,7 +3,7 @@ package io.github.atur256.webimageinterop.tests;
 import io.github.atur256.webimageinterop.builtin.JSArray;
 import io.github.atur256.webimageinterop.builtin.JSFunction;
 import io.github.atur256.webimageinterop.builtin.JSPromise;
-import io.github.atur256.webimageinterop.demos.AssertArray;
+import io.github.atur256.webimageinterop.tests.testUtils.AssertArray;
 import org.graalvm.webimage.api.*;
 
 import java.util.ArrayList;
@@ -26,7 +26,6 @@ public class JSArrayTests {
     private static final JSArray UNSORTED = JSArray.of("c", "a", "b");
 
     public static void main(String[] args) {
-
         testOf();
         testLength();
         testFromAndFromAsync();
@@ -321,9 +320,9 @@ public class JSArrayTests {
         String emptyString = EMPTY.toString();
 
         assertTrue(localized.matches("\\d{3}[,.]\\d{3}[,.]\\d{3},\\d{3}[,.]\\d{3}[,.]\\d{3}"));
-        assertEquals("[]", emptyLocalized);
-        assertEquals("[a,b,c,d,e]", baseString);
-        assertEquals("[]", emptyString);
+        assertEquals("<JavaScript<object; []>", emptyLocalized);
+        assertEquals("<JavaScript<object; [a,b,c,d,e]>", baseString);
+        assertEquals("<JavaScript<object; []>", emptyString);
     }
 
     public static void testWith() {

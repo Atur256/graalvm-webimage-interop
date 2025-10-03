@@ -36,5 +36,9 @@ public class JSRegExp extends JSObject {
 
     @JS.Coerce
     @JS(value = "return this.toString();")
-    public native String toString();
+    private native String toStringJS();
+
+    public String toString() {
+        return "JavaScript<" + typeof() + "; " + toStringJS() + ">";
+    }
 }
