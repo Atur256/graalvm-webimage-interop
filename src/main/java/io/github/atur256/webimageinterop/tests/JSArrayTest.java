@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import static org.junit.Assert.*;
 
 
-public class JSArrayTests {
+public class JSArrayTest {
 
     private static final JSArray BASE = JSArray.of("a", "b", "c", "d", "e");
     private static final JSArray EMPTY = JSArray.of();

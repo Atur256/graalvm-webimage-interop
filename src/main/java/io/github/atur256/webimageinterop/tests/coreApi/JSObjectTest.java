@@ -12,7 +12,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 
-public class JSObjectTests {
+public class JSObjectTest {
 
     public static void main(String[] args) {
         testPrototypeInheritance();

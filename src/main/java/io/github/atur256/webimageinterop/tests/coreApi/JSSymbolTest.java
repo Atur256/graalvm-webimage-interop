@@ -10,7 +10,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
 
 
-public class JSSymbolTests {
+public class JSSymbolTest {
 
     public static void main(String[] args) {
         testAsyncDispose();

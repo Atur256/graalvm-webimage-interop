@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 import static org.junit.Assert.assertFalse;
 
 
-public class JSFunctionTests {
+public class JSFunctionTest {
 
     public static void main(String[] args) {
         testFromBody();

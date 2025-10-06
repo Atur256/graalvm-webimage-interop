@@ -1,6 +1,7 @@
 package io.github.atur256.webimageinterop.builtin;
 
 import org.graalvm.webimage.api.JS;
+import org.graalvm.webimage.api.JSBoolean;
 import org.graalvm.webimage.api.JSObject;
 import org.graalvm.webimage.api.JSValue;
 
@@ -78,4 +79,15 @@ public class JSIterator extends JSObject {
     @JS.Coerce
     @JS(value = "return this.toArray();")
     public native JSArray toArray();
+
+    @JS.Coerce
+    @JS(value = "return this.next();")
+    public native JSObject next();
+
+    public <T> T nextValue(Class<T> cls) {
+        JSObject result = next();
+        if (((JSBoolean) result.get("done")).as(Boolean.class)) return null;
+        return ((JSValue) result.get("value")).as(cls);
+    }
+
 }

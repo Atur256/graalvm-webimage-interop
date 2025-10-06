@@ -14,7 +14,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 
-public class JSStringTests {
+public class JSStringTest {
 
     private static final JSString HELLO_STRING = JSString.of("Hello");
     private static final JSString WORLD_STRING = JSString.of("World");

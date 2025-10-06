@@ -5,7 +5,7 @@ import io.github.atur256.webimageinterop.builtin.JSUri;
 import static org.junit.Assert.assertEquals;
 
 
-public class JSUriTests {
+public class JSUriTest {
 
     private static final String URI1 = "https://example.com?name=John Doe&age=30";
     private static final String URI1_ENCODED = "https://example.com?name=John%20Doe&age=30";

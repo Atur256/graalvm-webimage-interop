@@ -8,7 +8,7 @@ import org.graalvm.webimage.api.JSValue;
 import static org.junit.Assert.assertEquals;
 
 
-public class JSEvalTests {
+public class JSEvalTest {
 
     public static void main(String[] args) {
         JSObject result6 = JSEval.eval("[1, 2, 3].map(n => n * 2)", JSObject.class);

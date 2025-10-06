@@ -33,7 +33,6 @@ public class SupportedValuesDemo {
         }
         // Expected:
         //Supported time zones:
-        //  - UTC
         //  - Europe/Vienna
         //  - America/New_York
         //  - Asia/Tokyo

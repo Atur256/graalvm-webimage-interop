@@ -8,7 +8,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 
-public class JSNumberTests {
+public class JSNumberTest {
 
     static final double DOUBLE_SMALL = 3.14159;
     static final double DOUBLE_BIG = 123.456789;

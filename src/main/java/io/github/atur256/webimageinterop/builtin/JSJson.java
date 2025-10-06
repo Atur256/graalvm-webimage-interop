@@ -22,28 +22,46 @@ public class JSJson extends JSObject {
     public static native JSValue parse(String text, JSFunction reviver);
 
     @JS.Coerce
-    @JS(value = "return JSON.stringify(value);")
+    @JS(value = """
+            const res = JSON.stringify(value);
+            return res === undefined? 'undefined' : res;
+            """)
     public static native String stringify(JSValue value);
 
     @JS.Coerce
-    @JS(value = "return JSON.stringify(value);")
-    public static native String stringify(java.lang.Object value);
+    @JS(value = """
+            const res = JSON.stringify(value);
+            return res === undefined? 'undefined' : res;
+            """)
+    public static native String stringify(Object value);
 
     @JS.Coerce
-    @JS(value = "return JSON.stringify(value, replacer);")
+    @JS(value = """
+            const res = JSON.stringify(value, replacer);
+            return res === undefined? 'undefined' : res;
+            """)
     public static native String stringify(JSValue value, JSFunction replacer);
 
     @JS.Coerce
-    @JS(value = "return JSON.stringify(value, replacer, space);")
+    @JS(value = """
+            const res = JSON.stringify(value, replacer, space);
+            return res === undefined? 'undefined' : res;
+            """)
     public static native String stringify(JSValue value, JSFunction replacer, int space);
 
     @JS.Coerce
-    @JS(value = "return JSON.stringify(value, null, space);")
+    @JS(value = """
+            const res = JSON.stringify(value, null, space);
+            return res === undefined? 'undefined' : res;
+            """)
     public static native String stringify(JSValue value, int space);
 
     @JS.Coerce
-    @JS(value = "return JSON.stringify(value, null, space);")
-    public static native String stringify(java.lang.Object value, int space);
+    @JS(value = """
+            const res = JSON.stringify(value, null, space);
+            return res === undefined? 'undefined' : res;
+            """)
+    public static native String stringify(Object value, int space);
 
     @JS.Coerce
     @JS(value = "return JSON.rawJSON(text);")

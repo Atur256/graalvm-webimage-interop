@@ -2,10 +2,6 @@ package io.github.atur256.webimageinterop;
 
 
 import io.github.atur256.webimageinterop.tests.*;
-import io.github.atur256.webimageinterop.tests.coreApi.JSNumberTests;
-import io.github.atur256.webimageinterop.tests.coreApi.JSObjectTests;
-import io.github.atur256.webimageinterop.tests.coreApi.JSStringTests;
-import io.github.atur256.webimageinterop.tests.coreApi.JSSymbolTests;
 
 
 public class Main {
@@ -14,29 +10,65 @@ public class Main {
 
         // Run all test
 
-        // JSNumber
-        JSNumberTests.main(null);
+        // JSArray Test
+        JSArrayTest.main(null);
+        System.out.println("JSArray Tests finished.");
 
-        // JSString
-        JSStringTests.main(null);
+        // JSDate Test
+//        System.out.println("JSDate Tests finished.");
 
-        // JSSymbol
-        JSSymbolTests.main(null);
+        // JSError Test
+        JSErrorTest.main(null);
+        System.out.println("JSError Tests finished.");
 
-        // JSObject
-        JSObjectTests.main(null);
+        // JSEval Test
+        JSEvalTest.main(null);
+        System.out.println("JSEval Test finished.");
 
-        // JSEval
-        JSEvalTests.main(null);
+        // JSFunction Test
+        JSFunctionTest.main(null);
+        System.out.println("JSFunction Tests finished.");
 
-        // JSUri
-        JSUriTests.main(null);
+        // JSIntl Test
+        JSIntlTest.main(null);
+        System.out.println("JSIntl Tests finished.");
 
-        // JSFunction
-        JSFunctionTests.main(null);
+        // JSIterator Test
+        JSIteratorTest.main(null);
+        System.out.println("JSIterator Tests finished.");
 
-        // JSArray
-        JSArrayTests.main(null);
+        // JSJson Test
+        JSJsonTest.main(null);
+        System.out.println("JSJson Tests finished.");
+
+        // JSMap Test
+        JSMapTest.main(null);
+        System.out.println("JSMap Tests finished.");
+
+        // JSMath Test
+        JSMathTest.main(null);
+        System.out.println("JSMath Tests finished.");
+
+        // JSPromis Test
+//        System.out.println("JSPromis Tests finished.");
+
+        // JSSRegExp Test
+        JSRegExpTest.main(null);
+        System.out.println("JSSRegExp Tests finished.");
+
+        // JSSet Test
+//        System.out.println("JSSet Tests finished.");
+
+        // JSUri Test
+        JSUriTest.main(null);
+        System.out.println("JSUri Tests finished.");
+
+
+
+
+
+
+
 
 //        test.main(null);
 
@@ -134,33 +166,8 @@ public class Main {
 //
 //        io.github.atur256.webimageinterop.demos.jsDate.ToUTCStringDemo.main(null);
 
-//        // TODO: remove this
-//        System.out.println("Test");
-//        assertTrue(false);
 
-//        // JSMap
-//
-//        io.github.atur256.webimageinterop.demos.jsMap.GroupByDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMap.ClearDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMap.DeleteDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMap.EntriesDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMap.ForEachDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMap.GetDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMap.HasDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMap.KeysDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMap.SetDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMap.ValuesDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMap.SizeDemo.main(null);
+
 //
 //        // JSSet
 //
@@ -196,291 +203,8 @@ public class Main {
 //
 //        io.github.atur256.webimageinterop.demos.jsSet.SizeDemo.main(null);
 //
-//        // JSIterator
-//
-//        io.github.atur256.webimageinterop.demos.jsIterator.FromDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsIterator.DropDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsIterator.EveryDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsIterator.FilterDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsIterator.FindDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsIterator.FlatMapDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsIterator.ForEachDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsIterator.MapDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsIterator.ReduceDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsIterator.SomeDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsIterator.TakeDemo.main(null);
-//
-//        // JSMath
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.EConstantDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.LN2ConstantDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.LN10ConstantDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.LOG2EConstantDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.LOG10EConstantDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.PIConstantDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.SQRT1_2ConstantDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.SQRT2ConstantDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.AbsDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.AcosDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.AcoshDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.AsinDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.AsinhDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.AtanDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.Atan2Demo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.AtanhDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.CbrtDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.CeilDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.Clz32Demo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.CosDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.CoshDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.ExpDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.Expm1Demo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.FloorDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.FroundDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.HypotDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.ImulDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.LogDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.Log1pDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.Log2Demo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.Log10Demo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.MaxDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.MinDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.PowDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.RandomDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.RoundDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.SignDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.SinDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.SinhDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.SqrtDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.TanDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.TanhDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsMath.TruncDemo.main(null);
-//
-//        // JSJson
-//
-//        io.github.atur256.webimageinterop.demos.jsJson.ParseDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsJson.StringifyDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsJson.RawJSONDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsJson.IsRawJSONDemo.main(null);
-//
-//        // JSRegExp
-//
-//        io.github.atur256.webimageinterop.demos.jsRegExp.ExecDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsRegExp.TestDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsRegExp.ToStringDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsRegExp.LastIndexDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsRegExp.DotAllDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsRegExp.FlagsDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsRegExp.GlobalDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsRegExp.HasIndicesDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsRegExp.IgnoreCaseDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsRegExp.MultilineDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsRegExp.SourceDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsRegExp.StickyDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsRegExp.UnicodeDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsRegExp.UnicodeSetsDemo.main(null);
-//
-        // JSObject
-//
-//        io.github.atur256.webimageinterop.demos.jsObject.CreateDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsObject.DefinePropertiesDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsObject.DefinePropertyDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsObject.EntriesDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsObject.FreezeDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsObject.FromEntriesDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsObject.GetOwnPropertyDescriptorDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsObject.GetOwnPropertyNamesDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsObject.GroupByDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsObject.HasOwnDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsObject.IsDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsObject.IsExtensibleDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsObject.IsFrozenDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsObject.IsSealedDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsObject.KeysDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsObject.PreventExtensionsDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsObject.SealDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsObject.SetPrototypeOfDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsObject.ValuesDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsObject.HasOwnPropertyDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsObject.IsPrototypeOfDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsObject.PropertyIsEnumerableDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsObject.ToLocaleStringDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsObject.ValueOfDemo.main(null);
-//
-//        // JSString
-//
-//        io.github.atur256.webimageinterop.demos.jsString.FromCharCodeDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.FromCodePointDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.RawDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.AtDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.CharAtDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.CharCodeAtDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.CharPointAtDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.ConcatDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.EndsWithDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.IncludesDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.IndexOfDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.IsWellFormedDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.LastIndexOfDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.LocaleCompareDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.MatchDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.MatchAllDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.NormalizeDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.PadEndDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.PadStartDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.RepeatDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.ReplaceDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.SearchDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.SliceDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.SplitDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.StartsWithDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.ToLocaleLowerCaseDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.ToLocaleUpperCaseDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.ToLowerCaseDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.ToUpperCaseDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.ToWellFormedDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.TrimDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.ValueOfDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsString.LengthDemo.main(null);
-//
-//        // JSIntl
-//
-//        io.github.atur256.webimageinterop.demos.jsIntl.CanonicalLocalesDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsIntl.SupportedValuesDemo.main(null);
-//
-//        // JSError
-//
-//        io.github.atur256.webimageinterop.demos.jsError.CreateDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsError.CaptureStackTraceDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsError.ToStringDemo.main(null);
-//
-//        io.github.atur256.webimageinterop.demos.jsError.ErrorPropertiesDemo.main(null);
+
+
 //
 //        // JSPromise
 //
