@@ -318,7 +318,7 @@ public class JSStringTest {
         JSString phrase = JSString.of("foo bar foo");
         JSString digits = JSString.of("Price: 42");
         Object replacer1 = JSEval.eval("(match) => '[' + match + ']'");
-        JSFunction replacer2 = JSFunction.fromGeneralFunction((JSString match) -> JSString.of("(" + match.asString() + ")"));
+        JSFunction replacer2 = JSFunction.fromJavaFunction((JSString match) -> JSString.of("(" + match.asString() + ")"));
 
         assertEquals("baz bar foo", phrase.replace("foo", "baz").as(String.class));
         assertEquals("baz bar foo", phrase.replace(JSEval.eval("/foo/"), "baz").as(String.class));

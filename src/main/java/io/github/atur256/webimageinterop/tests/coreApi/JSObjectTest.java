@@ -57,7 +57,7 @@ public class JSObjectTest {
 
     public static void testCreateWithProperties() {
         JSObject proto = JSObject.create();
-        proto.set("greet", JSFunction.fromGeneralFunction((String name) -> "Hello, " + name));
+        proto.set("greet", JSFunction.fromJavaFunction((String name) -> "Hello, " + name));
         JSObject nameDescriptor = JSObject.create();
         set(nameDescriptor, JSString.of("Bob"), false, true);
         JSObject properties = JSObject.create();
@@ -239,7 +239,7 @@ public class JSObjectTest {
         items.push(obj3);
         items.push(obj4);
         items.push(obj5);
-        JSFunction groupByType = JSFunction.fromGeneralFunction((JSObject item) -> item.get("type"));
+        JSFunction groupByType = JSFunction.fromJavaFunction((JSObject item) -> item.get("type"));
 
         JSObject grouped = JSObject.groupBy(items, groupByType);
         JSArray keys = JSValue.checkedCoerce(JSObject.keys(grouped), JSArray.class);

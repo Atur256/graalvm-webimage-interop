@@ -19,7 +19,7 @@ public class JSFunctionTest {
     public static void main(String[] args) {
         testFromBody();
         testFromArgs();
-        testGeneralFunction();
+        testJavaFunction();
         testBiFunction();
         testTriFunction();
         testRunnableAndConsumer();
@@ -50,13 +50,13 @@ public class JSFunctionTest {
         assertEquals(12, result);
     }
 
-    public static void testGeneralFunction() {
-        JSFunction fun1 = JSFunction.fromGeneralFunction((String arg) -> "Hello, " + arg);
-        JSFunction fun2 = JSFunction.fromGeneralFunction((Integer arg) -> arg * 10);
-        JSFunction fun3 = JSFunction.fromGeneralFunction((Double arg) -> arg * arg);
-        JSFunction fun4 = JSFunction.fromGeneralFunction((Boolean arg) -> !arg);
-        JSFunction fun5 = JSFunction.fromGeneralFunction((Long arg) -> arg / 10);
-        JSFunction fun6 = JSFunction.fromGeneralFunction((CustomClass arg) ->
+    public static void testJavaFunction() {
+        JSFunction fun1 = JSFunction.fromJavaFunction((String arg) -> "Hello, " + arg);
+        JSFunction fun2 = JSFunction.fromJavaFunction((Integer arg) -> arg * 10);
+        JSFunction fun3 = JSFunction.fromJavaFunction((Double arg) -> arg * arg);
+        JSFunction fun4 = JSFunction.fromJavaFunction((Boolean arg) -> !arg);
+        JSFunction fun5 = JSFunction.fromJavaFunction((Long arg) -> arg / 10);
+        JSFunction fun6 = JSFunction.fromJavaFunction((CustomClass arg) ->
                 new CustomClass("Hello " + arg.name() + "!"));
 
         String result1 = fun1.call("Alice");
@@ -75,9 +75,9 @@ public class JSFunctionTest {
     }
 
     public static void testBiFunction() {
-        JSFunction fun1 = JSFunction.fromGeneralBiFunction((String name, Integer age) ->
+        JSFunction fun1 = JSFunction.fromJavaBiFunction((String name, Integer age) ->
                 "Name: " + name + ", Age: " + age);
-        JSFunction fun2 = JSFunction.fromGeneralBiFunction((Double x, Double y) -> x * y);
+        JSFunction fun2 = JSFunction.fromJavaBiFunction((Double x, Double y) -> x * y);
         JSFunction fun3 = JSFunction.fromBiFunction((JSString name, JSNumber age) ->
                 JSString.of(name.as(String.class) + " is " + age.as(Integer.class) + " years old."));
 
@@ -91,7 +91,7 @@ public class JSFunctionTest {
     }
 
     public static void testTriFunction() {
-        JSFunction fun1 = JSFunction.fromGeneralTriFunction((String name, Integer age, Boolean vip) ->
+        JSFunction fun1 = JSFunction.fromJavaTriFunction((String name, Integer age, Boolean vip) ->
                 "Name: " + name + ", Age: " + age + ", VIP: " + (vip ? "Yes" : "No"));
         JSFunction fun2 = JSFunction.fromTriFunction((JSString name, JSNumber age, JSBoolean vip) -> {
             String result = name.as(String.class) + " (" + age.as(Integer.class) + ")";
@@ -116,11 +116,11 @@ public class JSFunctionTest {
         AtomicReference<Boolean> captured4 = new AtomicReference<>();
         AtomicReference<CustomClass> captured5 = new AtomicReference<>();
         JSFunction runner = JSFunction.fromRunnable(latch::countDown);
-        JSFunction con1 = JSFunction.fromGeneralConsumer(captured1::set);
-        JSFunction con2 = JSFunction.fromGeneralConsumer(captured2::set);
-        JSFunction con3 = JSFunction.fromGeneralConsumer(captured3::set);
-        JSFunction con4 = JSFunction.fromGeneralConsumer(captured4::set);
-        JSFunction con5 = JSFunction.fromGeneralConsumer(captured5::set);
+        JSFunction con1 = JSFunction.fromJavaConsumer(captured1::set);
+        JSFunction con2 = JSFunction.fromJavaConsumer(captured2::set);
+        JSFunction con3 = JSFunction.fromJavaConsumer(captured3::set);
+        JSFunction con4 = JSFunction.fromJavaConsumer(captured4::set);
+        JSFunction con5 = JSFunction.fromJavaConsumer(captured5::set);
 
         runner.call();
         con1.call("Hello");
@@ -141,11 +141,11 @@ public class JSFunctionTest {
         AtomicReference<Pair<String, String>> captured1 = new AtomicReference<>();
         AtomicReference<Pair<String, Integer>> captured2 = new AtomicReference<>();
         AtomicReference<Pair<CustomClass, CustomClass>> captured3 = new AtomicReference<>();
-        JSFunction con1 = JSFunction.fromGeneralBiConsumer((String a, String b) ->
+        JSFunction con1 = JSFunction.fromJavaBiConsumer((String a, String b) ->
                 captured1.set(Pair.of(a, b)));
-        JSFunction con2 = JSFunction.fromGeneralBiConsumer((String label, Integer value) ->
+        JSFunction con2 = JSFunction.fromJavaBiConsumer((String label, Integer value) ->
                 captured2.set(Pair.of(label, value)));
-        JSFunction con3 = JSFunction.fromGeneralBiConsumer((CustomClass a, CustomClass b) ->
+        JSFunction con3 = JSFunction.fromJavaBiConsumer((CustomClass a, CustomClass b) ->
                 captured3.set(Pair.of(a, b)));
 
         con1.call("Hello", "World");
@@ -164,11 +164,11 @@ public class JSFunctionTest {
         AtomicReference<Triple<String, String, String>> captured1 = new AtomicReference<>();
         AtomicReference<Triple<String, Integer, Double>> captured2 = new AtomicReference<>();
         AtomicReference<Triple<CustomClass, CustomClass, CustomClass>> captured3 = new AtomicReference<>();
-        JSFunction con1 = JSFunction.fromGeneralTriConsumer((String a, String b, String c) ->
+        JSFunction con1 = JSFunction.fromJavaTriConsumer((String a, String b, String c) ->
                 captured1.set(Triple.of(a, b, c)));
-        JSFunction con2 = JSFunction.fromGeneralTriConsumer((String label, Integer value1, Double value2) ->
+        JSFunction con2 = JSFunction.fromJavaTriConsumer((String label, Integer value1, Double value2) ->
                 captured2.set(Triple.of(label, value1, value2)));
-        JSFunction con3 = JSFunction.fromGeneralTriConsumer((CustomClass a, CustomClass b, CustomClass c) ->
+        JSFunction con3 = JSFunction.fromJavaTriConsumer((CustomClass a, CustomClass b, CustomClass c) ->
                 captured3.set(Triple.of(a, b, c)));
 
         con1.call("Hello", "World", "!");
@@ -227,10 +227,10 @@ public class JSFunctionTest {
 
     public static void testCall() {
         JSValue jsValue = JSString.of("JSValue string");
-        JSFunction fun1 = JSFunction.fromGeneralFunction(arg ->
+        JSFunction fun1 = JSFunction.fromJavaFunction(arg ->
                 arg == null ? "null: null" : arg.getClass().getSimpleName() + ": " + arg);
         JSFunction fun2 = JSFunction.fromSupplier(() -> "No args called");
-        JSFunction fun3 = JSFunction.fromGeneralBiFunction((String prefix, Object arg) ->
+        JSFunction fun3 = JSFunction.fromJavaBiFunction((String prefix, Object arg) ->
                 arg == null ? "null: null" : prefix + arg.getClass().getSimpleName() + ": " + arg);
 
         String result1 = fun1.call("Java string");
@@ -258,7 +258,7 @@ public class JSFunctionTest {
         JSArray args = JSArray.of(6, 7);
         JSFunction fun1 = JSFunction.fromArgs("a", "b", "return a * b;");
         JSFunction fun2 = JSFunction.fromArgs("a", "b", "return a + ' - ' + b;");
-        JSFunction fun3 = JSFunction.fromGeneralBiFunction((JSString prefix, JSString message) ->
+        JSFunction fun3 = JSFunction.fromJavaBiFunction((JSString prefix, JSString message) ->
                 prefix.as(String.class) + " - " + message.as(String.class));
 
         int result1 = JSValue.checkedCoerce(fun1.callWithSpreadArgs(JSValue.undefined(), args), Integer.class);
@@ -272,8 +272,8 @@ public class JSFunctionTest {
 
     public static void testApply() {
         JSArray args = JSArray.of("JSString", 3.14, true);
-        JSFunction fun1 = JSFunction.fromGeneralFunction((String arg) -> "Hello, " + arg + "!");
-        JSFunction fun2 = JSFunction.fromGeneralFunction((Integer arg) -> "Number: " + arg);
+        JSFunction fun1 = JSFunction.fromJavaFunction((String arg) -> "Hello, " + arg + "!");
+        JSFunction fun2 = JSFunction.fromJavaFunction((Integer arg) -> "Number: " + arg);
         JSFunction jsFormatter = JSFunction.fromArgs("a", "b", "c", "return a + ' | ' + b + ' | ' + c;");
 
         String result1 = JSValue.checkedCoerce(jsFormatter.apply(JSValue.undefined(), args), String.class);
@@ -314,7 +314,7 @@ public class JSFunctionTest {
 
     public static void testMetadata() {
         JSFunction fun1 = JSFunction.fromArgs("x", "y", "z", "return x + y + z;");
-        JSFunction fun2 = JSFunction.fromGeneralFunction((String arg) -> "Hello, " + arg);
+        JSFunction fun2 = JSFunction.fromJavaFunction((String arg) -> "Hello, " + arg);
 
         int result1 = fun1.length;
         int result2 = fun2.length;

@@ -89,5 +89,4 @@ public class JSIterator extends JSObject {
         if (((JSBoolean) result.get("done")).as(Boolean.class)) return null;
         return ((JSValue) result.get("value")).as(cls);
     }
-
 }

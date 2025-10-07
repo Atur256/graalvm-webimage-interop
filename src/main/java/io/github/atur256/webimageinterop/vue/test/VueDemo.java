@@ -8,6 +8,8 @@ import org.graalvm.webimage.api.JSValue;
 //@JS.Code.Include("/vue.global.prod.js")
 public class VueDemo {
 
+    // TODO: remove from this project into a separate project
+
     public static void main(String[] args) throws Exception {
         // Inject Vue runtime
 //        VueRuntimeLoader.injectVue();

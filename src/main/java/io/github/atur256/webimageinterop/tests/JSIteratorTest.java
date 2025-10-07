@@ -65,9 +65,9 @@ public class JSIteratorTest {
 
     public static void testMapAndFlatMap() {
         JSArray arr = JSArray.of(1, 2, 3);
-        JSFunction mapFn = JSFunction.fromGeneralFunction((JSNumber arg) -> arg.as(Integer.class) * 2);
-        JSFunction flatMapFn = JSFunction.fromGeneralFunction((JSNumber arg) -> JSArray.of(arg.as(Integer.class), arg.as(Integer.class) * 2));
-        JSFunction errorFun = JSFunction.fromGeneralFunction((JSNumber _) -> JSString.of("Error"));
+        JSFunction mapFn = JSFunction.fromJavaFunction((JSNumber arg) -> arg.as(Integer.class) * 2);
+        JSFunction flatMapFn = JSFunction.fromJavaFunction((JSNumber arg) -> JSArray.of(arg.as(Integer.class), arg.as(Integer.class) * 2));
+        JSFunction errorFun = JSFunction.fromJavaFunction((JSNumber _) -> JSString.of("Error"));
 
         JSArray mapped1 = JSIterator.from(arr).map(mapFn).toArray();
         JSArray mapped2 = JSIterator.from(JSArray.of()).map(mapFn).toArray();
@@ -93,8 +93,8 @@ public class JSIteratorTest {
 
     public static void testFilterAndFind() {
         JSArray arr = JSArray.of(1, 2, 3, 4, 5, 6);
-        JSFunction gt3 = JSFunction.fromGeneralFunction((JSNumber arg) -> JSBoolean.of(arg.as(Integer.class) > 3));
-        JSFunction gt10 = JSFunction.fromGeneralFunction((JSNumber arg) -> JSBoolean.of(arg.as(Integer.class) > 10));
+        JSFunction gt3 = JSFunction.fromJavaFunction((JSNumber arg) -> JSBoolean.of(arg.as(Integer.class) > 3));
+        JSFunction gt10 = JSFunction.fromJavaFunction((JSNumber arg) -> JSBoolean.of(arg.as(Integer.class) > 10));
 
         JSArray filtered1 = JSIterator.from(arr).filter(gt3).toArray();
         JSArray filtered2 = JSIterator.from(arr).filter(gt10).toArray();
@@ -111,7 +111,7 @@ public class JSIteratorTest {
         JSArray arr1 = JSArray.of(2, 4, 6);
         JSArray arr2 = JSArray.of(2, 3, 6);
         JSArray arr3 = JSArray.of(1, 3, 5);
-        JSFunction isEven = JSFunction.fromGeneralFunction((JSNumber arg) -> JSBoolean.of(arg.as(Integer.class) % 2 == 0));
+        JSFunction isEven = JSFunction.fromJavaFunction((JSNumber arg) -> JSBoolean.of(arg.as(Integer.class) % 2 == 0));
 
         assertTrue(JSIterator.from(arr1).every(isEven));
         assertFalse(JSIterator.from(arr2).every(isEven));
@@ -126,15 +126,15 @@ public class JSIteratorTest {
         JSArray fruitsArray = JSArray.of("apple", "banana", "orange");
         JSArray boolArray = JSArray.of(true, false, true, false);
         JSFunction sumFunction = JSFunction.fromArgs("acc", "val", "return acc + val;");
-        JSFunction multiplyFunction1 = JSFunction.fromGeneralBiFunction((JSNumber acc, JSNumber val) ->
+        JSFunction multiplyFunction1 = JSFunction.fromJavaBiFunction((JSNumber acc, JSNumber val) ->
                 JSNumber.of(acc.as(Integer.class) * val.as(Integer.class)));
-        JSFunction multiplyFunction2 = JSFunction.fromGeneralBiFunction((JSNumber acc, JSNumber val) ->
+        JSFunction multiplyFunction2 = JSFunction.fromJavaBiFunction((JSNumber acc, JSNumber val) ->
                 JSNumber.of(acc.as(Integer.class) * val.as(Integer.class)));
-        JSFunction subtractFunction = JSFunction.fromGeneralBiFunction((JSNumber acc, JSNumber val) ->
+        JSFunction subtractFunction = JSFunction.fromJavaBiFunction((JSNumber acc, JSNumber val) ->
                 JSNumber.of(acc.as(Double.class) - val.as(Double.class)));
-        JSFunction concatFunction = JSFunction.fromGeneralBiFunction((JSString acc, JSString val) ->
+        JSFunction concatFunction = JSFunction.fromJavaBiFunction((JSString acc, JSString val) ->
                 JSString.of(acc.asString() + " | " + val.asString()));
-        JSFunction andFunction = JSFunction.fromGeneralBiFunction((JSBoolean acc, JSBoolean val) ->
+        JSFunction andFunction = JSFunction.fromJavaBiFunction((JSBoolean acc, JSBoolean val) ->
                 JSBoolean.of(acc.as(Boolean.class) && val.as(Boolean.class)));
 
         JSValue sumResult = JSIterator.from(sumArray).reduce(sumFunction, JSNumber.of(0));
@@ -164,8 +164,8 @@ public class JSIteratorTest {
         JSIterator emptyIter = JSIterator.from(JSArray.of());
         Set<String> collected1 = new HashSet<>();
         Set<String> collected2 = new HashSet<>();
-        JSFunction collectFn1 = JSFunction.fromGeneralConsumer((JSString arg) -> collected1.add(arg.asString()));
-        JSFunction collectFn2 = JSFunction.fromGeneralConsumer((JSString arg) -> collected2.add(arg.asString()));
+        JSFunction collectFn1 = JSFunction.fromJavaConsumer((JSString arg) -> collected1.add(arg.asString()));
+        JSFunction collectFn2 = JSFunction.fromJavaConsumer((JSString arg) -> collected2.add(arg.asString()));
 
         iter.forEach(collectFn1);
         emptyIter.forEach(collectFn2);

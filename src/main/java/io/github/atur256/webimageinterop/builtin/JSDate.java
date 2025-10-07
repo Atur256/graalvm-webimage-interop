@@ -11,11 +11,11 @@ public class JSDate extends JSObject {
 
     @JS.Coerce
     @JS(value = "return new Date();")
-    public static native JSDate create(); // TODO: don't test it
+    public static native JSDate create();
 
     @JS.Coerce
-    @JS(value = "return new Date(value);")
-    public static native JSDate create(double value); // TODO: use long and convert BigInt to Number
+    @JS(value = "return new Date(Number(value));")
+    public static native JSDate create(long value);
 
     @JS.Coerce
     @JS(value = "return new Date(dateString);")
@@ -51,7 +51,7 @@ public class JSDate extends JSObject {
 
     @JS.Coerce
     @JS(value = "return Date.now();")
-    public static native long now(); // TODO: don't test it
+    public static native long now();
 
     @JS.Coerce
     @JS(value = "return Date.parse(dateString);")
@@ -186,8 +186,8 @@ public class JSDate extends JSObject {
     public native void setSeconds(int seconds);
 
     @JS.Coerce
-    @JS(value = "return this.setTime(time);")
-    public native void setTime(double time);
+    @JS(value = "return this.setTime(Number(time));")
+    public native void setTime(long time);
 
     @JS.Coerce
     @JS(value = "return this.setUTCDate(date);")

@@ -27,7 +27,7 @@ public class JSFunction extends JSObject {
 
     @JS.Coerce
     @JS(value = "return function(args) { return javaFunc.apply(args); }")
-    public static native <T, R> JSFunction fromGeneralFunction(Function<T, R> javaFunc);
+    public static native <T, R> JSFunction fromJavaFunction(Function<T, R> javaFunc);
 
     @JS.Coerce
     @JS(value = "return function(args) { return javaFunc.apply(args); }")
@@ -35,7 +35,7 @@ public class JSFunction extends JSObject {
 
     @JS.Coerce
     @JS(value = "return function(a, b) { return javaBiFunc.apply(a, b); }")
-    public static native <A, B, R> JSFunction fromGeneralBiFunction(BiFunction<A, B, R> javaBiFunc); // TODO: rename to fromJava
+    public static native <A, B, R> JSFunction fromJavaBiFunction(BiFunction<A, B, R> javaBiFunc);
 
     @JS.Coerce
     @JS(value = "return function(a, b) { return javaBiFunc.apply(a, b); }")
@@ -43,7 +43,7 @@ public class JSFunction extends JSObject {
 
     @JS.Coerce
     @JS(value = "return function(a, b) { return javaTriFunction.apply(this, a, b); }")
-    public static native <A, B, C, R> JSFunction fromGeneralTriFunction(TriFunction<A, B, C, R> javaTriFunction);
+    public static native <A, B, C, R> JSFunction fromJavaTriFunction(TriFunction<A, B, C, R> javaTriFunction);
 
     @JS.Coerce
     @JS(value = "return function(a, b) { return javaTriFunction.apply(this, a, b); }")
@@ -55,7 +55,7 @@ public class JSFunction extends JSObject {
 
     @JS.Coerce
     @JS(value = "return function(arg) { javaConsumer.accept(arg); }")
-    public static native <T> JSFunction fromGeneralConsumer(Consumer<T> javaConsumer);
+    public static native <T> JSFunction fromJavaConsumer(Consumer<T> javaConsumer);
 
     @JS.Coerce
     @JS(value = "return function(arg) { javaConsumer.accept(arg); }")
@@ -63,7 +63,7 @@ public class JSFunction extends JSObject {
 
     @JS.Coerce
     @JS(value = "return function(a, b) { javaBiConsumer.accept(a, b); }")
-    public static native <A, B> JSFunction fromGeneralBiConsumer(BiConsumer<A, B> javaBiConsumer);
+    public static native <A, B> JSFunction fromJavaBiConsumer(BiConsumer<A, B> javaBiConsumer);
 
     @JS.Coerce
     @JS(value = "return function(a, b) { javaBiConsumer.accept(a, b); }")
@@ -71,7 +71,7 @@ public class JSFunction extends JSObject {
 
     @JS.Coerce
     @JS(value = "return function(value, key) { javaTriConsumer.accept(this, value, key); }")
-    public static native <A, B, C> JSFunction fromGeneralTriConsumer(TriConsumer<A, B, C> javaTriConsumer);
+    public static native <A, B, C> JSFunction fromJavaTriConsumer(TriConsumer<A, B, C> javaTriConsumer);
 
     @JS.Coerce
     @JS(value = "return function(value, key) { javaTriConsumer.accept(this, value, key); }")
