@@ -115,14 +115,6 @@ The following feature was skipped due to absence in the underlying JavaScript en
 
 ---
 
-## Usage Examples
-
-Every implemented function in this library is accompanied by a corresponding demo class under the `io.github.atur256.webimageinterop.demos` package. These demos illustrate how to use each wrapper in practice, including setup, invocation, and expected behavior.
-
-See the [demo package](https://github.com/Atur256/web-image-interop/tree/master/src/main/java/io/github/atur256/webimageinterop/demos)
-
----
-
 ## Testing
 
 This project includes a dedicated test class for each wrapper object.
