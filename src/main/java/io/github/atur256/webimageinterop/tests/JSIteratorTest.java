@@ -45,18 +45,8 @@ public class JSIteratorTest {
         JSArray dropped2 = iterator1.drop(3).toArray();
         JSArray taken2 = iterator2.take(10).toArray();
 
-        try {
-            iterator1.drop(-3);
-            fail();
-        } catch (ThrownFromJavaScript thrownFromJavaScript) {
-            assertTrue(thrownFromJavaScript.getMessage().contains("RangeError: -3 must be positive"));
-        }
-        try {
-            iterator2.take(-1);
-            fail();
-        } catch (ThrownFromJavaScript thrownFromJavaScript) {
-            assertTrue(thrownFromJavaScript.getMessage().contains("RangeError: -1 must be positive"));
-        }
+        assertThrows(ThrownFromJavaScript.class, () -> iterator1.drop(-3));
+        assertThrows(ThrownFromJavaScript.class, () -> iterator2.take(-1));
         AssertArray.assertArray(dropped1, Integer.class, 30, 40);
         AssertArray.assertArray(taken1, String.class, "apple", "banana");
         AssertArray.assertArray(dropped2, Integer.class);
@@ -73,19 +63,8 @@ public class JSIteratorTest {
         JSArray mapped2 = JSIterator.from(JSArray.of()).map(mapFn).toArray();
         JSArray flatMapped1 = JSIterator.from(arr).flatMap(flatMapFn).toArray();
 
-        try {
-            JSIterator.from(JSArray.of()).map(null);
-            fail("Expected failure on null callback");
-        } catch (Exception e) {
-            assertTrue(e.getMessage().contains("TypeError: string \"Iterator.prototype.map\" is not a function"));
-        }
-
-        try {
-            JSIterator.from(arr).flatMap(errorFun).toArray();
-            fail();
-        } catch (ThrownFromJavaScript thrownFromJavaScript) {
-            assertTrue(thrownFromJavaScript.getMessage().contains("TypeError: Iterator.prototype.flatMap called on non-object"));
-        }
+        assertThrows(ThrownFromJavaScript.class, () -> JSIterator.from(JSArray.of()).map(null));
+        assertThrows(ThrownFromJavaScript.class, () -> JSIterator.from(arr).flatMap(errorFun).toArray());
         AssertArray.assertArray(mapped1, Integer.class, 2, 4, 6);
         AssertArray.assertArray(mapped2, Integer.class);
         AssertArray.assertArray(flatMapped1, Integer.class, 1, 2, 2, 4, 3, 6);

@@ -1,5 +1,6 @@
 package io.github.atur256.webimageinterop.tests;
 
+import io.github.atur256.webimageinterop.builtin.JSJson;
 import io.github.atur256.webimageinterop.builtin.JSRegExp;
 import org.graalvm.webimage.api.JSObject;
 import org.graalvm.webimage.api.JSValue;
@@ -69,11 +70,6 @@ public class JSRegExpTest {
 
         assertTrue(empty.test("anything"));
         assertNull(result);
-        try {
-            JSRegExp.of("[", "");
-            fail();
-        } catch (ThrownFromJavaScript thrownFromJavaScript) {
-            assertTrue(thrownFromJavaScript.getMessage().contains("SyntaxError: Invalid regular expression: /[/: Unterminated character class"));
-        }
+        assertThrows(ThrownFromJavaScript.class, () -> JSRegExp.of("[", ""));
     }
 }

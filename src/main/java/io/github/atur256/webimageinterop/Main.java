@@ -2,6 +2,11 @@ package io.github.atur256.webimageinterop;
 
 
 import io.github.atur256.webimageinterop.tests.*;
+import org.graalvm.webimage.api.JS;
+import org.graalvm.webimage.api.JSObject;
+import org.graalvm.webimage.api.JSString;
+
+import static org.junit.Assert.assertEquals;
 
 
 public class Main {

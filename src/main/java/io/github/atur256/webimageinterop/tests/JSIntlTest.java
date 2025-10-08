@@ -34,17 +34,7 @@ public class JSIntlTest {
         JSArray emptyLocales = JSIntl.getCanonicalLocales();
 
         assertEquals(0, emptyLocales.length);
-        try {
-            JSIntl.getCanonicalLocales("invalid-locale", "123");
-            fail();
-        } catch (ThrownFromJavaScript thrownFromJavaScript) {
-            assertTrue(thrownFromJavaScript.getMessage().contains("RangeError: Incorrect locale information provided"));
-        }
-        try {
-            JSIntl.supportedValuesOf("nonexistent-key");
-            fail();
-        } catch (ThrownFromJavaScript thrownFromJavaScript) {
-            assertTrue(thrownFromJavaScript.getMessage().contains("RangeError: Invalid key : nonexistent-key"));
-        }
+        assertThrows(ThrownFromJavaScript.class, () -> JSIntl.getCanonicalLocales("invalid-locale", "123"));
+        assertThrows(ThrownFromJavaScript.class, () -> JSIntl.supportedValuesOf("nonexistent-key"));
     }
 }

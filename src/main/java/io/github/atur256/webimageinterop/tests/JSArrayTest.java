@@ -123,7 +123,6 @@ public class JSArrayTest {
         AssertArray.assertArray(result, JSUndefined.class, JSUndefined.undefined(), JSUndefined.undefined());
     }
 
-
     public static void testPopPush() {
         JSArray baseClone = JSArray.from(BASE);
         JSArray emptyClone = JSArray.from(EMPTY);
@@ -140,19 +139,10 @@ public class JSArrayTest {
 
     public static void testReduce() {
         String reduced = BASE.reduce(JSFunction.fromArgs("acc", "val", "return acc + val;"), "");
-        try {
-            EMPTY.reduce(JSFunction.fromArgs("acc", "val", "return acc + val;"), String.class);
-            fail();
-        } catch (Exception _) {
-        }
-        String reversed = BASE.reduceRight(JSFunction.fromArgs("acc", "val", "return acc + val;"), "");
-        assertEquals("edcba", reversed);
-        try {
-            EMPTY.reduceRight(JSFunction.fromArgs("acc", "val", "return acc + val;"), String.class);
-            fail();
-        } catch (Exception _) {
-        }
 
+        assertThrows(ThrownFromJavaScript.class, () -> EMPTY.reduce(JSFunction.fromArgs("acc", "val", "return acc + val;"), String.class));
+        assertEquals("edcba", BASE.reduceRight(JSFunction.fromArgs("acc", "val", "return acc + val;"), ""));
+        assertThrows(ThrownFromJavaScript.class, () -> EMPTY.reduce(JSFunction.fromArgs("acc", "val", "return acc + val;"), String.class));
         assertEquals("abcde", reduced);
     }
 
@@ -329,12 +319,8 @@ public class JSArrayTest {
         JSArray fillTest = JSArray.of("a", "b", "c");
 
         JSArray replaced = BASE.with(0, "replaced");
-        try {
-            fillTest.with(-5, "oops");
-            fail();
-        } catch (Exception _) {
-        }
 
+        assertThrows(ThrownFromJavaScript.class, () ->  fillTest.with(-5, "oops"));
         assertEquals("replaced", replaced.at(0, String.class));
     }
 

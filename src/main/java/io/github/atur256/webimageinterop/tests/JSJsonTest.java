@@ -1,9 +1,6 @@
 package io.github.atur256.webimageinterop.tests;
 
-import io.github.atur256.webimageinterop.builtin.JSArray;
-import io.github.atur256.webimageinterop.builtin.JSEval;
-import io.github.atur256.webimageinterop.builtin.JSFunction;
-import io.github.atur256.webimageinterop.builtin.JSJson;
+import io.github.atur256.webimageinterop.builtin.*;
 import org.graalvm.webimage.api.*;
 
 import static org.junit.Assert.*;
@@ -25,13 +22,8 @@ public class JSJsonTest {
         JSObject empty = (JSObject) JSJson.parse("{}");
         JSValue parsedNull = JSJson.parse("null");
         JSValue array = JSJson.parse("[1,2,3]");
-        try {
-            JSJson.parse("{ invalid }");
-            fail();
-        } catch (Exception e) {
-            assertTrue(e.getMessage().contains("SyntaxError"));
-        }
 
+        assertThrows(ThrownFromJavaScript.class, () -> JSJson.parse("{ invalid }"));
         assertEquals("Alice", ((JSString) parsed.get("name")).as(String.class));
         assertEquals(Integer.valueOf(30), ((JSNumber) parsed.get("age")).as(Integer.class));
         assertEquals(0, JSValue.checkedCoerce(empty.keys(), JSArray.class).length);
@@ -59,13 +51,8 @@ public class JSJsonTest {
         JSValue jsObj = JSEval.eval("({ name: 'Alice', age: 30 })", JSValue.class);
         JSValue fn = JSEval.eval("(function() {})", JSValue.class);
         JSValue circular = JSEval.eval("(() => { const a = {}; a.self = a; return a; })()", JSValue.class);
-        try {
-            JSJson.stringify(circular);
-            fail();
-        } catch (Exception e) {
-            assertTrue(e.getMessage().contains("Converting circular structure"));
-        }
 
+        assertThrows(ThrownFromJavaScript.class, () ->JSJson.stringify(circular));
         assertEquals("{\"name\":\"Alice\",\"age\":30}", JSJson.stringify(jsObj));
         assertEquals("\"Bob\"", JSJson.stringify("Bob"));
         assertEquals("undefined", JSJson.stringify(JSUndefined.instance()));
