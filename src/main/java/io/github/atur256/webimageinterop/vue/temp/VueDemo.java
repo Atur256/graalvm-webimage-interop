@@ -1,4 +1,4 @@
-package io.github.atur256.webimageinterop.vue.test;
+package io.github.atur256.webimageinterop.vue.temp;
 
 import org.graalvm.webimage.api.JS;
 import org.graalvm.webimage.api.JSObject;
@@ -23,7 +23,7 @@ public class VueDemo {
             System.out.println("Type: " + jsObj.typeofString().asString());
             System.out.println("Keys: " + jsObj.keys());
 
-            mountApp(jsObj); // TODO: Fails because html part is missing and therefore it is running in headless mode
+            mountApp(jsObj);
         }
         else {
             System.out.println("Returned value is not a JSObject, value: " + app);

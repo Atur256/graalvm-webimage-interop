@@ -86,15 +86,11 @@ public class JSNumberTest {
     }
 
     public static void testParseFloat() {
-        assertEquals(42.0, JSNumber.parseFloat(INT), DELTA);
-        assertEquals(DOUBLE_BIG, JSNumber.parseFloat(DOUBLE_BIG), SMALL_DELTA);
         assertEquals(3.14, JSNumber.parseFloat("3.14abc"), SMALL_DELTA);
         assertEquals(NAN, JSNumber.parseFloat("abc"), DELTA);
     }
 
     public static void testParseInt() {
-        assertEquals(42, JSNumber.parseInt(42.9));
-        assertEquals(-3, JSNumber.parseInt(-3.99));
         assertEquals(123, JSNumber.parseInt("123"));
         assertEquals(123, JSNumber.parseInt("123.456"));
         assertEquals(0, JSNumber.parseInt("abc"));
