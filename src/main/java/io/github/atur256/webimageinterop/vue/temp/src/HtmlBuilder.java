@@ -10,7 +10,7 @@ public class HtmlBuilder {
     // TODO: only for testing, either needs to be reworked or replaced with raw html string
 
     static {
-        System.err.println("This class is only for testing purposes, as it is not completed or tested!!!");
+        System.err.println("Teh HtmlBuilder class is only for testing purposes, as it is not completed or tested!!!");
     }
 
     private final String tag;
