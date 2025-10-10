@@ -1,4 +1,4 @@
-package io.github.atur256.webimageinterop.vue.temp.src.untested;
+package io.github.atur256.webimageinterop.vue.temp.src;
 
 import org.graalvm.webimage.api.JS;
 

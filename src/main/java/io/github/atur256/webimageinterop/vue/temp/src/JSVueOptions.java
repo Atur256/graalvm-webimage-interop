@@ -23,7 +23,7 @@ public class JSVueOptions extends JSObject {
     }
 
     public JSVueOptions setTemplate(String html) {
-        this.set("template", html);
+        this.set("template", JSString.of(html));
         return this;
     }
 

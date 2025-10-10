@@ -1,6 +1,7 @@
 package io.github.atur256.webimageinterop.vue.temp.src;
 
 import io.github.atur256.webimageinterop.builtin.JSArray;
+import io.github.atur256.webimageinterop.vue.temp.src.checkIfToKeep.JSVueRef;
 import org.graalvm.webimage.api.*;
 
 import java.util.function.Supplier;
@@ -55,11 +56,17 @@ public class JSVueData extends JSObject {
             return this;
         }
 
+        public <T> Builder set(String key, JSVueRef<T> value) {
+            data.set(key, value.raw());
+            return this;
+        }
+
         public JSVueData build() {
             return data;
         }
     }
 
+    @JS.Coerce
     @JS("return function() { return javaFunc(); }")
     public static native JSObject wrapAsDataFunction(Supplier<JSVueData> javaFunc);
 }

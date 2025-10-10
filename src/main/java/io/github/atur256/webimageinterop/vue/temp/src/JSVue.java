@@ -32,6 +32,10 @@ public class JSVue {
         return mountedInstance;
     }
 
+    public static Object getValue(String key) {
+        return mountedInstance.get(key);
+    }
+
     public static <R> R getValue(String key, Class<R> cls) {
         return JSValue.checkedCoerce(mountedInstance.get(key), cls);
     }
@@ -60,7 +64,6 @@ public class JSVue {
         JSObject vue = getMountedInstance();
         if(vue == null) return null;
 
-        // Vue stores arguments in `$event` or directly in the call
         JSObject global = JSValue.checkedCoerce(JSEval.eval("window"), JSObject.class);
         JSObject lastArgs = JSValue.checkedCoerce(global.get("__lastVueArgs"), JSObject.class);
         if(lastArgs == null || lastArgs.get(key) == null) return null;

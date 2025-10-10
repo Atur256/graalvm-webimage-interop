@@ -8,7 +8,7 @@ import org.graalvm.webimage.api.JSString;
 public class JSVueComponent extends JSObject {
 
     private JSVueComponent() {
-        super(); // initialize as a JSObject
+        super();
     }
 
     public static JSVueComponent create() {

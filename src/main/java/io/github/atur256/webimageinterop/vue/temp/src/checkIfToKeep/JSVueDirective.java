@@ -1,4 +1,4 @@
-package io.github.atur256.webimageinterop.vue.temp.src.untested;
+package io.github.atur256.webimageinterop.vue.temp.src.checkIfToKeep;
 
 import org.graalvm.webimage.api.JS;
 import org.graalvm.webimage.api.JSObject;

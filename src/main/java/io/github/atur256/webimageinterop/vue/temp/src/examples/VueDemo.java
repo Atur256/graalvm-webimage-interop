@@ -132,252 +132,237 @@ public class VueDemo {
                 .setTemplate(todoItemTemplate));
 
 
-        // HTML template
-        HtmlBuilder html = HtmlBuilder.div()
-                .child(HtmlBuilder.h1()
-                        .text("Hello ")
-                        .bind("message")
-                        .text(" (")
-                        .bind("count")
-                        .text(")")
-                )
-                .child(HtmlBuilder.p()
-                        .text("User: ")
-                        .bind("user.name")
-                )
-                .child(HtmlBuilder.rawHtml("""
-                            <ul v-if="showRole">
-                              <li v-for="role in user.roles">{{ role }}</li>
-                            </ul>
-                        """))
-                .child(HtmlBuilder.div()
-                        .attr("style", "margin-bottom:20px;")
-                        .child(HtmlBuilder.button("increment()", "Increment Count from Java code"))
-                        .child(HtmlBuilder.buttonBind("reset()", "buttonLabel"))
-                        .child(HtmlBuilder.button("toggleRole()", "Show role"))
-                )
-                .child(HtmlBuilder.div()
-                        .attr("style", "margin-bottom:10px;")
-                        .child(HtmlBuilder.label().raw("Elapsed Time: <progress :value=\"progressRate\"></progress>"))
-                        .child(HtmlBuilder.div().raw("{{ (elapsed / 1000).toFixed(1) }}s"))
-                        .child(HtmlBuilder.div()
-                                .raw("""
-                                            Duration: <input type="range" v-model="duration" min="1" max="30000">
-                                            {{ (duration / 1000).toFixed(1) }}s
-                                        """))
-                        .child(HtmlBuilder.button("resetTimer()", "Reset Timer")))
-                .child(HtmlBuilder.p()
-                        .child(HtmlBuilder.span()
-                                .bindAttr("title", "message")
-                                .text("Hover your mouse over me for a few seconds to see my dynamically bound title!")))
-                .child(HtmlBuilder.p()
-                        .bindAttr("class", "{ red: isRed }")
-                        .on("click", "toggleRed()")
-                        .text("This should be red... but click me to toggle it.")
-                )
-                .child(HtmlBuilder.p()
-                        .bindAttr("style", "{ color }")
-                        .on("click", "toggleColor()")
-                        .text("This should be green, and should toggle between green and blue on click.")
-                )
-                .child(HtmlBuilder.h2()
-                        .text("Text Input"))
-                .child(HtmlBuilder.input()
-                        .vModel("text"))
-                .child(HtmlBuilder.p()
-                        .bind("text"))
-                .child(HtmlBuilder.h2()
-                        .text("Checkbox"))
-                .child(HtmlBuilder.input()
-                        .attr("type", "checkbox")
-                        .attr("id", "checkbox")
-                        .vModel("checked"))
-                .child(HtmlBuilder.label()
-                        .attr("for", "checkbox")
-                        .text("Checked: ")
-                        .bind("checked"))
-                .child(HtmlBuilder.h2().text("Multi Checkbox"))
-                .child(HtmlBuilder.input()
-                        .attr("type", "checkbox")
-                        .attr("id", "jack")
-                        .attr("value", "Jack")
-                        .vModel("checkedNames"))
-                .child(HtmlBuilder.label().attr("for", "jack").text("Jack"))
-                .child(HtmlBuilder.input()
-                        .attr("type", "checkbox")
-                        .attr("id", "john")
-                        .attr("value", "John")
-                        .vModel("checkedNames"))
-                .child(HtmlBuilder.label()
-                        .attr("for", "john")
-                        .text("John"))
-                .child(HtmlBuilder.input()
-                        .attr("type", "checkbox")
-                        .attr("id", "mike")
-                        .attr("value", "Mike")
-                        .vModel("checkedNames"))
-                .child(HtmlBuilder.label()
-                        .attr("for", "mike")
-                        .text("Mike"))
-                .child(HtmlBuilder.p()
-                        .text("Checked names: ")
-                        .bind("checkedNames"))
-                .child(HtmlBuilder.h2().text("Radio"))
-                .child(HtmlBuilder.input()
-                        .attr("type", "radio")
-                        .attr("id", "one")
-                        .attr("value", "One")
-                        .vModel("picked"))
-                .child(HtmlBuilder.label()
-                        .attr("for", "one")
-                        .text("One"))
-                .child(HtmlBuilder.rawHtml("<br>"))
-                .child(HtmlBuilder.input()
-                        .attr("type", "radio")
-                        .attr("id", "two")
-                        .attr("value", "Two")
-                        .vModel("picked"))
-                .child(HtmlBuilder.label()
-                        .attr("for", "two")
-                        .text("Two"))
-                .child(HtmlBuilder.p()
-                        .text("Picked: ")
-                        .bind("picked"))
-                .child(HtmlBuilder.h2()
-                        .text("Select"))
-                .child(HtmlBuilder
-                        .select()
-                        .vModel("selected")
-                        .child(HtmlBuilder.option()
-                                .attr("disabled", "")
-                                .attr("value", "")
-                                .text("Please select one"))
-                        .child(HtmlBuilder.option().text("A"))
-                        .child(HtmlBuilder.option().text("B"))
-                        .child(HtmlBuilder.option().text("C")))
-                .child(HtmlBuilder.p()
-                        .text("Selected: ")
-                        .bind("selected"))
-                .child(HtmlBuilder.h2().text("Multi Select"))
-                .child(HtmlBuilder
-                        .select()
-                        .vModel("multiSelected")
-                        .attr("multiple", "true")
-                        .attr("style", "width:100px")
-                        .child(HtmlBuilder.option().text("A"))
-                        .child(HtmlBuilder.option().text("B"))
-                        .child(HtmlBuilder.option().text("C")))
-                .child(HtmlBuilder.p()
-                        .text("Selected: ")
-                        .bind("multiSelected"))
-                .child(HtmlBuilder.h2().text("Grocery List"))
-                .child(HtmlBuilder.input().vModel("newItemText"))
-                .child(HtmlBuilder.button("addItem()", "Add Item"))
-                .child(HtmlBuilder.rawHtml("""
-                            <todo-item
-                              v-for="(item, index) in groceryList"
-                              :todo="item"
-                              :index="index"
-                              :key="item.id"
-                              @remove="removeItem"
-                            ></todo-item>
-                        """)
-                );
+//        // HTML template
+//        HtmlBuilder html = HtmlBuilder.div()
+//                .child(HtmlBuilder.h1()
+//                        .text("Hello ")
+//                        .bind("message")
+//                        .text(" (")
+//                        .bind("count")
+//                        .text(")")
+//                )
+//                .child(HtmlBuilder.p()
+//                        .text("User: ")
+//                        .bind("user.name")
+//                )
+//                .child(HtmlBuilder.rawHtml("""
+//                            <ul v-if="showRole">
+//                              <li v-for="role in user.roles">{{ role }}</li>
+//                            </ul>
+//                        """))
+//                .child(HtmlBuilder.div()
+//                        .attr("style", "margin-bottom:20px;")
+//                        .child(HtmlBuilder.button("increment()", "Increment Count from Java code"))
+//                        .child(HtmlBuilder.buttonBind("reset()", "buttonLabel"))
+//                        .child(HtmlBuilder.button("toggleRole()", "Show role"))
+//                )
+//                .child(HtmlBuilder.div()
+//                        .attr("style", "margin-bottom:10px;")
+//                        .child(HtmlBuilder.label().raw("Elapsed Time: <progress :value=\"progressRate\"></progress>"))
+//                        .child(HtmlBuilder.div().raw("{{ (elapsed / 1000).toFixed(1) }}s"))
+//                        .child(HtmlBuilder.div()
+//                                .raw("""
+//                                            Duration: <input type="range" v-model="duration" min="1" max="30000">
+//                                            {{ (duration / 1000).toFixed(1) }}s
+//                                        """))
+//                        .child(HtmlBuilder.button("resetTimer()", "Reset Timer")))
+//                .child(HtmlBuilder.p()
+//                        .child(HtmlBuilder.span()
+//                                .bindAttr("title", "message")
+//                                .text("Hover your mouse over me for a few seconds to see my dynamically bound title!")))
+//                .child(HtmlBuilder.p()
+//                        .bindAttr("class", "{ red: isRed }")
+//                        .on("click", "toggleRed()")
+//                        .text("This should be red... but click me to toggle it.")
+//                )
+//                .child(HtmlBuilder.p()
+//                        .bindAttr("style", "{ color }")
+//                        .on("click", "toggleColor()")
+//                        .text("This should be green, and should toggle between green and blue on click.")
+//                )
+//                .child(HtmlBuilder.h2()
+//                        .text("Text Input"))
+//                .child(HtmlBuilder.input()
+//                        .vModel("text"))
+//                .child(HtmlBuilder.p()
+//                        .bind("text"))
+//                .child(HtmlBuilder.h2()
+//                        .text("Checkbox"))
+//                .child(HtmlBuilder.input()
+//                        .attr("type", "checkbox")
+//                        .attr("id", "checkbox")
+//                        .vModel("checked"))
+//                .child(HtmlBuilder.label()
+//                        .attr("for", "checkbox")
+//                        .text("Checked: ")
+//                        .bind("checked"))
+//                .child(HtmlBuilder.h2().text("Multi Checkbox"))
+//                .child(HtmlBuilder.input()
+//                        .attr("type", "checkbox")
+//                        .attr("id", "jack")
+//                        .attr("value", "Jack")
+//                        .vModel("checkedNames"))
+//                .child(HtmlBuilder.label().attr("for", "jack").text("Jack"))
+//                .child(HtmlBuilder.input()
+//                        .attr("type", "checkbox")
+//                        .attr("id", "john")
+//                        .attr("value", "John")
+//                        .vModel("checkedNames"))
+//                .child(HtmlBuilder.label()
+//                        .attr("for", "john")
+//                        .text("John"))
+//                .child(HtmlBuilder.input()
+//                        .attr("type", "checkbox")
+//                        .attr("id", "mike")
+//                        .attr("value", "Mike")
+//                        .vModel("checkedNames"))
+//                .child(HtmlBuilder.label()
+//                        .attr("for", "mike")
+//                        .text("Mike"))
+//                .child(HtmlBuilder.p()
+//                        .text("Checked names: ")
+//                        .bind("checkedNames"))
+//                .child(HtmlBuilder.h2().text("Radio"))
+//                .child(HtmlBuilder.input()
+//                        .attr("type", "radio")
+//                        .attr("id", "one")
+//                        .attr("value", "One")
+//                        .vModel("picked"))
+//                .child(HtmlBuilder.label()
+//                        .attr("for", "one")
+//                        .text("One"))
+//                .child(HtmlBuilder.rawHtml("<br>"))
+//                .child(HtmlBuilder.input()
+//                        .attr("type", "radio")
+//                        .attr("id", "two")
+//                        .attr("value", "Two")
+//                        .vModel("picked"))
+//                .child(HtmlBuilder.label()
+//                        .attr("for", "two")
+//                        .text("Two"))
+//                .child(HtmlBuilder.p()
+//                        .text("Picked: ")
+//                        .bind("picked"))
+//                .child(HtmlBuilder.h2()
+//                        .text("Select"))
+//                .child(HtmlBuilder
+//                        .select()
+//                        .vModel("selected")
+//                        .child(HtmlBuilder.option()
+//                                .attr("disabled", "")
+//                                .attr("value", "")
+//                                .text("Please select one"))
+//                        .child(HtmlBuilder.option().text("A"))
+//                        .child(HtmlBuilder.option().text("B"))
+//                        .child(HtmlBuilder.option().text("C")))
+//                .child(HtmlBuilder.p()
+//                        .text("Selected: ")
+//                        .bind("selected"))
+//                .child(HtmlBuilder.h2().text("Multi Select"))
+//                .child(HtmlBuilder
+//                        .select()
+//                        .vModel("multiSelected")
+//                        .attr("multiple", "true")
+//                        .attr("style", "width:100px")
+//                        .child(HtmlBuilder.option().text("A"))
+//                        .child(HtmlBuilder.option().text("B"))
+//                        .child(HtmlBuilder.option().text("C")))
+//                .child(HtmlBuilder.p()
+//                        .text("Selected: ")
+//                        .bind("multiSelected"))
+//                .child(HtmlBuilder.h2().text("Grocery List"))
+//                .child(HtmlBuilder.input().vModel("newItemText"))
+//                .child(HtmlBuilder.button("addItem()", "Add Item"))
+//                .child(HtmlBuilder.rawHtml("""
+//                            <todo-item
+//                              v-for="(item, index) in groceryList"
+//                              :todo="item"
+//                              :index="index"
+//                              :key="item.id"
+//                              @remove="removeItem"
+//                            ></todo-item>
+//                        """)
+//                );
 
-//        String html = """
-//                <div>
-//                  <h1>Hello {{ message }} ({{ count }})</h1>
-//                  <p>User: {{ user.name }}</p>
-//
-//                  <ul v-if="showRole">
-//                    <li v-for="role in user.roles">{{ role }}</li>
-//                  </ul>
-//
-//                  <div style="margin-bottom:20px;">
-//                    <button @click="increment()">Increment Count from Java code</button>
-//                    <button @click="reset()">{{ buttonLabel }}</button>
-//                    <button @click="toggleRole()">Show role</button>
-//                  </div>
-//
-//                  <div style="margin-bottom:10px;">
-//                    <label>Elapsed Time: <progress :value="progressRate"></progress></label>
-//                    <div>{{ (elapsed / 1000).toFixed(1) }}s</div>
-//                    <div>
-//                      Duration: <input type="range" v-model="duration" min="1" max="30000">
-//                      {{ (duration / 1000).toFixed(1) }}s
-//                    </div>
-//                    <button @click="resetTimer()">Reset Timer</button>
-//                  </div>
-//
-//                  <p>
-//                    <span :title="message">
-//                      Hover your mouse over me for a few seconds to see my dynamically bound title!
-//                    </span>
-//                  </p>
-//
-//                  <p :class="{ red: isRed }" @click="toggleRed()">
-//                    This should be red... but click me to toggle it.
-//                  </p>
-//
-//                  <p :style="{ color }" @click="toggleColor()">
-//                    This should be green, and should toggle between green and blue on click.
-//                  </p>
-//
-//                  <h2>Text Input</h2>
-//                  <input v-model="text">
-//                  <p>{{ text }}</p>
-//
-//                  <h2>Checkbox</h2>
-//                  <input type="checkbox" id="checkbox" v-model="checked">
-//                  <label for="checkbox">Checked: {{ checked }}</label>
-//
-//                  <h2>Multi Checkbox</h2>
-//                  <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
-//                  <label for="jack">Jack</label>
-//                  <input type="checkbox" id="john" value="John" v-model="checkedNames">
-//                  <label for="john">John</label>
-//                  <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
-//                  <label for="mike">Mike</label>
-//                  <p>Checked names: {{ checkedNames }}</p>
-//
-//                  <h2>Radio</h2>
-//                  <input type="radio" id="one" value="One" v-model="picked">
-//                  <label for="one">One</label><br>
-//                  <input type="radio" id="two" value="Two" v-model="picked">
-//                  <label for="two">Two</label>
-//                  <p>Picked: {{ picked }}</p>
-//
-//                  <h2>Select</h2>
-//                  <select v-model="selected">
-//                    <option disabled value="">Please select one</option>
-//                    <option>A</option>
-//                    <option>B</option>
-//                    <option>C</option>
-//                  </select>
-//                  <p>Selected: {{ selected }}</p>
-//
-//                  <h2>Multi Select</h2>
-//                  <select v-model="multiSelected" multiple style="width:100px">
-//                    <option>A</option>
-//                    <option>B</option>
-//                    <option>C</option>
-//                  </select>
-//                  <p>Selected: {{ multiSelected }}</p>
-//
-//                  <h2>Grocery List</h2>
-//                  <input v-model="newItemText">
-//                  <button @click="addItem()">Add Item</button>
-//
-//                  <todo-item
-//                    v-for="(item, index) in groceryList"
-//                    :todo="item"
-//                    :index="index"
-//                    :key="item.id"
-//                    @remove="removeItem"
-//                  ></todo-item>
-//                </div>
-//
-//                """;
+        String html = """
+                <div>
+                  <h1>Hello {{ message }} ({{ count }})</h1>
+                  <p>User: {{ user.name }}</p>
+                  <ul v-if="showRole">
+                    <li v-for="role in user.roles">{{ role }}</li>
+                  </ul>
+                  <div style="margin-bottom:20px;">
+                    <button @click="increment()">Increment Count from Java code</button>
+                    <button @click="reset()">{{ buttonLabel }}</button>
+                    <button @click="toggleRole()">Show role</button>
+                  </div>
+                  <div style="margin-bottom:10px;">
+                    <label>Elapsed Time: <progress :value="progressRate"></progress></label>
+                    <div>{{ (elapsed / 1000).toFixed(1) }}s</div>
+                    <div>
+                      Duration: <input type="range" v-model="duration" min="1" max="30000">
+                      {{ (duration / 1000).toFixed(1) }}s
+                    </div>
+                    <button @click="resetTimer()">Reset Timer</button>
+                  </div>
+                  <p>
+                    <span :title="message">
+                      Hover your mouse over me for a few seconds to see my dynamically bound title!
+                    </span>
+                  </p>
+                  <p :class="{ red: isRed }" @click="toggleRed()">
+                    This should be red... but click me to toggle it.
+                  </p>
+                  <p :style="{ color }" @click="toggleColor()">
+                    This should be green, and should toggle between green and blue on click.
+                  </p>
+                  <h2>Text Input</h2>
+                  <input v-model="text">
+                  <p>{{ text }}</p>
+                  <h2>Checkbox</h2>
+                  <input type="checkbox" id="checkbox" v-model="checked">
+                  <label for="checkbox">Checked: {{ checked }}</label>
+                  <h2>Multi Checkbox</h2>
+                  <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+                  <label for="jack">Jack</label>
+                  <input type="checkbox" id="john" value="John" v-model="checkedNames">
+                  <label for="john">John</label>
+                  <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+                  <label for="mike">Mike</label>
+                  <p>Checked names: {{ checkedNames }}</p>
+                  <h2>Radio</h2>
+                  <input type="radio" id="one" value="One" v-model="picked">
+                  <label for="one">One</label><br>
+                  <input type="radio" id="two" value="Two" v-model="picked">
+                  <label for="two">Two</label>
+                  <p>Picked: {{ picked }}</p>
+                  <h2>Select</h2>
+                  <select v-model="selected">
+                    <option disabled value="">Please select one</option>
+                    <option>A</option>
+                    <option>B</option>
+                    <option>C</option>
+                  </select>
+                  <p>Selected: {{ selected }}</p>
+                  <h2>Multi Select</h2>
+                  <select v-model="multiSelected" multiple style="width:100px">
+                    <option>A</option>
+                    <option>B</option>
+                    <option>C</option>
+                  </select>
+                  <p>Selected: {{ multiSelected }}</p>
+                  <h2>Grocery List</h2>
+                  <input v-model="newItemText">
+                  <button @click="addItem()">Add Item</button>
+                  <todo-item
+                    v-for="(item, index) in groceryList"
+                    :todo="item"
+                    :index="index"
+                    :key="item.id"
+                    @remove="removeItem"
+                  ></todo-item>
+                </div>
+                """;
 
         JSVueTemplate template = JSVueTemplate.of(html.toString());
 
