@@ -5,18 +5,22 @@ import org.graalvm.webimage.api.*;
 
 public final class JSVueComputed<T> {
 
+    private final String name;
     private final JSObject computed;
+    private final JSFunction getterFn;
 
-    private JSVueComputed(JSObject computed) {
+    private JSVueComputed(String name, JSObject computed, JSFunction getterFn) {
+        this.name = name;
         this.computed = computed;
+        this.getterFn = getterFn;
     }
 
     @JS.Coerce
     @JS("return Vue.computed(fn);")
     private static native JSObject create(JSObject fn);
 
-    public static <T> JSVueComputed<T> from(JSFunction getterFn) {
-        return new JSVueComputed<>(create(getterFn));
+    public static <T> JSVueComputed<T> of(String name, JSFunction getterFn) {
+        return new JSVueComputed<>(name, create(getterFn), getterFn);
     }
 
     public T get(Class<T> type) {
@@ -25,5 +29,19 @@ public final class JSVueComputed<T> {
 
     public JSObject raw() {
         return computed;
+    }
+
+    public JSFunction getter() {
+        return getterFn;
+    }
+
+    public String name() {
+        return name;
+    }
+
+    public JSObject toMap() {
+        JSObject map = JSObject.create();
+        map.set(name, getterFn);
+        return map;
     }
 }

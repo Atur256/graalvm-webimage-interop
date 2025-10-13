@@ -42,6 +42,11 @@ public class JSVueOptions extends JSObject {
         return this;
     }
 
+    public <T> JSVueOptions setComputed(JSVueComputed<T> computed) {
+        this.set("computed", computed.toMap());
+        return this;
+    }
+
     public JSVueOptions setHooks(JSObject hooks) {
         JSArray keys = JSValue.checkedCoerce(hooks.keys(), JSArray.class);
         keys.forEach(JSFunction.fromJavaConsumer((JSString key) -> {
@@ -57,6 +62,11 @@ public class JSVueOptions extends JSObject {
 
     public JSVueOptions set(String key, Object value) {
         super.set(key, value);
+        return this;
+    }
+
+    public JSVueOptions setProvide(JSVueProvide provide) {
+        super.set("provide", provide.getProvide());
         return this;
     }
 

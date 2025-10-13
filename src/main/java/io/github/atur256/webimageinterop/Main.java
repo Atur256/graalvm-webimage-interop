@@ -1,10 +1,7 @@
 package io.github.atur256.webimageinterop;
 
 
-import io.github.atur256.webimageinterop.vue.temp.src.examples.VueDemo;
-import io.github.atur256.webimageinterop.vue.temp.src.examples.VueReactiveDemo;
-import io.github.atur256.webimageinterop.vue.temp.src.examples.VueReactiveDemo2;
-import io.github.atur256.webimageinterop.vue.temp.src.examples.VueRefDemo;
+import io.github.atur256.webimageinterop.vue.temp.src.examples.*;
 
 
 public class Main {
@@ -12,7 +9,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
 
-        VueReactiveDemo2.main(null);
+        VueDemoNew.main(null);
 
         System.out.println("Vue code finished!");
 

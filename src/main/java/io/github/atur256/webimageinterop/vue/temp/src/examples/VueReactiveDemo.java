@@ -3,14 +3,15 @@ package io.github.atur256.webimageinterop.vue.temp.src.examples;
 import io.github.atur256.webimageinterop.builtin.JSArray;
 import io.github.atur256.webimageinterop.builtin.JSFunction;
 import io.github.atur256.webimageinterop.vue.temp.src.*;
+import io.github.atur256.webimageinterop.vue.temp.src.checkIfToKeep.JSVueRef;
 import org.graalvm.webimage.api.*;
 
 
 public class VueReactiveDemo {
 
     // Retain original ref object in Java (because the Graalvm only returns the value if accessed and not the object itself)
-    private static final JSObject nameRef = JSVueReactive.ref("Bob");
-    private static final JSObject countRef = JSVueReactive.ref(0);
+    private static final JSVueRef<String> nameRef = JSVueRef.of("Bob");
+    private static final JSVueRef<Integer> countRef = JSVueRef.of(0);
 
     public static void main(String[] args) {
 
@@ -29,7 +30,7 @@ public class VueReactiveDemo {
         rawUser.set("profile", profile);
         rawUser.set("roles", roles);
 
-        JSObject reactiveUser = JSVueReactive.reactive(rawUser);
+       JSObject reactiveUser = JSVueRef.reactive(rawUser);
 
         // Wrap data function with unwrapped ref values
         JSObject dataFn = JSVueData.wrapAsDataFunction(() -> JSVueData.builder()
@@ -45,8 +46,8 @@ public class VueReactiveDemo {
         JSObject methods = JSObject.create();
 
         methods.set("increment", JSFunction.fromRunnable(() -> {
-            int current = JSValue.checkedCoerce(countRef.get("value"), Integer.class);
-            countRef.set("value", JSNumber.of(current + 1));
+            int current = countRef.get();
+            countRef.set(JSNumber.of(current + 1));
         }));
 
         methods.set("toggleName", JSFunction.fromRunnable(() -> {
@@ -78,9 +79,9 @@ public class VueReactiveDemo {
         }));
 
         methods.set("toggleRefName", JSFunction.fromRunnable(() -> {
-            String current = JSValue.checkedCoerce(nameRef.get("value"), String.class);
+            String current = nameRef.get();
             String next = current.equals("Bob") ? "Alice" : "Bob";
-            nameRef.set("value", JSString.of(next));
+            nameRef.set(next);
         }));
 
         // Define template
