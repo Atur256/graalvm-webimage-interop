@@ -57,16 +57,9 @@ public class JSVueComponent extends JSObject {
         return this;
     }
 
-//    public JSVueComponent setHooks(JSObject hooks) {
-//        this.set("hooks", hooks);
-//        return this;
-//    }
-
     public JSVueComponent setHooks(JSObject hooks) {
         JSArray keys = JSValue.checkedCoerce(hooks.keys(), JSArray.class);
-        keys.forEach(JSFunction.fromJavaConsumer((JSString key) -> {
-            this.set(key, hooks.get(key.asString()));
-        }));
+        keys.forEach(JSFunction.fromJavaConsumer((JSString key) -> this.set(key, hooks.get(key.asString()))));
         return this;
     }
 
@@ -74,7 +67,4 @@ public class JSVueComponent extends JSObject {
         this.set("methods", methods);
         return this;
     }
-
-
-
 }

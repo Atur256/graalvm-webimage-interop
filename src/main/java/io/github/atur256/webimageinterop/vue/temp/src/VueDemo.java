@@ -1,14 +1,11 @@
-package io.github.atur256.webimageinterop.vue.temp.src.examples;
+package io.github.atur256.webimageinterop.vue.temp.src;
 
 import io.github.atur256.webimageinterop.builtin.JSArray;
-import io.github.atur256.webimageinterop.builtin.JSEval;
 import io.github.atur256.webimageinterop.builtin.JSFunction;
-import io.github.atur256.webimageinterop.vue.temp.src.*;
-import io.github.atur256.webimageinterop.vue.temp.src.checkIfToKeep.JSVueRef;
 import org.graalvm.webimage.api.*;
 
 
-public class VueDemoNew {
+public class VueDemo {
 
     // Vue's "this" context cannot be accessed directly from Java — all logic relying on "this" must be coded as raw JS code.
     // This applies to computed properties, methods, and lifecycle hooks that reference component state.
@@ -18,9 +15,6 @@ public class VueDemoNew {
     private static final JSVueRef<Integer> countRef = JSVueRef.of(10);
     private static final JSVueRef<String> ageInputRef = JSVueRef.of("35");
     private static final JSVueRef<String> themeRef = JSVueRef.of("light");
-
-    // TODO: try to change JSEval.eval to JSFunction.fromBody
-    // TODO: rename toggle panel to hide/show panel
 
     public static void main(String[] args) {
 
@@ -95,11 +89,7 @@ public class VueDemoNew {
         JSVueProvide provide = JSVueProvide.create().set("theme", themeRef.raw());
 
         // Define computed property — doubleCount = count * 2
-        JSVueComputed<Integer> doubleCount = JSVueComputed.of("doubleCount", JSValue.checkedCoerce(JSEval.eval("""
-                  (function() {
-                    return this.count * 2;
-                  })
-                """), JSFunction.class));
+        JSVueComputed<Integer> doubleCount = JSVueComputed.of("doubleCount", JSFunction.fromBody("return this.count * 2;"));
 
         // Compose Vue options — include data, methods, template, computed, hooks, etc.
         JSVueOptions options = JSVueOptions.create()
@@ -175,7 +165,7 @@ public class VueDemoNew {
                 
                                 <hr />
                 
-                                <button @click="showPanel = !showPanel">Toggle Panel</button>
+                                <button @click="showPanel = !showPanel"> {{ showPanel ? "Hide Panel" : "Show Panel" }}</button>
                                 <timed-panel v-if="showPanel"></timed-panel>
                 
                                 <hr />
@@ -316,17 +306,7 @@ public class VueDemoNew {
             JSVue.setValue("groceryList", filtered);
         }));
 
-        methods.set("toggleTheme", JSFunction.fromRunnable(() -> {
-            try {
-                String current = themeRef.get();
-                themeRef.set(current.equals("dark") ? "light" : "dark");
-                System.out.println("Theme changed to: " + themeRef.get());
-            } catch (Exception e) {
-                System.out.println("Exception caught!!!");
-                e.printStackTrace();
-            }
-        }));
-
+        methods.set("toggleTheme", JSFunction.fromRunnable(() -> themeRef.set(themeRef.get().equals("dark") ? "light" : "dark")));
 
         return methods;
     }
@@ -348,40 +328,36 @@ public class VueDemoNew {
         JSObject timedPanelMethods = JSObject.create();
 
         // Resets the timer and starts the update loop
-        timedPanelMethods.set("resetTimer", JSEval.eval("""
-                    (function() {
+        timedPanelMethods.set("resetTimer",
+                JSFunction.fromBody("""
                         this.elapsed = 0;
                         this.lastTime = performance.now();
                         this.update();
-                    })
-                """));
+                        """));
 
         // Updates the elapsed time and schedules the next frame
-        timedPanelMethods.set("update", JSEval.eval("""
-                    (function() {
+        timedPanelMethods.set("update",
+                JSFunction.fromBody("""
                         this.elapsed = performance.now() - this.lastTime;
                         if (this.elapsed >= this.duration) {
                             cancelAnimationFrame(this.handle);
                         } else {
                             this.handle = requestAnimationFrame(this.update);
                         }
-                    })
-                """));
+                        """));
 
         // Lifecycle hook: starts the timer when mounted
         JSVueLifecycle panelLifecycle = JSVueLifecycle.create()
-                .onMounted(JSValue.checkedCoerce(JSEval.eval("""
-                            (function() {
+                .onMounted(
+                        JSFunction.fromBody("""
                                 console.log("Time panel mounted")
                                 this.resetTimer();
-                            })
-                        """), JSFunction.class))
-                .onUnmounted(JSValue.checkedCoerce(JSEval.eval("""
-                            (function() {
+                                """))
+                .onUnmounted(
+                        JSFunction.fromBody("""
                                 console.log("Time panel unmounted")
                                 cancelAnimationFrame(this.handle);
-                            })
-                        """), JSFunction.class));
+                                """));
 
         // Template for the timed panel UI
         JSVueTemplate timedPanelTemplate = JSVueTemplate.of("""
@@ -404,11 +380,7 @@ public class VueDemoNew {
 
         // Computed property for progress bar value
         JSObject computed = JSObject.create();
-        computed.set("progressRate", JSEval.eval("""
-                    (function() {
-                        return Math.min(this.elapsed / this.duration, 1);
-                    })
-                """));
+        computed.set("progressRate", JSFunction.fromBody("return Math.min(this.elapsed / this.duration, 1);"));
 
         return JSVueComponent.create()
                 .setTemplate(timedPanelTemplate)
@@ -429,13 +401,7 @@ public class VueDemoNew {
                 """);
 
         // Injects the theme value from the parent using Vue's Composition API
-        JSObject todoItemSetup = JSValue.checkedCoerce(JSEval.eval("""
-                  (function() {
-                    return {
-                      theme: Vue.inject('theme')
-                    };
-                  })
-                """), JSObject.class);
+        JSObject todoItemSetup = JSFunction.fromBody("return { theme: Vue.inject('theme') };");
 
         return JSVueComponent.create()
                 .setProps(JSArray.of("todo", "index"))

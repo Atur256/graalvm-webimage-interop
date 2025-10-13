@@ -1,7 +1,6 @@
-package io.github.atur256.webimageinterop.vue.temp.src.checkIfToKeep;
+package io.github.atur256.webimageinterop.vue.temp.src;
 
 import io.github.atur256.webimageinterop.builtin.JSFunction;
-import io.github.atur256.webimageinterop.vue.temp.src.JSVueWatch;
 import org.graalvm.webimage.api.*;
 
 
@@ -40,14 +39,6 @@ public final class JSVueRef<T> {
     public static <T> JSVueRef<T> of() {
         throw new IllegalArgumentException("Object data type is currently not supported!!");
     }
-
-//    public Object get() {
-//        return ref.get("value");
-//    }
-
-//    public T get(Class<T> type) {
-//        return JSValue.checkedCoerce(get(), type);
-//    }
 
     @SuppressWarnings("unchecked")
     public T get() {

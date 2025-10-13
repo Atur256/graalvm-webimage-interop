@@ -71,4 +71,7 @@ public class JSVue {
         return JSValue.checkedCoerce(lastArgs.get(key), JSValue.class);
     }
 
+    @JS.Coerce
+    @JS(value = "return this;")
+    public static native JSObject getThis();
 }

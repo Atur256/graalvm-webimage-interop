@@ -1,7 +1,6 @@
 package io.github.atur256.webimageinterop.vue.temp.src;
 
 import io.github.atur256.webimageinterop.builtin.JSFunction;
-import io.github.atur256.webimageinterop.vue.temp.src.checkIfToKeep.JSVueRef;
 import org.graalvm.webimage.api.*;
 
 

@@ -49,9 +49,7 @@ public class JSVueOptions extends JSObject {
 
     public JSVueOptions setHooks(JSObject hooks) {
         JSArray keys = JSValue.checkedCoerce(hooks.keys(), JSArray.class);
-        keys.forEach(JSFunction.fromJavaConsumer((JSString key) -> {
-            this.set(key, hooks.get(key.asString()));
-        }));
+        keys.forEach(JSFunction.fromJavaConsumer((JSString key) -> this.set(key, hooks.get(key.asString()))));
         return this;
     }
 
