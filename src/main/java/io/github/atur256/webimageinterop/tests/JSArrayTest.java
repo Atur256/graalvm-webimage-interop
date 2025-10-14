@@ -225,7 +225,6 @@ public class JSArrayTest {
         AssertArray.assertArray(flatMapped, String.class, "a", "a", "b", "b", "c", "c", "d", "d", "e", "e");
     }
 
-
     public static void testForEach() {
         List<String> forEachOutput = new ArrayList<>();
         AtomicReference<List<String>> forEachOutputRef = new AtomicReference<>(forEachOutput);

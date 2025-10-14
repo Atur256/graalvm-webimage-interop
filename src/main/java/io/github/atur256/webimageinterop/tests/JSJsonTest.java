@@ -52,7 +52,7 @@ public class JSJsonTest {
         JSValue fn = JSEval.eval("(function() {})", JSValue.class);
         JSValue circular = JSEval.eval("(() => { const a = {}; a.self = a; return a; })()", JSValue.class);
 
-        assertThrows(ThrownFromJavaScript.class, () ->JSJson.stringify(circular));
+        assertThrows(ThrownFromJavaScript.class, () -> JSJson.stringify(circular));
         assertEquals("{\"name\":\"Alice\",\"age\":30}", JSJson.stringify(jsObj));
         assertEquals("\"Bob\"", JSJson.stringify("Bob"));
         assertEquals("undefined", JSJson.stringify(JSUndefined.instance()));
