@@ -9,35 +9,35 @@ public class JSMath extends JSObject {
 
     @JS.Coerce
     @JS(value = "return Math.E;")
-    public static native double E();
+    public static native double e();
 
     @JS.Coerce
     @JS(value = "return Math.LN2;")
-    public static native double LN2();
+    public static native double ln2();
 
     @JS.Coerce
     @JS(value = "return Math.LN10;")
-    public static native double LN10();
+    public static native double ln10();
 
     @JS.Coerce
     @JS(value = "return Math.LOG2E;")
-    public static native double LOG2E();
+    public static native double log2E();
 
     @JS.Coerce
     @JS(value = "return Math.LOG10E;")
-    public static native double LOG10E();
+    public static native double log10E();
 
     @JS.Coerce
     @JS(value = "return Math.PI;")
-    public static native double PI();
+    public static native double pi();
 
     @JS.Coerce
     @JS(value = "return Math.SQRT1_2;")
-    public static native double SQRT1_2();
+    public static native double sqrt12();
 
     @JS.Coerce
     @JS(value = "return Math.SQRT2;")
-    public static native double SQRT2();
+    public static native double sqrt2();
 
     @JS.Coerce
     @JS(value = "return Math.abs(x);")

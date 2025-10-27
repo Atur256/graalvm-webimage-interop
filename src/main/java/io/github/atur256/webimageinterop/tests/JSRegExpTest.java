@@ -1,6 +1,5 @@
 package io.github.atur256.webimageinterop.tests;
 
-import io.github.atur256.webimageinterop.builtin.JSJson;
 import io.github.atur256.webimageinterop.builtin.JSRegExp;
 import org.graalvm.webimage.api.JSObject;
 import org.graalvm.webimage.api.JSValue;

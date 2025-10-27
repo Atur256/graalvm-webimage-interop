@@ -4,6 +4,17 @@ This library extends the [Oracle GraalVM WebImage API](https://www.graalvm.org/s
 
 ---
 
+## GraalVM Requirement
+
+> ⚠️ **Important:** This library currently depends on a GraalVM version that has **not yet been officially released**. As a result, it **cannot be pulled from Maven Central** or other standard repositories.
+
+To use this library, you must:
+
+1. **Download or build the latest GraalVM version** from the [official GraalVM GitHub repository](https://github.com/oracle/graal).
+2. **Compile the project locally** against this GraalVM version. Standard Maven or Gradle builds will not work with released versions until the required GraalVM version becomes publicly available.
+
+---
+
 ## Available Objects
 
 ### `JSArray`
@@ -123,12 +134,12 @@ This project includes a dedicated test class for each wrapper object.
   (e.g., `JSArrayTest` contains all tests for `JSArray`).  
   These can be executed individually.
 
-- **Full test suite:** The `Main` class automatically invokes all test classes  
+- **Full test suite:** The `RunAllTests` class automatically invokes all test classes  
   and runs the full test suite in one go.
 
 All tests include inline **JUnit assertions** to verify correctness and runtime behavior.
 
-See the [Main class](https://github.com/Atur256/web-image-interop/blob/master/src/main/java/io/github/atur256/webimageinterop/Main.java)
+See the [RunAllTests class](https://github.com/Atur256/web-image-interop/blob/master/src/main/java/io/github/atur256/webimageinterop/tests/RunAllTests.java)
 
 
 ## Further Extensions
@@ -136,3 +147,11 @@ See the [Main class](https://github.com/Atur256/web-image-interop/blob/master/sr
 This library is designed for extensibility. While it currently wraps a broad set of core JavaScript objects, additional wrappers may be introduced in future releases to support more of the ECMAScript runtime and browser-like APIs.
 
 All future additions will adhere to the same design principles and compatibility with GraalVM-managed runtimes.
+
+---
+
+## License
+
+This project’s license is currently undecided.
+
+This section will be replaced with appropriate license when it is chosen.

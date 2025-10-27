@@ -24,14 +24,14 @@ public class JSMathTest {
     }
 
     public static void testConstants() {
-        assertEquals(Math.E, JSMath.E(), DELTA);
-        assertEquals(Math.log(2), JSMath.LN2(), DELTA);
-        assertEquals(Math.log(10), JSMath.LN10(), DELTA);
-        assertEquals(1 / Math.log(2), JSMath.LOG2E(), DELTA);
-        assertEquals(1 / Math.log(10), JSMath.LOG10E(), 1e-15);
-        assertEquals(Math.PI, JSMath.PI(), DELTA);
-        assertEquals(1 / Math.sqrt(2), JSMath.SQRT1_2(), 1e-15);
-        assertEquals(Math.sqrt(2), JSMath.SQRT2(), DELTA);
+        assertEquals(Math.E, JSMath.e(), DELTA);
+        assertEquals(Math.log(2), JSMath.ln2(), DELTA);
+        assertEquals(Math.log(10), JSMath.ln10(), DELTA);
+        assertEquals(1 / Math.log(2), JSMath.log2E(), DELTA);
+        assertEquals(1 / Math.log(10), JSMath.log10E(), 1e-15);
+        assertEquals(Math.PI, JSMath.pi(), DELTA);
+        assertEquals(1 / Math.sqrt(2), JSMath.sqrt12(), 1e-15);
+        assertEquals(Math.sqrt(2), JSMath.sqrt2(), DELTA);
     }
 
     public static void testBasicArithmetic() {

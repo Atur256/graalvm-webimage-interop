@@ -12,7 +12,7 @@ public class JSEval {
 
     @JS.Coerce
     @JS(value = "return eval(script);")
-    public native static Object eval(String script);
+    public static native Object eval(String script);
 
     public static <R> R eval(String script, Class<R> cls) {
         return JSValue.checkedCoerce(eval(script), cls);
