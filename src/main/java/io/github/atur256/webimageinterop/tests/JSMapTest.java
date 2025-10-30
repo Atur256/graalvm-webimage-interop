@@ -115,7 +115,7 @@ public class JSMapTest {
         JSIterator entries = map.entries();
         JSArray entry1 = JSValue.checkedCoerce(entries.next().get("value"), JSArray.class);
         JSArray entry2 = JSValue.checkedCoerce(entries.next().get("value"), JSArray.class);
-        map.entries().forEach(JSFunction.fromJavaConsumer((JSObject obj) -> {
+        map.entries().forEach(JSFunction.fromCons((JSObject obj) -> {
             JSArray entry = JSValue.checkedCoerce(obj, JSArray.class);
             String key = JSValue.checkedCoerce(entry.get(0), String.class);
             int value = JSValue.checkedCoerce(entry.get(1), Integer.class);
@@ -140,8 +140,8 @@ public class JSMapTest {
         List<String> fruits = Arrays.asList("apple", "blueberry", "apricot", "cherry", "banana");
         JSArray jsArray = JSArray.of(fruits.toArray());
         JSIterator iterator = JSIterator.from(jsArray);
-        JSFunction callback1 = JSFunction.fromJavaFunction((JSString item) -> JSString.of(item.asString().substring(0, 1)));
-        JSFunction callback2 = JSFunction.fromFunction((JSString item) -> JSString.of(item.as(String.class).substring(0, 1)));
+        JSFunction callback1 = JSFunction.fromFunc((JSString item) -> JSString.of(item.asString().substring(0, 1)));
+        JSFunction callback2 = JSFunction.fromJSFunc((JSString item) -> JSString.of(item.as(String.class).substring(0, 1)));
 
         JSMap groupedFromIterator = JSMap.groupBy(iterator, callback1);
         JSMap groupedFromArray = JSMap.groupBy(jsArray, callback1);

@@ -119,7 +119,7 @@ public class JSSetTest {
         JSArray entry1 = JSValue.checkedCoerce(entries.next().get("value"), JSArray.class);
         JSArray entry2 = JSValue.checkedCoerce(entries.next().get("value"), JSArray.class);
         JSArray entry3 = JSValue.checkedCoerce(entries.next().get("value"), JSArray.class);
-        set.entries().forEach(JSFunction.fromJavaConsumer((JSObject obj) -> {
+        set.entries().forEach(JSFunction.fromCons((JSObject obj) -> {
             JSArray entry = JSValue.checkedCoerce(obj, JSArray.class);
             String key = JSValue.checkedCoerce(entry.get(0), String.class);
             String value = JSValue.checkedCoerce(entry.get(1), String.class);

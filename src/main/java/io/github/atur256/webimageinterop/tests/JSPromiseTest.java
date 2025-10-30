@@ -25,22 +25,22 @@ public class JSPromiseTest {
         JSPromise resolved = JSPromise.resolve("done");
         JSPromise rejected = JSPromise.reject("fail");
 
-        resolved.then(JSFunction.fromJavaConsumer((JSString str) -> assertEquals("done", str.asString())));
-        rejected.catch_(JSFunction.fromJavaConsumer((JSString str) -> assertEquals("fail", str.asString())));
+        resolved.then(JSFunction.fromCons((JSString str) -> assertEquals("done", str.asString())));
+        rejected.catch_(JSFunction.fromCons((JSString str) -> assertEquals("fail", str.asString())));
     }
 
     public static void testThenCatchFinally() {
         JSPromise.resolve(42)
-                .then(JSFunction.fromJavaFunction((JSNumber num) -> JSNumber.of(num.as(Integer.class) + 1)))
-                .then(JSFunction.fromJavaFunction((JSNumber num) -> {
+                .then(JSFunction.fromFunc((JSNumber num) -> JSNumber.of(num.as(Integer.class) + 1)))
+                .then(JSFunction.fromFunc((JSNumber num) -> {
                     assertEquals(Integer.valueOf(43), num.as(Integer.class));
                     return num;
                 }))
-                .catch_(JSFunction.fromJavaFunction((JSNumber num) -> {
+                .catch_(JSFunction.fromFunc((JSNumber num) -> {
                     fail();
                     return num;
                 }))
-                .finally_(JSFunction.fromJavaConsumer((JSUndefined undefined) -> assertEquals(JSUndefined.undefined(), undefined)));
+                .finally_(JSFunction.fromCons((JSUndefined undefined) -> assertEquals(JSUndefined.undefined(), undefined)));
     }
 
     public static void testAll() {
@@ -59,15 +59,15 @@ public class JSPromiseTest {
         JSPromise allFromList = JSPromise.all(List.of(p8, p9));
         JSPromise emptyAll = JSPromise.all(JSArray.of());
 
-        allFromJSIterator.then(JSFunction.fromJavaConsumer((JSValue result) ->
+        allFromJSIterator.then(JSFunction.fromCons((JSValue result) ->
                 AssertArray.assertArray(result.as(JSArray.class), String.class, "One", "Two", "Three")));
-        allFromJSArray.then(JSFunction.fromJavaConsumer((JSValue result) ->
+        allFromJSArray.then(JSFunction.fromCons((JSValue result) ->
                 AssertArray.assertArray(result.as(JSArray.class), Integer.class, 1, 2, 3, 4)));
-        allFromVarargs.then(JSFunction.fromJavaConsumer((JSValue result) ->
+        allFromVarargs.then(JSFunction.fromCons((JSValue result) ->
                 AssertArray.assertArray(result.as(JSArray.class), String.class, "One", "Two", "Three")));
-        allFromList.then(JSFunction.fromJavaConsumer((JSValue result) ->
+        allFromList.then(JSFunction.fromCons((JSValue result) ->
                 AssertArray.assertArray(result.as(JSArray.class), Boolean.class, false, true)));
-        emptyAll.then(JSFunction.fromJavaConsumer((JSValue value) ->
+        emptyAll.then(JSFunction.fromCons((JSValue value) ->
                 assertEquals(0, JSValue.checkedCoerce(value, JSArray.class).length)));
     }
 
@@ -84,7 +84,7 @@ public class JSPromiseTest {
         JSPromise settled4 = JSPromise.allSettled(List.of(p5, p6));
         JSPromise emptySettled = JSPromise.allSettled(JSArray.of());
 
-        settled1.then(JSFunction.fromJavaConsumer((JSValue value) -> {
+        settled1.then(JSFunction.fromCons((JSValue value) -> {
             JSArray results = JSValue.checkedCoerce(value, JSArray.class);
             JSObject first = JSValue.checkedCoerce(results.get(0), JSObject.class);
             JSObject second = JSValue.checkedCoerce(results.get(1), JSObject.class);
@@ -93,7 +93,7 @@ public class JSPromiseTest {
             assertEquals("rejected", JSValue.checkedCoerce(second.get("status"), String.class));
             assertEquals("fail", JSValue.checkedCoerce(second.get("reason"), String.class));
         }));
-        settled2.then(JSFunction.fromJavaConsumer((JSValue value) -> {
+        settled2.then(JSFunction.fromCons((JSValue value) -> {
             JSArray results = JSValue.checkedCoerce(value, JSArray.class);
             JSObject first = JSValue.checkedCoerce(results.get(0), JSObject.class);
             JSObject second = JSValue.checkedCoerce(results.get(1), JSObject.class);
@@ -102,7 +102,7 @@ public class JSPromiseTest {
             assertEquals("rejected", JSValue.checkedCoerce(second.get("status"), String.class));
             assertEquals(Integer.valueOf(2), JSValue.checkedCoerce(second.get("reason"), Integer.class));
         }));
-        settled3.then(JSFunction.fromJavaConsumer((JSValue value) -> {
+        settled3.then(JSFunction.fromCons((JSValue value) -> {
             JSArray results = JSValue.checkedCoerce(value, JSArray.class);
             JSObject first = JSValue.checkedCoerce(results.get(0), JSObject.class);
             JSObject second = JSValue.checkedCoerce(results.get(1), JSObject.class);
@@ -111,7 +111,7 @@ public class JSPromiseTest {
             assertEquals("rejected", JSValue.checkedCoerce(second.get("status"), String.class));
             assertEquals("fail", JSValue.checkedCoerce(second.get("reason"), String.class));
         }));
-        settled4.then(JSFunction.fromJavaConsumer((JSValue value) -> {
+        settled4.then(JSFunction.fromCons((JSValue value) -> {
             JSArray results = JSValue.checkedCoerce(value, JSArray.class);
             JSObject first = JSValue.checkedCoerce(results.get(0), JSObject.class);
             JSObject second = JSValue.checkedCoerce(results.get(1), JSObject.class);
@@ -121,7 +121,7 @@ public class JSPromiseTest {
             assertFalse(JSValue.checkedCoerce(second.get("reason"), Boolean.class));
         }));
         emptySettled.then(
-                JSFunction.fromJavaConsumer((JSValue value) ->
+                JSFunction.fromCons((JSValue value) ->
                         assertEquals(0, JSValue.checkedCoerce(value, JSArray.class).length)));
     }
 
@@ -138,15 +138,15 @@ public class JSPromiseTest {
         JSPromise anyFromList = JSPromise.any(List.of(p1Reject, p2Reject, p3Resolved));
         JSPromise anyFail = JSPromise.any(JSPromise.reject("A"), JSPromise.reject("B"));
 
-        anyFromJSIterator.then(JSFunction.fromJavaConsumer((JSValue result) ->
+        anyFromJSIterator.then(JSFunction.fromCons((JSValue result) ->
                 assertEquals("First", result.as(String.class))));
-        anyFromJSArray.then(JSFunction.fromJavaConsumer((JSString result) ->
+        anyFromJSArray.then(JSFunction.fromCons((JSString result) ->
                 assertEquals("Second", result.as(String.class))));
-        anyFromVarargs.then(JSFunction.fromJavaConsumer((JSString result) ->
+        anyFromVarargs.then(JSFunction.fromCons((JSString result) ->
                 assertEquals("Third", result.as(String.class))));
-        anyFromList.then(JSFunction.fromJavaConsumer((JSString result) ->
+        anyFromList.then(JSFunction.fromCons((JSString result) ->
                 assertEquals("Third", result.as(String.class))));
-        anyFail.catch_(JSFunction.fromJavaConsumer((JSValue value) ->
+        anyFail.catch_(JSFunction.fromCons((JSValue value) ->
                 assertEquals("All promises were rejected",
                         JSValue.checkedCoerce(value.as(JSObject.class).get("message"), String.class))));
     }
@@ -162,13 +162,13 @@ public class JSPromiseTest {
         JSPromise raceFromVarargs = JSPromise.race(p1Reject, p2Reject, p3);
         JSPromise raceFromList = JSPromise.race(List.of(p1Reject, p2Reject, p3));
 
-        raceFromIterator.then(JSFunction.fromJavaConsumer((JSValue result) ->
+        raceFromIterator.then(JSFunction.fromCons((JSValue result) ->
                 assertEquals("Winner A", result.as(String.class))));
-        raceFromArray.then(JSFunction.fromJavaConsumer((JSValue result) ->
+        raceFromArray.then(JSFunction.fromCons((JSValue result) ->
                 assertEquals("Winner B", result.as(String.class))));
-        raceFromVarargs.then(JSFunction.fromJavaConsumer((JSValue result) ->
+        raceFromVarargs.then(JSFunction.fromCons((JSValue result) ->
                 assertEquals("Winner C", result.as(String.class))));
-        raceFromList.then(JSFunction.fromJavaConsumer((JSValue result) ->
+        raceFromList.then(JSFunction.fromCons((JSValue result) ->
                 assertEquals("Winner C", result.as(String.class))));
     }
 
@@ -177,15 +177,15 @@ public class JSPromiseTest {
         JSFunction resolve = JSValue.checkedCoerce(resolvedPair.get("resolve"), JSFunction.class);
         JSPromise resolvedPromise = JSValue.checkedCoerce(resolvedPair.get("promise"), JSPromise.class);
         resolvedPromise
-                .then(JSFunction.fromJavaConsumer((JSValue value) ->
+                .then(JSFunction.fromCons((JSValue value) ->
                         assertEquals("manual resolution", JSValue.checkedCoerce(value, String.class))))
-                .catch_(JSFunction.fromJavaConsumer((JSValue _) -> fail()));
+                .catch_(JSFunction.fromCons((JSValue _) -> fail()));
         JSObject rejectedPair = JSPromise.withResolvers();
         JSFunction reject = JSValue.checkedCoerce(rejectedPair.get("reject"), JSFunction.class);
         JSPromise rejectedPromise = JSValue.checkedCoerce(rejectedPair.get("promise"), JSPromise.class);
         rejectedPromise
-                .then(JSFunction.fromJavaConsumer((JSValue _) -> fail()))
-                .catch_(JSFunction.fromJavaConsumer((JSValue value) ->
+                .then(JSFunction.fromCons((JSValue _) -> fail()))
+                .catch_(JSFunction.fromCons((JSValue value) ->
                         assertEquals("manual rejection", JSValue.checkedCoerce(value, String.class))));
 
         resolve.invoke(JSString.of("manual resolution"));

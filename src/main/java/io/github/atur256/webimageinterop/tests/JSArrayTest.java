@@ -229,7 +229,7 @@ public class JSArrayTest {
         List<String> forEachOutput = new ArrayList<>();
         AtomicReference<List<String>> forEachOutputRef = new AtomicReference<>(forEachOutput);
 
-        BASE.forEach(JSFunction.fromJavaConsumer((JSString arg) -> forEachOutputRef.get().add(arg.asString())));
+        BASE.forEach(JSFunction.fromCons((JSString arg) -> forEachOutputRef.get().add(arg.asString())));
 
         assertEquals(List.of("a", "b", "c", "d", "e"), forEachOutputRef.get());
     }
@@ -273,10 +273,10 @@ public class JSArrayTest {
 
     public static void testSomeEvery() {
         JSArray numbers = JSArray.of(5, 10, 15, 20);
-        JSFunction containsD = JSFunction.fromJavaFunction((JSString arg) -> JSBoolean.of(arg.asString().equals("d")));
-        JSFunction containsX = JSFunction.fromJavaFunction((JSString arg) -> JSBoolean.of(arg.asString().equals("x")));
-        JSFunction divideBy5 = JSFunction.fromJavaFunction((JSNumber arg) -> JSBoolean.of(arg.asInt() % 5 == 0));
-        JSFunction divideBy2 = JSFunction.fromJavaFunction((JSNumber arg) -> JSBoolean.of(arg.asInt() % 2 == 0));
+        JSFunction containsD = JSFunction.fromFunc((JSString arg) -> JSBoolean.of(arg.asString().equals("d")));
+        JSFunction containsX = JSFunction.fromFunc((JSString arg) -> JSBoolean.of(arg.asString().equals("x")));
+        JSFunction divideBy5 = JSFunction.fromFunc((JSNumber arg) -> JSBoolean.of(arg.asInt() % 5 == 0));
+        JSFunction divideBy2 = JSFunction.fromFunc((JSNumber arg) -> JSBoolean.of(arg.asInt() % 2 == 0));
 
         boolean some1 = BASE.some(containsD);
         boolean some2 = BASE.some(containsX);
@@ -325,8 +325,8 @@ public class JSArrayTest {
 
     public static void testFilter() {
         JSArray filterTest = JSArray.of("apple", "banana", "cherry");
-        JSFunction startsWithB = JSFunction.fromJavaFunction((JSString str) -> JSBoolean.of(str.asString().startsWith("b")));
-        JSFunction alwaysFalse = JSFunction.fromJavaFunction((JSString _) -> JSBoolean.of(false));
+        JSFunction startsWithB = JSFunction.fromFunc((JSString str) -> JSBoolean.of(str.asString().startsWith("b")));
+        JSFunction alwaysFalse = JSFunction.fromFunc((JSString _) -> JSBoolean.of(false));
 
         JSArray filtered1 = filterTest.filter(startsWithB);
         JSArray filtered2 = MAP_UNDEFINED.filter(alwaysFalse);
