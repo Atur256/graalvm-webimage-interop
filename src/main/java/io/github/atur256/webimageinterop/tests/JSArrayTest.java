@@ -173,9 +173,9 @@ public class JSArrayTest {
 
     public static void testFill() {
         JSArray baseClone = JSArray.from(BASE);
-        JSArray filled = baseClone.fill("X", 1, 3);
-
         JSArray fillTestClone = JSArray.from(STRINGS);
+
+        JSArray filled = baseClone.fill("X", 1, 3);
         JSArray filledOutOfBounds = fillTestClone.fill("X", 5, 10);
 
         AssertArray.assertArray(baseClone, String.class, "a", "X", "X", "d", "e");
