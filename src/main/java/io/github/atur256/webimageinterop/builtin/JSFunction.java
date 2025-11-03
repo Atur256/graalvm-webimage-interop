@@ -166,6 +166,19 @@ public class JSFunction extends JSObject {
         return JSValue.checkedCoerce(callJS(arg1, arg2, arg3), cls);
     }
 
+    @JS.Coerce
+    @JS(value = "return this.call.apply(this, [thisArg, ...args]);")
+    public native <R> R callJSWithSpreadArgs(JSValue thisArg, JSArray args);
+
+    @SafeVarargs
+    public final <T, R> R callJSWithSpreadArgs(JSValue thisArg, T... args) {
+        JSArray jsArgs = new JSArray();
+        for(T arg : args) {
+            jsArgs.push(toJSValue(arg));
+        }
+        return callJSWithSpreadArgs(thisArg, jsArgs);
+    }
+
     @JS(value = "return this();")
     public native <R> R call();
 
@@ -178,76 +191,32 @@ public class JSFunction extends JSObject {
     @JS(value = "return this(arg1, arg2, arg3);")
     public native <T, S, Q, R> R call(T arg1, S arg2, Q arg3);
 
-
-//    @JS.Coerce
-//    @JS(value = "return this.apply(thisArg, argsJSArray);")
-//    public native <Q, R> R apply(Q thisArg, JSValue argsJSArray);
-//
-//    @JS.Coerce
-//    @JS(value = "return this.apply(thisArg, argsJSArray);")
-//    public native <Q> Object applyGeneral(Q thisArg, JSValue argsJSArray);
-//
-//    @SafeVarargs
-//    @JS.Coerce
-//    @JS(value = "return this.apply(thisArg, args);")
-//    public final native <Q, T, R> R apply(Q thisArg, T... args);
-//
-//    @SafeVarargs
-//    @JS(value = "return this.apply(thisArg, args);")
-//    public final native <Q, T> Object applyRaw(Q thisArg, T... args);
-//
-//    @JS(value = "return this.apply(thisArg, args);")
-//    public native <Q, T> Object applyJS(Q thisArg, T args);
-//
-//    @SuppressWarnings("unchecked")
-//    public <Q, T, R> R applyJS(Q thisArg, T args, Class<R> cls) {
-//        Object result = applyJS(thisArg, args);
-//        if(result instanceof JSValue jsResult) {
-//            return jsResult.as(cls);
-//        }
-//        return (R) result;
-//    }
-
     @JS.Coerce
-    @JS(value = "return this.apply(thisArg, args);")
-    public final native <Q, T> Object applyJS(Q thisArg, T args);
-
-    @SuppressWarnings("unchecked")
-    public <Q, T, R> R applyJS(Q thisArg, T args, Class<R> cls) {
-        Object result = applyJS(thisArg, args);
-        if(result instanceof JSValue jsResult) {
-            return jsResult.as(cls);
-        }
-        return (R) result;
-    }
+    @JS(value = "return this.apply(thisArg, argsJSArray);")
+    public native <Q> Object applyJSArray(Q thisArg, JSValue argsJSArray);
 
     @SafeVarargs
     @JS.Coerce
     @JS(value = "return this.apply(thisArg, args);")
     public final native <Q, T> Object applyJS(Q thisArg, T... args);
 
-    @SafeVarargs
-    public final <Q, T, R> R applyJS(Q thisArg, Class<R> cls, T... args) {
-        return JSValue.checkedCoerce(applyJS(thisArg, args), cls);
+    public final <Q, R> R applyJS(Q thisArg, Class<R> cls) {
+        return JSValue.checkedCoerce(applyJS(thisArg), cls);
     }
 
-    @JS(value = "return this.apply(thisArg, args);")
-    public native <Q, T, R> R apply(Q thisArg, T args);
+    @SafeVarargs
+    public final <Q, T, R> R applyJS(Q thisArg, Class<R> cls, T... args) {
+        Object result = applyJS(thisArg, args);
+        if(result instanceof JSValue jsValue) return jsValue.as(cls);
+        return JSValue.checkedCoerce(result, cls);
+    }
+
+    @JS(value = "return this.apply(thisArg, argsJSArray);")
+    public native <T, R> R applyArray(T thisArg, JSValue argsJSArray);
 
     @SafeVarargs
     @JS(value = "return this.apply(thisArg, args);")
     public final native <Q, T, R> R apply(Q thisArg, T... args);
-
-
-//    @JS.Coerce
-//    @JS(value = "return this.apply(thisArg, argsJSArray);")
-//    public native <Q> Object applyGeneral(Q thisArg, JSValue argsJSArray);
-
-
-//    @SafeVarargs
-//    @JS(value = "return this.apply(thisArg, args);")
-//    public final native <Q, T> Object applyRaw(Q thisArg, T... args);
-
 
     private JSValue toJSValue(Object arg) {
         if(arg instanceof Object[] array) {
@@ -290,19 +259,6 @@ public class JSFunction extends JSObject {
     }
 
     @JS.Coerce
-    @JS(value = "return this.call.apply(this, [thisArg, ...args]);")
-    public native <R> R callWithSpreadArgs(JSValue thisArg, JSArray args);
-
-    @SafeVarargs
-    public final <T, R> R callWithSpreadArgs(JSValue thisArg, T... args) {
-        JSArray jsArgs = new JSArray();
-        for(T arg : args) {
-            jsArgs.push(toJSValue(arg));
-        }
-        return callWithSpreadArgs(thisArg, jsArgs);
-    }
-
-    @JS.Coerce
     @JS(value = "return this.toString();")
     public native String toJSString();
 
@@ -310,114 +266,3 @@ public class JSFunction extends JSObject {
         return "<JavaScript<" + typeof() + "; " + toJSString() + ">";
     }
 }
-
-// ######## Tested
-
-//fromBody
-
-//fromArgs
-
-//fromFunc
-
-//callJS(arg)
-
-//callJS(arg1, arg2)
-
-//callJS(arg1, arg2, arg3)
-
-//call(arg)
-
-//call(arg1, arg2)
-
-//call(arg1, arg2, arg3)
-
-//fromBiFunc
-
-//fromJSBiFunc
-
-//fromJSFunc
-
-//fromTriFunc
-
-//fromJSTriFunc
-
-//fromRun
-
-//fromCons
-
-//fromJSCons
-
-//fromBiCons
-
-//fromJSBiCons
-
-//fromTriCons
-
-//fromJSTriCons
-
-//fromSupp
-
-
-// ######## Still missing from tests
-
-//length
-
-//name
-
-//prototype
-
-
-//fromThisFunc
-
-//fromThisJSFunc
-
-//fromFuncWithThis
-
-//fromJSFuncWithThis
-
-//fromBiFuncWithThis
-
-//romJSBiFuncWithThis
-
-//fromThisCons
-
-//fromThisJSCons
-
-//fromConsWithThis
-
-//fromJSConsWithThis
-
-//fromBiConsWithThis
-
-//fromJSBiConsWithThis
-
-
-//call()
-
-
-//all
-
-//applyGeneral
-
-//apply(thisArg, argsJSArray)
-
-//apply(thisArg, ... args)
-
-//applyRaw
-
-//applyJS(thisArg, args)
-
-//applyJS(thisArg, args, cls)
-
-//bind
-
-//bind
-
-//callWithSpreadArgs
-
-//callWithSpreadArgs
-
-//toJSString
-
-//toString
-
