@@ -52,13 +52,43 @@ public class JSArray extends JSObject {
     @JS(value = "return Array.isArray(value);")
     public static native boolean isArray(JSValue value);
 
-    public static JSArray of(Object... values) {
-        JSArray jsArray = new JSArray();
-        for(Object value : values) {
-            jsArray.push(toJSValue(value));
+    public static JSArray of(Object... values) { // TODO: replace all toJSValue with coerce from JSFUnction
+//        JSArray jsArray = new JSArray();
+//        for(Object value : values) {
+//            jsArray.push(toJSValue(value));
+//        }
+//        return from(jsArray);
+
+        JSArray argsArray = JSArray.of();
+        for(Object arg : values) {
+            argsArray.push(coerce(arg));
         }
-        return from(jsArray);
+        return from(argsArray);
     }
+
+    @JS.Coerce
+    @JS(value = "return Array.of();")
+    public static native JSArray of();
+
+//    private static JSArray coerceJSArray(Object... args) {
+//        JSArray argsArray = JSArray.of();
+//        for(Object arg : args) {
+//            argsArray.push(coerce(arg));
+//        }
+//        return argsArray;
+//    }
+//
+//    private static Object[] coerceArray(Object... args) {
+//        Object[] argsArray = new Object[args.length];
+//        for(int i = 0; i < args.length; i++) {
+//            argsArray[i] = coerce(args[i]);
+//        }
+//        return argsArray;
+//    }
+
+    @JS.Coerce
+    @JS("return arg;")
+    private static native Object coerce(Object arg);
 
     @JS.Coerce
     @JS(value = "return this.at(index);")
@@ -80,6 +110,7 @@ public class JSArray extends JSObject {
         return concat(jsArrays);
     }
 
+    // TODO: chnage tho coroce from JSFUnction
     private static JSArray convertToJSArray(Object arrayLike) {
         if(arrayLike instanceof JSArray jsArray) return jsArray;
 
@@ -100,6 +131,7 @@ public class JSArray extends JSObject {
         return JSArray.of(toJSValue(arrayLike)); // fallback: wrap single object
     }
 
+    // TODO: chnage tho coroce from JSFUnction
     private static JSValue toJSValue(Object arg) {
         switch(arg) {
             case null -> {

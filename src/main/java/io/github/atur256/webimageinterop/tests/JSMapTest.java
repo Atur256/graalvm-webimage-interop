@@ -141,7 +141,7 @@ public class JSMapTest {
         JSArray jsArray = JSArray.of(fruits.toArray());
         JSIterator iterator = JSIterator.from(jsArray);
         JSFunction callback1 = JSFunction.fromFunc((JSString item) -> JSString.of(item.asString().substring(0, 1)));
-        JSFunction callback2 = JSFunction.fromJSFunc((JSString item) -> JSString.of(item.as(String.class).substring(0, 1)));
+        JSFunction callback2 = JSFunction.fromFunc((JSString item) -> JSString.of(item.as(String.class).substring(0, 1)));
 
         JSMap groupedFromIterator = JSMap.groupBy(iterator, callback1);
         JSMap groupedFromArray = JSMap.groupBy(jsArray, callback1);

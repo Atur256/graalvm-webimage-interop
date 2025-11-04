@@ -35,9 +35,6 @@ public class JSFunctionTest {
         testConsWithThis();
         testBiConsWithThis();
         testCall();
-        testCallJS();
-        testCallWithSpreadArgs();
-        testApply();
         testBind();
         testMetadata();
     }
@@ -45,7 +42,7 @@ public class JSFunctionTest {
     public static void testFromBody() {
         JSFunction fun = JSFunction.fromBody("return 'Hello ' + arg;");
 
-        String result = fun.callJS("Alice", String.class);
+        String result = fun.invokeJS(String.class, "Alice");
 
         assertEquals("Hello Alice", result);
     }
@@ -53,7 +50,7 @@ public class JSFunctionTest {
     public static void testFromArgs() {
         JSFunction fun = JSFunction.fromArgs("a", "b", "return a + b;");
 
-        int result = fun.applyJS(null, Integer.class, JSNumber.of(5), JSNumber.of(7));
+        int result = fun.invokeJS(Integer.class, JSNumber.of(5), JSNumber.of(7));
 
         assertEquals(12, result);
     }
@@ -66,10 +63,10 @@ public class JSFunctionTest {
         JSFunction fun5 = JSFunction.fromFunc((Long arg) -> arg / 10);
         JSFunction fun6 = JSFunction.fromFunc((CustomClass arg) ->
                 new CustomClass("Hello " + arg.name() + "!"));
-        JSFunction fun7 = JSFunction.fromJSFunc((JSString arg) -> JSString.of("Hello, " + arg.asString()));
-        JSFunction fun8 = JSFunction.fromJSFunc((JSNumber arg) -> JSNumber.of(arg.asInt() * 10));
-        JSFunction fun9 = JSFunction.fromJSFunc((JSBoolean arg) -> JSBoolean.of(!arg.asBoolean()));
-        JSFunction fun10 = JSFunction.fromJSFunc((JSObject raw) -> {
+        JSFunction fun7 = JSFunction.fromFunc((JSString arg) -> JSString.of("Hello, " + arg.asString()));
+        JSFunction fun8 = JSFunction.fromFunc((JSNumber arg) -> JSNumber.of(arg.asInt() * 10));
+        JSFunction fun9 = JSFunction.fromFunc((JSBoolean arg) -> JSBoolean.of(!arg.asBoolean()));
+        JSFunction fun10 = JSFunction.fromFunc((JSObject raw) -> {
             JSArray arg = JSValue.checkedCoerce(raw, JSArray.class);
             int sum = 0;
             for(int i = 0; i < arg.length; i++) {
@@ -78,16 +75,16 @@ public class JSFunctionTest {
             return JSNumber.of(sum);
         });
 
-        String result1 = fun1.call("Alice");
-        int result2 = fun2.call(42);
-        double result3 = fun3.call(3.5);
-        boolean result4 = fun4.call(true);
-        long result5 = fun5.call(1234567890123L);
-        CustomClass result6 = fun6.call(new CustomClass("Alice"));
-        String result7 = fun7.callJS(JSString.of("Alice"), String.class);
-        int result8 = fun8.callJS(JSNumber.of(42), Integer.class);
-        boolean result9 = fun9.callJS(JSBoolean.of(true), Boolean.class);
-        int result10 = fun10.callJS(JSArray.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), Integer.class);
+        String result1 = fun1.invoke(String.class, "Alice");
+        int result2 = fun2.invoke(Integer.class, 42);
+        double result3 = fun3.invoke(Double.class, 3.5);
+        boolean result4 = fun4.invoke(Boolean.class, true);
+        long result5 = fun5.invoke(Long.class, 1234567890123L);
+        CustomClass result6 = fun6.invoke(CustomClass.class, new CustomClass("Alice"));
+        String result7 = fun7.invokeJS(String.class, JSString.of("Alice"));
+        int result8 = fun8.invokeJS(Integer.class, JSNumber.of(42));
+        boolean result9 = fun9.invokeJS(Boolean.class, JSBoolean.of(true));
+        int result10 = fun10.invokeJS(Integer.class, JSArray.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
 
         assertEquals("Hello, Alice", result1);
         assertEquals(420, result2);
@@ -105,12 +102,12 @@ public class JSFunctionTest {
         JSFunction fun1 = JSFunction.fromBiFunc((String name, Integer age) ->
                 "Name: " + name + ", Age: " + age);
         JSFunction fun2 = JSFunction.fromBiFunc((Double x, Double y) -> x * y);
-        JSFunction fun3 = JSFunction.fromJSBiFunc((JSString name, JSNumber age) ->
+        JSFunction fun3 = JSFunction.fromBiFunc((JSString name, JSNumber age) ->
                 JSString.of(name.as(String.class) + " is " + age.as(Integer.class) + " years old."));
 
-        String result1 = fun1.call("Bob", 30);
-        double result2 = fun2.call(6.0, 7.0);
-        String result3 = fun3.callJS(JSString.of("Alice"), JSNumber.of(25), String.class);
+        String result1 = fun1.invoke(String.class, "Bob", 30);
+        double result2 = fun2.invoke(Double.class, 6.0, 7.0);
+        String result3 = fun3.invokeJS(String.class, JSString.of("Alice"), JSNumber.of(25));
 
         assertEquals("Name: Bob, Age: 30", result1);
         assertEquals(42.0, result2, 0.0);
@@ -120,14 +117,14 @@ public class JSFunctionTest {
     public static void testTriFunction() {
         JSFunction fun1 = JSFunction.fromTriFunc((String name, Integer age, Boolean vip) ->
                 "Name: " + name + ", Age: " + age + ", VIP:" + (vip ? " Yes" : " No"));
-        JSFunction fun2 = JSFunction.fromJSTriFunc((JSString name, JSNumber age, JSBoolean vip) -> {
+        JSFunction fun2 = JSFunction.fromTriFunc((JSString name, JSNumber age, JSBoolean vip) -> {
             String result = name.as(String.class) + " (" + age.as(Integer.class) + ")";
             if(vip.as(Boolean.class)) result += " [VIP]";
             return JSString.of(result);
         });
 
-        String result1 = fun1.call("Charlie", 28, true);
-        String result2 = fun2.callJS(JSString.of("Dana"), JSNumber.of(35), JSBoolean.of(true), String.class);
+        String result1 = fun1.invoke(String.class, "Charlie", 28, true);
+        String result2 = fun2.invokeJS(String.class, JSString.of("Dana"), JSNumber.of(35), JSBoolean.of(true));
 
         assertEquals("Name: Charlie, Age: 28, VIP: Yes", result1);
         assertEquals("Dana (35) [VIP]", result2);
@@ -149,19 +146,19 @@ public class JSFunctionTest {
         JSFunction con3 = JSFunction.fromCons(captured3::set);
         JSFunction con4 = JSFunction.fromCons(captured4::set);
         JSFunction con5 = JSFunction.fromCons(captured5::set);
-        JSFunction con6 = JSFunction.fromJSCons(captured6::set);
-        JSFunction con7 = JSFunction.fromJSCons(captured7::set);
-        JSFunction con8 = JSFunction.fromJSCons(captured8::set);
+        JSFunction con6 = JSFunction.fromCons(captured6::set);
+        JSFunction con7 = JSFunction.fromCons(captured7::set);
+        JSFunction con8 = JSFunction.fromCons(captured8::set);
 
-        runner.call();
-        con1.call("Hello");
-        con2.call(42);
-        con3.call(3.14);
-        con4.call(true);
-        con5.call(new CustomClass("Alice"));
-        con6.callJS(JSString.of("Hello"));
-        con7.callJS(JSNumber.of(42));
-        con8.callJS(JSBoolean.of(false));
+        runner.invoke();
+        con1.invoke("Hello");
+        con2.invoke(42);
+        con3.invoke(3.14);
+        con4.invoke(true);
+        con5.invoke(new CustomClass("Alice"));
+        con6.invokeJS(JSString.of("Hello"));
+        con7.invokeJS(JSNumber.of(42));
+        con8.invokeJS(JSBoolean.of(false));
 
         assertEquals(0, latch.getCount());
         assertEquals("Hello", captured1.get());
@@ -187,19 +184,19 @@ public class JSFunctionTest {
                 captured2.set(Pair.of(label, value)));
         JSFunction con3 = JSFunction.fromBiCons((CustomClass a, CustomClass b) ->
                 captured3.set(Pair.of(a, b)));
-        JSFunction con4 = JSFunction.fromJSBiCons((JSString a, JSString b) ->
+        JSFunction con4 = JSFunction.fromBiCons((JSString a, JSString b) ->
                 captured4.set(Pair.of(a, b)));
-        JSFunction con5 = JSFunction.fromJSBiCons((JSString label, JSNumber value) ->
+        JSFunction con5 = JSFunction.fromBiCons((JSString label, JSNumber value) ->
                 captured5.set(Pair.of(label, value)));
-        JSFunction con6 = JSFunction.fromJSBiCons((JSString label, JSBoolean value) ->
+        JSFunction con6 = JSFunction.fromBiCons((JSString label, JSBoolean value) ->
                 captured6.set(Pair.of(label, value)));
 
-        con1.call("Hello", "World");
-        con2.call("Age", 30);
-        con3.call(new CustomClass("Alice"), new CustomClass("Bob"));
-        con4.callJS(JSString.of("Hello"), JSString.of("World"));
-        con5.callJS(JSString.of("Age"), JSNumber.of(30));
-        con6.callJS(JSString.of("VIP"), JSBoolean.of(true));
+        con1.invoke("Hello", "World");
+        con2.invoke("Age", 30);
+        con3.invoke(new CustomClass("Alice"), new CustomClass("Bob"));
+        con4.invokeJS(JSString.of("Hello"), JSString.of("World"));
+        con5.invokeJS(JSString.of("Age"), JSNumber.of(30));
+        con6.invokeJS(JSString.of("VIP"), JSBoolean.of(true));
 
         assertPair(captured1.get(), "Hello", "World");
         assertPair(captured2.get(), "Age", 30);
@@ -221,16 +218,16 @@ public class JSFunctionTest {
                 captured2.set(Triple.of(label, value1, value2)));
         JSFunction con3 = JSFunction.fromTriCons((CustomClass a, CustomClass b, CustomClass c) ->
                 captured3.set(Triple.of(a, b, c)));
-        JSFunction con4 = JSFunction.fromJSTriCons((JSString a, JSString b, JSString c) ->
+        JSFunction con4 = JSFunction.fromTriCons((JSString a, JSString b, JSString c) ->
                 captured4.set(Triple.of(a, b, c)));
-        JSFunction con5 = JSFunction.fromJSTriCons((JSString label, JSNumber value1, JSBoolean value2) ->
+        JSFunction con5 = JSFunction.fromTriCons((JSString label, JSNumber value1, JSBoolean value2) ->
                 captured5.set(Triple.of(label, value1, value2)));
 
-        con1.call("Hello", "World", "!");
-        con2.call("Age and Height", 30, 186.35);
-        con3.call(new CustomClass("Alice"), new CustomClass("Bob"), new CustomClass("Anna"));
-        con4.callJS(JSString.of("Hello"), JSString.of("World"), JSString.of("!"));
-        con5.callJS(JSString.of("Age and VIP status"), JSNumber.of(186.35), JSBoolean.of(true));
+        con1.invoke("Hello", "World", "!");
+        con2.invoke("Age and Height", 30, 186.35);
+        con3.invoke(new CustomClass("Alice"), new CustomClass("Bob"), new CustomClass("Anna"));
+        con4.invokeJS(JSString.of("Hello"), JSString.of("World"), JSString.of("!"));
+        con5.invokeJS(JSString.of("Age and VIP status"), JSNumber.of(186.35), JSBoolean.of(true));
 
         assertTriple(captured1.get(), "Hello", "World", "!");
         assertTriple(captured2.get(), "Age and Height", 30, 186.35);
@@ -248,11 +245,11 @@ public class JSFunctionTest {
         JSFunction sup4 = JSFunction.fromSupp(() -> true);
         JSFunction sup5 = JSFunction.fromSupp(() -> new CustomClass("Alice"));
 
-        String result1 = sup1.call();
-        int result2 = sup2.call();
-        double result3 = sup3.call();
-        boolean result4 = sup4.call();
-        CustomClass result5 = sup5.call();
+        String result1 = sup1.invoke(String.class);
+        int result2 = sup2.invoke(Integer.class);
+        double result3 = sup3.invoke(Double.class);
+        boolean result4 = sup4.invoke(Boolean.class);
+        CustomClass result5 = sup5.invoke(CustomClass.class);
 
         assertEquals("Supplied string", result1);
         assertEquals(42, result2);
@@ -266,11 +263,11 @@ public class JSFunctionTest {
         TestJSObject testJSObject = new TestJSObject(1234);
         JSFunction fun1 = JSFunction.fromThisFunc((Object this_) ->
                 "Value of this_.value: " + ((TestObject) this_).value);
-        JSFunction fun2 = JSFunction.fromThisJSFunc((JSObject this_) ->
+        JSFunction fun2 = JSFunction.fromThisFunc((JSObject this_) ->
                 JSString.of("Value of this_.value: " + JSValue.checkedCoerce(this_.get("value"), Integer.class)));
 
-        String result1 = fun1.apply(testObject);
-        String result2 = fun2.applyJS(testJSObject, String.class);
+        String result1 = fun1.call(String.class, testObject);
+        String result2 = fun2.callJS(String.class, testJSObject);
 
         assertEquals("Value of this_.value: 1234", result1);
         assertEquals("Value of this_.value: 1234", result2);
@@ -281,12 +278,12 @@ public class JSFunctionTest {
         TestJSObject testJSObject = new TestJSObject(25);
         JSFunction fun1 = JSFunction.fromFuncWithThis((Object this_, Integer arg) ->
                 "Value of this_.value * arg: " + ((TestObject) this_).value * arg);
-        JSFunction fun2 = JSFunction.fromJSFuncWithThis((JSObject this_, JSNumber arg) ->
+        JSFunction fun2 = JSFunction.fromFuncWithThis((JSObject this_, JSNumber arg) ->
                 JSString.of("Value of this_.value * arg: " +
                         JSValue.checkedCoerce(this_.get("value"), Integer.class) * arg.asInt()));
 
-        String result1 = fun1.apply(testObject, 5);
-        String result2 = fun2.applyJS(testJSObject, String.class, JSNumber.of(5));
+        String result1 = fun1.call(String.class, testObject, 5);
+        String result2 = fun2.callJS(String.class, testJSObject, JSNumber.of(5));
 
         assertEquals("Value of this_.value * arg: 210", result1);
         assertEquals("Value of this_.value * arg: 125", result2);
@@ -298,12 +295,12 @@ public class JSFunctionTest {
         TestJSObject testJSObject = new TestJSObject(25);
         JSFunction fun1 = JSFunction.fromBiFuncWithThis((Object this_, Integer arg1, Integer arg2) ->
                 "Value of this_.value * arg1 + arg2: " + (((TestObject) this_).value * arg1 + arg2));
-        JSFunction fun2 = JSFunction.fromJSBiFuncWithThis((JSObject this_, JSNumber arg1, JSNumber arg2) ->
+        JSFunction fun2 = JSFunction.fromBiFuncWithThis((JSObject this_, JSNumber arg1, JSNumber arg2) ->
                 JSString.of("Value of this_.value * arg1 + arg2: " +
                         ((JSValue.checkedCoerce(this_.get("value"), Integer.class)) * arg1.asInt() + arg2.asInt())));
 
-        String result1 = fun1.apply(testObject, 5, 5);
-        String result2 = fun2.applyJS(testJSObject, String.class, JSNumber.of(5), JSNumber.of(10));
+        String result1 = fun1.call(String.class, testObject, 5, 5);
+        String result2 = fun2.callJS(String.class, testJSObject, JSNumber.of(5), JSNumber.of(10));
 
         assertEquals("Value of this_.value * arg1 + arg2: 215", result1);
         assertEquals("Value of this_.value * arg1 + arg2: 135", result2);
@@ -316,11 +313,11 @@ public class JSFunctionTest {
         TestJSObject testJSObject = new TestJSObject(10);
         JSFunction fun1 = JSFunction.fromThisCons((Object this_) ->
                 captured1.set(((TestObject) this_).value));
-        JSFunction fun2 = JSFunction.fromThisJSCons((JSObject this_) ->
+        JSFunction fun2 = JSFunction.fromThisCons((JSObject this_) ->
                 captured2.set(JSValue.checkedCoerce(this_.get("value"), Integer.class)));
 
-        fun1.apply(testObject);
-        fun2.applyJS(testJSObject);
+        fun1.call(testObject);
+        fun2.callJS(testJSObject);
 
         assertEquals(Integer.valueOf(1234), captured1.get());
         assertEquals(Integer.valueOf(10), captured2.get());
@@ -333,11 +330,11 @@ public class JSFunctionTest {
         TestJSObject testJSObject = new TestJSObject(25);
         JSFunction fun1 = JSFunction.fromConsWithThis((Object this_, Integer arg) ->
                 captured1.set(Pair.of(this_, arg)));
-        JSFunction fun2 = JSFunction.fromJSConsWithThis((JSObject this_, JSNumber arg) ->
+        JSFunction fun2 = JSFunction.fromConsWithThis((JSObject this_, JSNumber arg) ->
                 captured2.set(Pair.of(this_, arg)));
 
-        fun1.apply(testObject, 5);
-        fun2.applyJS(testJSObject, JSNumber.of(10));
+        fun1.call(testObject, 5);
+        fun2.callJS(testJSObject, JSNumber.of(10));
 
         assertPair(captured1.get(), testObject, 5);
         assertPair(captured2.get(), testJSObject, JSNumber.of(10));
@@ -350,131 +347,60 @@ public class JSFunctionTest {
         TestJSObject testJSObject = new TestJSObject(25);
         JSFunction fun1 = JSFunction.fromBiConsWithThis((Object this_, Integer arg1, Integer arg2) ->
                 captured1.set(Triple.of(this_, arg1, arg2)));
-        JSFunction fun2 = JSFunction.fromJSBiConsWithThis((JSObject this_, JSNumber arg1, JSNumber arg2) ->
+        JSFunction fun2 = JSFunction.fromBiConsWithThis((JSObject this_, JSNumber arg1, JSNumber arg2) ->
                 captured2.set(Triple.of(this_, arg1, arg2)));
 
-        fun1.apply(testObject, 5, 5);
-        fun2.applyJS(testJSObject, JSNumber.of(5), JSNumber.of(10));
+        fun1.call(testObject, 5, 5);
+        fun2.callJS(testJSObject, JSNumber.of(5), JSNumber.of(10));
 
         assertTriple(captured1.get(), testObject, 5, 5);
         assertTriple(captured2.get(), testJSObject, JSNumber.of(5), JSNumber.of(10));
     }
 
     public static void testCall() {
-        JSValue jsValue = JSString.of("JSValue string");
-        JSFunction fun1 = JSFunction.fromFunc(arg ->
-                arg == null ? "null: null" : arg.getClass().getSimpleName() + ": " + arg);
-        JSFunction fun2 = JSFunction.fromSupp(() -> "No args called");
-        JSFunction fun3 = JSFunction.fromBiFunc((String prefix, Object arg) ->
-                arg == null ? "null: null" : prefix + arg.getClass().getSimpleName() + ": " + arg);
+        TestObject testObject = new TestObject(42);
+        TestJSObject testJSObject = new TestJSObject(25);
+        JSFunction fun1 = JSFunction.fromThisFunc((Object this_) ->
+                "Value of this_.value: " + ((TestObject) this_).value);
+        JSFunction fun2 = JSFunction.fromThisFunc((JSObject this_) ->
+                JSNumber.of(JSValue.checkedCoerce(this_.get("value"), Integer.class)));
+        JSFunction fun3 = JSFunction.fromFuncWithThis((Object this_, Integer arg) ->
+                ((TestObject) this_).value > arg);
+        JSFunction fun4 = JSFunction.fromFuncWithThis((JSObject this_, JSNumber arg) ->
+                JSString.of("Value of this_.value * arg: " +
+                        JSValue.checkedCoerce(this_.get("value"), Integer.class) * arg.asInt()));
+        JSFunction fun5 = JSFunction.fromBiFuncWithThis((Object this_, Integer arg1, Integer arg2) ->
+                (((TestObject) this_).value * arg1 + arg2));
+        JSFunction fun6 = JSFunction.fromBiFuncWithThis((JSObject this_, JSNumber arg1, JSNumber arg2) ->
+                JSBoolean.of(JSValue.checkedCoerce(this_.get("value"), Integer.class) > (arg1.asInt() * arg2.asInt())));
 
-        String result1 = fun1.call("Java string");
-        String result2 = fun1.call(42);
-        String result3 = fun1.call(3.14);
-        String result4 = fun1.call(true);
-        String result5 = fun1.call(null);
-        String result6 = fun1.call(new CustomClass("Alice"));
-        String result7 = fun1.call(jsValue);
-        String result8 = fun2.call();
-        String result9 = fun3.call("Prefix: ", "Java string");
+        String result1 = fun1.call(String.class, testObject);
+        int result2 = fun2.callJS(Integer.class, testJSObject);
+        boolean result3 = fun3.call(Boolean.class, testObject, 10);
+        String result4 = fun4.callJS(String.class, testJSObject, 5);
+        int result5 = fun5.call(Integer.class, testObject, 10, 2);
+        boolean result6 = fun6.callJS(Boolean.class, testJSObject, 5, 6);
 
-        assertEquals("String: Java string", result1);
-        assertEquals("Integer: 42", result2);
-        assertEquals("Double: 3.14", result3);
-        assertEquals("Boolean: true", result4);
-        assertEquals("null: null", result5);
-        assertEquals("CustomClass: CustomClass(Alice)", result6);
-        assertEquals("JSString: JavaScript<string; JSValue string>", result7);
-        assertEquals("No args called", result8);
-        assertEquals("Prefix: String: Java string", result9);
-    }
-
-    public static void testCallJS() {
-        JSFunction fun1 = JSFunction.fromBody("return typeof arg + ': ' + arg;");
-        JSFunction fun2 = JSFunction.fromBody("return arg + 2;");
-        JSFunction fun3 = JSFunction.fromBody("return !arg;");
-        JSFunction fun4 = JSFunction.fromBody("return \"No args called\";");
-        JSValue jsStr = JSString.of("JSValue string");
-
-        String result1 = fun1.callJS("Hello", String.class);
-        int result2 = fun2.callJS(42, Integer.class);
-        double result3 = fun2.callJS(3.14, Double.class);
-        boolean result4 = fun3.callJS(true, Boolean.class);
-        String result5 = fun4.callJS(String.class);
-        String result6 = fun1.callJS(jsStr, String.class);
-
-        assertEquals("string: Hello", result1);
-        assertEquals(44, result2);
-        assertEquals(5.14, result3, 0.001);
-        assertFalse(result4);
-        assertEquals("No args called", result5);
-        assertEquals("string: JSValue string", result6);
-    }
-
-    public static void testCallWithSpreadArgs() {
-        JSArray args = JSArray.of(6, 7);
-        JSFunction fun1 = JSFunction.fromArgs("a", "b", "return a * b;");
-        JSFunction fun2 = JSFunction.fromArgs("a", "b", "return a + ' - ' + b;");
-        JSFunction fun3 = JSFunction.fromBiFunc((JSString prefix, JSString message) ->
-                prefix.as(String.class) + " - " + message.as(String.class));
-
-        int result1 = JSValue.checkedCoerce(fun1.callJSWithSpreadArgs(JSValue.undefined(), args), Integer.class);
-        String result2 = JSValue.checkedCoerce(
-                fun2.callJSWithSpreadArgs(JSValue.undefined(), "Hello", "World"), String.class);
-        String result3 = fun3.callJSWithSpreadArgs(JSValue.undefined(), "Hello", "World");
-
-        assertEquals(42, result1);
-        assertEquals("Hello - World", result2);
-        assertEquals("Hello - World", result3);
-    }
-
-    public static void testApply() {
-        JSArray args1 = JSArray.of("String", 3.14, true);
-        TestObject testObject = new TestObject(5);
-        TestJSObject testJSObject = new TestJSObject(10);
-        JSFunction fun1 = JSFunction.fromBiFuncWithThis((Object this_, String a, Double b) ->
-                ((TestObject) this_).value + " | " + a + " | " + b);
-        JSFunction fun2 = JSFunction.fromArgs("a", "b", "c", "return a + ' | ' + b + ' | ' + c;");
-        JSFunction fun3 = JSFunction.fromJSBiFuncWithThis((JSObject this_, JSString a, JSNumber b) ->
-                JSString.of(this_.as(TestJSObject.class).value + " | " + a.asString() + " | " + b.asDouble()));
-        JSFunction fun4 = JSFunction.fromThisJSFunc((JSObject this_) ->
-                JSString.of("Value of this_.value: " + this_.as(TestJSObject.class).value));
-
-        String result1 = JSValue.checkedCoerce(fun1.apply(testObject, "String", 1.23), String.class);
-        String result2 = JSValue.checkedCoerce(fun2.applyArray(testObject, args1), String.class);
-        String result3 = JSValue.checkedCoerce(
-                fun3.applyJS(testJSObject, JSString.of("String"), JSNumber.of(1.23)), String.class);
-        String result4 = fun4.applyJS(testJSObject, String.class);
-        String result5 = fun3.applyJS(testJSObject, String.class, JSString.of("String"), JSNumber.of(1.23));
-        String result6 = JSValue.checkedCoerce(fun2.applyJSArray(testJSObject, args1), String.class);
-
-        assertEquals("5 | String | 1.23", result1);
-        assertEquals("String | 3.14 | true", result2);
-        assertEquals("10 | String | 1.23", result3);
-        assertEquals("Value of this_.value: 10", result4);
-        assertEquals("10 | String | 1.23", result5);
-        assertEquals("String | 3.14 | true", result6);
+        assertEquals("Value of this_.value: 42", result1);
+        assertEquals(25, result2);
+        assertTrue(result3);
+        assertEquals("Value of this_.value * arg: 125", result4);
+        assertEquals(422, result5);
+        assertFalse(result6);
     }
 
     public static void testBind() {
-        JSObject context = JSObject.create();
-        context.set("prefix", JSString.of("Hello "));
-        JSFunction fun1 = JSFunction.fromArgs("name", "return this + name;");
-        JSFunction fun2 = JSFunction.fromArgs("name", "return this.prefix + name;");
+        CustomClass obj = new CustomClass("Alice");
+        JSFunction fun1 = JSFunction.fromFuncWithThis((CustomClass self, Boolean value) ->
+                (self.name() + " is VIP: " + value));
+        JSFunction fun2 = JSFunction.fromFuncWithThis((JSString self, JSString value) ->
+                JSString.of(self.asString() + value.asString()));
 
-        String result1 = fun1.bind(JSString.of("JSValue: ")).callJS("Alice", String.class);
-        String result2 = fun1.bind(123).callJS("Bob", String.class);
-        String result3 = fun1.bind(3.14).callJS("Charlie", String.class);
-        String result4 = fun1.bind(true).callJS("Dana", String.class);
-        String result5 = fun1.bind("Custom: ").callJS("Eve", String.class);
-        String result6 = fun2.bind(context).callJS("Frank", String.class);
+        String result1 = fun1.bind(obj).invoke(String.class, false);
+        String result2 = fun2.bindJS(JSString.of("Hello ")).invokeJS(String.class,JSString.of("Alice"));
 
-        assertEquals("JSValue: Alice", result1);
-        assertEquals("123Bob", result2);
-        assertEquals("3.14Charlie", result3);
-        assertEquals("trueDana", result4);
-        assertEquals("Custom: Eve", result5);
-        assertEquals("Hello Frank", result6);
+       assertEquals("Alice is VIP: false", result1);
+       assertEquals("Hello Alice", result2);
     }
 
     public static void testMetadata() {
@@ -498,8 +424,8 @@ public class JSFunctionTest {
                 ) {
                 return x + y + z;
                 }>""", result5);
-        assertEquals("<JavaScript<function; function(args) { return javaFunc.apply(args); }>", result6);
-        assertEquals("function(args) { return javaFunc.apply(args); }", result7);
+        assertEquals("<JavaScript<function; function(args) { return javaFunc(args); }>", result6);
+        assertEquals("function(args) { return javaFunc(args); }", result7);
     }
 
     private static <A, B> void assertPair(Pair<A, B> pair, A value1, B value2) {

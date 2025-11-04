@@ -2,7 +2,6 @@ package io.github.atur256.webimageinterop.builtin;
 
 import org.graalvm.webimage.api.*;
 
-import java.lang.Boolean;
 import java.lang.String;
 import java.util.function.*;
 import java.lang.Object;
@@ -20,246 +19,134 @@ public class JSFunction extends JSObject {
     // === Factory Methods ===
 
     @JS.Coerce
-    @JS(value = "return new Function('arg', body);")
+    @JS("return new Function('arg', body);")
     public static native JSFunction fromBody(String body);
 
     @JS.Coerce
-    @JS(value = "return Function.apply(null, args);")
+    @JS("return new Function(...Array.from(args));")
     public static native JSFunction fromArgs(String... args);
 
     @JS.Coerce
-    @JS(value = "return function(args) { return javaFunc.apply(args); }")
+    @JS("return function(args) { return javaFunc(args); }")
     public static native <T, R> JSFunction fromFunc(Function<T, R> javaFunc);
 
     @JS.Coerce
-    @JS(value = "return function(args) { return javaFunc.apply(args); }")
-    public static native <T extends JSValue, R extends JSValue> JSFunction fromJSFunc(Function<T, R> javaFunc);
-
-    @JS.Coerce
-    @JS(value = "return function(a, b) { return javaBiFunc.apply(a, b); }")
+    @JS("return function(a, b) { return javaBiFunc(a, b); }")
     public static native <A, B, R> JSFunction fromBiFunc(BiFunction<A, B, R> javaBiFunc);
 
     @JS.Coerce
-    @JS(value = "return function(a, b) { return javaBiFunc.apply(a, b); }")
-    public static native <A extends JSValue, B extends JSValue, R extends JSValue> JSFunction fromJSBiFunc(BiFunction<A, B, R> javaBiFunc);
-
-    @JS.Coerce
-    @JS(value = "return function(a, b, c) { return javaTriFunction.apply(a,b, c); }")
+    @JS("return function(a, b, c) { return javaTriFunction(a,b, c); }")
     public static native <A, B, C, R> JSFunction fromTriFunc(TriFunction<A, B, C, R> javaTriFunction);
 
     @JS.Coerce
-    @JS(value = "return function(a, b, c) { return javaTriFunction.apply(a, b, c); }")
-    public static native <A extends JSValue, B extends JSValue, C extends JSValue, R extends JSValue> JSFunction fromJSTriFunc(TriFunction<A, B, C, R> javaTriFunction);
-
-    @JS.Coerce
-    @JS(value = "return function() { javaRunnable.run(); }")
+    @JS("return function() { javaRunnable(); }")
     public static native JSFunction fromRun(Runnable javaRunnable);
 
     @JS.Coerce
-    @JS(value = "return function(arg) { javaConsumer.accept(arg); }")
+    @JS("return function(arg) { javaConsumer(arg); }")
     public static native <T> JSFunction fromCons(Consumer<T> javaConsumer);
 
     @JS.Coerce
-    @JS(value = "return function(arg) { javaConsumer.accept(arg); }")
-    public static native <T extends JSValue> JSFunction fromJSCons(Consumer<T> javaConsumer);
-
-    @JS.Coerce
-    @JS(value = "return function(a, b) { javaBiConsumer.accept(a, b); }")
+    @JS("return function(a, b) { javaBiConsumer(a, b); }")
     public static native <A, B> JSFunction fromBiCons(BiConsumer<A, B> javaBiConsumer);
 
     @JS.Coerce
-    @JS(value = "return function(a, b) { javaBiConsumer.accept(a, b); }")
-    public static native <A extends JSValue, B extends JSValue> JSFunction fromJSBiCons(BiConsumer<A, B> javaBiConsumer);
-
-    @JS.Coerce
-    @JS(value = "return function(a, b, c) { javaTriConsumer.accept(a, b, c); }")
+    @JS("return function(a, b, c) { javaTriConsumer(a, b, c); }")
     public static native <A, B, C> JSFunction fromTriCons(TriConsumer<A, B, C> javaTriConsumer);
 
     @JS.Coerce
-    @JS(value = "return function(a, b, c) { javaTriConsumer.accept(a, b, c)}")
-    public static native <A extends JSValue, B extends JSValue, C extends JSValue> JSFunction fromJSTriCons(TriConsumer<A, B, C> javaTriConsumer);
-
-    @JS.Coerce
-    @JS(value = "return function() { return javaSupplier.get(); }")
-    public static native <T> JSFunction fromSupp(Supplier<T> javaSupplier);
+    @JS("return function() { return javaSupplier(); }")
+    public static native <A> JSFunction fromSupp(Supplier<A> javaSupplier);
 
     // === WithThis Variants ===
 
     @JS.Coerce
-    @JS(value = "return function(arg) { return javaFunction.apply(this); }")
-    public static native <R> JSFunction fromThisFunc(Function<Object, R> javaFunction);
+    @JS("return function(arg) { return javaFunction(this); }")
+    public static native <A, R> JSFunction fromThisFunc(Function<A, R> javaFunction);
 
     @JS.Coerce
-    @JS(value = "return function(arg) { return javaFunction.apply(this); }")
-    public static native <R extends JSValue> JSFunction fromThisJSFunc(Function<JSObject, R> javaFunction);
+    @JS("return function(arg) { return javaBiFunction(this, arg); }")
+    public static native <A, B, R> JSFunction fromFuncWithThis(BiFunction<A, B, R> javaBiFunction);
 
     @JS.Coerce
-    @JS(value = "return function(arg) { return javaBiFunction.apply(this, arg); }")
-    public static native <T, R> JSFunction fromFuncWithThis(BiFunction<Object, T, R> javaBiFunction);
+    @JS("return function(a, b) { return javaTriFunc(this, a, b); }")
+    public static native <A, B, C, R> JSFunction fromBiFuncWithThis(TriFunction<A, B, C, R> javaTriFunc);
 
     @JS.Coerce
-    @JS(value = "return function(arg) { return javaBiFunction.apply(this, arg); }")
-    public static native <T extends JSValue, R extends JSValue> JSFunction fromJSFuncWithThis(BiFunction<JSObject, T, R> javaBiFunction);
+    @JS("return function(arg) { javaConsumer(this); }")
+    public static native <A> JSFunction fromThisCons(Consumer<A> javaConsumer);
 
     @JS.Coerce
-    @JS(value = "return function(a, b) { return javaTriFunc.apply(this, a, b); }")
-    public static native <A, B, R> JSFunction fromBiFuncWithThis(TriFunction<Object, A, B, R> javaTriFunc);
+    @JS("return function(arg) { javaBiConsumer(this, arg); }")
+    public static native <A, B> JSFunction fromConsWithThis(BiConsumer<A, B> javaBiConsumer);
 
     @JS.Coerce
-    @JS(value = "return function(a, b) { return javaTriFunc.apply(this, a, b); }")
-    public static native <A extends JSValue, B extends JSValue, R extends JSValue> JSFunction fromJSBiFuncWithThis(TriFunction<JSObject, A, B, R> javaTriFunc);
-
-    @JS.Coerce
-    @JS(value = "return function(arg) { javaConsumer.accept(this); }")
-    public static native JSFunction fromThisCons(Consumer<Object> javaConsumer);
-
-    @JS.Coerce
-    @JS(value = "return function(arg) { javaConsumer.accept(this); }")
-    public static native JSFunction fromThisJSCons(Consumer<JSObject> javaConsumer);
-
-    @JS.Coerce
-    @JS(value = "return function(arg) { javaBiConsumer.accept(this, arg); }")
-    public static native <T> JSFunction fromConsWithThis(BiConsumer<Object, T> javaBiConsumer);
-
-    @JS.Coerce
-    @JS(value = "return function(arg) { javaBiConsumer.accept(this, arg); }")
-    public static native <T extends JSValue> JSFunction fromJSConsWithThis(BiConsumer<JSObject, T> javaBiConsumer);
-
-    @JS.Coerce
-    @JS(value = "return function(a, b) { javaTriConsumer.accept(this, a, b); }")
-    public static native <A, B> JSFunction fromBiConsWithThis(TriConsumer<Object, A, B> javaTriConsumer);
-
-    @JS.Coerce
-    @JS(value = "return function(a, b) { javaTriConsumer.accept(this, a, b); }")
-    public static native <A extends JSValue, B extends JSValue> JSFunction fromJSBiConsWithThis(TriConsumer<JSObject, A, B> javaTriConsumer);
+    @JS("return function(a, b) { javaTriConsumer(this, a, b); }")
+    public static native <A, B, C> JSFunction fromBiConsWithThis(TriConsumer<A, B, C> javaTriConsumer);
 
     // === Invocation Methods ===
-    @JS.Coerce
-    @JS(value = "return this();")
-    public native Object callJS(); // Call with raw Object return
 
-    public <R> R callJS(Class<R> cls) {
-        return JSValue.checkedCoerce(callJS(), cls);
+    @JS.Coerce
+    @JS("return this(...args);")
+    private native Object invokeJSImpl(JSArray args);
+
+    public Object invokeJS(Object... args) {
+        return invokeJSImpl(coerceJSArray(args));
     }
 
-    @JS.Coerce
-    @JS(value = "return this(arg);")
-    public native <T> Object callJS(T arg); // Call with raw Object return
-
-    public <T, R> R callJS(T arg, Class<R> cls) {
-        return JSValue.checkedCoerce(callJS(arg), cls);
+    public <R> R invokeJS(Class<R> cls, Object... args) {
+        return JSValue.checkedCoerce(invokeJS(args), cls);
     }
 
-    @JS.Coerce
-    @JS(value = "return this(arg1, arg2);")
-    public native <T, S> Object callJS(T arg1, S arg2); // Call with raw Object return
-
-    public <T, S, R> R callJS(T arg1, S arg2, Class<R> cls) {
-        return JSValue.checkedCoerce(callJS(arg1, arg2), cls);
+    public <R> R invoke(Class<R> cls, Object... args) {
+        return JSValue.checkedCoerce(this.invoke(args), cls);
     }
 
-    @JS.Coerce
-    @JS(value = "return this(arg1, arg2, arg3);")
-    public native <T, S, Q> Object callJS(T arg1, S arg2, Q arg3); // Call with raw Object return
-
-    public <T, S, Q, R> R callJS(T arg1, S arg2, Q arg3, Class<R> cls) {
-        return JSValue.checkedCoerce(callJS(arg1, arg2, arg3), cls);
+    public Object callJS(Object self, Object... args) {
+        return this.call(self, coerceArray(args));
     }
 
-    @JS.Coerce
-    @JS(value = "return this.call.apply(this, [thisArg, ...args]);")
-    public native <R> R callJSWithSpreadArgs(JSValue thisArg, JSArray args);
+    public <R> R callJS(Class<R> cls, Object self, Object... args) {
+        return JSValue.checkedCoerce(callJS(self, args), cls);
+    }
 
-    @SafeVarargs
-    public final <T, R> R callJSWithSpreadArgs(JSValue thisArg, T... args) {
-        JSArray jsArgs = new JSArray();
-        for(T arg : args) {
-            jsArgs.push(toJSValue(arg));
+    public <R> R call(Class<R> cls, Object self, Object... args) {
+        return JSValue.checkedCoerce(this.call(self, args), cls);
+    }
+
+    private static JSArray coerceJSArray(Object... args) {
+        JSArray argsArray = JSArray.of();
+        for(Object arg : args) {
+            argsArray.push(coerce(arg));
         }
-        return callJSWithSpreadArgs(thisArg, jsArgs);
+        return argsArray;
     }
 
-    @JS(value = "return this();")
-    public native <R> R call();
-
-    @JS(value = "return this(arg);")
-    public native <T, R> R call(T arg);
-
-    @JS(value = "return this(arg1, arg2);")
-    public native <T, S, R> R call(T arg1, S arg2);
-
-    @JS(value = "return this(arg1, arg2, arg3);")
-    public native <T, S, Q, R> R call(T arg1, S arg2, Q arg3);
-
-    @JS.Coerce
-    @JS(value = "return this.apply(thisArg, argsJSArray);")
-    public native <Q> Object applyJSArray(Q thisArg, JSValue argsJSArray);
-
-    @SafeVarargs
-    @JS.Coerce
-    @JS(value = "return this.apply(thisArg, args);")
-    public final native <Q, T> Object applyJS(Q thisArg, T... args);
-
-    public final <Q, R> R applyJS(Q thisArg, Class<R> cls) {
-        return JSValue.checkedCoerce(applyJS(thisArg), cls);
-    }
-
-    @SafeVarargs
-    public final <Q, T, R> R applyJS(Q thisArg, Class<R> cls, T... args) {
-        Object result = applyJS(thisArg, args);
-        if(result instanceof JSValue jsValue) return jsValue.as(cls);
-        return JSValue.checkedCoerce(result, cls);
-    }
-
-    @JS(value = "return this.apply(thisArg, argsJSArray);")
-    public native <T, R> R applyArray(T thisArg, JSValue argsJSArray);
-
-    @SafeVarargs
-    @JS(value = "return this.apply(thisArg, args);")
-    public final native <Q, T, R> R apply(Q thisArg, T... args);
-
-    private JSValue toJSValue(Object arg) {
-        if(arg instanceof Object[] array) {
-            JSArray jsArray = new JSArray();
-            for(Object item : array) {
-                jsArray.push(toJSValue(item));
-            }
-            return jsArray;
+    private static Object[] coerceArray(Object... args) {
+        Object[] argsArray = new Object[args.length];
+        for(int i = 0; i < args.length; i++) {
+            argsArray[i] = coerce(args[i]);
         }
-
-        if(arg instanceof int[] array) {
-            JSArray jsArray = new JSArray();
-            for(int item : array) {
-                jsArray.push(JSNumber.of(item));
-            }
-            return jsArray;
-        }
-
-        return switch(arg) {
-            case null -> JSUndefined.instance();
-            case JSValue jsValue -> jsValue;
-            case String s -> JSString.of(s);
-            case Boolean b -> JSBoolean.of(b);
-            case Integer i -> JSNumber.of(i.longValue());
-            case Long l -> JSNumber.of(l);
-            case Short s -> JSNumber.of(s.longValue());
-            case Byte b -> JSNumber.of(b.longValue());
-            case Float f -> JSNumber.of(f.doubleValue());
-            case Double d -> JSNumber.of(d);
-            default -> JSString.of(arg.toString());
-        };
+        return argsArray;
     }
 
     @JS.Coerce
-    @JS(value = "return this.bind(thisArg);")
-    public native JSFunction bind(JSValue thisArg);
+    @JS("return arg;")
+    private static native Object coerce(Object arg);
 
-    public final <T> JSFunction bind(T thisArg) {
-        return bind(toJSValue(thisArg));
+    @JS.Coerce
+    @JS("return this.bind(thisArg);")
+    public native <T> JSFunction bindJS(T thisArg);
+
+    @JS("return this.bind(thisArg);")
+    private native <T> Object bindImpl(T thisArg);
+
+    public <T> JSFunction bind(T thisArg) {
+        return JSValue.checkedCoerce(bindImpl(thisArg), JSFunction.class);
     }
 
     @JS.Coerce
-    @JS(value = "return this.toString();")
+    @JS("return this.toString();")
     public native String toJSString();
 
     public String toString() {
