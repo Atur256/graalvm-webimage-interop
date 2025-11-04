@@ -52,39 +52,21 @@ public class JSArray extends JSObject {
     @JS(value = "return Array.isArray(value);")
     public static native boolean isArray(JSValue value);
 
-    public static JSArray of(Object... values) { // TODO: replace all toJSValue with coerce from JSFUnction
-//        JSArray jsArray = new JSArray();
-//        for(Object value : values) {
-//            jsArray.push(toJSValue(value));
-//        }
-//        return from(jsArray);
-
-        JSArray argsArray = JSArray.of();
-        for(Object arg : values) {
-            argsArray.push(coerce(arg));
-        }
-        return from(argsArray);
+    public static JSArray of(Object... values) {
+        return from(coerceJSArray(values));
     }
 
     @JS.Coerce
     @JS(value = "return Array.of();")
-    public static native JSArray of();
+    public static native JSArray of(); // Needed to create an empty JSArray
 
-//    private static JSArray coerceJSArray(Object... args) {
-//        JSArray argsArray = JSArray.of();
-//        for(Object arg : args) {
-//            argsArray.push(coerce(arg));
-//        }
-//        return argsArray;
-//    }
-//
-//    private static Object[] coerceArray(Object... args) {
-//        Object[] argsArray = new Object[args.length];
-//        for(int i = 0; i < args.length; i++) {
-//            argsArray[i] = coerce(args[i]);
-//        }
-//        return argsArray;
-//    }
+    private static JSArray coerceJSArray(Object... args) {
+        JSArray argsArray = JSArray.of();
+        for(Object arg : args) {
+            argsArray.push(coerce(arg));
+        }
+        return argsArray;
+    }
 
     @JS.Coerce
     @JS("return arg;")
@@ -100,7 +82,7 @@ public class JSArray extends JSObject {
 
     @JS.Coerce
     @JS(value = "return Array.prototype.concat.apply(this, jsArrays);")
-    public native JSArray concat(JSArray[] jsArrays);
+    public native JSArray concat(JSArray... jsArrays);
 
     public JSArray concat(Object... arrays) {
         JSArray[] jsArrays = new JSArray[arrays.length];
@@ -110,99 +92,39 @@ public class JSArray extends JSObject {
         return concat(jsArrays);
     }
 
-    // TODO: chnage tho coroce from JSFUnction
     private static JSArray convertToJSArray(Object arrayLike) {
-        if(arrayLike instanceof JSArray jsArray) return jsArray;
-
-        if(arrayLike instanceof Object[] array) return JSArray.from(array);
-        if(arrayLike instanceof int[] array) return JSArray.from(array);
-        if(arrayLike instanceof double[] array) return JSArray.from(array);
-        if(arrayLike instanceof boolean[] array) return JSArray.from(array);
-
-        if(arrayLike instanceof Iterable<?> iterable) {
-            JSValue[] values = new JSValue[((List<?>) iterable).size()];
-            int i = 0;
-            for(Object item : iterable) {
-                values[i++] = toJSValue(item);
-            }
-            return JSArray.from(values);
-        }
-
-        return JSArray.of(toJSValue(arrayLike)); // fallback: wrap single object
-    }
-
-    // TODO: chnage tho coroce from JSFUnction
-    private static JSValue toJSValue(Object arg) {
-        switch(arg) {
+        switch(arrayLike) {
             case null -> {
-                return JSValue.undefined();
+                return JSArray.of();
             }
-
-            // Handle Iterable (e.g., List, Set)
-            case JSValue jsValue -> {
-                return jsValue;
-            }
-
-            // Handle primitive arrays
-            case int[] array -> {
-                JSArray jsArray = new JSArray();
-                for(int item : array) jsArray.push(JSNumber.of(item));
+            case JSArray jsArray -> {
                 return jsArray;
+            }
+            case Object[] array -> {
+                return JSArray.from(array);
+            }
+            case int[] array -> {
+                return JSArray.from(array);
             }
             case double[] array -> {
-                JSArray jsArray = new JSArray();
-                for(double item : array) jsArray.push(JSNumber.of(item));
-                return jsArray;
+                return JSArray.from(array);
             }
             case boolean[] array -> {
-                JSArray jsArray = new JSArray();
-                for(boolean item : array) jsArray.push(JSBoolean.of(item));
-                return jsArray;
-            }
-
-            // Handle object arrays
-            case Object[] array -> {
-                JSArray jsArray = new JSArray();
-                for(Object item : array) jsArray.push(toJSValue(item));
-                return jsArray;
-            }
-
-            // Handle common boxed types
-            case Boolean b -> {
-                return JSBoolean.of(b);
-            }
-            case String s -> {
-                return JSString.of(s);
-            }
-            case Integer i -> {
-                return JSNumber.of(i.longValue());
-            }
-            case Long l -> {
-                return JSNumber.of(l);
-            }
-            case Short s -> {
-                return JSNumber.of(s.longValue());
-            }
-            case Byte b -> {
-                return JSNumber.of(b.longValue());
-            }
-            case Float f -> {
-                return JSNumber.of(f.doubleValue());
-            }
-            case Double d -> {
-                return JSNumber.of(d);
+                return JSArray.from(array);
             }
             case Iterable<?> iterable -> {
-                JSArray jsArray = new JSArray();
-                for(Object item : iterable) jsArray.push(toJSValue(item));
-                return jsArray;
+                JSValue[] values = new JSValue[((List<?>) iterable).size()];
+                int i = 0;
+                for(Object item : iterable) {
+                    values[i++] = coerceJSArray(item);
+                }
+                return JSArray.from(values);
             }
             default -> {
             }
         }
 
-        // Fallback: treat as custom object
-        return JSString.of(arg.toString());
+        return JSArray.of(coerceJSArray(arrayLike)); // fallback: wrap single object
     }
 
     @JS.Coerce

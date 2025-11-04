@@ -26,79 +26,30 @@ public class JSArrayTest {
     private static final JSArray UNSORTED = JSArray.of("c", "a", "b");
 
     public static void main(String[] args) {
-        System.out.println("Test - 1: testOf");
         testOf();
-
-        System.out.println("Test - 2: testLength");
         testLength();
-
-        System.out.println("Test - 3: testFromAndFromAsync");
         testFromAndFromAsync();
-
-        System.out.println("Test - 4: testIsArray");
         testIsArray();
-
-        System.out.println("Test - 5: testConcat");
         testConcat();
-
-        System.out.println("Test - 6: testCopyWithin");
         testCopyWithin();
-
-        System.out.println("Test - 7: testIndexAccess");
         testIndexAccess();
-
-        System.out.println("Test - 8: testMap");
         testMap();
-
-        System.out.println("Test - 9: testPopPush");
         testPopPush();
-
-        System.out.println("Test - 10: testReduce");
         testReduce();
-
-        System.out.println("Test - 11: testReverse");
         testReverse();
-
-        System.out.println("Test - 12: testShiftUnshift");
         testShiftUnshift();
-
-        System.out.println("Test - 13: testFill");
         testFill();
-
-        System.out.println("Test - 14: testSliceSplice");
         testSliceSplice();
-
-        System.out.println("Test - 15: testFindMethods");
         testFindMethods();
-
-        System.out.println("Test - 16: testFlatFlatMap");
         testFlatFlatMap();
-
-        System.out.println("Test - 17: testForEach");
         testForEach();
-
-        System.out.println("Test - 18: testIncludesJoin");
         testIncludesJoin();
-
-        System.out.println("Test - 19: testKeysValuesEntries");
         testKeysValuesEntries();
-
-        System.out.println("Test - 20: testSomeEvery");
         testSomeEvery();
-
-        System.out.println("Test - 21: testSortToSorted");
         testSortToSorted();
-
-        System.out.println("Test - 22: testToLocaleStringToString");
         testToLocaleStringToString();
-
-        System.out.println("Test - 23: testWith");
         testWith();
-
-        System.out.println("Test - 24: testFilter");
         testFilter();
-
-        System.out.println("Test - 25: testEntries");
         testEntries();
     }
 
@@ -140,7 +91,7 @@ public class JSArrayTest {
         JSArray concatNull = EMPTY.concat((Object) null);
 
         AssertArray.assertArray(concatResult, String.class, "a", "b", "c", "d", "e", "x", "y", "z");
-        AssertArray.assertArray(concatNull, JSUndefined.class, JSUndefined.undefined());
+        AssertArray.assertArray(concatNull, JSUndefined.class);
     }
 
     public static void testCopyWithin() {
@@ -151,31 +102,18 @@ public class JSArrayTest {
     }
 
     public static void testIndexAccess() {
-        System.out.println("ABC - 1");
         assertEquals(2, BASE.indexOf("c"));
-        System.out.println("ABC - 2");
         assertEquals(4, BASE.lastIndexOf("e"));
-        System.out.println("ABC - 3");
         assertEquals(-1, EMPTY.indexOf("anything"));
-        System.out.println("ABC - 4");
         assertEquals("a", BASE.at(0, String.class));
-        System.out.println("ABC - 5");
         assertEquals("e", BASE.at(-1, String.class));
-        System.out.println("ABC - 6");
         assertEquals("1", MIXED.at(0, String.class));
-        System.out.println("ABC - 7");
         assertEquals(JSUndefined.undefined(), EMPTY.at(0, Object.class));
-        System.out.println("ABC - 8");
         assertNull(WITH_NULLS.at(0, Object.class));
-        System.out.println("ABC - 9");
         assertEquals("a", WITH_NULLS.at(1, String.class));
-        System.out.println("ABC - 10");
         assertEquals(JSUndefined.undefined(), BASE.at(99));
-        System.out.println("ABC - 11");
         assertEquals(Integer.valueOf(2), MIXED.at(1, Integer.class));
-        System.out.println("ABC - 12");
         assertEquals(Boolean.TRUE, MIXED.at(2, Boolean.class));
-        System.out.println("ABC - 13");
     }
 
     public static void testMap() {
@@ -300,23 +238,14 @@ public class JSArrayTest {
     public static void testIncludesJoin() {
         JSArray onlyTrue = JSArray.of(true, true);
 
-        System.out.println("BCD - 1");
         assertTrue(BASE.includes("a"));
-        System.out.println("BCD - 2");
         assertFalse(BASE.includes("not-there"));
-        System.out.println("BCD - 3");
         assertTrue(BOOLEANS.includes(true));
-        System.out.println("BCD - 4");
         assertTrue(BOOLEANS.includes(false));
-        System.out.println("BCD - 5");
         assertFalse(onlyTrue.includes(false));
-        System.out.println("BCD - 6");
         assertTrue(WITH_NULLS.includes(null));
-        System.out.println("BCD - 7");
         assertEquals("a,b,c,d,e", BASE.join(","));
-        System.out.println("BCD - 8");
         assertEquals("", EMPTY.join(","));
-        System.out.println("BCD - 9");
     }
 
     public static void testKeysValuesEntries() {
@@ -391,7 +320,7 @@ public class JSArrayTest {
 
         JSArray replaced = BASE.with(0, "replaced");
 
-        assertThrows(ThrownFromJavaScript.class, () ->  fillTest.with(-5, "oops"));
+        assertThrows(ThrownFromJavaScript.class, () -> fillTest.with(-5, "oops"));
         assertEquals("replaced", replaced.at(0, String.class));
     }
 
