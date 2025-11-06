@@ -5,13 +5,39 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- Correct project coordinates -->
     <groupId>io.github.atur256.webimageinterop</groupId>
     <artifactId>web-image-interop</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <properties>
+    <name>web-image-interop</name>
+    <description>Java bindings for JavaScript objects using GraalVM WebImage interop</description>
+    <url>https://github.com/atur256/web-image-interop</url>
+
+    <licenses>
+        <license>
+            <name> - </name> <!-- TODO: replace this -->
+            <url> - </url> <!-- TODO: replace this -->
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>atur256</id>
+            <name>Arthur Schwaiger</name>
+            <email>- </email> <!-- TODO: replace this -->
+            <url>https://github.com/atur256</url>
+        </developer>
+    </developers>
+
+    <scm> <!-- TODO: check this -->
+        <connection>scm:git:https://github.com/atur256/web-image-interop.git</connection>
+        <developerConnection>scm:git:https://github.com/atur256/web-image-interop.git</developerConnection>
+        <url>https://github.com/atur256/web-image-interop</url>
+    </scm>
+
+    <properties> <!-- TODO: check this -->
         <maven.compiler.source>22</maven.compiler.source>
         <maven.compiler.target>22</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -26,7 +52,14 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Local system dependency Build: TODO: replace with: https://central.sonatype.com/artifact/org.graalvm.sdk/webimage-preview/25.0.0-->
+        <!-- GraalVM WebImage Interop (replace with central version when available) -->
+        <dependency> <!-- TODO: replace this -->
+            <groupId>com.graalvm.webimage</groupId>
+            <artifactId>webimage-preview</artifactId>
+            <version>21.0.0</version>
+        </dependency>
+
+        <!-- Optional: GraalVM SDK and native image support -->
         <dependency>
             <groupId>com.graalvm.nativeimage</groupId>
             <artifactId>nativeimage-libgraal</artifactId>
@@ -37,16 +70,12 @@
             <artifactId>sdk-test</artifactId>
             <version>21.0.0</version>
         </dependency>
-        <dependency>
-            <groupId>com.graalvm.webimage</groupId>
-            <artifactId>webimage-preview</artifactId>
-            <version>21.0.0</version>
-        </dependency>
+
+        <!-- JetBrains annotations -->
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>RELEASE</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 
@@ -66,7 +95,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Surefire plugin to run JUnit 5 tests -->
+            <!-- Surefire plugin for running tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -75,6 +104,67 @@
                     <useModulePath>false</useModulePath>
                 </configuration>
             </plugin>
+
+            <!-- Attach sources -->
+            <plugin> <!-- TODO: check this -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Attach Javadocs -->
+            <plugin> <!-- TODO: check this -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.5.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- GPG signing -->
+            <plugin> <!-- TODO: replace this -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
+
+    <distributionManagement> <!-- TODO: check this -->
+        <repository>
+            <id>ossrh</id>
+            <name>OSSRH Repository</name>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+        <snapshotRepository>
+            <id>ossrh-snapshots</id>
+            <name>OSSRH Snapshot Repository</name>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>

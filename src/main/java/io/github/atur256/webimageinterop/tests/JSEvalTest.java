@@ -20,12 +20,8 @@ public class JSEvalTest {
         assertEquals("number", JSEval.eval("typeof 42", String.class));
         assertEquals(Integer.valueOf(10), JSEval.eval("let x = 5; x * 2", Integer.class));
         assertEquals(3, keys.length);
-        assertEquals(2, getValue(result6, 0));
-        assertEquals(4, getValue(result6, 1));
-        assertEquals(6, getValue(result6, 2));
-    }
-
-    private static int getValue(JSObject object, int index) {
-        return JSValue.checkedCoerce(object.get(index), Integer.class);
+        assertEquals(Integer.valueOf(2), JSValue.checkedCoerce(result6.get(0), Integer.class));
+        assertEquals(Integer.valueOf(4), JSValue.checkedCoerce(result6.get(1), Integer.class));
+        assertEquals(Integer.valueOf(6), JSValue.checkedCoerce(result6.get(2), Integer.class));
     }
 }

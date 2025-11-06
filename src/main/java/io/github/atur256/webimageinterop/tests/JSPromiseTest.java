@@ -40,7 +40,8 @@ public class JSPromiseTest {
                     fail();
                     return num;
                 }))
-                .finally_(JSFunction.fromCons((JSUndefined undefined) -> assertEquals(JSUndefined.undefined(), undefined)));
+                .finally_(JSFunction.fromCons((JSUndefined undefined) ->
+                        assertEquals(JSUndefined.undefined(), undefined)));
     }
 
     public static void testAll() {

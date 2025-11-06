@@ -147,15 +147,24 @@ public class JSMapTest {
         JSMap groupedFromArray = JSMap.groupBy(jsArray, callback1);
         JSMap groupedFromList = JSMap.groupBy(fruits, callback2);
 
-        AssertArray.assertArray(JSValue.checkedCoerce(groupedFromIterator.get("a"), JSArray.class), String.class, "apple", "apricot");
-        AssertArray.assertArray(JSValue.checkedCoerce(groupedFromIterator.get("b"), JSArray.class), String.class, "blueberry", "banana");
-        AssertArray.assertArray(JSValue.checkedCoerce(groupedFromIterator.get("c"), JSArray.class), String.class, "cherry");
-        AssertArray.assertArray(JSValue.checkedCoerce(groupedFromArray.get("a"), JSArray.class), String.class, "apple", "apricot");
-        AssertArray.assertArray(JSValue.checkedCoerce(groupedFromArray.get("b"), JSArray.class), String.class, "blueberry", "banana");
-        AssertArray.assertArray(JSValue.checkedCoerce(groupedFromArray.get("c"), JSArray.class), String.class, "cherry");
-        AssertArray.assertArray(JSValue.checkedCoerce(groupedFromList.get("a"), JSArray.class), String.class, "apple", "apricot");
-        AssertArray.assertArray(JSValue.checkedCoerce(groupedFromList.get("b"), JSArray.class), String.class, "blueberry", "banana");
-        AssertArray.assertArray(JSValue.checkedCoerce(groupedFromList.get("c"), JSArray.class), String.class, "cherry");
+        AssertArray.assertArray(JSValue.checkedCoerce(
+                groupedFromIterator.get("a"), JSArray.class), String.class, "apple", "apricot");
+        AssertArray.assertArray(JSValue.checkedCoerce(
+                groupedFromIterator.get("b"), JSArray.class), String.class, "blueberry", "banana");
+        AssertArray.assertArray(JSValue.checkedCoerce(
+                groupedFromIterator.get("c"), JSArray.class), String.class, "cherry");
+        AssertArray.assertArray(JSValue.checkedCoerce(
+                groupedFromArray.get("a"), JSArray.class), String.class, "apple", "apricot");
+        AssertArray.assertArray(JSValue.checkedCoerce(
+                groupedFromArray.get("b"), JSArray.class), String.class, "blueberry", "banana");
+        AssertArray.assertArray(JSValue.checkedCoerce(
+                groupedFromArray.get("c"), JSArray.class), String.class, "cherry");
+        AssertArray.assertArray(JSValue.checkedCoerce(
+                groupedFromList.get("a"), JSArray.class), String.class, "apple", "apricot");
+        AssertArray.assertArray(JSValue.checkedCoerce(
+                groupedFromList.get("b"), JSArray.class), String.class, "blueberry", "banana");
+        AssertArray.assertArray(JSValue.checkedCoerce(
+                groupedFromList.get("c"), JSArray.class), String.class, "cherry");
     }
 
     static void testEdgeCases() {

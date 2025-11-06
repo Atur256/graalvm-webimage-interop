@@ -56,7 +56,8 @@ public class JSIteratorTest {
     public static void testMapAndFlatMap() {
         JSArray arr = JSArray.of(1, 2, 3);
         JSFunction mapFn = JSFunction.fromFunc((JSNumber arg) -> arg.as(Integer.class) * 2);
-        JSFunction flatMapFn = JSFunction.fromFunc((JSNumber arg) -> JSArray.of(arg.as(Integer.class), arg.as(Integer.class) * 2));
+        JSFunction flatMapFn = JSFunction.fromFunc((JSNumber arg) ->
+                JSArray.of(arg.as(Integer.class), arg.as(Integer.class) * 2));
         JSFunction errorFun = JSFunction.fromFunc((JSNumber _) -> JSString.of("Error"));
 
         JSArray mapped1 = JSIterator.from(arr).map(mapFn).toArray();
@@ -89,13 +90,12 @@ public class JSIteratorTest {
     public static void testEveryAndSome() {
         JSArray arr1 = JSArray.of(2, 4, 6);
         JSArray arr2 = JSArray.of(2, 3, 6);
-        JSArray arr3 = JSArray.of(1, 3, 5);
         JSFunction isEven = JSFunction.fromFunc((JSNumber arg) -> JSBoolean.of(arg.as(Integer.class) % 2 == 0));
 
         assertTrue(JSIterator.from(arr1).every(isEven));
         assertFalse(JSIterator.from(arr2).every(isEven));
-        assertTrue(JSIterator.from(arr1).every(isEven));
-        assertFalse(JSIterator.from(arr3).every(isEven));
+        assertTrue(JSIterator.from(arr1).some(isEven));
+        assertTrue(JSIterator.from(arr2).some(isEven));
     }
 
     public static void testReduce() {

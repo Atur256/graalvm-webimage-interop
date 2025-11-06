@@ -1,10 +1,13 @@
 package io.github.atur256.webimageinterop.tests;
 
+/**
+ * Runs all WebImage interop tests sequentially.
+ */
 public class RunAllTests {
 
     public static void main(String[] args) throws Exception {
 
-        // Run all test
+        System.out.println("Running all WebImage interop tests...\n");
 
         // JSArray Test
         JSArrayTest.main(args);
@@ -46,13 +49,13 @@ public class RunAllTests {
         JSMathTest.main(args);
         System.out.println("JSMath Test finished.");
 
-        // JSPromis Test
+        // JSPromise Test
         JSPromiseTest.main(args);
-        System.out.println("JSPromis Test finished.");
+        System.out.println("JSPromise Test finished.");
 
-        // JSSRegExp Test
+        // JSRegExp Test
         JSRegExpTest.main(args);
-        System.out.println("JSSRegExp Test finished.");
+        System.out.println("JSRegExp Test finished.");
 
         // JSSet Test
         JSSetTest.main(args);
@@ -62,6 +65,6 @@ public class RunAllTests {
         JSUriTest.main(args);
         System.out.println("JSUri Test finished.");
 
-        System.out.println("All Test finished.");
+        System.out.println("\nAll tests completed successfully.");
     }
 }

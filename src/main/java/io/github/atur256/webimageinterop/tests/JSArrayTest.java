@@ -8,6 +8,7 @@ import org.graalvm.webimage.api.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.Assert.*;
@@ -117,8 +118,10 @@ public class JSArrayTest {
     }
 
     public static void testMap() {
-        JSArray mapped = BASE.map(JSFunction.fromArgs("x", "return x.toUpperCase();"));
-        JSArray result = MAP_UNDEFINED.map(JSFunction.fromArgs("x", "return;"));
+        JSArray mapped = BASE.map(JSFunction.fromFunc((JSString x) -> JSString.of(x.asString().toUpperCase())));
+        JSArray result = MAP_UNDEFINED.map(JSFunction.fromCons((JSString _) -> {
+            // Do nothing
+        }));
 
         AssertArray.assertArray(mapped, String.class, "A", "B", "C", "D", "E");
         AssertArray.assertArray(result, JSUndefined.class, JSUndefined.undefined(), JSUndefined.undefined());
@@ -139,12 +142,19 @@ public class JSArrayTest {
     }
 
     public static void testReduce() {
-        String reduced = BASE.reduce(JSFunction.fromArgs("acc", "val", "return acc + val;"), "");
+        String reduced1 = BASE.reduce(JSFunction.fromBiFunc((JSString acc, JSString val) ->
+                JSString.of(acc.asString() + val.asString())), "");
+        String reduced2 = BASE.reduceRight(JSFunction.fromBiFunc((JSString acc, JSString val) ->
+                JSString.of(acc.asString() + val.asString())), "");
 
-        assertThrows(ThrownFromJavaScript.class, () -> EMPTY.reduce(JSFunction.fromArgs("acc", "val", "return acc + val;"), String.class));
-        assertEquals("edcba", BASE.reduceRight(JSFunction.fromArgs("acc", "val", "return acc + val;"), ""));
-        assertThrows(ThrownFromJavaScript.class, () -> EMPTY.reduce(JSFunction.fromArgs("acc", "val", "return acc + val;"), String.class));
-        assertEquals("abcde", reduced);
+        assertThrows(ThrownFromJavaScript.class, () ->
+                EMPTY.reduce(JSFunction.fromBiFunc((JSString acc, JSString val) ->
+                        JSString.of(acc.asString() + val.asString())), String.class));
+        assertEquals("edcba", reduced2);
+        assertThrows(ThrownFromJavaScript.class, () ->
+                EMPTY.reduce(JSFunction.fromBiFunc((JSString acc, JSString val) ->
+                        JSString.of(acc.asString() + val.asString())), String.class));
+        assertEquals("abcde", reduced1);
     }
 
     public static void testReverse() {
@@ -205,11 +215,16 @@ public class JSArrayTest {
     public static void testFindMethods() {
         JSArray findArray1 = JSArray.of("x", "X", "X", "z");
 
-        String found = findArray1.find(JSFunction.fromArgs("x", "return x === 'z';"), String.class);
-        JSUndefined notFound = findArray1.find(JSFunction.fromArgs("x", "return x === 'b';"), JSUndefined.class);
-        String foundLast = findArray1.findLast(JSFunction.fromArgs("x", "return x === 'X';"), String.class);
-        int foundIndex = findArray1.findIndex(JSFunction.fromArgs("x", "return x === 'z';"));
-        int foundLastIndex = findArray1.findLastIndex(JSFunction.fromArgs("x", "return x === 'X';"));
+        String found = findArray1.find(JSFunction.fromFunc((JSString x) ->
+                JSBoolean.of(Objects.equals(x.asString(), "z"))), String.class);
+        JSUndefined notFound = findArray1.find(JSFunction.fromFunc((JSString x) ->
+                JSBoolean.of(Objects.equals(x.asString(), "b"))), JSUndefined.class);
+        String foundLast = findArray1.findLast(JSFunction.fromFunc((JSString x) ->
+                JSBoolean.of(Objects.equals(x.asString(), "X"))), String.class);
+        int foundIndex = findArray1.findIndex(JSFunction.fromFunc((JSString x) ->
+                JSBoolean.of(Objects.equals(x.asString(), "z"))));
+        int foundLastIndex = findArray1.findLastIndex(JSFunction.fromFunc((JSString x) ->
+                JSBoolean.of(Objects.equals(x.asString(), "X"))));
 
         assertEquals("z", found);
         assertEquals(JSUndefined.undefined(), notFound);
@@ -220,7 +235,7 @@ public class JSArrayTest {
 
     public static void testFlatFlatMap() {
         JSArray flattened = NESTED.flat(10);
-        JSArray flatMapped = BASE.flatMap(JSFunction.fromArgs("x", "return [x, x];"));
+        JSArray flatMapped = BASE.flatMap(JSFunction.fromFunc((JSString x) -> JSArray.of(x.asString(), x.asString())));
 
         AssertArray.assertArray(flattened, String.class, "deep");
         AssertArray.assertArray(flatMapped, String.class, "a", "a", "b", "b", "c", "c", "d", "d", "e", "e");
