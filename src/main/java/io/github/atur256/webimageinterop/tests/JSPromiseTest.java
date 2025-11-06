@@ -12,7 +12,9 @@ import static org.junit.Assert.*;
 public class JSPromiseTest {
 
     public static void main(String[] args) {
-        testResolveAndReject();
+        testReject();
+        testResolve();
+        testThen();
         testThenCatchFinally();
         testAll();
         testAllSettled();
@@ -21,12 +23,71 @@ public class JSPromiseTest {
         testWithResolvers();
     }
 
-    public static void testResolveAndReject() {
-        JSPromise resolved = JSPromise.resolve("done");
-        JSPromise rejected = JSPromise.reject("fail");
+    public static void testReject() {
+        JSPromise resolvedValue = JSPromise.resolve(JSString.of("done:JSValue"));
+        JSPromise resolvedInt = JSPromise.resolve(42);
+        JSPromise resolvedDouble = JSPromise.resolve(3.14);
+        JSPromise resolvedBool = JSPromise.resolve(true);
+        JSPromise resolvedObject = JSPromise.resolve("done:Object");
 
-        resolved.then(JSFunction.fromCons((JSString str) -> assertEquals("done", str.asString())));
-        rejected.catch_(JSFunction.fromCons((JSString str) -> assertEquals("fail", str.asString())));
+        resolvedValue.then(JSFunction.fromCons((JSString str) ->
+                assertEquals("done:JSValue", str.asString())
+        ));
+        resolvedInt.then(JSFunction.fromCons((JSNumber num) ->
+                assertEquals(Integer.valueOf(42), num.asInt())
+        ));
+        resolvedDouble.then(JSFunction.fromCons((JSNumber num) ->
+                assertEquals(3.14, num.asDouble(), 0.0001)
+        ));
+        resolvedBool.then(JSFunction.fromCons((JSBoolean bool) ->
+                assertTrue(bool.asBoolean())));
+        resolvedObject.then(JSFunction.fromCons((JSString str) ->
+                assertEquals("done:Object", str.asString())
+        ));
+    }
+
+    public static void testResolve() {
+        JSPromise rejectedValue = JSPromise.reject(JSString.of("fail:JSValue"));
+        JSPromise rejectedInt = JSPromise.reject(404);
+        JSPromise rejectedDouble = JSPromise.reject(9.81);
+        JSPromise rejectedBool = JSPromise.reject(false);
+        JSPromise rejectedObject = JSPromise.reject("fail:Object");
+
+        rejectedValue.catch_(JSFunction.fromCons((JSString str) ->
+                assertEquals("fail:JSValue", str.asString())
+        ));
+        rejectedInt.catch_(JSFunction.fromCons((JSNumber num) ->
+                assertEquals(Integer.valueOf(404), num.asInt())
+        ));
+        rejectedDouble.catch_(JSFunction.fromCons((JSNumber num) ->
+                assertEquals(9.81, num.asDouble(), 0.0001)
+        ));
+        rejectedBool.catch_(JSFunction.fromCons((JSBoolean bool) ->
+                assertFalse(bool.asBoolean())
+        ));
+        rejectedObject.catch_(JSFunction.fromCons((JSString str) ->
+                assertEquals("fail:Object", str.asString())
+        ));
+    }
+
+    public static void testThen() {
+        JSPromise rejectedInt = JSPromise.reject(404);
+
+        rejectedInt.catch_(JSFunction.fromCons((JSNumber num) ->
+                assertEquals(Integer.valueOf(404), num.asInt())
+        ));
+        JSPromise.resolve("chained:success")
+                .then(JSFunction.fromCons((JSString str) ->
+                        assertEquals("chained:success", str.asString())
+                ), JSFunction.fromCons((JSValue _) ->
+                        fail("Should not reach rejection handler on resolved promise")
+                ));
+        JSPromise.reject("chained:fail")
+                .then(JSFunction.fromCons((JSValue _) ->
+                        fail("Should not reach fulfillment handler on rejected promise")
+                ), JSFunction.fromCons((JSString str) ->
+                        assertEquals("chained:fail", str.asString())
+                ));
     }
 
     public static void testThenCatchFinally() {

@@ -4,7 +4,6 @@ import org.graalvm.webimage.api.JS;
 import org.graalvm.webimage.api.JSObject;
 import org.graalvm.webimage.api.JSValue;
 
-import java.lang.Object;
 import java.util.List;
 
 

@@ -5,8 +5,6 @@ import org.graalvm.webimage.api.JSBoolean;
 import org.graalvm.webimage.api.JSObject;
 import org.graalvm.webimage.api.JSValue;
 
-import java.lang.Object;
-
 
 /**
  * Provides a Java binding for the JavaScript {@code Iterator} object within the WebImage interop layer.

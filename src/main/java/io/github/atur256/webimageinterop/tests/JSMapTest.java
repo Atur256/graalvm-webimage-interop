@@ -17,23 +17,129 @@ import static org.junit.Assert.*;
 public class JSMapTest {
 
     public static void main(String[] args) {
-        testSetAndGet();
+        testSetAndGetWithJSValueKey();
+        testSetAndGetWithIntKey();
+        testSetAndGetWithDoubleKey();
+        testSetAndGetWithBooleanKey();
+        testSetAndGetWithObjectKey();
+        testJSMapOverwrite();
         testHasAndDelete();
         testClearAndSize();
         testIteration();
+        testForEach();
         testGroupBy();
         testEdgeCases();
     }
 
-    public static void testSetAndGet() {
+    public static void testSetAndGetWithJSValueKey() {
         JSMap map = new JSMap();
-        map.set("name", "Alice");
-        map.set(42, true);
-        map.set(false, 3.14);
 
-        assertEquals("Alice", map.get("name", String.class));
-        assertTrue(map.get(42, Boolean.class));
-        assertEquals(3.14, map.get(false, Double.class), 1e-15);
+        map.set(JSString.of("key1:js"), JSString.of("value:js"))
+                .set(JSString.of("key2:js"), 100)
+                .set(JSString.of("key3:js"), 2.718)
+                .set(JSString.of("key4:js"), true)
+                .set(JSString.of("key5:js"), "value:js-object");
+
+        assertEquals("value:js", map.get(JSString.of("key1:js"), String.class));
+        assertEquals(Integer.valueOf(100), map.get(JSString.of("key2:js"), Integer.class));
+        assertEquals(2.718, map.get(JSString.of("key3:js"), Double.class), 1e-15);
+        assertTrue(map.get(JSString.of("key4:js"), Boolean.class));
+        assertEquals("value:js-object", map.get(JSString.of("key5:js"), String.class));
+    }
+
+    public static void testSetAndGetWithIntKey() {
+        JSMap map = new JSMap();
+
+        map.set(1, JSString.of("value:int-js"))
+                .set(2, 777)
+                .set(3, 3.1415)
+                .set(4, false)
+                .set(5, "value:int-object");
+
+        assertEquals("value:int-js", map.get(1, String.class));
+        assertEquals(Integer.valueOf(777), map.get(2, Integer.class));
+        assertEquals(3.1415, map.get(3, Double.class), 1e-15);
+        assertFalse(map.get(4, Boolean.class));
+        assertEquals("value:int-object", map.get(5, String.class));
+    }
+
+    public static void testSetAndGetWithDoubleKey() {
+        JSMap map = new JSMap();
+
+        map.set(1.1, JSString.of("value:double-js"))
+                .set(2.2, 1618)
+                .set(3.3, 0.5772)
+                .set(4.4, true)
+                .set(5.5, "value:double-object");
+
+        assertEquals("value:double-js", map.get(1.1, String.class));
+        assertEquals(Integer.valueOf(1618), map.get(2.2, Integer.class));
+        assertEquals(0.5772, map.get(3.3, Double.class), 1e-15);
+        assertTrue(map.get(4.4, Boolean.class));
+        assertEquals("value:double-object", map.get(5.5, String.class));
+    }
+
+    public static void testSetAndGetWithBooleanKey() {
+        JSMap map = new JSMap();
+
+        map.set(true, JSString.of("value:bool-js"));
+        String result1 = map.get(true, String.class);
+        map.set(false, 1);
+        int result2 = map.get(false, Integer.class);
+        map.set(true, 0.0);
+        double result3 = map.get(true, Double.class);
+        map.set(false, false);
+        boolean result4 = map.get(false, Boolean.class);
+        map.set(false, "value:bool-object");
+        String result5 = map.get(false, String.class);
+
+        assertEquals("value:bool-js", result1);
+        assertEquals(1, result2);
+        assertEquals(0.0, result3, 0.0);
+        assertFalse(result4);
+        assertEquals("value:bool-object", result5);
+    }
+
+    public static void testSetAndGetWithObjectKey() {
+        JSMap map = new JSMap();
+
+        map.set("key1:object", JSString.of("value:object-js"));
+        String result1 = map.get("key1:object", String.class);
+        map.set("key2:object", 123);
+        int result2 = map.get("key2:object", Integer.class);
+        map.set("key3:object", 6.022);
+        double result3 = map.get("key3:object", Double.class);
+        map.set("key4:object", false);
+        boolean result4 = map.get("key4:object", Boolean.class);
+        map.set("key5:object", "value:object-generic");
+        String result6 = map.get("key5:object", String.class);
+
+        assertEquals("value:object-js", result1);
+        assertEquals(123, result2);
+        assertEquals(6.022, result3, 0.0);
+        assertFalse(result4);
+        assertEquals("value:object-generic", result6);
+    }
+
+    public static void testJSMapOverwrite() {
+        JSMap map = new JSMap();
+
+        map.set("key", "first");
+        String result1 = map.get("key", String.class);
+        map.set("key", "second");
+        String result2 = map.get("key", String.class);
+        map.set("key", 123);
+        int result3 = map.get("key", Integer.class);
+        map.set("key", true);
+        boolean result4 = map.get("key", Boolean.class);
+        map.set("key", 3.14);
+        double result5 = map.get("key", Double.class);
+
+        assertEquals("first", result1);
+        assertEquals("second", result2);
+        assertEquals(123, result3);
+        assertTrue(result4);
+        assertEquals(3.14, result5, 0.0);
     }
 
     public static void testHasAndDelete() {
@@ -45,49 +151,27 @@ public class JSMapTest {
         map.set(false, "falsy");
         map.set("customKey", "customValue");
 
-        boolean result1 = map.has(JSString.of("temp"));
-        boolean deleted1 = map.delete(JSString.of("temp"));
-        boolean result2 = map.has(JSString.of("temp"));
-        boolean result3 = map.has(JSString.of("missing"));
-        boolean result4 = map.has(42);
-        boolean deleted2 = map.delete(42);
-        boolean result5 = map.has(42);
-        boolean result6 = map.has(99);
-        boolean result7 = map.has(3.14);
-        boolean deleted3 = map.delete(3.14);
-        boolean result8 = map.has(3.14);
-        boolean result9 = map.has(2.71);
-        boolean result10 = map.has(true);
-        boolean result11 = map.has(false);
-        boolean deleted4 = map.delete(true);
-        boolean result12 = map.has(true);
-        boolean result13 = map.has(false);
-        boolean result14 = map.has("customKey");
-        boolean deleted5 = map.delete("customKey");
-        boolean result15 = map.has("customKey");
-        boolean result16 = map.has("unknownKey");
-
-        assertTrue(result1);
-        assertTrue(deleted1);
-        assertFalse(result2);
-        assertFalse(result3);
-        assertTrue(result4);
-        assertTrue(deleted2);
-        assertFalse(result5);
-        assertFalse(result6);
-        assertTrue(result7);
-        assertTrue(deleted3);
-        assertFalse(result8);
-        assertFalse(result9);
-        assertTrue(result10);
-        assertTrue(result11);
-        assertTrue(deleted4);
-        assertFalse(result12);
-        assertTrue(result13);
-        assertTrue(result14);
-        assertTrue(deleted5);
-        assertFalse(result15);
-        assertFalse(result16);
+        assertTrue(map.has(JSString.of("temp")));
+        assertTrue(map.delete(JSString.of("temp")));
+        assertFalse(map.has(JSString.of("temp")));
+        assertFalse(map.has(JSString.of("missing")));
+        assertTrue(map.has(42));
+        assertTrue(map.delete(42));
+        assertFalse(map.has(42));
+        assertFalse(map.has(99));
+        assertTrue(map.has(3.14));
+        assertTrue(map.delete(3.14));
+        assertFalse(map.has(3.14));
+        assertFalse(map.has(2.71));
+        assertTrue(map.has(true));
+        assertTrue(map.has(false));
+        assertTrue(map.delete(true));
+        assertFalse(map.has(true));
+        assertTrue(map.has(false));
+        assertTrue(map.has("customKey"));
+        assertTrue(map.delete("customKey"));
+        assertFalse(map.has("customKey"));
+        assertFalse(map.has("unknownKey"));
     }
 
     public static void testClearAndSize() {
@@ -134,6 +218,63 @@ public class JSMapTest {
         assertEquals(Integer.valueOf(20), JSValue.checkedCoerce(entry2.get(1), Integer.class));
         assertEquals(JSUndefined.undefined(), JSValue.checkedCoerce(entries.next().get("value"), JSUndefined.class));
         assertEquals(List.of("Key: x value: 10", "Key: y value: 20"), results);
+    }
+
+    public static void testForEach() {
+        JSMap map = new JSMap();
+        map.set("a", "alpha");
+        map.set("b", "beta");
+        map.set("c", "gamma");
+        JSValue thisValue = JSString.of("context:JSValue");
+        List<String> collected = new ArrayList<>();
+        List<List<List<String>>> values = List.of(
+                List.of(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()),
+                List.of(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()),
+                List.of(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>())
+        );
+
+        map.forEach(JSFunction.fromCons((JSValue value) -> {
+            String str = JSValue.checkedCoerce(value, String.class);
+            collected.addLast(str);
+        }));
+        map.forEach(JSFunction.fromBiConsWithThis((JSValue ctx, JSString value, JSString key) -> {
+            values.getFirst().getFirst().addLast(JSValue.checkedCoerce(value, String.class));
+            values.get(1).getFirst().addLast(JSValue.checkedCoerce(key, String.class));
+            values.get(2).getFirst().addLast(JSValue.checkedCoerce(ctx, String.class));
+        }), thisValue);
+        map.forEach(JSFunction.fromBiConsWithThis((JSValue ctx, JSString value, JSString key) -> {
+            values.getFirst().get(1).addLast(JSValue.checkedCoerce(value, String.class));
+            values.get(1).get(1).addLast(JSValue.checkedCoerce(key, String.class));
+            values.get(2).get(1).addLast(JSValue.checkedCoerce(ctx, Integer.class).toString());
+        }), 42);
+        map.forEach(JSFunction.fromBiConsWithThis((JSValue ctx, JSString value, JSString key) -> {
+            values.getFirst().get(2).addLast(JSValue.checkedCoerce(value, String.class));
+            values.get(1).get(2).addLast(JSValue.checkedCoerce(key, String.class));
+            values.get(2).get(2).addLast(JSValue.checkedCoerce(ctx, Double.class).toString());
+        }), 3.14);
+        map.forEach(JSFunction.fromBiConsWithThis((JSValue ctx, JSString value, JSString key) -> {
+            values.getFirst().get(3).addLast(JSValue.checkedCoerce(value, String.class));
+            values.get(1).get(3).addLast(JSValue.checkedCoerce(key, String.class));
+            values.get(2).get(3).addLast(JSValue.checkedCoerce(ctx, Boolean.class).toString());
+        }), true);
+        map.forEach(JSFunction.fromBiConsWithThis((JSValue ctx, JSString value, JSString key) -> {
+            values.getFirst().get(4).addLast(JSValue.checkedCoerce(value, String.class));
+            values.get(1).get(4).addLast(JSValue.checkedCoerce(key, String.class));
+            values.get(2).get(4).addLast(JSValue.checkedCoerce(ctx, String.class));
+        }), "context:Object");
+
+        assertEquals(List.of("alpha", "beta", "gamma"), collected);
+        for(List<String> list : values.getFirst()) {
+            assertEquals(List.of("alpha", "beta", "gamma"), list);
+        }
+        for(List<String> list : values.get(1)) {
+            assertEquals(List.of("a", "b", "c"), list);
+        }
+        assertEquals(List.of("context:JSValue", "context:JSValue", "context:JSValue"), values.get(2).getFirst());
+        assertEquals(List.of("42", "42", "42"), values.get(2).get(1));
+        assertEquals(List.of("3.14", "3.14", "3.14"), values.get(2).get(2));
+        assertEquals(List.of("true", "true", "true"), values.get(2).get(3));
+        assertEquals(List.of("context:Object", "context:Object", "context:Object"), values.get(2).get(4));
     }
 
     public static void testGroupBy() {

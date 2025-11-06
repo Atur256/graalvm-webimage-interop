@@ -40,6 +40,7 @@ public class JSRegExpTest {
         JSRegExp regex2 = JSRegExp.of("\\p{Script=Latin}", "v");
 
         assertTrue(regex1.global);
+        assertTrue(regex1.hasIndices);
         assertTrue(regex1.ignoreCase);
         assertTrue(regex1.multiline);
         assertTrue(regex1.dotAll);

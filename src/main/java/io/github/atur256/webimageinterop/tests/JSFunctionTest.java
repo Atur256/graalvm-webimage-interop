@@ -11,8 +11,6 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 
 public class JSFunctionTest {
@@ -397,10 +395,10 @@ public class JSFunctionTest {
                 JSString.of(self.asString() + value.asString()));
 
         String result1 = fun1.bind(obj).invoke(String.class, false);
-        String result2 = fun2.bindJS(JSString.of("Hello ")).invokeJS(String.class,JSString.of("Alice"));
+        String result2 = fun2.bindJS(JSString.of("Hello ")).invokeJS(String.class, JSString.of("Alice"));
 
-       assertEquals("Alice is VIP: false", result1);
-       assertEquals("Hello Alice", result2);
+        assertEquals("Alice is VIP: false", result1);
+        assertEquals("Hello Alice", result2);
     }
 
     public static void testMetadata() {

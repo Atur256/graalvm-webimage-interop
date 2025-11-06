@@ -2,9 +2,7 @@ package io.github.atur256.webimageinterop.builtin;
 
 import org.graalvm.webimage.api.*;
 
-import java.lang.String;
 import java.util.function.*;
-import java.lang.Object;
 
 
 /**

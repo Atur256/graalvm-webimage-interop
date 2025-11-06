@@ -3,9 +3,6 @@ package io.github.atur256.webimageinterop.builtin;
 import org.graalvm.webimage.api.JS;
 import org.graalvm.webimage.api.JSValue;
 
-import java.lang.Object;
-import java.lang.String;
-
 
 /**
  * Provides a Java binding for the JavaScript {@code Error} object within the WebImage interop layer.

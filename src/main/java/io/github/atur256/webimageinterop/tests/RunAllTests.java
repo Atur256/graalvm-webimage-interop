@@ -5,7 +5,7 @@ package io.github.atur256.webimageinterop.tests;
  */
 public class RunAllTests {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
         System.out.println("Running all WebImage interop tests...\n");
 

@@ -103,7 +103,26 @@ public class JSArrayTest {
     }
 
     public static void testIndexAccess() {
+        JSArray jsValueArray = JSArray.of(JSNumber.of(1), JSString.of("Test"));
+        JSArray doubleArray = JSArray.of(1.1, 2.2, 1.1);
+
+        assertEquals(1, jsValueArray.indexOf(JSString.of("Test")));
+        assertEquals(-1, jsValueArray.indexOf(JSNumber.of(2.3)));
+        assertEquals(1, MIXED.indexOf(2));
+        assertEquals(-1, MIXED.indexOf(1));
+        assertEquals(0, doubleArray.indexOf(1.1));
+        assertEquals(-1, doubleArray.indexOf(1.5));
+        assertEquals(2, MIXED.indexOf(true));
+        assertEquals(-1, MIXED.indexOf(false));
         assertEquals(2, BASE.indexOf("c"));
+        assertEquals(0, jsValueArray.lastIndexOf(JSNumber.of(1)));
+        assertEquals(-1, jsValueArray.lastIndexOf(JSNumber.of(2)));
+        assertEquals(1, MIXED.lastIndexOf(2));
+        assertEquals(-1, MIXED.lastIndexOf(1));
+        assertEquals(2, doubleArray.lastIndexOf(1.1));
+        assertEquals(-1, doubleArray.lastIndexOf(1.5));
+        assertEquals(2, BOOLEANS.lastIndexOf(true));
+        assertEquals(-1, MIXED.lastIndexOf(false));
         assertEquals(4, BASE.lastIndexOf("e"));
         assertEquals(-1, EMPTY.indexOf("anything"));
         assertEquals("a", BASE.at(0, String.class));
@@ -128,33 +147,41 @@ public class JSArrayTest {
     }
 
     public static void testPopPush() {
-        JSArray baseClone = JSArray.from(BASE);
-        JSArray emptyClone = JSArray.from(EMPTY);
+        JSArray arr = JSArray.of();
 
-        String popped = baseClone.pop(String.class);
-        int newLength = baseClone.push("z");
-        JSUndefined emptyPopped = emptyClone.pop(JSUndefined.class);
-
-        assertEquals("e", popped);
-        assertEquals(5, newLength);
-        AssertArray.assertArray(baseClone, String.class, "a", "b", "c", "d", "z");
-        assertEquals(JSUndefined.undefined(), emptyPopped);
+        assertEquals(1, arr.push(JSNumber.of(1)));
+        assertEquals(2, arr.push(2));
+        assertEquals(3, arr.push(1.1));
+        assertEquals(4, arr.push(true));
+        assertEquals(5, arr.push("Hello World"));
+        assertEquals("Hello World", arr.pop(String.class));
+        assertTrue(arr.pop(Boolean.class));
+        assertEquals(1.1, arr.pop(Double.class), 0.0);
+        assertEquals(Integer.valueOf(2), arr.pop(Integer.class));
+        assertEquals(JSNumber.of(1), arr.pop(JSNumber.class));
+        assertEquals(0, arr.length);
     }
 
     public static void testReduce() {
         String reduced1 = BASE.reduce(JSFunction.fromBiFunc((JSString acc, JSString val) ->
-                JSString.of(acc.asString() + val.asString())), "");
-        String reduced2 = BASE.reduceRight(JSFunction.fromBiFunc((JSString acc, JSString val) ->
-                JSString.of(acc.asString() + val.asString())), "");
+                JSString.of(acc.asString() + val.asString())), String.class);
+        String reduced2 = BASE.reduce(JSFunction.fromBiFunc((JSString acc, JSString val) ->
+                JSString.of(acc.asString() + val.asString())), "Test:");
+        String reduced3 = BASE.reduceRight(JSFunction.fromBiFunc((JSString acc, JSString val) ->
+                JSString.of(acc.asString() + val.asString())), String.class);
+        String reduced4 = BASE.reduceRight(JSFunction.fromBiFunc((JSString acc, JSString val) ->
+                JSString.of(acc.asString() + val.asString())), "Test:");
 
-        assertThrows(ThrownFromJavaScript.class, () ->
-                EMPTY.reduce(JSFunction.fromBiFunc((JSString acc, JSString val) ->
-                        JSString.of(acc.asString() + val.asString())), String.class));
-        assertEquals("edcba", reduced2);
-        assertThrows(ThrownFromJavaScript.class, () ->
-                EMPTY.reduce(JSFunction.fromBiFunc((JSString acc, JSString val) ->
-                        JSString.of(acc.asString() + val.asString())), String.class));
         assertEquals("abcde", reduced1);
+        assertEquals("Test:abcde", reduced2);
+        assertEquals("edcba", reduced3);
+        assertEquals("Test:edcba", reduced4);
+        assertThrows(ThrownFromJavaScript.class, () ->
+                EMPTY.reduce(JSFunction.fromBiFunc((JSString acc, JSString val) ->
+                        JSString.of(acc.asString() + val.asString())), String.class));
+        assertThrows(ThrownFromJavaScript.class, () ->
+                EMPTY.reduce(JSFunction.fromBiFunc((JSString acc, JSString val) ->
+                        JSString.of(acc.asString() + val.asString())), String.class));
     }
 
     public static void testReverse() {
@@ -168,31 +195,42 @@ public class JSArrayTest {
     }
 
     public static void testShiftUnshift() {
-        JSArray baseClone = JSArray.from(BASE);
-        JSArray emptyClone = JSArray.from(EMPTY);
+        JSArray arr = JSArray.of();
 
-        String shifted = baseClone.shift(String.class);
-        int newLength = baseClone.unshift("x");
-        JSUndefined emptyShifted = emptyClone.shift(JSUndefined.class);
-
-        assertEquals("a", shifted);
-        assertEquals(5, newLength);
-        AssertArray.assertArray(baseClone, String.class, "x", "b", "c", "d", "e");
-        assertEquals(JSUndefined.undefined(), emptyShifted);
+        assertEquals(1, arr.unshift(JSNumber.of(1)));
+        assertEquals(2, arr.unshift(2));
+        assertEquals(3, arr.unshift(1.1));
+        assertEquals(4, arr.unshift(true));
+        assertEquals(5, arr.unshift("Hello World"));
+        assertEquals("Hello World", arr.shift(String.class));
+        assertTrue(arr.shift(Boolean.class));
+        assertEquals(1.1, arr.shift(Double.class), 0.0);
+        assertEquals(Integer.valueOf(2), arr.shift(Integer.class));
+        assertEquals(JSNumber.of(1), arr.shift(JSNumber.class));
+        assertEquals(0, arr.length);
     }
 
 
     public static void testFill() {
-        JSArray baseClone = JSArray.from(BASE);
-        JSArray fillTestClone = JSArray.from(STRINGS);
+        JSArray arr1 = JSArray.of(JSNumber.of(1), JSNumber.of(2), JSNumber.of(3),
+                JSNumber.of(4), JSNumber.of(5));
+        JSArray arr2 = JSArray.of(1, 2, 3, 4, 5);
+        JSArray arr3 = JSArray.of(1.2, 2.3, 3.4, 4.5, 5.6);
+        JSArray arr4 = JSArray.of(true, true, true, true);
+        JSArray arr5 = JSArray.of("Alice", "Bob", "Anna");
 
-        JSArray filled = baseClone.fill("X", 1, 3);
-        JSArray filledOutOfBounds = fillTestClone.fill("X", 5, 10);
+        JSArray filled1 = arr1.fill(JSString.of("Hello World"), 1, 3);
+        JSArray filled2 = arr2.fill(0, 3, 6);
+        JSArray filled3 = arr3.fill(0.0, 0, 5);
+        JSArray filled4 = arr4.fill(false, -1, 10);
+        JSArray filled5 = arr5.fill("X", 2, 5);
 
-        AssertArray.assertArray(baseClone, String.class, "a", "X", "X", "d", "e");
-        AssertArray.assertArray(filled, String.class, "a", "X", "X", "d", "e");
-        AssertArray.assertArray(fillTestClone, String.class, "x", "y", "z");
-        AssertArray.assertArray(filledOutOfBounds, String.class, "x", "y", "z");
+        AssertArray.assertArray(filled1, JSValue.class, JSNumber.of(1), JSString.of("Hello World"),
+                JSString.of("Hello World"), JSNumber.of(4), JSNumber.of(5));
+        AssertArray.assertArray(filled2, Integer.class, 1, 2, 3, 0, 0);
+        AssertArray.assertArray(filled3, Double.class, 0.0, 0.0, 0.0, 0.0, 0.0);
+        AssertArray.assertArray(filled4, Boolean.class, true, true, true, false);
+        AssertArray.assertArray(filled5, String.class, "Alice", "Bob", "X");
     }
 
     public static void testSliceSplice() {
@@ -252,9 +290,14 @@ public class JSArrayTest {
 
     public static void testIncludesJoin() {
         JSArray onlyTrue = JSArray.of(true, true);
+        JSArray doubleArray = JSArray.of(1.2, 2.3);
 
         assertTrue(BASE.includes("a"));
         assertFalse(BASE.includes("not-there"));
+        assertTrue(MIXED.includes(2));
+        assertFalse(MIXED.includes(1234));
+        assertTrue(doubleArray.includes(1.2));
+        assertFalse(doubleArray.includes(1.5));
         assertTrue(BOOLEANS.includes(true));
         assertTrue(BOOLEANS.includes(false));
         assertFalse(onlyTrue.includes(false));

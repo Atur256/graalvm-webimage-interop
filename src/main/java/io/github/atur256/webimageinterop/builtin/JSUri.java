@@ -2,8 +2,6 @@ package io.github.atur256.webimageinterop.builtin;
 
 import org.graalvm.webimage.api.JS;
 
-import java.lang.String;
-
 
 /**
  * Provides Java bindings for JavaScript URI encoding and decoding functions.

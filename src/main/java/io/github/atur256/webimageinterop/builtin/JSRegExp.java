@@ -4,8 +4,6 @@ import org.graalvm.webimage.api.JS;
 import org.graalvm.webimage.api.JSObject;
 import org.graalvm.webimage.api.JSValue;
 
-import java.lang.String;
-
 
 /**
  * Provides a Java binding for the JavaScript {@code RegExp} object within the WebImage interop layer.

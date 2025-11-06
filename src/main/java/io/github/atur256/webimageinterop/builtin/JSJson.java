@@ -5,8 +5,6 @@ import org.graalvm.webimage.api.JSObject;
 import org.graalvm.webimage.api.JSString;
 import org.graalvm.webimage.api.JSValue;
 
-import java.lang.Object;
-import java.lang.String;
 import java.util.function.BiFunction;
 
 

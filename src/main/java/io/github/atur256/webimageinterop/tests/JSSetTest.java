@@ -1,9 +1,7 @@
 package io.github.atur256.webimageinterop.tests;
 
 import io.github.atur256.webimageinterop.builtin.*;
-import org.graalvm.webimage.api.JSObject;
-import org.graalvm.webimage.api.JSUndefined;
-import org.graalvm.webimage.api.JSValue;
+import org.graalvm.webimage.api.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +13,12 @@ public class JSSetTest {
 
     public static void main(String[] args) {
         testAddAndHas();
+        testJSSetOverwriting();
         testDeleteAndClear();
         testSetOperations();
         testSubsetAndSuperset();
         testIteration();
+        testForEach();
         testEdgeCases();
     }
 
@@ -32,6 +32,28 @@ public class JSSetTest {
         assertTrue(set.has(false));
         assertFalse(set.has("banana"));
         assertEquals(5, set.size);
+    }
+
+    public static void testJSSetOverwriting() {
+        JSSet set = new JSSet();
+
+        set.add("duplicate");
+        set.add("duplicate");
+        set.add("duplicate");
+        boolean result1 = set.has("duplicate");
+        int size1 = set.size;
+        set.clear();
+        set.add(1);
+        set.add("1");
+        boolean result2 = set.has(1);
+        boolean result3 = set.has("1");
+        int size2 = set.size;
+
+        assertTrue(result1);
+        assertEquals(1, size1);
+        assertTrue(result2);
+        assertTrue(result3);
+        assertEquals(2, size2);
     }
 
     public static void testDeleteAndClear() {
@@ -51,11 +73,20 @@ public class JSSetTest {
         boolean result9 = set.has(3.3);
         boolean result10 = set.has(true);
         boolean result11 = set.has(false);
+        boolean deleted3 = set.delete(2.2);
+        boolean deleted4 = set.delete(true);
+        int size1 = set.size;
+        set.add(2.2).add("y").add(true);
+        int size2 = set.size;
         set.clear();
+        int size3 = set.size;
         boolean result12 = set.has("y");
         boolean result13 = set.has(2.2);
         boolean result14 = set.has(true);
 
+        assertEquals(1, size1);
+        assertEquals(3, size2);
+        assertEquals(0, size3);
         assertTrue(result1);
         assertTrue(result2);
         assertFalse(result3);
@@ -69,6 +100,8 @@ public class JSSetTest {
         assertFalse(result9);
         assertTrue(result10);
         assertFalse(result11);
+        assertTrue(deleted3);
+        assertTrue(deleted4);
         assertFalse(result12);
         assertFalse(result13);
         assertFalse(result14);
@@ -142,6 +175,51 @@ public class JSSetTest {
         assertEquals("three", JSValue.checkedCoerce(entry3.get(1), String.class));
         assertEquals(JSUndefined.undefined(), JSValue.checkedCoerce(entries.next().get("value"), JSUndefined.class));
         assertEquals(List.of("Key: one value: one", "Key: two value: two", "Key: three value: three"), results);
+    }
+
+    public static void testForEach() {
+        JSSet set = new JSSet().add("alpha").add("beta").add("gamma");
+        JSValue thisValue = JSString.of("context:JSValue");
+        List<String> collected = new ArrayList<>();
+        List<List<List<String>>> values = List.of(
+                List.of(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()),
+                List.of(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>())
+        );
+
+        set.forEach(JSFunction.fromCons((JSValue value) -> {
+            String str = JSValue.checkedCoerce(value, String.class);
+            collected.addLast(str);
+        }));
+        set.forEach(JSFunction.fromBiConsWithThis((JSValue ctx, JSString value, JSString _) -> {
+            values.getFirst().getFirst().addLast(JSValue.checkedCoerce(value, String.class));
+            values.get(1).getFirst().addLast(JSValue.checkedCoerce(ctx, String.class));
+        }), thisValue);
+        set.forEach(JSFunction.fromBiConsWithThis((JSValue ctx, JSString value, JSString _) -> {
+            values.getFirst().get(1).addLast(JSValue.checkedCoerce(value, String.class));
+            values.get(1).get(1).addLast(JSValue.checkedCoerce(ctx, Integer.class).toString());
+        }), 42);
+        set.forEach(JSFunction.fromBiConsWithThis((JSValue ctx, JSString value, JSString _) -> {
+            values.getFirst().get(2).addLast(JSValue.checkedCoerce(value, String.class));
+            values.get(1).get(2).addLast(JSValue.checkedCoerce(ctx, Double.class).toString());
+        }), 3.14);
+        set.forEach(JSFunction.fromBiConsWithThis((JSValue ctx, JSString value, JSString _) -> {
+            values.getFirst().get(3).addLast(JSValue.checkedCoerce(value, String.class));
+            values.get(1).get(3).addLast(JSValue.checkedCoerce(ctx, Boolean.class).toString());
+        }), true);
+        set.forEach(JSFunction.fromBiConsWithThis((JSValue ctx, JSString value, JSString _) -> {
+            values.getFirst().get(4).addLast(JSValue.checkedCoerce(value, String.class));
+            values.get(1).get(4).addLast(JSValue.checkedCoerce(ctx, String.class));
+        }), "context:Object");
+
+        assertEquals(List.of("alpha", "beta", "gamma"), collected);
+        for(List<String> list : values.getFirst()) {
+            assertEquals(List.of("alpha", "beta", "gamma"), list);
+        }
+        assertEquals(List.of("context:JSValue", "context:JSValue", "context:JSValue"), values.get(1).getFirst());
+        assertEquals(List.of("42", "42", "42"), values.get(1).get(1));
+        assertEquals(List.of("3.14", "3.14", "3.14"), values.get(1).get(2));
+        assertEquals(List.of("true", "true", "true"), values.get(1).get(3));
+        assertEquals(List.of("context:Object", "context:Object", "context:Object"), values.get(1).get(4));
     }
 
     public static void testEdgeCases() {

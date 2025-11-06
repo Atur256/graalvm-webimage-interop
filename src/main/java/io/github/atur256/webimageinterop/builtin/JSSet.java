@@ -4,8 +4,6 @@ import org.graalvm.webimage.api.JS;
 import org.graalvm.webimage.api.JSObject;
 import org.graalvm.webimage.api.JSValue;
 
-import java.lang.Object;
-
 
 /**
  * Provides a Java binding for the JavaScript {@code Set} object within the WebImage interop layer.
@@ -22,7 +20,9 @@ import java.lang.Object;
 @JS.Import("Set")
 public class JSSet extends JSObject {
 
-    /** The number of elements in the set. */
+    /**
+     * The number of elements in the set.
+     */
     public int size;
 
 
@@ -257,12 +257,11 @@ public class JSSet extends JSObject {
     @JS("this.forEach(callback);")
     public native void forEach(JSFunction callback);
 
-
     /**
      * Executes the {@code callback} function with {@code thisArg} as its {@code this} context.
      *
      * @param callback the function to execute
-     * @param thisArg the {@code JSValue} to use as {@code this}
+     * @param thisArg  the {@code JSValue} to use as {@code this}
      */
     @JS.Coerce
     @JS("this.forEach(callback, thisArg);")
@@ -272,7 +271,7 @@ public class JSSet extends JSObject {
      * Executes the {@code callback} function with {@code thisArg} as its {@code this} context.
      *
      * @param callback the function to execute
-     * @param thisArg the {@code int} to use as {@code this}
+     * @param thisArg  the {@code int} to use as {@code this}
      */
     @JS.Coerce
     @JS("this.forEach(callback, thisArg);")
@@ -282,7 +281,7 @@ public class JSSet extends JSObject {
      * Executes the {@code callback} function with {@code thisArg} as its {@code this} context.
      *
      * @param callback the function to execute
-     * @param thisArg the {@code double} to use as {@code this}
+     * @param thisArg  the {@code double} to use as {@code this}
      */
     @JS.Coerce
     @JS("this.forEach(callback, thisArg);")
@@ -292,7 +291,7 @@ public class JSSet extends JSObject {
      * Executes the {@code callback} function with {@code thisArg} as its {@code this} context.
      *
      * @param callback the function to execute
-     * @param thisArg the {@code boolean} to use as {@code this}
+     * @param thisArg  the {@code boolean} to use as {@code this}
      */
     @JS.Coerce
     @JS("this.forEach(callback, thisArg);")
@@ -302,7 +301,7 @@ public class JSSet extends JSObject {
      * Executes the {@code callback} function with {@code thisArg} as its {@code this} context.
      *
      * @param callback the function to execute
-     * @param thisArg the {@code Object} to use as {@code this}
+     * @param thisArg  the {@code Object} to use as {@code this}
      */
     @JS.Coerce
     @JS("this.forEach(callback, thisArg);")

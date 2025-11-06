@@ -2,7 +2,6 @@ package io.github.atur256.webimageinterop.builtin;
 
 import org.graalvm.webimage.api.*;
 
-import java.lang.Object;
 import java.util.List;
 
 
