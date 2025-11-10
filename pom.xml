@@ -11,7 +11,7 @@
     <packaging>jar</packaging>
 
     <name>web-image-interop</name>
-    <description>Java bindings for JavaScript objects using GraalVM WebImage interop</description>
+    <description>Java wrappers for JavaScript global objects using GraalVM WebImage API</description>
     <url>https://github.com/atur256/web-image-interop</url>
 
     <licenses>
@@ -59,7 +59,7 @@
             <version>21.0.0</version>
         </dependency>
 
-        <!-- Optional: GraalVM SDK and native image support -->
+        <!-- GraalVM SDK and native image support -->
         <dependency>
             <groupId>com.graalvm.nativeimage</groupId>
             <artifactId>nativeimage-libgraal</artifactId>
