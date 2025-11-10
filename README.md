@@ -38,7 +38,7 @@ This project provides Java wrappers for many standard ECMAScript global objects,
 
 Full documentation for all wrappers can be found in the separate reference file:
 
-[See Available Objects →](./AVAILABLE_OBJECTS.md)
+[See Available Objects](./AVAILABLE_OBJECTS.md)
 
 ---
 
