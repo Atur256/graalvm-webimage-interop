@@ -1,4 +1,4 @@
-# WebImage Interop Extension
+# GraalVM WebImage Interop
 
 This library extends the [Oracle GraalVM WebImage API](https://www.graalvm.org/sdk/javadoc/org/graalvm/webimage/api/package-summary.html) by providing Java wrappers for core [JavaScript global objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects).
 
@@ -83,7 +83,7 @@ Each JavaScript wrapper has its own dedicated test class.
 - **Per-class testing:** Each test class corresponds to a single wrapper (e.g., `JSArrayTest`).
 - **Full test suite:** The `RunAllTests` class aggregates all test classes and runs the complete suite.
 
-See the [RunAllTests class](https://github.com/Atur256/web-image-interop/blob/master/src/main/java/io/github/atur256/webimageinterop/tests/RunAllTests.java)
+See the [RunAllTests class](https://github.com/Atur256/graalvm-webimage-interop/blob/master/src/main/java/io/github/atur256/webimageinterop/tests/RunAllTests.java)
 
 ---
 
