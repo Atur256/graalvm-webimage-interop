@@ -2,16 +2,14 @@
   <artifact type="jar" name="web-image-interop:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/web_image_interop_jar</output-path>
     <root id="archive" name="web-image-interop.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
       <element id="module-output" name="web-image-interop" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/lib/javassist-3.28.0-GA.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/lib/jsr305-3.0.2.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/lib/slf4j-api-1.7.32.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../graal/sdk/mxbuild/jdk26/dists/jdk21/sdk-test.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../graal/sdk/mxbuild/jdk26/dists/jdk21/sdk-test.src.zip" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../graal/sdk/mxbuild/jdk26/dists/jdk21/webimage-preview.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../graal/sdk/mxbuild/jdk26/dists/jdk21/nativeimage-libgraal.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../graal/sdk/mxbuild/jdk26/dists/jdk21/webimage-preview.src.zip" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../graal/sdk/mxbuild/jdk26/dists/jdk21/nativeimage-libgraal.src.zip" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jetbrains/annotations/26.0.2-1/annotations-26.0.2-1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/graalvm/nativeimage/nativeimage-libgraal/21.0.0/nativeimage-libgraal-21.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/graalvm/sdk/sdk-test/21.0.0/sdk-test-21.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/graalvm/webimage/webimage-preview/21.0.0/webimage-preview-21.0.0.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

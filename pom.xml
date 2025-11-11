@@ -5,14 +5,14 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.atur256.webimageinterop</groupId>
-    <artifactId>web-image-interop</artifactId>
+    <groupId>io.github.atur256.graalvmwebimageinterop</groupId>
+    <artifactId>graalvm-webimage-interop</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>web-image-interop</name>
-    <description>Java wrappers for JavaScript global objects using GraalVM WebImage API</description>
-    <url>https://github.com/atur256/web-image-interop</url>
+    <name>graalvm-webimage-interop</name>
+    <description>Java wrappers for JavaScript global objects with GraalVM WebImage interop</description>
+    <url>https://github.com/Atur256/graalvm-webimage-interop</url>
 
     <licenses>
         <license>
@@ -32,9 +32,9 @@
     </developers>
 
     <scm> <!-- TODO: check this -->
-        <connection>scm:git:https://github.com/atur256/web-image-interop.git</connection>
-        <developerConnection>scm:git:https://github.com/atur256/web-image-interop.git</developerConnection>
-        <url>https://github.com/atur256/web-image-interop</url>
+        <connection>scm:git:https://github.com/Atur256/graalvm-webimage-interop.git</connection>
+        <developerConnection>scm:git:https://github.com/Atur256/graalvm-webimage-interop.git</developerConnection>
+        <url>https://github.com/Atur256/graalvm-webimage-interop</url>
     </scm>
 
     <properties> <!-- TODO: check this -->
