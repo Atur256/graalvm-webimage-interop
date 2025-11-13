@@ -16,20 +16,79 @@ It offers a consistent and idiomatic interface for JavaScript interop within Gra
 
 ---
 
-## GraalVM Requirement
+## Build & GraalVM Requirements
 
-**Important:**  
-This library currently depends on a version of GraalVM that has **not yet been officially released**.  
+This project depends on a version of GraalVM that has **not yet been officially released**.  
 It cannot be pulled from Maven Central or other standard repositories.
 
-To build and use this library:
+To build and use this library you must:
 
 1. **Download or build the latest GraalVM version** from the [official GraalVM GitHub repository](https://github.com/oracle/graal).
-2. **Compile the project locally** using this GraalVM build.
-3. Use `mvn install` or `gradle build` to complete the compilation.
+2. **Compile the project locally** against this GraalVM build.
+3. Use the provided `build.sh` script to simplify compilation and testing.
 
-Standard Maven or Gradle builds with released GraalVM versions will not currently succeed.
+---
 
+### Build Script
+
+The build script `build.sh` automates compilation and testing against unreleased GraalVM builds.
+
+#### Configuration
+
+The script requires two paths:
+- `GRAALVM_BIN`: Path to the GraalVM `bin` directory (where `web-image` resides).
+- `JAVA_HOME_OVERRIDE`: Path to the JDK you want to force for compilation. (Can be skipped)
+
+#### Input Options
+
+You can provide configuration either:
+
+1. **Command-line arguments**:
+   ```bash
+   ./build.sh <GRAALVM_BIN> <JAVA_HOME_OVERRIDE> [--skip-tests]
+   ```
+2. **Configuration file (build.config)**:
+  
+    Define GRAALVM_BIN and JAVA_HOME_OVERRIDE in build.config. 
+
+    Example:
+    ```bash
+    # === GraalVM Build Configuration ===
+    # Path to GraalVM bin directory
+    GRAALVM_BIN=/home/<user>/Oracle/graal/sdk/mxbuild/linux-amd64/GRAALVM_181A492ACC_JAVA25/graalvm-181a492acc-java25-25.1.0-dev/bin
+
+    # Override JAVA_HOME (optional)
+    JAVA_HOME_OVERRIDE=/usr/lib/jvm/java-25-openjdk
+    ```
+#### Flags
+
+- `--skip-tests`: Skips test compilation and execution.
+
+#### Steps Performed
+1. **Compile with Maven**
+
+   Runs `mvn clean package` with GraalVM native access enabled.
+2. **Compile and Run Tests (optional)**
+
+   Uses GraalVM `web-image` to compile the test runner into a JavaScript bundle, then executes it with [Node.js](https://nodejs.org/en).
+3. **Copy Artifacts**
+
+   Places the compiled library JAR (and test bundle if enabled) into the `output/` directory.
+
+#### Example Usage
+```bash
+# Using command-line arguments
+./build.sh /path/to/graalvm/bin /usr/lib/jvm/java-25-openjdk
+
+# Using build.config
+./build.sh
+```
+
+After completion, the compiled JAR and test bundle will be available in:
+
+```bash
+output/
+```
 ---
 
 ## Available JavaScript Wrappers
@@ -112,3 +171,4 @@ See the [LICENSE](./LICENSE) file for details.
 - [GraalVM Documentation](https://www.graalvm.org/latest/docs/)
 - [WebImage API Reference](https://www.graalvm.org/sdk/javadoc/org/graalvm/webimage/api/package-summary.html)
 - [MDN JavaScript Global Objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects)
+- [Node.js](https://nodejs.org/en)

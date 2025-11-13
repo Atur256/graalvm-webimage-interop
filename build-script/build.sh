@@ -47,7 +47,6 @@ if [[ "$RUN_TESTS" == true ]]; then
   echo "Compiling tests with WebImage..."
   "$GRAALVM_BIN/web-image" \
     -H:+UnlockExperimentalVMOptions \
-    -H:-ClosureCompiler \
     -o "$OUTPUT_DIR/Tests" \
     -Ob \
     -cp "$MAIN_JAR:$TEST_JAR" \
