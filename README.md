@@ -31,7 +31,7 @@ To build and use this library you must:
 
 ### Build Script
 
-The build script `build.sh` automates compilation and testing against unreleased GraalVM builds.
+The build script `build-script/build.sh` automates compilation and testing against unreleased GraalVM builds.
 
 #### Configuration
 
@@ -49,7 +49,7 @@ You can provide configuration either:
    ```
 2. **Configuration file (build.config)**:
   
-    Define GRAALVM_BIN and JAVA_HOME_OVERRIDE in build.config. 
+    Define `GRAALVM_BIN` and `JAVA_HOME_OVERRIDE` in `build.config`. 
 
     Example:
     ```bash
