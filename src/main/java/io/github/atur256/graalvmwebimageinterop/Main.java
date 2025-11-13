@@ -10,6 +10,7 @@ public class Main {
 
     // TODO: temporary
 
+
     public static void main(String[] args) {
         System.out.println("Starting WebImage interop test suite...\n");
         TestRunner.main(args);
