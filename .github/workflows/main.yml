@@ -5,7 +5,7 @@ on:
   push:
     branches:
       - "**"   # run on all branches
-  pull_request: # optional, also run on PRs
+  pull_request:
 
 jobs:
   build:
@@ -16,23 +16,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # === Set up JDK (adjust version to match your pom.xml) ===
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: 22
+      # === Install GraalVM (Oracle build with WebImage) ===
+      # Replace the URL with the actual download link for your GraalVM WebImage distribution
+      - name: Download GraalVM WebImage
+        run: |
+          curl -L -o graalvm-webimage.tar.gz "https://example.com/path/to/graalvm-webimage.tar.gz"
+          mkdir -p $HOME/graalvm
+          tar -xzf graalvm-webimage.tar.gz -C $HOME/graalvm --strip-components=1
+          echo "GRAALVM_BIN=$HOME/graalvm/bin" >> $GITHUB_ENV
+          echo "JAVA_HOME_OVERRIDE=$HOME/graalvm" >> $GITHUB_ENV
 
-      # === Install GraalVM (if needed for web-image) ===
-      - name: Set up GraalVM
-        uses: graalvm/setup-graalvm@v1
-        with:
-          java-version: 22
-          distribution: graalvm
-          components: "native-image"
-
-      # === Run your build script ===
+      # === Run your build script with explicit arguments ===
       - name: Run build script
         run: |
           chmod +x build-script/build.sh
-          ./build-script/build.sh --skip-tests
+          ./build-script/build.sh "$GRAALVM_BIN" "$JAVA_HOME_OVERRIDE" --skip-tests
