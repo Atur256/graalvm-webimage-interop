@@ -438,8 +438,8 @@ public class                                JSFunctionTest {
                 ) {
                 return x + y + z;
                 }>""", result5);
-        assertEquals("<JavaScript<function; function(args) { return javaFunc(args); }>", result6);
-        assertEquals("function(args) { return javaFunc(args); }", result7);
+        assertEquals("<JavaScript<function; function(e){return d(e)}>", result6);
+        assertEquals("function(e){return d(e)}", result7);
     }
 
     private static <A, B> void assertPair(Pair<A, B> pair, A value1, B value2) {
