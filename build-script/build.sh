@@ -12,7 +12,7 @@ if [[ $# -ge 2 ]]; then
   JAVA_HOME_OVERRIDE="$2"
   FLAG="${3:-}"
 else
-  CONFIG_FILE="$PROJECT_DIR/build.config"
+  CONFIG_FILE="$PROJECT_DIR/build-script/build.config"
   if [[ ! -f "$CONFIG_FILE" ]]; then
     echo "Usage: $0 <GRAALVM_BIN> <JAVA_HOME_OVERRIDE> [--skip-tests]"
     echo "Or provide a build.config file with GRAALVM_BIN and JAVA_HOME_OVERRIDE."
