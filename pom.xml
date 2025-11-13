@@ -7,7 +7,7 @@
 
     <groupId>io.github.atur256.graalvmwebimageinterop</groupId>
     <artifactId>graalvm-webimage-interop</artifactId>
-    <version>1.0.0</version>
+    <version>0.0.1</version>
     <packaging>jar</packaging>
 
     <name>graalvm-webimage-interop</name>
@@ -26,25 +26,27 @@
         <developer>
             <id>atur256</id>
             <name>Arthur Schwaiger</name>
-            <email>- </email> <!-- TODO: replace this -->
+            <email>-</email> <!-- TODO: replace this -->
             <url>https://github.com/atur256</url>
         </developer>
     </developers>
 
-    <scm> <!-- TODO: check this -->
+    <scm>
         <connection>scm:git:https://github.com/Atur256/graalvm-webimage-interop.git</connection>
         <developerConnection>scm:git:https://github.com/Atur256/graalvm-webimage-interop.git</developerConnection>
         <url>https://github.com/Atur256/graalvm-webimage-interop</url>
     </scm>
 
-    <properties> <!-- TODO: check this -->
-        <maven.compiler.source>22</maven.compiler.source>
-        <maven.compiler.target>22</maven.compiler.target>
+    <properties>
+        <!-- Adjust to match your installed JDK version -->
+        <java.version>25</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
-        <!-- JUnit 5 API -->
+        <!-- JUnit 5 API (test scope only) -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -53,7 +55,7 @@
         </dependency>
 
         <!-- GraalVM WebImage Interop (replace with central version when available) -->
-        <dependency> <!-- TODO: replace this -->
+        <dependency>
             <groupId>com.graalvm.webimage</groupId>
             <artifactId>webimage-preview</artifactId>
             <version>21.0.0</version>
@@ -71,11 +73,11 @@
             <version>21.0.0</version>
         </dependency>
 
-        <!-- JetBrains annotations -->
+        <!-- JetBrains annotations (stable version) -->
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>RELEASE</version>
+            <version>24.0.1</version>
         </dependency>
     </dependencies>
 
@@ -87,8 +89,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <source>22</source>
-                    <target>22</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                     <compilerArgs>
                         <arg>-parameters</arg>
                     </compilerArgs>
@@ -105,8 +107,8 @@
                 </configuration>
             </plugin>
 
-            <!-- Attach sources -->
-            <plugin> <!-- TODO: check this -->
+            <!-- Source JAR -->
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
                 <version>3.2.1</version>
@@ -121,8 +123,8 @@
                 </executions>
             </plugin>
 
-            <!-- Attach Javadocs -->
-            <plugin> <!-- TODO: check this -->
+            <!-- Javadoc JAR -->
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.5.0</version>
@@ -138,7 +140,7 @@
             </plugin>
 
             <!-- GPG signing -->
-            <plugin> <!-- TODO: replace this -->
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
                 <version>3.1.0</version>
@@ -152,10 +154,69 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- Test JAR plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <id>test-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Copy test dependencies (JUnit, etc.) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.6.1</version>
+                <executions>
+                    <execution>
+                        <id>copy-test-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeScope>test</includeScope>
+                            <outputDirectory>${project.build.directory}/test-deps</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Shade plugin for executable JAR -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.5.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>io.github.atur256.graalvmwebimageinterop.tests.TestRunner</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
-    <distributionManagement> <!-- TODO: check this -->
+    <distributionManagement>
         <repository>
             <id>ossrh</id>
             <name>OSSRH Repository</name>

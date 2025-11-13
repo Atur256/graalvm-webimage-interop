@@ -12,7 +12,7 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("Starting WebImage interop test suite...\n");
-        RunAllTests.main(args);
+        TestRunner.main(args);
         System.out.println("\nTest suite completed.");
     }
 }

@@ -19,7 +19,7 @@ package io.github.atur256.graalvmwebimageinterop.tests;
 /**
  * Runs all WebImage interop tests sequentially.
  */
-public class RunAllTests {
+public class TestRunner {
 
     public static void main(String[] args) {
 

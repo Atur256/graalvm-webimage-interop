@@ -29,7 +29,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import static org.junit.Assert.*;
 
 
-public class JSFunctionTest {
+public class                                JSFunctionTest {
 
     public static void main(String[] args) {
 
