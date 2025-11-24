@@ -50,64 +50,64 @@ public class JSMapTest {
     public static void testSetAndGetWithJSValueKey() {
         JSMap map = new JSMap();
 
-        map.set(JSString.of("key1:js"), JSString.of("value:js"))
-                .set(JSString.of("key2:js"), 100)
-                .set(JSString.of("key3:js"), 2.718)
-                .set(JSString.of("key4:js"), true)
-                .set(JSString.of("key5:js"), "value:js-object");
+        map.setValue(JSString.of("key1:js"), JSString.of("value:js"))
+                .setValue(JSString.of("key2:js"), 100)
+                .setValue(JSString.of("key3:js"), 2.718)
+                .setValue(JSString.of("key4:js"), true)
+                .setValue(JSString.of("key5:js"), "value:js-object");
 
-        assertEquals("value:js", map.get(JSString.of("key1:js"), String.class));
-        assertEquals(Integer.valueOf(100), map.get(JSString.of("key2:js"), Integer.class));
-        assertEquals(2.718, map.get(JSString.of("key3:js"), Double.class), 1e-15);
-        assertTrue(map.get(JSString.of("key4:js"), Boolean.class));
-        assertEquals("value:js-object", map.get(JSString.of("key5:js"), String.class));
+        assertEquals("value:js", map.getValue(JSString.of("key1:js"), String.class));
+        assertEquals(Integer.valueOf(100), map.getValue(JSString.of("key2:js"), Integer.class));
+        assertEquals(2.718, map.getValue(JSString.of("key3:js"), Double.class), 1e-15);
+        assertTrue(map.getValue(JSString.of("key4:js"), Boolean.class));
+        assertEquals("value:js-object", map.getValue(JSString.of("key5:js"), String.class));
     }
 
     public static void testSetAndGetWithIntKey() {
         JSMap map = new JSMap();
 
-        map.set(1, JSString.of("value:int-js"))
-                .set(2, 777)
-                .set(3, 3.1415)
-                .set(4, false)
-                .set(5, "value:int-object");
+        map.setValue(1, JSString.of("value:int-js"))
+                .setValue(2, 777)
+                .setValue(3, 3.1415)
+                .setValue(4, false)
+                .setValue(5, "value:int-object");
 
-        assertEquals("value:int-js", map.get(1, String.class));
-        assertEquals(Integer.valueOf(777), map.get(2, Integer.class));
-        assertEquals(3.1415, map.get(3, Double.class), 1e-15);
-        assertFalse(map.get(4, Boolean.class));
-        assertEquals("value:int-object", map.get(5, String.class));
+        assertEquals("value:int-js", map.getValue(1, String.class));
+        assertEquals(Integer.valueOf(777), map.getValue(2, Integer.class));
+        assertEquals(3.1415, map.getValue(3, Double.class), 1e-15);
+        assertFalse(map.getValue(4, Boolean.class));
+        assertEquals("value:int-object", map.getValue(5, String.class));
     }
 
     public static void testSetAndGetWithDoubleKey() {
         JSMap map = new JSMap();
 
-        map.set(1.1, JSString.of("value:double-js"))
-                .set(2.2, 1618)
-                .set(3.3, 0.5772)
-                .set(4.4, true)
-                .set(5.5, "value:double-object");
+        map.setValue(1.1, JSString.of("value:double-js"))
+                .setValue(2.2, 1618)
+                .setValue(3.3, 0.5772)
+                .setValue(4.4, true)
+                .setValue(5.5, "value:double-object");
 
-        assertEquals("value:double-js", map.get(1.1, String.class));
-        assertEquals(Integer.valueOf(1618), map.get(2.2, Integer.class));
-        assertEquals(0.5772, map.get(3.3, Double.class), 1e-15);
-        assertTrue(map.get(4.4, Boolean.class));
-        assertEquals("value:double-object", map.get(5.5, String.class));
+        assertEquals("value:double-js", map.getValue(1.1, String.class));
+        assertEquals(Integer.valueOf(1618), map.getValue(2.2, Integer.class));
+        assertEquals(0.5772, map.getValue(3.3, Double.class), 1e-15);
+        assertTrue(map.getValue(4.4, Boolean.class));
+        assertEquals("value:double-object", map.getValue(5.5, String.class));
     }
 
     public static void testSetAndGetWithBooleanKey() {
         JSMap map = new JSMap();
 
-        map.set(true, JSString.of("value:bool-js"));
-        String result1 = map.get(true, String.class);
-        map.set(false, 1);
-        int result2 = map.get(false, Integer.class);
-        map.set(true, 0.0);
-        double result3 = map.get(true, Double.class);
-        map.set(false, false);
-        boolean result4 = map.get(false, Boolean.class);
-        map.set(false, "value:bool-object");
-        String result5 = map.get(false, String.class);
+        map.setValue(true, JSString.of("value:bool-js"));
+        String result1 = map.getValue(true, String.class);
+        map.setValue(false, 1);
+        int result2 = map.getValue(false, Integer.class);
+        map.setValue(true, 0.0);
+        double result3 = map.getValue(true, Double.class);
+        map.setValue(false, false);
+        boolean result4 = map.getValue(false, Boolean.class);
+        map.setValue(false, "value:bool-object");
+        String result5 = map.getValue(false, String.class);
 
         assertEquals("value:bool-js", result1);
         assertEquals(1, result2);
@@ -119,16 +119,16 @@ public class JSMapTest {
     public static void testSetAndGetWithObjectKey() {
         JSMap map = new JSMap();
 
-        map.set("key1:object", JSString.of("value:object-js"));
-        String result1 = map.get("key1:object", String.class);
-        map.set("key2:object", 123);
-        int result2 = map.get("key2:object", Integer.class);
-        map.set("key3:object", 6.022);
-        double result3 = map.get("key3:object", Double.class);
-        map.set("key4:object", false);
-        boolean result4 = map.get("key4:object", Boolean.class);
-        map.set("key5:object", "value:object-generic");
-        String result6 = map.get("key5:object", String.class);
+        map.setValue("key1:object", JSString.of("value:object-js"));
+        String result1 = map.getValue("key1:object", String.class);
+        map.setValue("key2:object", 123);
+        int result2 = map.getValue("key2:object", Integer.class);
+        map.setValue("key3:object", 6.022);
+        double result3 = map.getValue("key3:object", Double.class);
+        map.setValue("key4:object", false);
+        boolean result4 = map.getValue("key4:object", Boolean.class);
+        map.setValue("key5:object", "value:object-generic");
+        String result6 = map.getValue("key5:object", String.class);
 
         assertEquals("value:object-js", result1);
         assertEquals(123, result2);
@@ -140,16 +140,16 @@ public class JSMapTest {
     public static void testJSMapOverwrite() {
         JSMap map = new JSMap();
 
-        map.set("key", "first");
-        String result1 = map.get("key", String.class);
-        map.set("key", "second");
-        String result2 = map.get("key", String.class);
-        map.set("key", 123);
-        int result3 = map.get("key", Integer.class);
-        map.set("key", true);
-        boolean result4 = map.get("key", Boolean.class);
-        map.set("key", 3.14);
-        double result5 = map.get("key", Double.class);
+        map.setValue("key", "first");
+        String result1 = map.getValue("key", String.class);
+        map.setValue("key", "second");
+        String result2 = map.getValue("key", String.class);
+        map.setValue("key", 123);
+        int result3 = map.getValue("key", Integer.class);
+        map.setValue("key", true);
+        boolean result4 = map.getValue("key", Boolean.class);
+        map.setValue("key", 3.14);
+        double result5 = map.getValue("key", Double.class);
 
         assertEquals("first", result1);
         assertEquals("second", result2);
@@ -160,12 +160,12 @@ public class JSMapTest {
 
     public static void testHasAndDelete() {
         JSMap map = new JSMap();
-        map.set(JSString.of("temp"), JSString.of("value"));
-        map.set(42, "int-value");
-        map.set(3.14, "pi-value");
-        map.set(true, "truthy");
-        map.set(false, "falsy");
-        map.set("customKey", "customValue");
+        map.setValue(JSString.of("temp"), JSString.of("value"));
+        map.setValue(42, "int-value");
+        map.setValue(3.14, "pi-value");
+        map.setValue(true, "truthy");
+        map.setValue(false, "falsy");
+        map.setValue("customKey", "customValue");
 
         assertTrue(map.has(JSString.of("temp")));
         assertTrue(map.delete(JSString.of("temp")));
@@ -192,8 +192,8 @@ public class JSMapTest {
 
     public static void testClearAndSize() {
         JSMap map = new JSMap();
-        map.set("a", 1);
-        map.set("b", 2);
+        map.setValue("a", 1);
+        map.setValue("b", 2);
 
         int size1 = map.size;
         map.clear();
@@ -206,11 +206,11 @@ public class JSMapTest {
 
     static void testIteration() {
         JSMap map = new JSMap();
-        map.set("x", 10);
-        map.set("y", 20);
+        map.setValue("x", 10);
+        map.setValue("y", 20);
         List<String> results = new ArrayList<>();
 
-        JSIterator keys = map.keys();
+        JSIterator keys = map.mapKeys();
         JSIterator values = map.values();
         JSIterator entries = map.entries();
         JSArray entry1 = JSValue.checkedCoerce(entries.next().get("value"), JSArray.class);
@@ -238,9 +238,9 @@ public class JSMapTest {
 
     public static void testForEach() {
         JSMap map = new JSMap();
-        map.set("a", "alpha");
-        map.set("b", "beta");
-        map.set("c", "gamma");
+        map.setValue("a", "alpha");
+        map.setValue("b", "beta");
+        map.setValue("c", "gamma");
         JSValue thisValue = JSString.of("context:JSValue");
         List<String> collected = new ArrayList<>();
         List<List<List<String>>> values = List.of(
@@ -305,46 +305,46 @@ public class JSMapTest {
         JSMap groupedFromList = JSMap.groupBy(fruits, callback2);
 
         AssertArray.assertArray(JSValue.checkedCoerce(
-                groupedFromIterator.get("a"), JSArray.class), String.class, "apple", "apricot");
+                groupedFromIterator.getValue("a"), JSArray.class), String.class, "apple", "apricot");
         AssertArray.assertArray(JSValue.checkedCoerce(
-                groupedFromIterator.get("b"), JSArray.class), String.class, "blueberry", "banana");
+                groupedFromIterator.getValue("b"), JSArray.class), String.class, "blueberry", "banana");
         AssertArray.assertArray(JSValue.checkedCoerce(
-                groupedFromIterator.get("c"), JSArray.class), String.class, "cherry");
+                groupedFromIterator.getValue("c"), JSArray.class), String.class, "cherry");
         AssertArray.assertArray(JSValue.checkedCoerce(
-                groupedFromArray.get("a"), JSArray.class), String.class, "apple", "apricot");
+                groupedFromArray.getValue("a"), JSArray.class), String.class, "apple", "apricot");
         AssertArray.assertArray(JSValue.checkedCoerce(
-                groupedFromArray.get("b"), JSArray.class), String.class, "blueberry", "banana");
+                groupedFromArray.getValue("b"), JSArray.class), String.class, "blueberry", "banana");
         AssertArray.assertArray(JSValue.checkedCoerce(
-                groupedFromArray.get("c"), JSArray.class), String.class, "cherry");
+                groupedFromArray.getValue("c"), JSArray.class), String.class, "cherry");
         AssertArray.assertArray(JSValue.checkedCoerce(
-                groupedFromList.get("a"), JSArray.class), String.class, "apple", "apricot");
+                groupedFromList.getValue("a"), JSArray.class), String.class, "apple", "apricot");
         AssertArray.assertArray(JSValue.checkedCoerce(
-                groupedFromList.get("b"), JSArray.class), String.class, "blueberry", "banana");
+                groupedFromList.getValue("b"), JSArray.class), String.class, "blueberry", "banana");
         AssertArray.assertArray(JSValue.checkedCoerce(
-                groupedFromList.get("c"), JSArray.class), String.class, "cherry");
+                groupedFromList.getValue("c"), JSArray.class), String.class, "cherry");
     }
 
     static void testEdgeCases() {
         JSMap map = new JSMap();
-        map.set("x", 1);
-        map.set("x", 2);
-        map.set(null, "nullKey");
-        map.set("nullValue", null);
-        map.set(1, "int");
-        map.set("1", "string");
-        map.set(true, "yes");
-        map.set(false, "no");
+        map.setValue("x", 1);
+        map.setValue("x", 2);
+        map.setValue(null, "nullKey");
+        map.setValue("nullValue", null);
+        map.setValue(1, "int");
+        map.setValue("1", "string");
+        map.setValue(true, "yes");
+        map.setValue(false, "no");
         JSMap empty = new JSMap();
 
-        assertEquals(Integer.valueOf(2), map.get("x", Integer.class));
-        assertEquals("nullKey", map.get(null, String.class));
-        assertNull(map.get("nullValue", Object.class));
-        assertEquals("int", map.get(1, String.class));
-        assertEquals("string", map.get("1", String.class));
-        assertEquals("yes", map.get(true, String.class));
-        assertEquals("no", map.get(false, String.class));
+        assertEquals(Integer.valueOf(2), map.getValue("x", Integer.class));
+        assertEquals("nullKey", map.getValue(null, String.class));
+        assertNull(map.getValue("nullValue", Object.class));
+        assertEquals("int", map.getValue(1, String.class));
+        assertEquals("string", map.getValue("1", String.class));
+        assertEquals("yes", map.getValue(true, String.class));
+        assertEquals("no", map.getValue(false, String.class));
         assertEquals(0, empty.size);
         assertFalse(empty.has("anything"));
-        assertEquals(JSUndefined.undefined(), empty.get("anything", Object.class));
+        assertEquals(JSUndefined.undefined(), empty.getValue("anything", Object.class));
     }
 }

@@ -84,29 +84,6 @@ public class JSError extends JSObject {
     @JS("return new Error(message, options);")
     public static native JSError of(String message, JSObject options);
 
-    /**
-     * Creates a new {@code JSError} with a message and file name.
-     *
-     * @param message  the error message
-     * @param fileName the file name where the error occurred
-     * @return a new {@code JSError}
-     */
-    @JS.Coerce
-    @JS("return new Error(message, fileName);")
-    public static native JSError of(String message, String fileName);
-
-    /**
-     * Creates a new {@code JSError} with a message, file name, and line number.
-     *
-     * @param message    the error message
-     * @param fileName   the file name where the error occurred
-     * @param lineNumber the line number where the error occurred
-     * @return a new {@code JSError}
-     */
-    @JS.Coerce
-    @JS("return new Error(message, fileName,lineNumber);")
-    public static native JSError of(String message, String fileName, int lineNumber);
-
 
     // === Stack Trace Utilities ===
 

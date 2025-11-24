@@ -318,11 +318,12 @@ public class JSArrayTest {
         assertFalse(onlyTrue.includes(false));
         assertTrue(WITH_NULLS.includes(null));
         assertEquals("a,b,c,d,e", BASE.join(","));
+        assertEquals("a,b,c,d,e", BASE.join(JSString.of(",")));
         assertEquals("", EMPTY.join(","));
     }
 
     public static void testKeysValuesEntries() {
-        JSArray keys = BASE.keys().toArray();
+        JSArray keys = BASE.arrayKeys().toArray();
         JSArray values = BASE.values().toArray();
         JSArray entries = BASE.entries().toArray();
 

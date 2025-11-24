@@ -19,6 +19,7 @@ package io.github.atur256.graalvmwebimageinterop.tests;
 import io.github.atur256.graalvmwebimageinterop.builtin.JSDate;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 
 public class JSDateTest {
@@ -29,6 +30,7 @@ public class JSDateTest {
 
     public static void main(String[] args) {
         testCreateFromLong();
+        testParseInvalidDateThrows();
         testCreateFromDateString();
         testCreateFromComponents();
         testUTC();
@@ -49,6 +51,10 @@ public class JSDateTest {
         assertEquals(13, date.getUTCHours());
         assertEquals(12, date.getUTCMinutes());
         assertEquals(0, date.getUTCSeconds());
+    }
+
+    public static void testParseInvalidDateThrows() {
+        assertThrows(IllegalArgumentException.class, () -> JSDate.parse("invalid-date-string"));
     }
 
     public static void testCreateFromDateString() {
@@ -131,16 +137,31 @@ public class JSDateTest {
     }
 
     public static void testGetters() {
+        // --- Valid date ---
         JSDate date = JSDate.create("2025-10-07T13:12:00.123Z");
 
         assertEquals(7, date.getUTCDate());
-        assertEquals(2, date.getUTCDay());
+        assertEquals(2, date.getUTCDay()); // Tuesday
         assertEquals(2025, date.getUTCFullYear());
         assertEquals(13, date.getUTCHours());
         assertEquals(123, date.getUTCMilliseconds());
         assertEquals(12, date.getUTCMinutes());
-        assertEquals(9, date.getUTCMonth());
+        assertEquals(9, date.getUTCMonth()); // October = 9
         assertEquals(0, date.getUTCSeconds());
+
+        // --- Invalid date ---
+        JSDate invalid = JSDate.create("invalid-date-string");
+
+        assertThrows(IllegalArgumentException.class, invalid::getUTCDate);
+        assertThrows(IllegalArgumentException.class, invalid::getUTCDay);
+        assertThrows(IllegalArgumentException.class, invalid::getUTCFullYear);
+        assertThrows(IllegalArgumentException.class, invalid::getUTCHours);
+        assertThrows(IllegalArgumentException.class, invalid::getUTCMilliseconds);
+        assertThrows(IllegalArgumentException.class, invalid::getUTCMinutes);
+        assertThrows(IllegalArgumentException.class, invalid::getUTCMonth);
+        assertThrows(IllegalArgumentException.class, invalid::getUTCSeconds);
+        assertThrows(IllegalArgumentException.class, invalid::getTime);
+        assertThrows(IllegalArgumentException.class, invalid::getTimezoneOffset);
     }
 
     public static void testSetters() {

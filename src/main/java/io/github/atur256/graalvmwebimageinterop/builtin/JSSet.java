@@ -18,7 +18,6 @@ package io.github.atur256.graalvmwebimageinterop.builtin;
 
 import org.graalvm.webimage.api.JS;
 import org.graalvm.webimage.api.JSObject;
-import org.graalvm.webimage.api.JSValue;
 
 
 /**
@@ -45,46 +44,6 @@ public class JSSet extends JSObject {
     // === Add Methods ===
 
     /**
-     * Adds a {@link JSValue} to the set.
-     *
-     * @param value the {@code JSValue} to add
-     * @return the updated {@code JSSet} instance
-     */
-    @JS.Coerce
-    @JS("return this.add(value);")
-    public native JSSet add(JSValue value);
-
-    /**
-     * Adds an {@code int} value to the set.
-     *
-     * @param value the integer to add
-     * @return the updated {@code JSSet} instance
-     */
-    @JS.Coerce
-    @JS("return this.add(value);")
-    public native JSSet add(int value);
-
-    /**
-     * Adds a {@code double} value to the set.
-     *
-     * @param value the double to add
-     * @return the updated {@code JSSet} instance
-     */
-    @JS.Coerce
-    @JS("return this.add(value);")
-    public native JSSet add(double value);
-
-    /**
-     * Adds a {@code boolean} value to the set.
-     *
-     * @param value the boolean to add
-     * @return the updated {@code JSSet} instance
-     */
-    @JS.Coerce
-    @JS("return this.add(value);")
-    public native JSSet add(boolean value);
-
-    /**
      * Adds an {@code Object} to the set.
      *
      * @param value the object to add
@@ -106,46 +65,6 @@ public class JSSet extends JSObject {
 
 
     // === Delete Methods ===
-
-    /**
-     * Removes the specified {@link JSValue} from the set.
-     *
-     * @param value the {@code JSValue} to remove
-     * @return {@code true} if the value was present and removed, {@code false} otherwise
-     */
-    @JS.Coerce
-    @JS("return this.delete(value);")
-    public native boolean delete(JSValue value);
-
-    /**
-     * Removes the specified {@code int} value from the set.
-     *
-     * @param value the integer to remove
-     * @return {@code true} if the value was present and removed, {@code false} otherwise
-     */
-    @JS.Coerce
-    @JS("return this.delete(value);")
-    public native boolean delete(int value);
-
-    /**
-     * Removes the specified {@code double} value from the set.
-     *
-     * @param value the double to remove
-     * @return {@code true} if the value was present and removed, {@code false} otherwise
-     */
-    @JS.Coerce
-    @JS("return this.delete(value);")
-    public native boolean delete(double value);
-
-    /**
-     * Removes the specified {@code boolean} value from the set.
-     *
-     * @param value the boolean to remove
-     * @return {@code true} if the value was present and removed, {@code false} otherwise
-     */
-    @JS.Coerce
-    @JS("return this.delete(value);")
-    public native boolean delete(boolean value);
 
     /**
      * Removes the specified {@code Object} from the set.
@@ -250,7 +169,7 @@ public class JSSet extends JSObject {
      */
     @JS.Coerce
     @JS("return this.keys();")
-    public native JSIterator keys();
+    public native JSIterator setKeys();
 
     /**
      * Returns an iterator of values in the set.
@@ -277,46 +196,6 @@ public class JSSet extends JSObject {
      * Executes the {@code callback} function with {@code thisArg} as its {@code this} context.
      *
      * @param callback the function to execute
-     * @param thisArg  the {@code JSValue} to use as {@code this}
-     */
-    @JS.Coerce
-    @JS("this.forEach(callback, thisArg);")
-    public native void forEach(JSFunction callback, JSValue thisArg);
-
-    /**
-     * Executes the {@code callback} function with {@code thisArg} as its {@code this} context.
-     *
-     * @param callback the function to execute
-     * @param thisArg  the {@code int} to use as {@code this}
-     */
-    @JS.Coerce
-    @JS("this.forEach(callback, thisArg);")
-    public native void forEach(JSFunction callback, int thisArg);
-
-    /**
-     * Executes the {@code callback} function with {@code thisArg} as its {@code this} context.
-     *
-     * @param callback the function to execute
-     * @param thisArg  the {@code double} to use as {@code this}
-     */
-    @JS.Coerce
-    @JS("this.forEach(callback, thisArg);")
-    public native void forEach(JSFunction callback, double thisArg);
-
-    /**
-     * Executes the {@code callback} function with {@code thisArg} as its {@code this} context.
-     *
-     * @param callback the function to execute
-     * @param thisArg  the {@code boolean} to use as {@code this}
-     */
-    @JS.Coerce
-    @JS("this.forEach(callback, thisArg);")
-    public native void forEach(JSFunction callback, boolean thisArg);
-
-    /**
-     * Executes the {@code callback} function with {@code thisArg} as its {@code this} context.
-     *
-     * @param callback the function to execute
      * @param thisArg  the {@code Object} to use as {@code this}
      */
     @JS.Coerce
@@ -325,46 +204,6 @@ public class JSSet extends JSObject {
 
 
     // === Has Methods ===
-
-    /**
-     * Checks whether the set contains the specified {@link JSValue}.
-     *
-     * @param value the {@code JSValue} to check
-     * @return {@code true} if the value is present, {@code false} otherwise
-     */
-    @JS.Coerce
-    @JS("return this.has(value);")
-    public native boolean has(JSValue value);
-
-    /**
-     * Checks whether the set contains the specified {@code int} value.
-     *
-     * @param value the integer to check
-     * @return {@code true} if the value is present, {@code false} otherwise
-     */
-    @JS.Coerce
-    @JS("return this.has(value);")
-    public native boolean has(int value);
-
-    /**
-     * Checks whether the set contains the specified {@code double} value.
-     *
-     * @param value the double to check
-     * @return {@code true} if the value is present, {@code false} otherwise
-     */
-    @JS.Coerce
-    @JS("return this.has(value);")
-    public native boolean has(double value);
-
-    /**
-     * Checks whether the set contains the specified {@code boolean} value.
-     *
-     * @param value the boolean to check
-     * @return {@code true} if the value is present, {@code false} otherwise
-     */
-    @JS.Coerce
-    @JS("return this.has(value);")
-    public native boolean has(boolean value);
 
     /**
      * Checks whether the set contains the specified {@code Object}.

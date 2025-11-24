@@ -162,7 +162,7 @@ public class JSSetTest {
         JSSet set = new JSSet().add("one").add("two").add("three");
         List<String> results = new ArrayList<>();
 
-        JSIterator keys = set.keys();
+        JSIterator keys = set.setKeys();
         JSIterator values = set.values();
         JSIterator entries = set.entries();
         JSArray entry1 = JSValue.checkedCoerce(entries.next().get("value"), JSArray.class);

@@ -311,7 +311,7 @@ public class JSArray extends JSObject {
      */
     @JS.Coerce
     @JS("return this.keys();")
-    public native JSIterator keys();
+    public native JSIterator arrayKeys();
 
     /**
      * Returns an iterator over the array's values.
@@ -681,7 +681,7 @@ public class JSArray extends JSObject {
      */
     @JS.Coerce
     @JS("return this.every(callback);")
-    public native boolean every(JSValue callback);
+    public native boolean every(JSFunction callback);
 
     /**
      * Tests whether at least one element passes the callback test.
@@ -1048,6 +1048,16 @@ public class JSArray extends JSObject {
     @JS.Coerce
     @JS("return this.join(separator);")
     public native String join(String separator);
+
+    /**
+     * Joins all elements into a string using the given separator.
+     *
+     * @param separator the {@link JSString} to separate elements
+     * @return the joined string
+     */
+    @JS.Coerce
+    @JS("return this.join(separator);")
+    public native String join(JSString separator);
 
     /**
      * Converts the array to a locale-sensitive string.

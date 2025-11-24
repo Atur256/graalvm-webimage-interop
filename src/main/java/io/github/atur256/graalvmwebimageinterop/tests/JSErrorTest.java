@@ -38,18 +38,12 @@ public class JSErrorTest {
         JSError err1 = JSError.of();
         JSError err2 = JSError.of("Simple message");
         JSError err3 = JSError.of("With cause", createOptions());
-        JSError err4 = JSError.of("With file", "demo.js");
-        JSError err5 = JSError.of("With file + line", "demo.js", 42);
 
         assertMessage(err2, "Simple message");
         assertMessage(err3, "With cause");
-        assertMessage(err4, "With file");
-        assertMessage(err5, "With file + line");
         assertStackContains(err1, "Error");
         assertStackContains(err2, "Simple message");
         assertStackContains(err3, "With cause");
-        assertStackContains(err4, "With file");
-        assertStackContains(err5, "With file + line");
     }
 
     public static void testCaptureStackTrace() {

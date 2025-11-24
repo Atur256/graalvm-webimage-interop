@@ -170,15 +170,24 @@ public class JSDate extends JSObject {
     @JS("return Date.now();")
     public static native long now();
 
-    /**
-     * Parses a date string and returns the corresponding timestamp.
-     *
-     * @param dateString a valid date string
-     * @return the time in milliseconds since the Unix epoch
-     */
     @JS.Coerce
     @JS("return Date.parse(dateString);")
-    public static native long parse(String dateString);
+    private static native long parseImpl(String dateString);
+
+    /**
+     * Parses a date string and returns the corresponding timestamp in milliseconds since the Unix epoch.
+     *
+     * @param dateString a valid date string to parse
+     * @return the time in milliseconds since the Unix epoch
+     * @throws IllegalArgumentException if the date string is invalid
+     */
+    public static long parse(String dateString) {
+        long time = parseImpl(dateString);
+        if (time == 0 && !"1970-01-01T00:00:00Z".equals(dateString)) {
+            throw new IllegalArgumentException("Invalid date string: " + dateString);
+        }
+        return time;
+    }
 
     /**
      * Returns the UTC timestamp for the specified year.
@@ -274,207 +283,356 @@ public class JSDate extends JSObject {
 
     // === Getters (Local Time) ===
 
+    @JS.Coerce
+    @JS("return this.getDate();")
+    private native int getDateImpl();
+
     /**
      * Returns the day of the month (1–31) in local time.
      *
      * @return the day of the month
+     * @throws IllegalArgumentException if the date is invalid
      */
+    public int getDate() {
+        if (!isValid()) throw new IllegalArgumentException("Cannot get date: JSDate is invalid");
+        return getDateImpl();
+    }
+
     @JS.Coerce
-    @JS("return this.getDate();")
-    public native int getDate();
+    @JS("return this.getDay();")
+    private native int getDayImpl();
 
     /**
      * Returns the day of the week (0–6) in local time.
      * Sunday is 0, Monday is 1, and so on.
      *
      * @return the day of the week
+     * @throws IllegalArgumentException if the date is invalid
      */
+    public int getDay() {
+        if (!isValid()) throw new IllegalArgumentException("Cannot get day: JSDate is invalid");
+        return getDayImpl();
+    }
+
     @JS.Coerce
-    @JS("return this.getDay();")
-    public native int getDay();
+    @JS("return this.getFullYear();")
+    private native int getFullYearImpl();
 
     /**
      * Returns the full year in local time.
      *
      * @return the year
+     * @throws IllegalArgumentException if the date is invalid
      */
+    public int getFullYear() {
+        if (!isValid()) throw new IllegalArgumentException("Cannot get full year: JSDate is invalid");
+        return getFullYearImpl();
+    }
+
     @JS.Coerce
-    @JS("return this.getFullYear();")
-    public native int getFullYear();
+    @JS("return this.getHours();")
+    private native int getHoursImpl();
 
     /**
      * Returns the hour (0–23) in local time.
      *
      * @return the hour
+     * @throws IllegalArgumentException if the date is invalid
      */
+    public int getHours() {
+        if (!isValid()) throw new IllegalArgumentException("Cannot get hours: JSDate is invalid");
+        return getHoursImpl();
+    }
+
     @JS.Coerce
-    @JS("return this.getHours();")
-    public native int getHours();
+    @JS("return this.getMilliseconds();")
+    private native int getMillisecondsImpl();
 
     /**
      * Returns the milliseconds (0–999) in local time.
      *
      * @return the milliseconds
+     * @throws IllegalArgumentException if the date is invalid
      */
+    public int getMilliseconds() {
+        if (!isValid()) throw new IllegalArgumentException("Cannot get milliseconds: JSDate is invalid");
+        return getMillisecondsImpl();
+    }
+
     @JS.Coerce
-    @JS("return this.getMilliseconds();")
-    public native int getMilliseconds();
+    @JS("return this.getMinutes();")
+    private native int getMinutesImpl();
 
     /**
      * Returns the minutes (0–59) in local time.
      *
      * @return the minutes
+     * @throws IllegalArgumentException if the date is invalid
      */
+    public int getMinutes() {
+        if (!isValid()) throw new IllegalArgumentException("Cannot get minutes: JSDate is invalid");
+        return getMinutesImpl();
+    }
+
     @JS.Coerce
-    @JS("return this.getMinutes();")
-    public native int getMinutes();
+    @JS("return this.getMonth();")
+    private native int getMonthImpl();
 
     /**
      * Returns the month (0–11) in local time.
      * January is 0, December is 11.
      *
      * @return the month
+     * @throws IllegalArgumentException if the date is invalid
      */
+    public int getMonth() {
+        if (!isValid()) throw new IllegalArgumentException("Cannot get month: JSDate is invalid");
+        return getMonthImpl();
+    }
+
     @JS.Coerce
-    @JS("return this.getMonth();")
-    public native int getMonth();
+    @JS("return this.getSeconds();")
+    private native int getSecondsImpl();
 
     /**
      * Returns the seconds (0–59) in local time.
      *
      * @return the seconds
+     * @throws IllegalArgumentException if the date is invalid
      */
+    public int getSeconds() {
+        if (!isValid()) throw new IllegalArgumentException("Cannot get seconds: JSDate is invalid");
+        return getSecondsImpl();
+    }
+
     @JS.Coerce
-    @JS("return this.getSeconds();")
-    public native int getSeconds();
+    @JS("return this.getTime();")
+    private native long getTimeImpl();
 
     /**
      * Returns the timestamp in milliseconds since the Unix epoch.
      *
      * @return the time in milliseconds
+     * @throws IllegalArgumentException if the date is invalid
      */
+    public long getTime() {
+        if (!isValid()) throw new IllegalArgumentException("Cannot get time: JSDate is invalid");
+        return getTimeImpl();
+    }
+
     @JS.Coerce
-    @JS("return this.getTime();")
-    public native long getTime();
+    @JS("return this.getTimezoneOffset();")
+    private native int getTimezoneOffsetImpl();
 
     /**
      * Returns the timezone offset in minutes from UTC.
      * Positive values are west of UTC, negative are east.
      *
      * @return the timezone offset
+     * @throws IllegalArgumentException if the date is invalid
      */
-    @JS.Coerce
-    @JS("return this.getTimezoneOffset();")
-    public native int getTimezoneOffset();
+    public int getTimezoneOffset() {
+        if (!isValid()) throw new IllegalArgumentException("Cannot get date: JSDate is invalid");
+        return getTimezoneOffsetImpl();
+    }
 
 
     // === Getters (UTC Time) ===
+
+    @JS.Coerce
+    @JS("return this.getUTCDate();")
+    private native int getUTCDateImpl();
 
     /**
      * Returns the day of the month (1–31) in UTC time.
      *
      * @return the UTC day of the month
+     * @throws IllegalArgumentException if the date is invalid
      */
+    public int getUTCDate() {
+        if (!isValid()) throw new IllegalArgumentException("Cannot get UTC date: JSDate is invalid");
+        return getUTCDateImpl();
+    }
+
     @JS.Coerce
-    @JS("return this.getUTCDate();")
-    public native int getUTCDate();
+    @JS("return this.getUTCDay();")
+    private native int getUTCDayImpl();
 
     /**
      * Returns the day of the week (0–6) in UTC time.
      * Sunday is 0, Monday is 1, and so on.
      *
      * @return the UTC day of the week
+     * @throws IllegalArgumentException if the date is invalid
      */
+    public int getUTCDay() {
+        if (!isValid()) throw new IllegalArgumentException("Cannot get UTC day: JSDate is invalid");
+        return getUTCDayImpl();
+    }
+
     @JS.Coerce
-    @JS("return this.getUTCDay();")
-    public native int getUTCDay();
+    @JS("return this.getUTCFullYear();")
+    private native int getUTCFullYearImpl();
 
     /**
      * Returns the full year in UTC time.
      *
      * @return the UTC year
+     * @throws IllegalArgumentException if the date is invalid
      */
+    public int getUTCFullYear() {
+        if (!isValid()) throw new IllegalArgumentException("Cannot get UTC full year: JSDate is invalid");
+        return getUTCFullYearImpl();
+    }
+
     @JS.Coerce
-    @JS("return this.getUTCFullYear();")
-    public native int getUTCFullYear();
+    @JS("return this.getUTCHours();")
+    private native int getUTCHoursImpl();
 
     /**
      * Returns the hour (0–23) in UTC time.
      *
      * @return the UTC hour
+     * @throws IllegalArgumentException if the date is invalid
      */
+    public int getUTCHours() {
+        if (!isValid()) throw new IllegalArgumentException("Cannot get UTC hours: JSDate is invalid");
+        return getUTCHoursImpl();
+    }
+
     @JS.Coerce
-    @JS("return this.getUTCHours();")
-    public native int getUTCHours();
+    @JS("return this.getUTCMilliseconds();")
+    private native int getUTCMillisecondsImpl();
 
     /**
      * Returns the milliseconds (0–999) in UTC time.
      *
      * @return the UTC milliseconds
+     * @throws IllegalArgumentException if the date is invalid
      */
+    public int getUTCMilliseconds() {
+        if (!isValid()) throw new IllegalArgumentException("Cannot get UTC milliseconds: JSDate is invalid");
+        return getUTCMillisecondsImpl();
+    }
+
     @JS.Coerce
-    @JS("return this.getUTCMilliseconds();")
-    public native int getUTCMilliseconds();
+    @JS("return this.getUTCMinutes();")
+    private native int getUTCMinutesImpl();
 
     /**
      * Returns the minutes (0–59) in UTC time.
      *
      * @return the UTC minutes
+     * @throws IllegalArgumentException if the date is invalid
      */
+    public int getUTCMinutes() {
+        if (!isValid()) throw new IllegalArgumentException("Cannot get UTC minutes: JSDate is invalid");
+        return getUTCMinutesImpl();
+    }
+
     @JS.Coerce
-    @JS("return this.getUTCMinutes();")
-    public native int getUTCMinutes();
+    @JS("return this.getUTCMonth();")
+    private native int getUTCMonthImpl();
 
     /**
      * Returns the month (0–11) in UTC time.
      * January is 0, December is 11.
      *
      * @return the UTC month
+     * @throws IllegalArgumentException if the date is invalid
      */
+    public int getUTCMonth() {
+        if (!isValid()) throw new IllegalArgumentException("Cannot get UTC month: JSDate is invalid");
+        return getUTCMonthImpl();
+    }
+
     @JS.Coerce
-    @JS("return this.getUTCMonth();")
-    public native int getUTCMonth();
+    @JS("return this.getUTCSeconds();")
+    private native int getUTCSecondsImpl();
 
     /**
      * Returns the seconds (0–59) in UTC time.
      *
      * @return the UTC seconds
+     * @throws IllegalArgumentException if the date is invalid
      */
-    @JS.Coerce
-    @JS("return this.getUTCSeconds();")
-    public native int getUTCSeconds();
+    public int getUTCSeconds() {
+        if (!isValid()) throw new IllegalArgumentException("Cannot get UTC seconds: JSDate is invalid");
+        return getUTCSecondsImpl();
+    }
 
 
     // === Setters (Local Time) ===
 
+    /**
+     * Sets the day of the month (1–31) in local time.
+     *
+     * @param date the day of the month
+     */
     @JS.Coerce
     @JS("return this.setDate(date);")
     public native void setDate(int date);
 
+    /**
+     * Sets the full year in local time.
+     *
+     * @param year the year to set (e.g., 2025)
+     */
     @JS.Coerce
     @JS("return this.setFullYear(year);")
     public native void setFullYear(int year);
 
+    /**
+     * Sets the hour (0–23) in local time.
+     *
+     * @param hours the hour to set
+     */
     @JS.Coerce
     @JS("return this.setHours(hours);")
     public native void setHours(int hours);
 
+    /**
+     * Sets the milliseconds (0–999) in local time.
+     *
+     * @param ms the milliseconds to set
+     */
     @JS.Coerce
     @JS("return this.setMilliseconds(ms);")
     public native void setMilliseconds(int ms);
 
+    /**
+     * Sets the minutes (0–59) in local time.
+     *
+     * @param minutes the minutes to set
+     */
     @JS.Coerce
     @JS("return this.setMinutes(minutes);")
     public native void setMinutes(int minutes);
 
+    /**
+     * Sets the month (0–11) in local time.
+     * January is 0, December is 11.
+     *
+     * @param month the month to set
+     */
     @JS.Coerce
     @JS("return this.setMonth(month);")
     public native void setMonth(int month);
 
+    /**
+     * Sets the seconds (0–59) in local time.
+     *
+     * @param seconds the seconds to set
+     */
     @JS.Coerce
     @JS("return this.setSeconds(seconds);")
     public native void setSeconds(int seconds);
 
+    /**
+     * Sets the time in milliseconds since the Unix epoch.
+     *
+     * @param time the time in milliseconds
+     */
     @JS.Coerce
     @JS("return this.setTime(Number(time));")
     public native void setTime(long time);
@@ -585,15 +743,6 @@ public class JSDate extends JSObject {
     public native String toLocaleDateString();
 
     /**
-     * Returns a locale-sensitive date and time string.
-     *
-     * @return the localized date-time string
-     */
-    @JS.Coerce
-    @JS("return this.toLocaleString();")
-    public native String toLocaleString();
-
-    /**
      * Returns a locale-sensitive time string.
      *
      * @return the localized time string
@@ -612,16 +761,6 @@ public class JSDate extends JSObject {
     private native String toStringJS();
 
     /**
-     * Returns a formatted string representation of the date.
-     *
-     * @return the formatted string
-     */
-    @Override
-    public String toString() {
-        return "JavaScript<" + typeof() + "; " + toStringJS() + ">";
-    }
-
-    /**
      * Returns the time portion of the date as a string.
      *
      * @return the time string
@@ -638,4 +777,15 @@ public class JSDate extends JSObject {
     @JS.Coerce
     @JS("return this.toUTCString();")
     public native String toUTCString();
+
+    // === Helper method to check validity ===
+
+    /**
+     * Checks if this JSDate represents a valid date.
+     *
+     * @return true if the date is valid, false otherwise
+     */
+    @JS.Coerce
+    @JS("return !isNaN(this.getTime());")
+    public native boolean isValid();
 }
