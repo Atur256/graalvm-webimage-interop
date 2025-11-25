@@ -17,6 +17,7 @@
 package io.github.atur256.graalvmwebimageinterop.builtin;
 
 import org.graalvm.webimage.api.JS;
+import org.graalvm.webimage.api.JSNumber;
 import org.graalvm.webimage.api.JSObject;
 
 
@@ -172,7 +173,7 @@ public class JSDate extends JSObject {
 
     @JS.Coerce
     @JS("return Date.parse(dateString);")
-    private static native long parseImpl(String dateString);
+    private static native double parseRaw(String dateString);
 
     /**
      * Parses a date string and returns the corresponding timestamp in milliseconds since the Unix epoch.
@@ -182,11 +183,11 @@ public class JSDate extends JSObject {
      * @throws IllegalArgumentException if the date string is invalid
      */
     public static long parse(String dateString) {
-        long time = parseImpl(dateString);
-        if (time == 0 && !"1970-01-01T00:00:00Z".equals(dateString)) {
+        double v = parseRaw(dateString);
+        if(Double.isNaN(v)) {
             throw new IllegalArgumentException("Invalid date string: " + dateString);
         }
-        return time;
+        return (long) v;
     }
 
     /**
@@ -285,155 +286,165 @@ public class JSDate extends JSObject {
 
     @JS.Coerce
     @JS("return this.getDate();")
-    private native int getDateImpl();
+    private native JSNumber getDateImpl();
 
     /**
      * Returns the day of the month (1–31) in local time.
      *
      * @return the day of the month
-     * @throws IllegalArgumentException if the date is invalid
+     * @throws IllegalStateException if the date is invalid
      */
     public int getDate() {
-        if (!isValid()) throw new IllegalArgumentException("Cannot get date: JSDate is invalid");
-        return getDateImpl();
+        JSNumber date = getDateImpl();
+        if(JSNumber.isNaN(date)) throw new IllegalStateException("Cannot get date: JSDate is invalid");
+        return date.asInt();
     }
 
     @JS.Coerce
     @JS("return this.getDay();")
-    private native int getDayImpl();
+    private native JSNumber getDayImpl();
 
     /**
      * Returns the day of the week (0–6) in local time.
      * Sunday is 0, Monday is 1, and so on.
      *
      * @return the day of the week
-     * @throws IllegalArgumentException if the date is invalid
+     * @throws IllegalStateException if the date is invalid
      */
     public int getDay() {
-        if (!isValid()) throw new IllegalArgumentException("Cannot get day: JSDate is invalid");
-        return getDayImpl();
+        JSNumber day = getDayImpl();
+        if(JSNumber.isNaN(day)) throw new IllegalStateException("Cannot get day: JSDate is invalid");
+        return day.asInt();
     }
 
     @JS.Coerce
     @JS("return this.getFullYear();")
-    private native int getFullYearImpl();
+    private native JSNumber getFullYearImpl();
 
     /**
      * Returns the full year in local time.
      *
      * @return the year
-     * @throws IllegalArgumentException if the date is invalid
+     * @throws IllegalStateException if the date is invalid
      */
     public int getFullYear() {
-        if (!isValid()) throw new IllegalArgumentException("Cannot get full year: JSDate is invalid");
-        return getFullYearImpl();
+        JSNumber fullYear = getFullYearImpl();
+        if(JSNumber.isNaN(fullYear)) throw new IllegalStateException("Cannot get full year: JSDate is invalid");
+        return fullYear.asInt();
     }
 
     @JS.Coerce
     @JS("return this.getHours();")
-    private native int getHoursImpl();
+    private native JSNumber getHoursImpl();
 
     /**
      * Returns the hour (0–23) in local time.
      *
      * @return the hour
-     * @throws IllegalArgumentException if the date is invalid
+     * @throws IllegalStateException if the date is invalid
      */
     public int getHours() {
-        if (!isValid()) throw new IllegalArgumentException("Cannot get hours: JSDate is invalid");
-        return getHoursImpl();
+        JSNumber hours = getHoursImpl();
+        if(JSNumber.isNaN(hours)) throw new IllegalStateException("Cannot get hours: JSDate is invalid");
+        return hours.asInt();
     }
 
     @JS.Coerce
     @JS("return this.getMilliseconds();")
-    private native int getMillisecondsImpl();
+    private native JSNumber getMillisecondsImpl();
 
     /**
      * Returns the milliseconds (0–999) in local time.
      *
      * @return the milliseconds
-     * @throws IllegalArgumentException if the date is invalid
+     * @throws IllegalStateException if the date is invalid
      */
     public int getMilliseconds() {
-        if (!isValid()) throw new IllegalArgumentException("Cannot get milliseconds: JSDate is invalid");
-        return getMillisecondsImpl();
+        JSNumber milliseconds = getMillisecondsImpl();
+        if(JSNumber.isNaN(milliseconds)) throw new IllegalStateException("Cannot get milliseconds: JSDate is invalid");
+        return milliseconds.asInt();
     }
 
     @JS.Coerce
     @JS("return this.getMinutes();")
-    private native int getMinutesImpl();
+    private native JSNumber getMinutesImpl();
 
     /**
      * Returns the minutes (0–59) in local time.
      *
      * @return the minutes
-     * @throws IllegalArgumentException if the date is invalid
+     * @throws IllegalStateException if the date is invalid
      */
     public int getMinutes() {
-        if (!isValid()) throw new IllegalArgumentException("Cannot get minutes: JSDate is invalid");
-        return getMinutesImpl();
+        JSNumber minutes = getMinutesImpl();
+        if(JSNumber.isNaN(minutes)) throw new IllegalStateException("Cannot get minutes: JSDate is invalid");
+        return minutes.asInt();
     }
 
     @JS.Coerce
     @JS("return this.getMonth();")
-    private native int getMonthImpl();
+    private native JSNumber getMonthImpl();
 
     /**
      * Returns the month (0–11) in local time.
      * January is 0, December is 11.
      *
      * @return the month
-     * @throws IllegalArgumentException if the date is invalid
+     * @throws IllegalStateException if the date is invalid
      */
     public int getMonth() {
-        if (!isValid()) throw new IllegalArgumentException("Cannot get month: JSDate is invalid");
-        return getMonthImpl();
+        JSNumber month = getMonthImpl();
+        if(JSNumber.isNaN(month)) throw new IllegalStateException("Cannot get month: JSDate is invalid");
+        return month.asInt();
     }
 
     @JS.Coerce
     @JS("return this.getSeconds();")
-    private native int getSecondsImpl();
+    private native JSNumber getSecondsImpl();
 
     /**
      * Returns the seconds (0–59) in local time.
      *
      * @return the seconds
-     * @throws IllegalArgumentException if the date is invalid
+     * @throws IllegalStateException if the date is invalid
      */
     public int getSeconds() {
-        if (!isValid()) throw new IllegalArgumentException("Cannot get seconds: JSDate is invalid");
-        return getSecondsImpl();
+        JSNumber seconds = getSecondsImpl();
+        if(JSNumber.isNaN(seconds)) throw new IllegalStateException("Cannot get seconds: JSDate is invalid");
+        return seconds.asInt();
     }
 
     @JS.Coerce
     @JS("return this.getTime();")
-    private native long getTimeImpl();
+    private native JSNumber getTimeImpl();
 
     /**
      * Returns the timestamp in milliseconds since the Unix epoch.
      *
      * @return the time in milliseconds
-     * @throws IllegalArgumentException if the date is invalid
+     * @throws IllegalStateException if the date is invalid
      */
     public long getTime() {
-        if (!isValid()) throw new IllegalArgumentException("Cannot get time: JSDate is invalid");
-        return getTimeImpl();
+        JSNumber time = getTimeImpl();
+        if(JSNumber.isNaN(time)) throw new IllegalStateException("Cannot get time: JSDate is invalid");
+        return time.asLong();
     }
 
     @JS.Coerce
     @JS("return this.getTimezoneOffset();")
-    private native int getTimezoneOffsetImpl();
+    private native JSNumber getTimezoneOffsetImpl();
 
     /**
      * Returns the timezone offset in minutes from UTC.
      * Positive values are west of UTC, negative are east.
      *
      * @return the timezone offset
-     * @throws IllegalArgumentException if the date is invalid
+     * @throws IllegalStateException if the date is invalid
      */
     public int getTimezoneOffset() {
-        if (!isValid()) throw new IllegalArgumentException("Cannot get date: JSDate is invalid");
-        return getTimezoneOffsetImpl();
+        JSNumber offset = getTimezoneOffsetImpl();
+        if(JSNumber.isNaN(offset)) throw new IllegalStateException("Cannot get date: JSDate is invalid");
+        return offset.asInt();
     }
 
 
@@ -441,124 +452,132 @@ public class JSDate extends JSObject {
 
     @JS.Coerce
     @JS("return this.getUTCDate();")
-    private native int getUTCDateImpl();
+    private native JSNumber getUTCDateImpl();
 
     /**
      * Returns the day of the month (1–31) in UTC time.
      *
      * @return the UTC day of the month
-     * @throws IllegalArgumentException if the date is invalid
+     * @throws IllegalStateException if the date is invalid
      */
     public int getUTCDate() {
-        if (!isValid()) throw new IllegalArgumentException("Cannot get UTC date: JSDate is invalid");
-        return getUTCDateImpl();
+        JSNumber utcDate = getUTCDateImpl();
+        if(JSNumber.isNaN(utcDate)) throw new IllegalStateException("Cannot get UTC date: JSDate is invalid");
+        return utcDate.asInt();
     }
 
     @JS.Coerce
     @JS("return this.getUTCDay();")
-    private native int getUTCDayImpl();
+    private native JSNumber getUTCDayImpl();
 
     /**
      * Returns the day of the week (0–6) in UTC time.
      * Sunday is 0, Monday is 1, and so on.
      *
      * @return the UTC day of the week
-     * @throws IllegalArgumentException if the date is invalid
+     * @throws IllegalStateException if the date is invalid
      */
     public int getUTCDay() {
-        if (!isValid()) throw new IllegalArgumentException("Cannot get UTC day: JSDate is invalid");
-        return getUTCDayImpl();
+        JSNumber utcDay = getUTCDayImpl();
+        if(JSNumber.isNaN(utcDay)) throw new IllegalStateException("Cannot get UTC day: JSDate is invalid");
+        return utcDay.asInt();
     }
 
     @JS.Coerce
     @JS("return this.getUTCFullYear();")
-    private native int getUTCFullYearImpl();
+    private native JSNumber getUTCFullYearImpl();
 
     /**
      * Returns the full year in UTC time.
      *
      * @return the UTC year
-     * @throws IllegalArgumentException if the date is invalid
+     * @throws IllegalStateException if the date is invalid
      */
     public int getUTCFullYear() {
-        if (!isValid()) throw new IllegalArgumentException("Cannot get UTC full year: JSDate is invalid");
-        return getUTCFullYearImpl();
+        JSNumber utcFullYear = getUTCFullYearImpl();
+        if(JSNumber.isNaN(utcFullYear)) throw new IllegalStateException("Cannot get UTC full year: JSDate is invalid");
+        return utcFullYear.asInt();
     }
 
     @JS.Coerce
     @JS("return this.getUTCHours();")
-    private native int getUTCHoursImpl();
+    private native JSNumber getUTCHoursImpl();
 
     /**
      * Returns the hour (0–23) in UTC time.
      *
      * @return the UTC hour
-     * @throws IllegalArgumentException if the date is invalid
+     * @throws IllegalStateException if the date is invalid
      */
     public int getUTCHours() {
-        if (!isValid()) throw new IllegalArgumentException("Cannot get UTC hours: JSDate is invalid");
-        return getUTCHoursImpl();
+        JSNumber utcHours = getUTCHoursImpl();
+        if(JSNumber.isNaN(utcHours)) throw new IllegalStateException("Cannot get UTC hours: JSDate is invalid");
+        return utcHours.asInt();
     }
 
     @JS.Coerce
     @JS("return this.getUTCMilliseconds();")
-    private native int getUTCMillisecondsImpl();
+    private native JSNumber getUTCMillisecondsImpl();
 
     /**
      * Returns the milliseconds (0–999) in UTC time.
      *
      * @return the UTC milliseconds
-     * @throws IllegalArgumentException if the date is invalid
+     * @throws IllegalStateException if the date is invalid
      */
     public int getUTCMilliseconds() {
-        if (!isValid()) throw new IllegalArgumentException("Cannot get UTC milliseconds: JSDate is invalid");
-        return getUTCMillisecondsImpl();
+        JSNumber utcMilliseconds = getUTCMillisecondsImpl();
+        if(JSNumber.isNaN(utcMilliseconds)) throw new IllegalStateException("Cannot get UTC milliseconds: JSDate is invalid");
+        return utcMilliseconds.asInt();
     }
 
     @JS.Coerce
     @JS("return this.getUTCMinutes();")
-    private native int getUTCMinutesImpl();
+    private native JSNumber getUTCMinutesImpl();
 
     /**
      * Returns the minutes (0–59) in UTC time.
      *
      * @return the UTC minutes
-     * @throws IllegalArgumentException if the date is invalid
+     * @throws IllegalStateException if the date is invalid
      */
     public int getUTCMinutes() {
-        if (!isValid()) throw new IllegalArgumentException("Cannot get UTC minutes: JSDate is invalid");
-        return getUTCMinutesImpl();
+        JSNumber utcMinutes = getUTCMinutesImpl();
+        if(JSNumber.isNaN(utcMinutes)) throw new IllegalStateException("Cannot get UTC minutes: JSDate is invalid");
+        return utcMinutes.asInt();
     }
 
     @JS.Coerce
     @JS("return this.getUTCMonth();")
-    private native int getUTCMonthImpl();
+    private native JSNumber getUTCMonthImpl();
 
     /**
      * Returns the month (0–11) in UTC time.
      * January is 0, December is 11.
      *
      * @return the UTC month
-     * @throws IllegalArgumentException if the date is invalid
+     * @throws IllegalStateException if the date is invalid
      */
     public int getUTCMonth() {
-        if (!isValid()) throw new IllegalArgumentException("Cannot get UTC month: JSDate is invalid");
-        return getUTCMonthImpl();
+        JSNumber utcMonth = getUTCMonthImpl();
+        if(JSNumber.isNaN(utcMonth)) throw new IllegalStateException("Cannot get UTC month: JSDate is invalid");
+        return utcMonth.asInt();
     }
 
     @JS.Coerce
     @JS("return this.getUTCSeconds();")
-    private native int getUTCSecondsImpl();
+    private native JSNumber getUTCSecondsImpl();
 
     /**
      * Returns the seconds (0–59) in UTC time.
      *
      * @return the UTC seconds
-     * @throws IllegalArgumentException if the date is invalid
+     * @throws IllegalStateException if the date is invalid
      */
     public int getUTCSeconds() {
-        if (!isValid()) throw new IllegalArgumentException("Cannot get UTC seconds: JSDate is invalid");
-        return getUTCSecondsImpl();
+        JSNumber utcSeconds = getUTCSecondsImpl();
+        if(JSNumber.isNaN(utcSeconds)) throw new IllegalStateException("Cannot get UTC seconds: JSDate is invalid");
+        return utcSeconds.asInt();
     }
 
 

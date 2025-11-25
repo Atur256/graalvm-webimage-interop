@@ -44,7 +44,6 @@
  *   <li>{@link io.github.atur256.graalvmwebimageinterop.builtin.JSArray}</li>
  *   <li>{@link io.github.atur256.graalvmwebimageinterop.builtin.JSDate}</li>
  *   <li>{@link io.github.atur256.graalvmwebimageinterop.builtin.JSError}</li>
- *   <li>{@link io.github.atur256.graalvmwebimageinterop.builtin.JSEval}</li>
  *   <li>{@link io.github.atur256.graalvmwebimageinterop.builtin.JSFunction}</li>
  *   <li>{@link io.github.atur256.graalvmwebimageinterop.builtin.JSIntl}</li>
  *   <li>{@link io.github.atur256.graalvmwebimageinterop.builtin.JSIterator}</li>

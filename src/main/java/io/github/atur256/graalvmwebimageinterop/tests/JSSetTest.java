@@ -168,7 +168,7 @@ public class JSSetTest {
         JSArray entry1 = JSValue.checkedCoerce(entries.next().get("value"), JSArray.class);
         JSArray entry2 = JSValue.checkedCoerce(entries.next().get("value"), JSArray.class);
         JSArray entry3 = JSValue.checkedCoerce(entries.next().get("value"), JSArray.class);
-        set.entries().forEach(JSFunction.fromCons((JSObject obj) -> {
+        set.entries().forEach(JSFunction.of((JSObject obj) -> {
             JSArray entry = JSValue.checkedCoerce(obj, JSArray.class);
             String key = JSValue.checkedCoerce(entry.get(0), String.class);
             String value = JSValue.checkedCoerce(entry.get(1), String.class);
@@ -202,27 +202,27 @@ public class JSSetTest {
                 List.of(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>())
         );
 
-        set.forEach(JSFunction.fromCons((JSValue value) -> {
+        set.forEach(JSFunction.of((JSValue value) -> {
             String str = JSValue.checkedCoerce(value, String.class);
             collected.addLast(str);
         }));
-        set.forEach(JSFunction.fromBiConsWithThis((JSValue ctx, JSString value, JSString _) -> {
+        set.forEach(JSFunction.withThis((JSValue ctx, JSString value, JSString _) -> {
             values.getFirst().getFirst().addLast(JSValue.checkedCoerce(value, String.class));
             values.get(1).getFirst().addLast(JSValue.checkedCoerce(ctx, String.class));
         }), thisValue);
-        set.forEach(JSFunction.fromBiConsWithThis((JSValue ctx, JSString value, JSString _) -> {
+        set.forEach(JSFunction.withThis((JSValue ctx, JSString value, JSString _) -> {
             values.getFirst().get(1).addLast(JSValue.checkedCoerce(value, String.class));
             values.get(1).get(1).addLast(JSValue.checkedCoerce(ctx, Integer.class).toString());
         }), 42);
-        set.forEach(JSFunction.fromBiConsWithThis((JSValue ctx, JSString value, JSString _) -> {
+        set.forEach(JSFunction.withThis((JSValue ctx, JSString value, JSString _) -> {
             values.getFirst().get(2).addLast(JSValue.checkedCoerce(value, String.class));
             values.get(1).get(2).addLast(JSValue.checkedCoerce(ctx, Double.class).toString());
         }), 3.14);
-        set.forEach(JSFunction.fromBiConsWithThis((JSValue ctx, JSString value, JSString _) -> {
+        set.forEach(JSFunction.withThis((JSValue ctx, JSString value, JSString _) -> {
             values.getFirst().get(3).addLast(JSValue.checkedCoerce(value, String.class));
             values.get(1).get(3).addLast(JSValue.checkedCoerce(ctx, Boolean.class).toString());
         }), true);
-        set.forEach(JSFunction.fromBiConsWithThis((JSValue ctx, JSString value, JSString _) -> {
+        set.forEach(JSFunction.withThis((JSValue ctx, JSString value, JSString _) -> {
             values.getFirst().get(4).addLast(JSValue.checkedCoerce(value, String.class));
             values.get(1).get(4).addLast(JSValue.checkedCoerce(ctx, String.class));
         }), "context:Object");

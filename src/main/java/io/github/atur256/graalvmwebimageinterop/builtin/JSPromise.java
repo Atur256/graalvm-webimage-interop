@@ -18,7 +18,6 @@ package io.github.atur256.graalvmwebimageinterop.builtin;
 
 import org.graalvm.webimage.api.JS;
 import org.graalvm.webimage.api.JSObject;
-import org.graalvm.webimage.api.JSValue;
 
 import java.util.List;
 
@@ -27,16 +26,38 @@ import java.util.List;
  * Provides a Java binding for the JavaScript {@code Promise} object within the WebImage interop layer.
  * This class supports creation, resolution, rejection, and chaining of asynchronous operations.
  *
+ * <p><b>Important Note:</b> Unlike Java exceptions, JavaScript Promise rejections do not propagate automatically.
+ * Every {@code JSPromise} should have a {@link #catch_(JSFunction)} block at the end of the chain to handle
+ * errors. The catch handler should accept a parameter of type {@code Object} to properly catch any kind of
+ * rejection (exceptions, strings, numbers, etc.).</p>
+ *
  * <p><b>Example Usage:</b></p>
  * <pre>{@code
  * JSPromise promise = JSPromise.resolve("done");
- * promise.then(fn).catch_(errFn).finally_(cleanupFn);
+ * promise
+ *     .then(fn)
+ *     .catch_(err -> {
+ *         // err is of type Object; can be JSValue, String, Throwable, etc.
+ *     })
+ *     .finally_(cleanupFn);
  * }</pre>
  *
  * @see JSObject
  */
 @JS.Import("Promise")
 public class JSPromise extends JSObject {
+
+    // === Constructors ===
+
+    /**
+     * Creates a new JavaScript Promise with the given executor function.
+     *
+     * @param executor a JSFunction that takes (resolve, reject) arguments
+     * @return a new JSPromise
+     */
+    @JS.Coerce
+    @JS("return new Promise(executor);")
+    public static native JSPromise of(JSFunction executor);
 
     // === Composition Methods ===
 
@@ -81,17 +102,17 @@ public class JSPromise extends JSObject {
     }
 
     /**
-     * Converts an array of {@code JSPromise} instances into a {@code JSIterator}.
+     * Converts an array of {@code JSPromise} instances into a {@code JSArray}.
      *
-     * @param promises the array of promises
-     * @return a {@code JSIterator} wrapping the promises
+     * @param promises an array of {@code JSPromise} instances
+     * @return a {@code JSArray} containing all the promises
      */
-    private static JSIterator fromPromises(JSPromise[] promises) {
+    private static JSArray fromPromises(JSPromise[] promises) {
         JSArray jsArr = JSArray.of();
-        for(JSPromise promise : promises) {
+        for (JSPromise promise : promises) {
             jsArr.push(promise);
         }
-        return JSIterator.from(jsArr);
+        return jsArr;
     }
 
     /**
@@ -218,46 +239,6 @@ public class JSPromise extends JSObject {
     // === Rejection Methods ===
 
     /**
-     * Returns a promise that is rejected with the given {@link JSValue} reason.
-     *
-     * @param reason the {@code JSValue} reason for rejection
-     * @return a rejected {@code JSPromise}
-     */
-    @JS.Coerce
-    @JS("return Promise.reject(reason);")
-    public static native JSPromise reject(JSValue reason);
-
-    /**
-     * Returns a promise that is rejected with the given {@code int} reason.
-     *
-     * @param reason the integer reason for rejection
-     * @return a rejected {@code JSPromise}
-     */
-    @JS.Coerce
-    @JS("return Promise.reject(reason);")
-    public static native JSPromise reject(int reason);
-
-    /**
-     * Returns a promise that is rejected with the given {@code double} reason.
-     *
-     * @param reason the double reason for rejection
-     * @return a rejected {@code JSPromise}
-     */
-    @JS.Coerce
-    @JS("return Promise.reject(reason);")
-    public static native JSPromise reject(double reason);
-
-    /**
-     * Returns a promise that is rejected with the given {@code boolean} reason.
-     *
-     * @param reason the boolean reason for rejection
-     * @return a rejected {@code JSPromise}
-     */
-    @JS.Coerce
-    @JS("return Promise.reject(reason);")
-    public static native JSPromise reject(boolean reason);
-
-    /**
      * Returns a promise that is rejected with the given {@code Object} reason.
      *
      * @param reason the object reason for rejection
@@ -269,46 +250,6 @@ public class JSPromise extends JSObject {
 
 
     // === Resolution Methods ===
-
-    /**
-     * Returns a promise that is resolved with the given {@link JSValue}.
-     *
-     * @param value the {@code JSValue} to resolve with
-     * @return a resolved {@code JSPromise}
-     */
-    @JS.Coerce
-    @JS("return Promise.resolve(value);")
-    public static native JSPromise resolve(JSValue value);
-
-    /**
-     * Returns a promise that is resolved with the given {@code int} value.
-     *
-     * @param value the integer value to resolve with
-     * @return a resolved {@code JSPromise}
-     */
-    @JS.Coerce
-    @JS("return Promise.resolve(value);")
-    public static native JSPromise resolve(int value);
-
-    /**
-     * Returns a promise that is resolved with the given {@code double} value.
-     *
-     * @param value the double value to resolve with
-     * @return a resolved {@code JSPromise}
-     */
-    @JS.Coerce
-    @JS("return Promise.resolve(value);")
-    public static native JSPromise resolve(double value);
-
-    /**
-     * Returns a promise that is resolved with the given {@code boolean} value.
-     *
-     * @param value the boolean value to resolve with
-     * @return a resolved {@code JSPromise}
-     */
-    @JS.Coerce
-    @JS("return Promise.resolve(value);")
-    public static native JSPromise resolve(boolean value);
 
     /**
      * Returns a promise that is resolved with the given {@code Object} value.

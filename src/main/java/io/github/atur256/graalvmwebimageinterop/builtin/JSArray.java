@@ -18,6 +18,7 @@ package io.github.atur256.graalvmwebimageinterop.builtin;
 
 import org.graalvm.webimage.api.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -51,62 +52,68 @@ public class JSArray extends JSObject {
     // === Factory Methods ===
 
     /**
-     * Creates a new {@code JSArray} from a JavaScript array-like object.
+     * Converts the given Java object into a {@link JSArray}. This method supports
+     * multiple types of inputs and automatically creates a corresponding JSArray:
+     * <ul>
+     *     <li>{@code null} → returns an empty JSArray</li>
+     *     <li>{@link JSArray} → creates a new JSArray with the same elements</li>
+     *     <li>{@link String} → converts each character into a JSArray element</li>
+     *     <li>{@link JSValue}[] → wraps the JSValue array into a JSArray</li>
+     *     <li>{@link Object}[] → wraps the array elements into a JSArray</li>
+     *     <li>Primitive arrays (byte[], short[], char[], int[], long[], float[], double[], boolean[]) → converted to JSArray</li>
+     *     <li>{@link Iterable} → each element is coerced and added to a JSArray</li>
+     *     <li>Other objects → wrapped as a single-element JSArray using {@link #coerce(Object)}</li>
+     * </ul>
      *
-     * @param arrayLike a JavaScript array-like value
-     * @return a new {@code JSArray} instance
+     * @param any the object to convert into a JSArray; may be null
+     * @return a new JSArray representing the input
      */
-    @JS.Coerce
-    @JS("return Array.from(arrayLike);")
-    public static native JSArray from(JSValue arrayLike);
+    public static JSArray from(Object any) {
+        return switch(any) {
+            case null -> JSArray.of();
+            case JSArray js -> JSArray.from(js);
+            case String arr -> JSArray.from(arr);
+            case JSValue[] arr -> JSArray.from(arr);
+            case Object[] arr -> JSArray.from(arr);
+            case byte[] arr -> fromPrimitiveByteArray(arr);
+            case short[] arr -> fromPrimitiveShortArray(arr);
+            case char[] arr -> fromPrimitiveCharArray(arr);
+            case int[] arr -> fromPrimitiveIntArray(arr);
+            case long[] arr -> fromPrimitiveLongArray(arr);
+            case float[] arr -> fromPrimitiveFloatArray(arr);
+            case double[] arr -> fromPrimitiveDoubleArray(arr);
+            case boolean[] arr -> fromPrimitiveBooleanArray(arr);
+            case Iterable<?> it -> JSArray.fromIterable(it);
+            default -> JSArray.of(coerce(any));
+        };
+    }
 
-    /**
-     * Creates a new {@code JSArray} from a Java array of {@link JSValue}.
-     *
-     * @param arrayLike an array of {@code JSValue}
-     * @return a new {@code JSArray}
-     */
+    // Wrap an existing JSArray into a new JSArray
     @JS.Coerce
-    @JS("return Array.from(arrayLike);")
-    public static native JSArray from(JSValue[] arrayLike);
+    @JS("return Array.from(arr);")
+    private static native JSArray from(JSArray arr);
 
-    /**
-     * Creates a {@code JSArray} from a string, resulting in an array of characters.
-     *
-     * @param str a Java {@code String}
-     * @return a new {@code JSArray}
-     */
+    // Convert an Iterable to a JSArray
+    private static JSArray fromIterable(Iterable<?> it) {
+        JSArray result = JSArray.of();
+        for(Object item : it) {
+            result.push(coerce(item));
+        }
+        return result;
+    }
+
+    // Convert a String into a JSArray of characters
     @JS.Coerce
     @JS("return Array.from(str);")
-    public static native JSArray from(String str);
+    private static native JSArray from(String str);
 
-    /**
-     * Creates a {@code JSArray} from an integer array.
-     *
-     * @param values an {@code int[]} array
-     * @return a new {@code JSArray}
-     */
+    // Convert Object[] into a JSArray
     @JS.Coerce
-    @JS("return Array.from(values);")
-    public static native JSArray from(int[] values);
+    @JS("return Array.from(arr);")
+    private static native JSArray from(Object[] arr);
 
-    /**
-     * Creates a {@code JSArray} from a double array.
-     *
-     * @param values a {@code double[]} array
-     * @return a new {@code JSArray}
-     */
-    @JS.Coerce
-    @JS("return Array.from(values);")
-    public static native JSArray from(double[] values);
-
-    /**
-     * Creates a {@code JSArray} from a boolean array.
-     *
-     * @param values a {@code boolean[]} array
-     * @return a new {@code JSArray}
-     */
-    public static JSArray from(boolean[] values) {
+    // Convert boolean[] into a JSArray of JSBoolean
+    private static JSArray from(boolean[] values) {
         JSValue[] jsValues = new JSValue[values.length];
         for(int i = 0; i < values.length; i++) {
             jsValues[i] = JSBoolean.of(values[i]);
@@ -114,25 +121,77 @@ public class JSArray extends JSObject {
         return JSArray.from(jsValues);
     }
 
-    /**
-     * Creates a {@code JSArray} from a Java object array.
-     *
-     * @param values an {@code Object[]} array
-     * @return a new {@code JSArray}
-     */
-    @JS.Coerce
-    @JS("return Array.from(values);")
-    public static native JSArray from(Object[] values);
+    // Generic primitive array conversion helpers
 
-    /**
-     * Asynchronously creates a {@code JSArray} from an array-like object.
-     *
-     * @param arrayLike a JavaScript array-like value
-     * @return a {@link JSPromise} resolving to a {@code JSArray}
-     */
+    // boolean → JSBoolean
+    private static JSArray fromPrimitiveBooleanArray(boolean[] arr) {
+        JSValue[] jsArr = new JSValue[arr.length];
+        for(int i = 0; i < arr.length; i++) jsArr[i] = JSBoolean.of(arr[i]);
+        return JSArray.from(jsArr);
+    }
+
+    // int → JSNumber
+    private static JSArray fromPrimitiveIntArray(int[] arr) {
+        JSValue[] jsArr = new JSValue[arr.length];
+        for(int i = 0; i < arr.length; i++) jsArr[i] = JSNumber.of(arr[i]);
+        return JSArray.from(jsArr);
+    }
+
+    // short → JSNumber
+    private static JSArray fromPrimitiveShortArray(short[] arr) {
+        JSValue[] jsArr = new JSValue[arr.length];
+        for(int i = 0; i < arr.length; i++) jsArr[i] = JSNumber.of(arr[i]);
+        return JSArray.from(jsArr);
+    }
+
+    // byte → JSNumber
+    private static JSArray fromPrimitiveByteArray(byte[] arr) {
+        JSValue[] jsArr = new JSValue[arr.length];
+        for(int i = 0; i < arr.length; i++) jsArr[i] = JSNumber.of(arr[i]);
+        return JSArray.from(jsArr);
+    }
+
+    // char → JSString
+    private static JSArray fromPrimitiveCharArray(char[] arr) {
+        JSValue[] jsArr = new JSValue[arr.length];
+        for(int i = 0; i < arr.length; i++) jsArr[i] = JSString.of(String.valueOf(arr[i]));
+        return JSArray.from(jsArr);
+    }
+
+    // long → JSNumber
+    private static JSArray fromPrimitiveLongArray(long[] arr) {
+        JSValue[] jsArr = new JSValue[arr.length];
+        for(int i = 0; i < arr.length; i++) jsArr[i] = JSNumber.of(arr[i]);
+        return JSArray.from(jsArr);
+    }
+
+    // float → JSNumber
+    private static JSArray fromPrimitiveFloatArray(float[] arr) {
+        JSValue[] jsArr = new JSValue[arr.length];
+        for(int i = 0; i < arr.length; i++) jsArr[i] = JSNumber.of(arr[i]);
+        return JSArray.from(jsArr);
+    }
+
+    // double → JSNumber
+    private static JSArray fromPrimitiveDoubleArray(double[] arr) {
+        JSValue[] jsArr = new JSValue[arr.length];
+        for(int i = 0; i < arr.length; i++) jsArr[i] = JSNumber.of(arr[i]);
+        return JSArray.from(jsArr);
+    }
+
     @JS.Coerce
     @JS("return Array.fromAsync(arrayLike);")
-    public static native JSPromise fromAsync(JSValue arrayLike);
+    private static native JSPromise fromAsync(JSValue arrayLike);
+
+    /**
+     * Asynchronously creates a {@link JSArray} from any Java object.
+     *
+     * @param any a Java object to convert to a {@link JSArray} asynchronously
+     * @return a {@link JSPromise} resolving to a {@link JSArray}
+     */
+    public static JSPromise fromAsync(Object any) {
+        return fromAsync(from(any));
+    }
 
     /**
      * Determines whether the specified value is an array.
@@ -203,7 +262,7 @@ public class JSArray extends JSObject {
                 return JSArray.of();
             }
             case JSArray jsArray -> {
-                return jsArray;
+                return JSArray.from(jsArray);
             }
             case Object[] array -> {
                 return JSArray.from(array);
@@ -218,17 +277,28 @@ public class JSArray extends JSObject {
                 return JSArray.from(array);
             }
             case Iterable<?> iterable -> {
-                JSValue[] values = new JSValue[((List<?>) iterable).size()];
-                int i = 0;
+                List<JSValue> temp = new ArrayList<>();
                 for(Object item : iterable) {
-                    values[i++] = coerceJSArray(item);
+                    temp.add(coerceJSValue(item));
                 }
-                return JSArray.from(values);
+                return JSArray.from(temp.toArray(new JSValue[0]));
             }
             default -> {
+                return JSArray.of(coerceJSValue(arrayLike));
             }
         }
-        return JSArray.of(coerceJSArray(arrayLike)); // fallback: wrap single object
+    }
+
+    private static JSValue coerceJSValue(Object value) {
+        if(value instanceof JSValue js) {
+            return js;
+        }
+        else if(value instanceof String || value instanceof Number || value instanceof Boolean || value == null) {
+            return (JSValue) coerce(value);
+        }
+        else {
+            return (JSValue) coerce(value);
+        }
     }
 
 
@@ -450,46 +520,6 @@ public class JSArray extends JSObject {
     // === Search & Indexing ===
 
     /**
-     * Checks if the array includes the specified {@link JSValue}.
-     *
-     * @param value the value to check
-     * @return {@code true} if found; {@code false} otherwise
-     */
-    @JS.Coerce
-    @JS("return this.includes(value);")
-    public native boolean includes(JSValue value);
-
-    /**
-     * Checks if the array includes the specified {@code int} value.
-     *
-     * @param value the value to check
-     * @return {@code true} if found; {@code false} otherwise
-     */
-    @JS.Coerce
-    @JS("return this.includes(value);")
-    public native boolean includes(int value);
-
-    /**
-     * Checks if the array includes the specified {@code double} value.
-     *
-     * @param value the value to check
-     * @return {@code true} if found; {@code false} otherwise
-     */
-    @JS.Coerce
-    @JS("return this.includes(value);")
-    public native boolean includes(double value);
-
-    /**
-     * Checks if the array includes the specified {@code boolean} value.
-     *
-     * @param value the value to check
-     * @return {@code true} if found; {@code false} otherwise
-     */
-    @JS.Coerce
-    @JS("return this.includes(value);")
-    public native boolean includes(boolean value);
-
-    /**
      * Checks if the array includes the specified {@code Object} value.
      *
      * @param value the value to check
@@ -500,46 +530,6 @@ public class JSArray extends JSObject {
     public native boolean includes(Object value);
 
     /**
-     * Returns the index of the first occurrence of the given {@link JSValue}.
-     *
-     * @param value the value to locate
-     * @return the index or {@code -1} if not found
-     */
-    @JS.Coerce
-    @JS("return this.indexOf(value);")
-    public native int indexOf(JSValue value);
-
-    /**
-     * Returns the index of the first occurrence of the given {@code int} value.
-     *
-     * @param value the value to locate
-     * @return the index or {@code -1} if not found
-     */
-    @JS.Coerce
-    @JS("return this.indexOf(value);")
-    public native int indexOf(int value);
-
-    /**
-     * Returns the index of the first occurrence of the given {@code double} value.
-     *
-     * @param value the value to locate
-     * @return the index or {@code -1} if not found
-     */
-    @JS.Coerce
-    @JS("return this.indexOf(value);")
-    public native int indexOf(double value);
-
-    /**
-     * Returns the index of the first occurrence of the given {@code boolean} value.
-     *
-     * @param value the value to locate
-     * @return the index or {@code -1} if not found
-     */
-    @JS.Coerce
-    @JS("return this.indexOf(value);")
-    public native int indexOf(boolean value);
-
-    /**
      * Returns the index of the first occurrence of the given {@code Object} value.
      *
      * @param value the value to locate
@@ -548,46 +538,6 @@ public class JSArray extends JSObject {
     @JS.Coerce
     @JS("return this.indexOf(value);")
     public native int indexOf(Object value);
-
-    /**
-     * Returns the index of the last occurrence of the given {@link JSValue}.
-     *
-     * @param value the value to locate
-     * @return the index or {@code -1} if not found
-     */
-    @JS.Coerce
-    @JS("return this.lastIndexOf(value);")
-    public native int lastIndexOf(JSValue value);
-
-    /**
-     * Returns the index of the last occurrence of the given {@code int} value.
-     *
-     * @param value the value to locate
-     * @return the index or {@code -1} if not found
-     */
-    @JS.Coerce
-    @JS("return this.lastIndexOf(value);")
-    public native int lastIndexOf(int value);
-
-    /**
-     * Returns the index of the last occurrence of the given {@code double} value.
-     *
-     * @param value the value to locate
-     * @return the index or {@code -1} if not found
-     */
-    @JS.Coerce
-    @JS("return this.lastIndexOf(value);")
-    public native int lastIndexOf(double value);
-
-    /**
-     * Returns the index of the last occurrence of the given {@code boolean} value.
-     *
-     * @param value the value to locate
-     * @return the index or {@code -1} if not found
-     */
-    @JS.Coerce
-    @JS("return this.lastIndexOf(value);")
-    public native int lastIndexOf(boolean value);
 
     /**
      * Returns the index of the last occurrence of the given {@code Object} value.
@@ -737,46 +687,6 @@ public class JSArray extends JSObject {
     // === Mutation Methods ===
 
     /**
-     * Adds a {@link JSValue} to the end of the array.
-     *
-     * @param value the value to add
-     * @return the new length of the array
-     */
-    @JS.Coerce
-    @JS("return this.push(value);")
-    public native int push(JSValue value);
-
-    /**
-     * Adds an {@code int} value to the end of the array.
-     *
-     * @param value the value to add
-     * @return the new length of the array
-     */
-    @JS.Coerce
-    @JS("return this.push(value);")
-    public native int push(int value);
-
-    /**
-     * Adds a {@code double} value to the end of the array.
-     *
-     * @param value the value to add
-     * @return the new length of the array
-     */
-    @JS.Coerce
-    @JS("return this.push(value);")
-    public native int push(double value);
-
-    /**
-     * Adds a {@code boolean} value to the end of the array.
-     *
-     * @param value the value to add
-     * @return the new length of the array
-     */
-    @JS.Coerce
-    @JS("return this.push(value);")
-    public native int push(boolean value);
-
-    /**
      * Adds an {@code Object} to the end of the array.
      *
      * @param value the value to add
@@ -804,46 +714,6 @@ public class JSArray extends JSObject {
     public <R> R pop(Class<R> cls) {
         return JSValue.checkedCoerce(pop(), cls);
     }
-
-    /**
-     * Adds a {@link JSValue} to the beginning of the array.
-     *
-     * @param value the value to add
-     * @return the new length
-     */
-    @JS.Coerce
-    @JS("return this.unshift(value);")
-    public native int unshift(JSValue value);
-
-    /**
-     * Adds an {@code int} to the beginning of the array.
-     *
-     * @param value the value to add
-     * @return the new length
-     */
-    @JS.Coerce
-    @JS("return this.unshift(value);")
-    public native int unshift(int value);
-
-    /**
-     * Adds a {@code double} to the beginning of the array.
-     *
-     * @param value the value to add
-     * @return the new length
-     */
-    @JS.Coerce
-    @JS("return this.unshift(value);")
-    public native int unshift(double value);
-
-    /**
-     * Adds a {@code boolean} to the beginning of the array.
-     *
-     * @param value the value to add
-     * @return the new length
-     */
-    @JS.Coerce
-    @JS("return this.unshift(value);")
-    public native int unshift(boolean value);
 
     /**
      * Adds an {@code Object} to the beginning of the array.
@@ -875,54 +745,6 @@ public class JSArray extends JSObject {
     }
 
     /**
-     * Fills elements of the array with a specific {@link JSValue}.
-     *
-     * @param value the value to fill
-     * @param start start index (inclusive)
-     * @param end   end index (exclusive)
-     * @return this array
-     */
-    @JS.Coerce
-    @JS("return this.fill(value, start, end);")
-    public native JSArray fill(JSValue value, int start, int end);
-
-    /**
-     * Fills elements with the specified {@code int} value.
-     *
-     * @param value the value to fill
-     * @param start start index (inclusive)
-     * @param end   end index (exclusive)
-     * @return this array
-     */
-    @JS.Coerce
-    @JS("return this.fill(value, start, end);")
-    public native JSArray fill(int value, int start, int end);
-
-    /**
-     * Fills elements with the specified {@code double} value.
-     *
-     * @param value the value to fill
-     * @param start start index (inclusive)
-     * @param end   end index (exclusive)
-     * @return this array
-     */
-    @JS.Coerce
-    @JS("return this.fill(value, start, end);")
-    public native JSArray fill(double value, int start, int end);
-
-    /**
-     * Fills elements with the specified {@code boolean} value.
-     *
-     * @param value the value to fill
-     * @param start start index (inclusive)
-     * @param end   end index (exclusive)
-     * @return this array
-     */
-    @JS.Coerce
-    @JS("return this.fill(value, start, end);")
-    public native JSArray fill(boolean value, int start, int end);
-
-    /**
      * Fills elements with the specified {@code Object} value.
      *
      * @param value the value to fill
@@ -948,18 +770,6 @@ public class JSArray extends JSObject {
     private native Object reduceJS(JSFunction callback);
 
     /**
-     * Reduces the array and coerces the result into the specified type.
-     *
-     * @param callback a {@link JSFunction} reducer
-     * @param cls      the target class
-     * @param <R>      the result type
-     * @return the coerced result
-     */
-    public <R> R reduce(JSFunction callback, Class<R> cls) {
-        return JSValue.checkedCoerce(reduceJS(callback), cls);
-    }
-
-    /**
      * Reduces the array using the provided callback and initial value.
      *
      * @param callback     a {@link JSFunction} reducer
@@ -972,20 +782,30 @@ public class JSArray extends JSObject {
     private native <T> Object reduceJS(JSFunction callback, T initialValue);
 
     /**
-     * Reduces the array with an initial value and coerces the result.
+     * Reduces the array using the provided callback and coerces the result into the specified type.
+     *
+     * @param callback a {@link JSFunction} reducer
+     * @param cls      the target class
+     * @param <R>      the result type
+     * @return the coerced result
+     */
+    public <R> R reduce(JSFunction callback, Class<R> cls) {
+        Object result = reduceJS(callback);
+        return JSValue.checkedCoerce(result, cls);
+    }
+
+    /**
+     * Reduces the array using the provided callback and an initial value, coerced into the specified type.
      *
      * @param callback     a {@link JSFunction} reducer
-     * @param initialValue the initial value
+     * @param initialValue the initial value for reduction
+     * @param cls          the target class
      * @param <R>          the result type
      * @return the coerced result
      */
-    @SuppressWarnings("unchecked")
-    public <R> R reduce(JSFunction callback, R initialValue) {
+    public <R> R reduce(JSFunction callback, R initialValue, Class<R> cls) {
         Object result = reduceJS(callback, initialValue);
-        if(result instanceof JSValue jsResult) {
-            return jsResult.as((Class<R>) initialValue.getClass());
-        }
-        return (R) result;
+        return JSValue.checkedCoerce(result, cls);
     }
 
     /**
@@ -999,17 +819,6 @@ public class JSArray extends JSObject {
     private native Object reduceRightJS(JSFunction callback);
 
     /**
-     * Reduces the array from right to left and coerces the result.
-     *
-     * @param callback a {@link JSFunction} reducer
-     * @param cls      the target class
-     * @return the coerced result
-     */
-    public <R> R reduceRight(JSFunction callback, Class<R> cls) {
-        return JSValue.checkedCoerce(reduceRightJS(callback), cls);
-    }
-
-    /**
      * Reduces the array from right to left with an initial value.
      *
      * @param callback     a {@link JSFunction} reducer
@@ -1021,19 +830,30 @@ public class JSArray extends JSObject {
     private native <R> Object reduceRightJS(JSFunction callback, R initialValue);
 
     /**
-     * Reduces the array from right to left with an initial value and coerces the result.
+     * Reduces the array from right to left using the provided callback and coerces the result into the specified type.
      *
-     * @param callback     a {@link JSFunction} reducer
-     * @param initialValue the initial value
+     * @param callback a {@link JSFunction} reducer
+     * @param cls      the target class
+     * @param <R>      the result type
      * @return the coerced result
      */
-    @SuppressWarnings("unchecked")
-    public <R> R reduceRight(JSFunction callback, R initialValue) {
+    public <R> R reduceRight(JSFunction callback, Class<R> cls) {
+        Object result = reduceRightJS(callback);
+        return JSValue.checkedCoerce(result, cls);
+    }
+
+    /**
+     * Reduces the array from right to left using the provided callback and an initial value, coerced into the specified type.
+     *
+     * @param callback     a {@link JSFunction} reducer
+     * @param initialValue the initial value for reduction
+     * @param cls          the target class
+     * @param <R>          the result type
+     * @return the coerced result
+     */
+    public <R> R reduceRight(JSFunction callback, R initialValue, Class<R> cls) {
         Object result = reduceRightJS(callback, initialValue);
-        if(result instanceof JSValue jsResult) {
-            return jsResult.as((Class<R>) initialValue.getClass());
-        }
-        return (R) result;
+        return JSValue.checkedCoerce(result, cls);
     }
 
 
@@ -1058,15 +878,6 @@ public class JSArray extends JSObject {
     @JS.Coerce
     @JS("return this.join(separator);")
     public native String join(JSString separator);
-
-    /**
-     * Converts the array to a locale-sensitive string.
-     *
-     * @return the localized string
-     */
-    @JS.Coerce
-    @JS("return this.toLocaleString();")
-    public native String toLocaleString();
 
     /**
      * Converts the array to a string.

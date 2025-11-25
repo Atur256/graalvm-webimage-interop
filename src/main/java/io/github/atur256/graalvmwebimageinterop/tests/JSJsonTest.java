@@ -27,9 +27,12 @@ public class JSJsonTest {
     public static void main(String[] args) {
         testParse();
         testParseWithReviver();
-        testStringify();
-        testReplacer();
-        testIndentation();
+        testRawJson();
+        testStringifyBasic();
+        testStringifyWithReplacer();
+        testStringifyWithSpacing();
+        testStringifyCircular();
+        testStringifyUndefinedAndNull();
         testRawJson();
     }
 
@@ -48,7 +51,7 @@ public class JSJsonTest {
     }
 
     public static void testParseWithReviver() {
-        JSFunction reviver = JSJson.fromReviver((JSString key, JSValue value) -> {
+        JSFunction reviver = JSFunction.of((JSString key, JSValue value) -> {
             if(JSString.of("age").equals(key) && value instanceof JSNumber num) {
                 return JSNumber.of(num.as(Integer.class) + 1);
             }
@@ -63,50 +66,67 @@ public class JSJsonTest {
         assertEquals("[10,20]", JSJson.stringify(revivedArray));
     }
 
-    public static void testStringify() {
-        JSValue jsObj = JSEval.eval("({ name: 'Alice', age: 30 })", JSValue.class);
-        JSValue fn = JSEval.eval("(function() {})", JSValue.class);
-        JSValue circular = JSEval.eval("(() => { const a = {}; a.self = a; return a; })()", JSValue.class);
+    public static void testStringifyBasic() {
+        JSObject obj = JSObject.create();
+        obj.set(JSString.of("name"), JSString.of("Alice"));
+        obj.set(JSString.of("age"), JSNumber.of(30));
+
+        String json = JSJson.stringify(obj);
+
+        assertEquals("{\"name\":\"Alice\",\"age\":30}", json);
+        assertEquals("\"Hello\"", JSJson.stringify("Hello"));
+        assertEquals("42", JSJson.stringify(42));
+        assertEquals("true", JSJson.stringify(true));
+        assertEquals("null", JSJson.stringify(null));
+    }
+
+    public static void testStringifyWithReplacer() {
+        JSObject obj = JSObject.create();
+        obj.set(JSString.of("name"), JSString.of("Alice"));
+        obj.set(JSString.of("age"), JSNumber.of(30));
+        JSFunction replacer = JSFunction.of((JSString key, JSValue value) -> {
+            if("age".equals(key.asString())) return JSUndefined.undefined();
+            return value;
+        });
+
+        String json = JSJson.stringify(obj, replacer);
+        assertEquals("{\"name\":\"Alice\"}", json);
+    }
+
+    public static void testStringifyWithSpacing() {
+        JSObject obj = JSObject.create();
+        obj.set(JSString.of("name"), JSString.of("Alice"));
+        obj.set(JSString.of("age"), JSNumber.of(30));
+        JSFunction replacer = JSFunction.of((JSString key, JSValue value) -> {
+            if("age".equals(key.asString())) return JSUndefined.undefined();
+            return value;
+        });
+
+        String jsonPretty = JSJson.stringify(obj, replacer, 2); // 2-space indentation
+        String jsonPrettyStr = JSJson.stringify(obj, replacer, "--"); // String spacing
+
+        assertEquals("""
+                {
+                  "name": "Alice"
+                }""", jsonPretty);
+        assertEquals("""
+                {
+                --"name": "Alice"
+                }""", jsonPrettyStr);
+    }
+
+    public static void testStringifyCircular() {
+        // Create circular structure
+        JSObject circular = JSObject.create();
+        circular.set(JSString.of("self"), circular);
 
         assertThrows(ThrownFromJavaScript.class, () -> JSJson.stringify(circular));
-        assertEquals("{\"name\":\"Alice\",\"age\":30}", JSJson.stringify(jsObj));
-        assertEquals("\"Bob\"", JSJson.stringify("Bob"));
-        assertEquals("undefined", JSJson.stringify(JSUndefined.instance()));
+    }
+
+    public static void testStringifyUndefinedAndNull() {
+        assertNull(JSJson.stringify(JSUndefined.instance()));
         assertEquals("null", JSJson.stringify(Double.NaN));
         assertEquals("null", JSJson.stringify(Double.POSITIVE_INFINITY));
-        assertEquals("undefined", JSJson.stringify(fn));
-    }
-
-    public static void testReplacer() {
-        JSValue jsObj = JSEval.eval("({ name: 'Alice', age: 30 })", JSValue.class);
-        JSFunction replacer = JSJson.fromReplacer((JSString key, JSValue value) -> {
-            if(JSString.of("age").equals(key)) return JSUndefined.instance();
-            return value;
-        });
-
-        JSValue array = JSEval.eval("[1,2,3]", JSValue.class);
-        String replaced = JSJson.stringify(array, replacer);
-
-        assertEquals("{\"name\":\"Alice\"}", JSJson.stringify(jsObj, replacer));
-        assertEquals("[1,2,3]", replaced);
-    }
-
-    public static void testIndentation() {
-        JSValue jsObj = JSEval.eval("({ name: 'Alice', age: 30 })", JSValue.class);
-        JSFunction replacer = JSJson.fromReplacer((JSString key, JSValue value) -> {
-            if(JSString.of("age").equals(key)) return JSUndefined.instance();
-            return value;
-        });
-
-        String pretty = JSJson.stringify(jsObj, 4);
-        String indented = JSJson.stringify(jsObj, replacer, 2);
-
-        assertTrue(pretty.contains("    \"name\": \"Alice\""));
-        assertTrue(pretty.contains("    \"age\": 30"));
-        assertEquals("\"Bob\"", JSJson.stringify("Bob", 2));
-        assertEquals("\"Bob\"", JSJson.stringify(JSString.of("Bob"), 2));
-        assertTrue(indented.contains("  \"name\": \"Alice\""));
-        assertFalse(indented.contains("age"));
     }
 
     public static void testRawJson() {
@@ -118,13 +138,13 @@ public class JSJsonTest {
 
         assertTrue(JSJson.isRawJSON(raw1));
         assertFalse(JSJson.isRawJSON(notRaw));
-        assertFalse(JSJson.isRawJSON((Object) notRaw));
+        assertFalse(JSJson.isRawJSON(notRaw));
         assertFalse(JSJson.isRawJSON(rawText));
-        assertTrue(JSJson.isRawJSON((Object) raw1));
+        assertTrue(JSJson.isRawJSON(raw1));
         assertEquals("\"Hello world\"", JSJson.stringify(raw2));
         assertTrue(JSJson.isRawJSON(raw2));
-        assertTrue(JSJson.isRawJSON((Object) raw2));
+        assertTrue(JSJson.isRawJSON(raw2));
         assertFalse(JSJson.isRawJSON(plain));
-        assertFalse(JSJson.isRawJSON((Object) null));
+        assertFalse(JSJson.isRawJSON(null));
     }
 }

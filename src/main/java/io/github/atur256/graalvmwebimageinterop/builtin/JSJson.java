@@ -21,8 +21,6 @@ import org.graalvm.webimage.api.JSObject;
 import org.graalvm.webimage.api.JSString;
 import org.graalvm.webimage.api.JSValue;
 
-import java.util.function.BiFunction;
-
 
 /**
  * Provides a Java binding for the JavaScript {@code JSON} object within the WebImage interop layer.
@@ -65,88 +63,47 @@ public class JSJson extends JSObject {
 
     // === Stringify Methods ===
 
-    /**
-     * Converts a {@link JSValue} to a JSON string.
-     *
-     * @param value the value to stringify
-     * @return the JSON string
-     */
     @JS.Coerce
-    @JS("""
-            const res = JSON.stringify(value);
-            return res === undefined? 'undefined' : res;
-            """)
-    public static native String stringify(JSValue value);
+    @JS("const res = JSON.stringify(value, replacer, space); return res === undefined ? null : res;")
+    private static native String nativeStringify(Object value, Object replacer, Object space);
 
     /**
-     * Converts a Java object to a JSON string.
+     * Converts a Java object or {@link JSValue} to a JSON string with optional replacer.
+     * If the result is {@code undefined}, {@code null} is returned.
      *
-     * @param value the object to stringify
-     * @return the JSON string
+     * @param value    the value to stringify (Java object or {@link JSValue})
+     * @param replacer optional replacer function ({@link JSFunction})
+     * @return the JSON string, or {@code null} if the value is {@code undefined} or cannot be serialized
      */
-    @JS.Coerce
-    @JS("""
-            const res = JSON.stringify(value);
-            return res === undefined? 'undefined' : res;
-            """)
-    public static native String stringify(Object value);
+    public static String stringify(Object value, Object replacer) {
+        String result = nativeStringify(value, replacer, null);
+        return result == null || "undefined".equals(result) ? null : result;
+    }
 
     /**
-     * Converts a {@link JSValue} to a JSON string using a replacer function.
+     * Converts a Java object or {@link JSValue} to a JSON string with optional replacer and spacing.
+     * If the result is {@code undefined}, {@code null} is returned.
      *
-     * @param value    the value to stringify
-     * @param replacer the replacer function
-     * @return the JSON string
+     * @param value    the value to stringify (Java object or {@link JSValue})
+     * @param replacer optional replacer function ({@link JSFunction})
+     * @param space    optional number of spaces or string for indentation; can be {@code null}
+     * @return the JSON string, or {@code null} if the value is {@code undefined} or cannot be serialized
      */
-    @JS.Coerce
-    @JS("""
-            const res = JSON.stringify(value, replacer);
-            return res === undefined? 'undefined' : res;
-            """)
-    public static native String stringify(JSValue value, JSFunction replacer);
+    public static String stringify(Object value, Object replacer, Object space) {
+        String result = nativeStringify(value, replacer, space);
+        return result == null || "undefined".equals(result) ? null : result;
+    }
 
     /**
-     * Converts a {@link JSValue} to a formatted JSON string using a replacer and indentation.
+     * Converts a Java object or {@link JSValue} to a JSON string.
+     * If the value cannot be serialized, or is {@code undefined}, {@code null} is returned.
      *
-     * @param value    the value to stringify
-     * @param replacer the replacer function
-     * @param space    the number of spaces for indentation
-     * @return the formatted JSON string
+     * @param value the value to stringify (Java object or {@link JSValue})
+     * @return the JSON string, or {@code null} if the value is {@code undefined} or cannot be serialized
      */
-    @JS.Coerce
-    @JS("""
-            const res = JSON.stringify(value, replacer, space);
-            return res === undefined? 'undefined' : res;
-            """)
-    public static native String stringify(JSValue value, JSFunction replacer, int space);
-
-    /**
-     * Converts a {@link JSValue} to a formatted JSON string with indentation.
-     *
-     * @param value the value to stringify
-     * @param space the number of spaces for indentation
-     * @return the formatted JSON string
-     */
-    @JS.Coerce
-    @JS("""
-            const res = JSON.stringify(value, null, space);
-            return res === undefined? 'undefined' : res;
-            """)
-    public static native String stringify(JSValue value, int space);
-
-    /**
-     * Converts a Java object to a formatted JSON string with indentation.
-     *
-     * @param value the object to stringify
-     * @param space the number of spaces for indentation
-     * @return the formatted JSON string
-     */
-    @JS.Coerce
-    @JS("""
-            const res = JSON.stringify(value, null, space);
-            return res === undefined? 'undefined' : res;
-            """)
-    public static native String stringify(Object value, int space);
+    public static String stringify(Object value) {
+        return stringify(value, null, null);
+    }
 
 
     // === Raw JSON Methods ===
@@ -172,16 +129,6 @@ public class JSJson extends JSObject {
     public static native JSValue rawJSON(String text);
 
     /**
-     * Checks if a {@link JSValue} is a raw JSON value.
-     *
-     * @param value the value to check
-     * @return {@code true} if the value is raw JSON
-     */
-    @JS.Coerce
-    @JS("return JSON.isRawJSON(value);")
-    public static native boolean isRawJSON(JSValue value);
-
-    /**
      * Checks if a Java object is a raw JSON value.
      *
      * @param value the object to check
@@ -190,27 +137,4 @@ public class JSJson extends JSObject {
     @JS.Coerce
     @JS("return JSON.isRawJSON(value);")
     public static native boolean isRawJSON(Object value);
-
-
-    // === Function Wrappers ===
-
-    /**
-     * Wraps a Java {@link BiFunction} as a JSON reviver function.
-     *
-     * @param javaReviver the Java reviver function
-     * @return a {@code JSFunction} usable in {@code JSON.parse}
-     */
-    @JS.Coerce
-    @JS("return function(key, value) { return javaReviver.apply(key, value); }")
-    public static native JSFunction fromReviver(BiFunction<JSString, JSValue, JSValue> javaReviver);
-
-    /**
-     * Wraps a Java {@link BiFunction} as a JSON replacer function.
-     *
-     * @param javaReplacer the Java replacer function
-     * @return a {@code JSFunction} usable in {@code JSON.stringify}
-     */
-    @JS.Coerce
-    @JS("return function(key, value) { return javaReplacer.apply(key, value); }")
-    public static native JSFunction fromReplacer(BiFunction<JSString, JSValue, JSValue> javaReplacer);
 }

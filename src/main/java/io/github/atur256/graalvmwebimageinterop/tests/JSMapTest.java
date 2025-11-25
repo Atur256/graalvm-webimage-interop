@@ -215,7 +215,7 @@ public class JSMapTest {
         JSIterator entries = map.entries();
         JSArray entry1 = JSValue.checkedCoerce(entries.next().get("value"), JSArray.class);
         JSArray entry2 = JSValue.checkedCoerce(entries.next().get("value"), JSArray.class);
-        map.entries().forEach(JSFunction.fromCons((JSObject obj) -> {
+        map.entries().forEach(JSFunction.of((JSObject obj) -> {
             JSArray entry = JSValue.checkedCoerce(obj, JSArray.class);
             String key = JSValue.checkedCoerce(entry.get(0), String.class);
             int value = JSValue.checkedCoerce(entry.get(1), Integer.class);
@@ -249,31 +249,31 @@ public class JSMapTest {
                 List.of(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>())
         );
 
-        map.forEach(JSFunction.fromCons((JSValue value) -> {
+        map.forEach(JSFunction.of((JSValue value) -> {
             String str = JSValue.checkedCoerce(value, String.class);
             collected.addLast(str);
         }));
-        map.forEach(JSFunction.fromBiConsWithThis((JSValue ctx, JSString value, JSString key) -> {
+        map.forEach(JSFunction.withThis((JSValue ctx, JSString value, JSString key) -> {
             values.getFirst().getFirst().addLast(JSValue.checkedCoerce(value, String.class));
             values.get(1).getFirst().addLast(JSValue.checkedCoerce(key, String.class));
             values.get(2).getFirst().addLast(JSValue.checkedCoerce(ctx, String.class));
         }), thisValue);
-        map.forEach(JSFunction.fromBiConsWithThis((JSValue ctx, JSString value, JSString key) -> {
+        map.forEach(JSFunction.withThis((JSValue ctx, JSString value, JSString key) -> {
             values.getFirst().get(1).addLast(JSValue.checkedCoerce(value, String.class));
             values.get(1).get(1).addLast(JSValue.checkedCoerce(key, String.class));
             values.get(2).get(1).addLast(JSValue.checkedCoerce(ctx, Integer.class).toString());
         }), 42);
-        map.forEach(JSFunction.fromBiConsWithThis((JSValue ctx, JSString value, JSString key) -> {
+        map.forEach(JSFunction.withThis((JSValue ctx, JSString value, JSString key) -> {
             values.getFirst().get(2).addLast(JSValue.checkedCoerce(value, String.class));
             values.get(1).get(2).addLast(JSValue.checkedCoerce(key, String.class));
             values.get(2).get(2).addLast(JSValue.checkedCoerce(ctx, Double.class).toString());
         }), 3.14);
-        map.forEach(JSFunction.fromBiConsWithThis((JSValue ctx, JSString value, JSString key) -> {
+        map.forEach(JSFunction.withThis((JSValue ctx, JSString value, JSString key) -> {
             values.getFirst().get(3).addLast(JSValue.checkedCoerce(value, String.class));
             values.get(1).get(3).addLast(JSValue.checkedCoerce(key, String.class));
             values.get(2).get(3).addLast(JSValue.checkedCoerce(ctx, Boolean.class).toString());
         }), true);
-        map.forEach(JSFunction.fromBiConsWithThis((JSValue ctx, JSString value, JSString key) -> {
+        map.forEach(JSFunction.withThis((JSValue ctx, JSString value, JSString key) -> {
             values.getFirst().get(4).addLast(JSValue.checkedCoerce(value, String.class));
             values.get(1).get(4).addLast(JSValue.checkedCoerce(key, String.class));
             values.get(2).get(4).addLast(JSValue.checkedCoerce(ctx, String.class));
@@ -297,8 +297,8 @@ public class JSMapTest {
         List<String> fruits = Arrays.asList("apple", "blueberry", "apricot", "cherry", "banana");
         JSArray jsArray = JSArray.of(fruits.toArray());
         JSIterator iterator = JSIterator.from(jsArray);
-        JSFunction callback1 = JSFunction.fromFunc((JSString item) -> JSString.of(item.asString().substring(0, 1)));
-        JSFunction callback2 = JSFunction.fromFunc((JSString item) -> JSString.of(item.as(String.class).substring(0, 1)));
+        JSFunction callback1 = JSFunction.of((JSString item) -> JSString.of(item.asString().substring(0, 1)));
+        JSFunction callback2 = JSFunction.of((JSString item) -> JSString.of(item.as(String.class).substring(0, 1)));
 
         JSMap groupedFromIterator = JSMap.groupBy(iterator, callback1);
         JSMap groupedFromArray = JSMap.groupBy(jsArray, callback1);

@@ -154,54 +154,52 @@ public class JSIterator extends JSObject {
     // === Reduction Methods ===
 
     /**
-     * Reduces the iterator using the given reducer function.
+     * Reduces the iterator using the provided callback.
      *
-     * @param callback the reducer function
-     * @return the result of the reduction
+     * @param callback a {@link JSFunction} reducer
+     * @return the reduced result
      */
     @JS.Coerce
     @JS("return this.reduce(callback);")
     private native Object reduceJS(JSFunction callback);
 
     /**
-     * Reduces the iterator and coerces the result to the specified type.
+     * Reduces the iterator using the provided callback and initial value.
      *
-     * @param callback the reducer function
-     * @param cls      the target class for coercion
-     * @param <R>      the result type
-     * @return the coerced result
-     */
-    public <R> R reduce(JSFunction callback, Class<R> cls) {
-        return JSValue.checkedCoerce(reduceJS(callback), cls);
-    }
-
-    /**
-     * Reduces the iterator using the given reducer and initial value.
-     *
-     * @param callback     the reducer function
-     * @param initialValue the initial value to start reduction
+     * @param callback     a {@link JSFunction} reducer
+     * @param initialValue the initial value
      * @param <T>          the type of the initial value
-     * @return the raw result of the reduction
+     * @return the reduced result
      */
     @JS.Coerce
     @JS("return this.reduce(callback, initialValue);")
     private native <T> Object reduceJS(JSFunction callback, T initialValue);
 
     /**
-     * Reduces the iterator using the given reducer and initial value, and coerces the result.
+     * Reduces the iterator using the provided callback and coerces the result into the specified type.
      *
-     * @param callback     the reducer function
-     * @param initialValue the initial value to start reduction
+     * @param callback a {@link JSFunction} reducer
+     * @param cls      the target class
+     * @param <R>      the result type
+     * @return the coerced result
+     */
+    public <R> R reduce(JSFunction callback, Class<R> cls) {
+        Object result = reduceJS(callback);
+        return JSValue.checkedCoerce(result, cls);
+    }
+
+    /**
+     * Reduces the iterator using the provided callback and an initial value, coerced into the specified type.
+     *
+     * @param callback     a {@link JSFunction} reducer
+     * @param initialValue the initial value for reduction
+     * @param cls          the target class
      * @param <R>          the result type
      * @return the coerced result
      */
-    @SuppressWarnings("unchecked")
-    public <R> R reduce(JSFunction callback, R initialValue) {
+    public <R> R reduce(JSFunction callback, R initialValue, Class<R> cls) {
         Object result = reduceJS(callback, initialValue);
-        if(result instanceof JSValue jsResult) {
-            return jsResult.as((Class<R>) initialValue.getClass());
-        }
-        return (R) result;
+        return JSValue.checkedCoerce(result, cls);
     }
 
 

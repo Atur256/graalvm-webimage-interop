@@ -45,10 +45,13 @@ MAVEN_OPTS="--enable-native-access=ALL-UNNAMED" mvn clean package
 ## === STEP 2: Compile and run tests via WebImage (optional) ===
 if [[ "$RUN_TESTS" == true ]]; then
   echo "Compiling tests with WebImage..."
-  "$GRAALVM_BIN/web-image" \
+  "$GRAALVM_BIN/native-image" \
+    -Dcom.oracle.graalvm.iswebimage=true \
+    --tool:svm-wasm \
     -H:+UnlockExperimentalVMOptions \
     -o "$OUTPUT_DIR/Tests" \
     -Ob \
+    -H:-ClosureCompiler \
     -cp "$MAIN_JAR:$TEST_JAR" \
     "$TEST_RUNNER_CLASS"
 

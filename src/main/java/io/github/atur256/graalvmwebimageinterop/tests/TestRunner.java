@@ -37,10 +37,6 @@ public class TestRunner {
         JSErrorTest.main(args);
         System.out.println("JSError Test finished.");
 
-        // JSEval Test
-        JSEvalTest.main(args);
-        System.out.println("JSEval Test finished.");
-
         // JSFunction Test
         JSFunctionTest.main(args);
         System.out.println("JSFunction Test finished.");

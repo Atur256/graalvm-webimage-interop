@@ -28,6 +28,7 @@ import static org.junit.Assert.*;
 public class JSPromiseTest {
 
     public static void main(String[] args) {
+        testOf();
         testReject();
         testResolve();
         testThen();
@@ -39,6 +40,42 @@ public class JSPromiseTest {
         testWithResolvers();
     }
 
+    public static void testOf() {
+        JSPromise resolvePromise = JSPromise.of(JSFunction.of((JSValue resolve, JSValue _) -> {
+            resolve.as(JSFunction.class).invoke(JSString.of("Hello"));
+        }));
+        JSPromise rejectPromise = JSPromise.of(JSFunction.of((JSValue _, JSValue reject) -> {
+            reject.as(JSFunction.class).invoke(JSString.of("Rejected!"));
+        }));
+        JSPromise exceptionPromise = JSPromise.of(JSFunction.of((JSValue _, JSValue _) -> {
+            throw new RuntimeException("Crash!");
+        }));
+
+        resolvePromise
+                .then(JSFunction.of((JSString value) ->
+                        assertEquals("Hello", value.asString())
+                ))
+                .catch_(JSFunction.of((Object error) -> fail("Resolve promise should not be rejected: " + error)));
+        rejectPromise
+                .then(JSFunction.of((JSString _) ->
+                        fail("Reject promise should not be fulfilled")
+                ))
+                .catch_(JSFunction.of((Object error) -> {
+                    assertTrue(error instanceof JSString);
+                    assertEquals("Rejected!", ((JSString) error).asString());
+                }));
+        exceptionPromise
+                .then(JSFunction.of((JSValue _) ->
+                        fail("Exception promise should not be fulfilled")
+                ))
+                .catch_(JSFunction.of((Object error) -> {
+                    assertTrue(error instanceof RuntimeException || error instanceof JSValue);
+                    assert error instanceof RuntimeException;
+                    assertEquals("Crash!", ((RuntimeException) error).getMessage());
+                }));
+    }
+
+
     public static void testReject() {
         JSPromise resolvedValue = JSPromise.resolve(JSString.of("done:JSValue"));
         JSPromise resolvedInt = JSPromise.resolve(42);
@@ -46,18 +83,18 @@ public class JSPromiseTest {
         JSPromise resolvedBool = JSPromise.resolve(true);
         JSPromise resolvedObject = JSPromise.resolve("done:Object");
 
-        resolvedValue.then(JSFunction.fromCons((JSString str) ->
+        resolvedValue.then(JSFunction.of((JSString str) ->
                 assertEquals("done:JSValue", str.asString())
         ));
-        resolvedInt.then(JSFunction.fromCons((JSNumber num) ->
+        resolvedInt.then(JSFunction.of((JSNumber num) ->
                 assertEquals(Integer.valueOf(42), num.asInt())
         ));
-        resolvedDouble.then(JSFunction.fromCons((JSNumber num) ->
+        resolvedDouble.then(JSFunction.of((JSNumber num) ->
                 assertEquals(3.14, num.asDouble(), 0.0001)
         ));
-        resolvedBool.then(JSFunction.fromCons((JSBoolean bool) ->
+        resolvedBool.then(JSFunction.of((JSBoolean bool) ->
                 assertTrue(bool.asBoolean())));
-        resolvedObject.then(JSFunction.fromCons((JSString str) ->
+        resolvedObject.then(JSFunction.of((JSString str) ->
                 assertEquals("done:Object", str.asString())
         ));
     }
@@ -69,19 +106,19 @@ public class JSPromiseTest {
         JSPromise rejectedBool = JSPromise.reject(false);
         JSPromise rejectedObject = JSPromise.reject("fail:Object");
 
-        rejectedValue.catch_(JSFunction.fromCons((JSString str) ->
+        rejectedValue.catch_(JSFunction.of((JSString str) ->
                 assertEquals("fail:JSValue", str.asString())
         ));
-        rejectedInt.catch_(JSFunction.fromCons((JSNumber num) ->
+        rejectedInt.catch_(JSFunction.of((JSNumber num) ->
                 assertEquals(Integer.valueOf(404), num.asInt())
         ));
-        rejectedDouble.catch_(JSFunction.fromCons((JSNumber num) ->
+        rejectedDouble.catch_(JSFunction.of((JSNumber num) ->
                 assertEquals(9.81, num.asDouble(), 0.0001)
         ));
-        rejectedBool.catch_(JSFunction.fromCons((JSBoolean bool) ->
+        rejectedBool.catch_(JSFunction.of((JSBoolean bool) ->
                 assertFalse(bool.asBoolean())
         ));
-        rejectedObject.catch_(JSFunction.fromCons((JSString str) ->
+        rejectedObject.catch_(JSFunction.of((JSString str) ->
                 assertEquals("fail:Object", str.asString())
         ));
     }
@@ -89,35 +126,35 @@ public class JSPromiseTest {
     public static void testThen() {
         JSPromise rejectedInt = JSPromise.reject(404);
 
-        rejectedInt.catch_(JSFunction.fromCons((JSNumber num) ->
+        rejectedInt.catch_(JSFunction.of((JSNumber num) ->
                 assertEquals(Integer.valueOf(404), num.asInt())
         ));
         JSPromise.resolve("chained:success")
-                .then(JSFunction.fromCons((JSString str) ->
+                .then(JSFunction.of((JSString str) ->
                         assertEquals("chained:success", str.asString())
-                ), JSFunction.fromCons((JSValue _) ->
+                ), JSFunction.of((JSValue _) ->
                         fail("Should not reach rejection handler on resolved promise")
                 ));
         JSPromise.reject("chained:fail")
-                .then(JSFunction.fromCons((JSValue _) ->
+                .then(JSFunction.of((JSValue _) ->
                         fail("Should not reach fulfillment handler on rejected promise")
-                ), JSFunction.fromCons((JSString str) ->
+                ), JSFunction.of((JSString str) ->
                         assertEquals("chained:fail", str.asString())
                 ));
     }
 
     public static void testThenCatchFinally() {
         JSPromise.resolve(42)
-                .then(JSFunction.fromFunc((JSNumber num) -> JSNumber.of(num.as(Integer.class) + 1)))
-                .then(JSFunction.fromFunc((JSNumber num) -> {
+                .then(JSFunction.of((JSNumber num) -> JSNumber.of(num.as(Integer.class) + 1)))
+                .then(JSFunction.of((JSNumber num) -> {
                     assertEquals(Integer.valueOf(43), num.as(Integer.class));
                     return num;
                 }))
-                .catch_(JSFunction.fromFunc((JSNumber num) -> {
+                .catch_(JSFunction.of((JSNumber num) -> {
                     fail();
                     return num;
                 }))
-                .finally_(JSFunction.fromCons((JSUndefined undefined) ->
+                .finally_(JSFunction.of((JSUndefined undefined) ->
                         assertEquals(JSUndefined.undefined(), undefined)));
     }
 
@@ -137,15 +174,15 @@ public class JSPromiseTest {
         JSPromise allFromList = JSPromise.all(List.of(p8, p9));
         JSPromise emptyAll = JSPromise.all(JSArray.of());
 
-        allFromJSIterator.then(JSFunction.fromCons((JSValue result) ->
+        allFromJSIterator.then(JSFunction.of((JSValue result) ->
                 AssertArray.assertArray(result.as(JSArray.class), String.class, "One", "Two", "Three")));
-        allFromJSArray.then(JSFunction.fromCons((JSValue result) ->
+        allFromJSArray.then(JSFunction.of((JSValue result) ->
                 AssertArray.assertArray(result.as(JSArray.class), Integer.class, 1, 2, 3, 4)));
-        allFromVarargs.then(JSFunction.fromCons((JSValue result) ->
+        allFromVarargs.then(JSFunction.of((JSValue result) ->
                 AssertArray.assertArray(result.as(JSArray.class), String.class, "One", "Two", "Three")));
-        allFromList.then(JSFunction.fromCons((JSValue result) ->
+        allFromList.then(JSFunction.of((JSValue result) ->
                 AssertArray.assertArray(result.as(JSArray.class), Boolean.class, false, true)));
-        emptyAll.then(JSFunction.fromCons((JSValue value) ->
+        emptyAll.then(JSFunction.of((JSValue value) ->
                 assertEquals(0, JSValue.checkedCoerce(value, JSArray.class).length)));
     }
 
@@ -162,7 +199,7 @@ public class JSPromiseTest {
         JSPromise settled4 = JSPromise.allSettled(List.of(p5, p6));
         JSPromise emptySettled = JSPromise.allSettled(JSArray.of());
 
-        settled1.then(JSFunction.fromCons((JSValue value) -> {
+        settled1.then(JSFunction.of((JSValue value) -> {
             JSArray results = JSValue.checkedCoerce(value, JSArray.class);
             JSObject first = JSValue.checkedCoerce(results.get(0), JSObject.class);
             JSObject second = JSValue.checkedCoerce(results.get(1), JSObject.class);
@@ -171,7 +208,7 @@ public class JSPromiseTest {
             assertEquals("rejected", JSValue.checkedCoerce(second.get("status"), String.class));
             assertEquals("fail", JSValue.checkedCoerce(second.get("reason"), String.class));
         }));
-        settled2.then(JSFunction.fromCons((JSValue value) -> {
+        settled2.then(JSFunction.of((JSValue value) -> {
             JSArray results = JSValue.checkedCoerce(value, JSArray.class);
             JSObject first = JSValue.checkedCoerce(results.get(0), JSObject.class);
             JSObject second = JSValue.checkedCoerce(results.get(1), JSObject.class);
@@ -180,7 +217,7 @@ public class JSPromiseTest {
             assertEquals("rejected", JSValue.checkedCoerce(second.get("status"), String.class));
             assertEquals(Integer.valueOf(2), JSValue.checkedCoerce(second.get("reason"), Integer.class));
         }));
-        settled3.then(JSFunction.fromCons((JSValue value) -> {
+        settled3.then(JSFunction.of((JSValue value) -> {
             JSArray results = JSValue.checkedCoerce(value, JSArray.class);
             JSObject first = JSValue.checkedCoerce(results.get(0), JSObject.class);
             JSObject second = JSValue.checkedCoerce(results.get(1), JSObject.class);
@@ -189,7 +226,7 @@ public class JSPromiseTest {
             assertEquals("rejected", JSValue.checkedCoerce(second.get("status"), String.class));
             assertEquals("fail", JSValue.checkedCoerce(second.get("reason"), String.class));
         }));
-        settled4.then(JSFunction.fromCons((JSValue value) -> {
+        settled4.then(JSFunction.of((JSValue value) -> {
             JSArray results = JSValue.checkedCoerce(value, JSArray.class);
             JSObject first = JSValue.checkedCoerce(results.get(0), JSObject.class);
             JSObject second = JSValue.checkedCoerce(results.get(1), JSObject.class);
@@ -199,7 +236,7 @@ public class JSPromiseTest {
             assertFalse(JSValue.checkedCoerce(second.get("reason"), Boolean.class));
         }));
         emptySettled.then(
-                JSFunction.fromCons((JSValue value) ->
+                JSFunction.of((JSValue value) ->
                         assertEquals(0, JSValue.checkedCoerce(value, JSArray.class).length)));
     }
 
@@ -216,15 +253,15 @@ public class JSPromiseTest {
         JSPromise anyFromList = JSPromise.any(List.of(p1Reject, p2Reject, p3Resolved));
         JSPromise anyFail = JSPromise.any(JSPromise.reject("A"), JSPromise.reject("B"));
 
-        anyFromJSIterator.then(JSFunction.fromCons((JSValue result) ->
+        anyFromJSIterator.then(JSFunction.of((JSValue result) ->
                 assertEquals("First", result.as(String.class))));
-        anyFromJSArray.then(JSFunction.fromCons((JSString result) ->
+        anyFromJSArray.then(JSFunction.of((JSString result) ->
                 assertEquals("Second", result.as(String.class))));
-        anyFromVarargs.then(JSFunction.fromCons((JSString result) ->
+        anyFromVarargs.then(JSFunction.of((JSString result) ->
                 assertEquals("Third", result.as(String.class))));
-        anyFromList.then(JSFunction.fromCons((JSString result) ->
+        anyFromList.then(JSFunction.of((JSString result) ->
                 assertEquals("Third", result.as(String.class))));
-        anyFail.catch_(JSFunction.fromCons((JSValue value) ->
+        anyFail.catch_(JSFunction.of((JSValue value) ->
                 assertEquals("All promises were rejected",
                         JSValue.checkedCoerce(value.as(JSObject.class).get("message"), String.class))));
     }
@@ -240,13 +277,13 @@ public class JSPromiseTest {
         JSPromise raceFromVarargs = JSPromise.race(p1Reject, p2Reject, p3);
         JSPromise raceFromList = JSPromise.race(List.of(p1Reject, p2Reject, p3));
 
-        raceFromIterator.then(JSFunction.fromCons((JSValue result) ->
+        raceFromIterator.then(JSFunction.of((JSValue result) ->
                 assertEquals("Winner A", result.as(String.class))));
-        raceFromArray.then(JSFunction.fromCons((JSValue result) ->
+        raceFromArray.then(JSFunction.of((JSValue result) ->
                 assertEquals("Winner B", result.as(String.class))));
-        raceFromVarargs.then(JSFunction.fromCons((JSValue result) ->
+        raceFromVarargs.then(JSFunction.of((JSValue result) ->
                 assertEquals("Winner C", result.as(String.class))));
-        raceFromList.then(JSFunction.fromCons((JSValue result) ->
+        raceFromList.then(JSFunction.of((JSValue result) ->
                 assertEquals("Winner C", result.as(String.class))));
     }
 
@@ -255,15 +292,15 @@ public class JSPromiseTest {
         JSFunction resolve = JSValue.checkedCoerce(resolvedPair.get("resolve"), JSFunction.class);
         JSPromise resolvedPromise = JSValue.checkedCoerce(resolvedPair.get("promise"), JSPromise.class);
         resolvedPromise
-                .then(JSFunction.fromCons((JSValue value) ->
+                .then(JSFunction.of((JSValue value) ->
                         assertEquals("manual resolution", JSValue.checkedCoerce(value, String.class))))
-                .catch_(JSFunction.fromCons((JSValue _) -> fail()));
+                .catch_(JSFunction.of((JSValue _) -> fail()));
         JSObject rejectedPair = JSPromise.withResolvers();
         JSFunction reject = JSValue.checkedCoerce(rejectedPair.get("reject"), JSFunction.class);
         JSPromise rejectedPromise = JSValue.checkedCoerce(rejectedPair.get("promise"), JSPromise.class);
         rejectedPromise
-                .then(JSFunction.fromCons((JSValue _) -> fail()))
-                .catch_(JSFunction.fromCons((JSValue value) ->
+                .then(JSFunction.of((JSValue _) -> fail()))
+                .catch_(JSFunction.of((JSValue value) ->
                         assertEquals("manual rejection", JSValue.checkedCoerce(value, String.class))));
 
         resolve.invoke(JSString.of("manual resolution"));

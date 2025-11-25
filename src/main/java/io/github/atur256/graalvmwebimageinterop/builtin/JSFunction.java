@@ -66,15 +66,27 @@ public class JSFunction extends JSObject {
     public static native JSFunction fromBody(String body);
 
     /**
-     * Creates a JavaScript function using the provided argument and body strings.
-     * Each string in {@code args} represents either a parameter name or the function body.
+     * Creates a new JavaScript function from the given parameter names and function body.
      *
-     * @param args the argument and body strings
+     * @param params the names of the function parameters
+     * @param body   the JavaScript function body
      * @return a new {@code JSFunction}
      */
     @JS.Coerce
-    @JS("return new Function(...Array.from(args));")
-    public static native JSFunction fromArgs(String... args);
+    @JS("return new Function(...Array.from(params), body);")
+    public static native JSFunction fromArgs(String[] params, String body);
+
+    /**
+     * Wraps a generic Java object into a JavaScript function.
+     * <p>
+     * The Java object must be a callable Java interface.
+     *
+     * @param f the Java object to wrap
+     * @return a new {@code JSFunction} wrapping {@code f}
+     */
+    @JS.Coerce
+    @JS("return function(...args) { return f(...args); }")
+    public static native JSFunction of(Object f);
 
     /**
      * Wraps a Java {@link Function} into a JavaScript function.
@@ -86,7 +98,7 @@ public class JSFunction extends JSObject {
      */
     @JS.Coerce
     @JS("return function(args) { return javaFunc(args); }")
-    public static native <T, R> JSFunction fromFunc(Function<T, R> javaFunc);
+    public static native <T, R> JSFunction of(Function<T, R> javaFunc);
 
     /**
      * Wraps a Java {@link BiFunction} into a JavaScript function.
@@ -99,7 +111,7 @@ public class JSFunction extends JSObject {
      */
     @JS.Coerce
     @JS("return function(a, b) { return javaBiFunc(a, b); }")
-    public static native <A, B, R> JSFunction fromBiFunc(BiFunction<A, B, R> javaBiFunc);
+    public static native <A, B, R> JSFunction of(BiFunction<A, B, R> javaBiFunc);
 
     /**
      * Wraps a Java {@code TriFunction} into a JavaScript function.
@@ -113,7 +125,7 @@ public class JSFunction extends JSObject {
      */
     @JS.Coerce
     @JS("return function(a, b, c) { return javaTriFunction(a,b, c); }")
-    public static native <A, B, C, R> JSFunction fromTriFunc(TriFunction<A, B, C, R> javaTriFunction);
+    public static native <A, B, C, R> JSFunction of(TriFunction<A, B, C, R> javaTriFunction);
 
     /**
      * Wraps a Java {@link Runnable} into a JavaScript function with no arguments.
@@ -123,7 +135,7 @@ public class JSFunction extends JSObject {
      */
     @JS.Coerce
     @JS("return function() { javaRunnable(); }")
-    public static native JSFunction fromRun(Runnable javaRunnable);
+    public static native JSFunction of(Runnable javaRunnable);
 
     /**
      * Wraps a Java {@link Consumer} into a JavaScript function.
@@ -134,7 +146,7 @@ public class JSFunction extends JSObject {
      */
     @JS.Coerce
     @JS("return function(arg) { javaConsumer(arg); }")
-    public static native <T> JSFunction fromCons(Consumer<T> javaConsumer);
+    public static native <T> JSFunction of(Consumer<T> javaConsumer);
 
     /**
      * Wraps a Java {@link BiConsumer} into a JavaScript function.
@@ -146,7 +158,7 @@ public class JSFunction extends JSObject {
      */
     @JS.Coerce
     @JS("return function(a, b) { javaBiConsumer(a, b); }")
-    public static native <A, B> JSFunction fromBiCons(BiConsumer<A, B> javaBiConsumer);
+    public static native <A, B> JSFunction of(BiConsumer<A, B> javaBiConsumer);
 
     /**
      * Wraps a Java {@code TriConsumer} into a JavaScript function.
@@ -159,7 +171,7 @@ public class JSFunction extends JSObject {
      */
     @JS.Coerce
     @JS("return function(a, b, c) { javaTriConsumer(a, b, c); }")
-    public static native <A, B, C> JSFunction fromTriCons(TriConsumer<A, B, C> javaTriConsumer);
+    public static native <A, B, C> JSFunction of(TriConsumer<A, B, C> javaTriConsumer);
 
     /**
      * Wraps a Java {@link Supplier} into a JavaScript function with no arguments.
@@ -170,10 +182,22 @@ public class JSFunction extends JSObject {
      */
     @JS.Coerce
     @JS("return function() { return javaSupplier(); }")
-    public static native <A> JSFunction fromSupp(Supplier<A> javaSupplier);
+    public static native <A> JSFunction of(Supplier<A> javaSupplier);
 
 
     // === WithThis Variants ===
+
+    /**
+     * Wraps a generic Java object into a JavaScript function that uses {@code this} as the first argument.
+     * <p>
+     * The Java object must be a callable Java interface.
+     *
+     * @param f the Java object to wrap
+     * @return a new {@code JSFunction} wrapping {@code f}, using {@code this} as the first argument
+     */
+    @JS.Coerce
+    @JS("return function(...args) { return f(this, ...args); }")
+    public static native JSFunction withThis(Object f);
 
     /**
      * Wraps a Java {@link Function} into a JavaScript function that uses {@code this} as the input.
@@ -185,7 +209,7 @@ public class JSFunction extends JSObject {
      */
     @JS.Coerce
     @JS("return function(arg) { return javaFunction(this); }")
-    public static native <A, R> JSFunction fromThisFunc(Function<A, R> javaFunction);
+    public static native <A, R> JSFunction withThis(Function<A, R> javaFunction);
 
     /**
      * Wraps a Java {@link BiFunction} into a JavaScript function that uses {@code this} as the first argument.
@@ -198,7 +222,7 @@ public class JSFunction extends JSObject {
      */
     @JS.Coerce
     @JS("return function(arg) { return javaBiFunction(this, arg); }")
-    public static native <A, B, R> JSFunction fromFuncWithThis(BiFunction<A, B, R> javaBiFunction);
+    public static native <A, B, R> JSFunction withThis(BiFunction<A, B, R> javaBiFunction);
 
     /**
      * Wraps a Java {@code TriFunction} into a JavaScript function that uses {@code this} as the first argument.
@@ -212,7 +236,7 @@ public class JSFunction extends JSObject {
      */
     @JS.Coerce
     @JS("return function(a, b) { return javaTriFunc(this, a, b); }")
-    public static native <A, B, C, R> JSFunction fromBiFuncWithThis(TriFunction<A, B, C, R> javaTriFunc);
+    public static native <A, B, C, R> JSFunction withThis(TriFunction<A, B, C, R> javaTriFunc);
 
     /**
      * Wraps a Java {@link Consumer} into a JavaScript function that passes {@code this} as the input.
@@ -223,7 +247,7 @@ public class JSFunction extends JSObject {
      */
     @JS.Coerce
     @JS("return function(arg) { javaConsumer(this); }")
-    public static native <A> JSFunction fromThisCons(Consumer<A> javaConsumer);
+    public static native <A> JSFunction withThis(Consumer<A> javaConsumer);
 
     /**
      * Wraps a Java {@link BiConsumer} into a JavaScript function that uses {@code this} as the first argument.
@@ -235,7 +259,7 @@ public class JSFunction extends JSObject {
      */
     @JS.Coerce
     @JS("return function(arg) { javaBiConsumer(this, arg); }")
-    public static native <A, B> JSFunction fromConsWithThis(BiConsumer<A, B> javaBiConsumer);
+    public static native <A, B> JSFunction withThis(BiConsumer<A, B> javaBiConsumer);
 
     /**
      * Wraps a Java {@code TriConsumer} into a JavaScript function that uses {@code this} as the first argument.
@@ -248,20 +272,10 @@ public class JSFunction extends JSObject {
      */
     @JS.Coerce
     @JS("return function(a, b) { javaTriConsumer(this, a, b); }")
-    public static native <A, B, C> JSFunction fromBiConsWithThis(TriConsumer<A, B, C> javaTriConsumer);
+    public static native <A, B, C> JSFunction withThis(TriConsumer<A, B, C> javaTriConsumer);
 
 
     // === Invocation Methods ===
-
-    /**
-     * Internal method that invokes the JavaScript function with the given arguments array.
-     *
-     * @param args the arguments as a {@link JSArray}
-     * @return the raw result of the invocation
-     */
-    @JS.Coerce
-    @JS("return this(...args);")
-    private native Object invokeJSImpl(JSArray args);
 
     /**
      * Invokes the JavaScript function with the given arguments.
@@ -269,8 +283,8 @@ public class JSFunction extends JSObject {
      * @param args the arguments to pass
      * @return the raw result of the invocation
      */
-    public Object invokeJS(Object... args) {
-        return invokeJSImpl(coerceJSArray(args));
+    public Object invokeRaw(Object... args) {
+        return this.invoke(coerceArray(args));
     }
 
     /**
@@ -281,8 +295,8 @@ public class JSFunction extends JSObject {
      * @param <R>  the result type
      * @return the coerced result
      */
-    public <R> R invokeJS(Class<R> cls, Object... args) {
-        return JSValue.checkedCoerce(invokeJS(args), cls);
+    public <R> R invokeRaw(Class<R> cls, Object... args) {
+        return JSValue.checkedCoerce(invokeRaw(args), cls);
     }
 
     /**
@@ -305,7 +319,7 @@ public class JSFunction extends JSObject {
      * @param args the arguments to pass
      * @return the raw result of the call
      */
-    public Object callJS(Object self, Object... args) {
+    public Object callRaw(Object self, Object... args) {
         return this.call(self, coerceArray(args));
     }
 
@@ -318,8 +332,8 @@ public class JSFunction extends JSObject {
      * @param <R>  the result type
      * @return the coerced result
      */
-    public <R> R callJS(Class<R> cls, Object self, Object... args) {
-        return JSValue.checkedCoerce(callJS(self, args), cls);
+    public <R> R callRaw(Class<R> cls, Object self, Object... args) {
+        return JSValue.checkedCoerce(callRaw(self, args), cls);
     }
 
     /**
@@ -338,21 +352,6 @@ public class JSFunction extends JSObject {
 
 
     // === Conversion Utilities ===
-
-    /**
-     * Converts a variable-length list of Java arguments into a {@link JSArray},
-     * applying JavaScript-compatible coercion to each element.
-     *
-     * @param args the Java arguments to convert
-     * @return a {@code JSArray} containing coerced values
-     */
-    private static JSArray coerceJSArray(Object... args) {
-        JSArray argsArray = JSArray.of();
-        for(Object arg : args) {
-            argsArray.push(coerce(arg));
-        }
-        return argsArray;
-    }
 
     /**
      * Converts a variable-length list of Java arguments into a plain {@code Object[]} array,
@@ -392,7 +391,7 @@ public class JSFunction extends JSObject {
      */
     @JS.Coerce
     @JS("return this.bind(thisArg);")
-    public native <T> JSFunction bindJS(T thisArg);
+    public native <T> JSFunction bindRaw(T thisArg);
 
     /**
      * Binds the JavaScript function to the specified {@code this} context.
@@ -428,15 +427,4 @@ public class JSFunction extends JSObject {
     @JS.Coerce
     @JS("return this.toString();")
     public native String toJSString();
-
-    /**
-     * Returns a formatted string representation of the function for debugging and display.
-     * Includes the JavaScript type and the function's source code.
-     *
-     * @return the formatted string
-     */
-    @Override
-    public String toString() {
-        return "<JavaScript<" + typeof() + "; " + toJSString() + ">";
-    }
 }

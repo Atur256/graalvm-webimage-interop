@@ -152,16 +152,16 @@ public class JSDateTest {
         // --- Invalid date ---
         JSDate invalid = JSDate.create("invalid-date-string");
 
-        assertThrows(IllegalArgumentException.class, invalid::getUTCDate);
-        assertThrows(IllegalArgumentException.class, invalid::getUTCDay);
-        assertThrows(IllegalArgumentException.class, invalid::getUTCFullYear);
-        assertThrows(IllegalArgumentException.class, invalid::getUTCHours);
-        assertThrows(IllegalArgumentException.class, invalid::getUTCMilliseconds);
-        assertThrows(IllegalArgumentException.class, invalid::getUTCMinutes);
-        assertThrows(IllegalArgumentException.class, invalid::getUTCMonth);
-        assertThrows(IllegalArgumentException.class, invalid::getUTCSeconds);
-        assertThrows(IllegalArgumentException.class, invalid::getTime);
-        assertThrows(IllegalArgumentException.class, invalid::getTimezoneOffset);
+        assertThrows(IllegalStateException.class, invalid::getUTCDate);
+        assertThrows(IllegalStateException.class, invalid::getUTCDay);
+        assertThrows(IllegalStateException.class, invalid::getUTCFullYear);
+        assertThrows(IllegalStateException.class, invalid::getUTCHours);
+        assertThrows(IllegalStateException.class, invalid::getUTCMilliseconds);
+        assertThrows(IllegalStateException.class, invalid::getUTCMinutes);
+        assertThrows(IllegalStateException.class, invalid::getUTCMonth);
+        assertThrows(IllegalStateException.class, invalid::getUTCSeconds);
+        assertThrows(IllegalStateException.class, invalid::getTime);
+        assertThrows(IllegalStateException.class, invalid::getTimezoneOffset);
     }
 
     public static void testSetters() {

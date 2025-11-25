@@ -21,9 +21,7 @@ import io.github.atur256.graalvmwebimageinterop.builtin.JSPromise;
 import io.github.atur256.graalvmwebimageinterop.tests.testUtils.AssertArray;
 import org.graalvm.webimage.api.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.Assert.*;
@@ -89,11 +87,55 @@ public class JSArrayTest {
     }
 
     public static void testFromAndFromAsync() {
-        JSArray stringsLocal = JSArray.from("xyz");
-        JSPromise promise = JSArray.fromAsync(JSString.of("abc"));
+        JSArray original = JSArray.of(1, 2, 3);
+        JSValue[] jsValues = {JSNumber.of(1), JSNumber.of(2)};
+        Object[] objArray = {"x", "y"};
+        Object obj = new Object();
 
-        AssertArray.assertArray(stringsLocal, String.class, "x", "y", "z");
+        JSArray fromNull = JSArray.from(null);
+        JSArray fromJSArray = JSArray.from(original);
+        JSArray fromString = JSArray.from("abc");
+        JSArray fromJSValues = JSArray.from(jsValues);
+        JSArray fromObjArray = JSArray.from(objArray);
+        JSArray fromIntArray = JSArray.from(new int[]{1, 2});
+        JSArray fromDoubleArray = JSArray.from(new double[]{1.5, 2.5});
+        JSArray fromBooleanArray = JSArray.from(new boolean[]{true, false});
+        JSArray fromCharArray = JSArray.from(new char[]{'a', 'b'});
+        JSArray fromByteArray = JSArray.from(new byte[]{1, 2});
+        JSArray fromShortArray = JSArray.from(new short[]{3, 4});
+        JSArray fromLongArray = JSArray.from(new long[]{5, 6});
+        JSArray fromFloatArray = JSArray.from(new float[]{7.5f, 8.5f});
+        JSArray fromIterable = JSArray.from(List.of("foo", "bar"));
+        JSArray fromObj = JSArray.from(obj);
+        JSPromise promise = JSArray.fromAsync(JSString.of("abc"));
+        JSPromise promiseString = JSArray.fromAsync("abc");
+        JSPromise promiseObjArray = JSArray.fromAsync(new Object[]{"x", "y"});
+        JSPromise promiseIntArray = JSArray.fromAsync(new int[]{1, 2});
+        JSPromise promiseIterable = JSArray.fromAsync(List.of("i1", "i2"));
+        JSPromise promiseObj = JSArray.fromAsync(obj);
+
+        assertEquals(0, fromNull.length);
+        AssertArray.assertArray(fromJSArray, Integer.class, 1, 2, 3);
+        AssertArray.assertArray(fromString, String.class, "a", "b", "c");
+        AssertArray.assertArray(fromJSValues, Integer.class, 1, 2);
+        AssertArray.assertArray(fromObjArray, String.class, "x", "y");
+        AssertArray.assertArray(fromIntArray, Integer.class, 1, 2);
+        AssertArray.assertArray(fromDoubleArray, Double.class, 1.5, 2.5);
+        AssertArray.assertArray(fromBooleanArray, Boolean.class, true, false);
+        AssertArray.assertArray(fromCharArray, String.class, "a", "b");
+        AssertArray.assertArray(fromByteArray, Byte.class, (byte) 1, (byte) 2);
+        AssertArray.assertArray(fromShortArray, Short.class, (short) 3, (short) 4);
+        AssertArray.assertArray(fromLongArray, Long.class, 5L, 6L);
+        AssertArray.assertArray(fromFloatArray, Float.class, 7.5f, 8.5f);
+        AssertArray.assertArray(fromIterable, String.class, "foo", "bar");
+        assertEquals(1, fromObj.length);
+        assertEquals(obj, fromObj.at(0));
         assertEquals("JavaScript<object; [object Promise]>", promise.toString());
+        assertEquals("JavaScript<object; [object Promise]>", promiseString.toString());
+        assertEquals("JavaScript<object; [object Promise]>", promiseObjArray.toString());
+        assertEquals("JavaScript<object; [object Promise]>", promiseIntArray.toString());
+        assertEquals("JavaScript<object; [object Promise]>", promiseIterable.toString());
+        assertEquals("JavaScript<object; [object Promise]>", promiseObj.toString());
     }
 
     public static void testIsArray() {
@@ -103,11 +145,77 @@ public class JSArrayTest {
     }
 
     public static void testConcat() {
-        JSArray concatResult = BASE.concat(STRINGS);
-        JSArray concatNull = EMPTY.concat((Object) null);
+        // Base arrays
+        JSArray strings = JSArray.of("d", "e", "x", "y", "z");
+        JSArray empty = JSArray.of();
 
-        AssertArray.assertArray(concatResult, String.class, "a", "b", "c", "d", "e", "x", "y", "z");
-        AssertArray.assertArray(concatNull, JSUndefined.class);
+        // Object[] array
+        Object[] objectArray = new Object[]{"obj1", "obj2"};
+
+        // Primitive arrays
+        int[] intArray = {1, 2, 3};
+        double[] doubleArray = {1.1, 2.2, 3.3};
+        boolean[] booleanArray = {true, false, true};
+
+        // Iterables
+        List<String> iterableList = List.of("i1", "i2", "i3");
+        Set<String> iterableSet = new LinkedHashSet<>(List.of("s1", "s2", "s3"));
+
+        // Default fallback (single object)
+        Object singleObject = "fallback";
+
+        // JSArray (should create a copy, not the same instance)
+        JSArray jsArrayCopy = JSArray.from(JSArray.of("copy1", "copy2"));
+
+        JSArray jsArrayOfArrays = JSArray.from(new JSArray[]{JSArray.from(new int[]{1, 2, 3}), JSArray.from(new int[]{4, 5, 6})});
+
+        // Test concat with all types
+        JSArray result = empty.concat(
+                strings,
+                objectArray,
+                intArray,
+                doubleArray,
+                booleanArray,
+                iterableList,
+                iterableSet,
+                singleObject,
+                jsArrayCopy,
+                jsArrayOfArrays,
+                null
+        );
+
+        assertEquals(27, result.length);
+        assertEquals("d", result.at(0, String.class));
+        assertEquals("e", result.at(1, String.class));
+        assertEquals("x", result.at(2, String.class));
+        assertEquals("y", result.at(3, String.class));
+        assertEquals("z", result.at(4, String.class));
+        assertEquals("obj1", result.at(5, String.class));
+        assertEquals("obj2", result.at(6, String.class));
+        assertEquals(Integer.valueOf(1), result.at(7, Integer.class));
+        assertEquals(Integer.valueOf(2), result.at(8, Integer.class));
+        assertEquals(Integer.valueOf(3), result.at(9, Integer.class));
+        assertEquals(1.1, result.at(10, Double.class), 0.0);
+        assertEquals(2.2, result.at(11, Double.class), 0.0);
+        assertEquals(3.3, result.at(12, Double.class), 0.0);
+        assertTrue(result.at(13, Boolean.class));
+        assertFalse(result.at(14, Boolean.class));
+        assertTrue(result.at(15, Boolean.class));
+        assertEquals("i1", result.at(16, String.class));
+        assertEquals("i2", result.at(17, String.class));
+        assertEquals("i3", result.at(18, String.class));
+        assertEquals("s1", result.at(19, String.class));
+        assertEquals("s2", result.at(20, String.class));
+        assertEquals("s3", result.at(21, String.class));
+        assertEquals("fallback", JSValue.checkedCoerce(result.at(22), String.class));
+        assertEquals("copy1", result.at(23, String.class));
+        assertEquals("copy2", result.at(24, String.class));
+        assertEquals(Integer.valueOf(1), result.at(25, JSArray.class).at(0, Integer.class));
+        assertEquals(Integer.valueOf(2), result.at(25, JSArray.class).at(1, Integer.class));
+        assertEquals(Integer.valueOf(3), result.at(25, JSArray.class).at(2, Integer.class));
+        assertEquals(Integer.valueOf(4), result.at(26, JSArray.class).at(0, Integer.class));
+        assertEquals(Integer.valueOf(5), result.at(26, JSArray.class).at(1, Integer.class));
+        assertEquals(Integer.valueOf(6), result.at(26, JSArray.class).at(2, Integer.class));
     }
 
     public static void testCopyWithin() {
@@ -152,8 +260,8 @@ public class JSArrayTest {
     }
 
     public static void testMap() {
-        JSArray mapped = BASE.map(JSFunction.fromFunc((JSString x) -> JSString.of(x.asString().toUpperCase())));
-        JSArray result = MAP_UNDEFINED.map(JSFunction.fromCons((JSString _) -> {
+        JSArray mapped = BASE.map(JSFunction.of((JSString x) -> JSString.of(x.asString().toUpperCase())));
+        JSArray result = MAP_UNDEFINED.map(JSFunction.of((JSString _) -> {
             // Do nothing
         }));
 
@@ -178,24 +286,24 @@ public class JSArrayTest {
     }
 
     public static void testReduce() {
-        String reduced1 = BASE.reduce(JSFunction.fromBiFunc((JSString acc, JSString val) ->
+        String reduced1 = BASE.reduce(JSFunction.of((JSString acc, JSString val) ->
                 JSString.of(acc.asString() + val.asString())), String.class);
-        String reduced2 = BASE.reduce(JSFunction.fromBiFunc((JSString acc, JSString val) ->
-                JSString.of(acc.asString() + val.asString())), "Test:");
-        String reduced3 = BASE.reduceRight(JSFunction.fromBiFunc((JSString acc, JSString val) ->
+        String reduced2 = BASE.reduce(JSFunction.of((JSString acc, JSString val) ->
+                JSString.of(acc.asString() + val.asString())), "Test:", String.class);
+        String reduced3 = BASE.reduceRight(JSFunction.of((JSString acc, JSString val) ->
                 JSString.of(acc.asString() + val.asString())), String.class);
-        String reduced4 = BASE.reduceRight(JSFunction.fromBiFunc((JSString acc, JSString val) ->
-                JSString.of(acc.asString() + val.asString())), "Test:");
+        String reduced4 = BASE.reduceRight(JSFunction.of((JSString acc, JSString val) ->
+                JSString.of(acc.asString() + val.asString())), "Test:", String.class);
 
         assertEquals("abcde", reduced1);
         assertEquals("Test:abcde", reduced2);
         assertEquals("edcba", reduced3);
         assertEquals("Test:edcba", reduced4);
         assertThrows(ThrownFromJavaScript.class, () ->
-                EMPTY.reduce(JSFunction.fromBiFunc((JSString acc, JSString val) ->
+                EMPTY.reduce(JSFunction.of((JSString acc, JSString val) ->
                         JSString.of(acc.asString() + val.asString())), String.class));
         assertThrows(ThrownFromJavaScript.class, () ->
-                EMPTY.reduce(JSFunction.fromBiFunc((JSString acc, JSString val) ->
+                EMPTY.reduce(JSFunction.of((JSString acc, JSString val) ->
                         JSString.of(acc.asString() + val.asString())), String.class));
     }
 
@@ -268,15 +376,15 @@ public class JSArrayTest {
     public static void testFindMethods() {
         JSArray findArray1 = JSArray.of("x", "X", "X", "z");
 
-        String found = findArray1.find(JSFunction.fromFunc((JSString x) ->
+        String found = findArray1.find(JSFunction.of((JSString x) ->
                 JSBoolean.of(Objects.equals(x.asString(), "z"))), String.class);
-        JSUndefined notFound = findArray1.find(JSFunction.fromFunc((JSString x) ->
+        JSUndefined notFound = findArray1.find(JSFunction.of((JSString x) ->
                 JSBoolean.of(Objects.equals(x.asString(), "b"))), JSUndefined.class);
-        String foundLast = findArray1.findLast(JSFunction.fromFunc((JSString x) ->
+        String foundLast = findArray1.findLast(JSFunction.of((JSString x) ->
                 JSBoolean.of(Objects.equals(x.asString(), "X"))), String.class);
-        int foundIndex = findArray1.findIndex(JSFunction.fromFunc((JSString x) ->
+        int foundIndex = findArray1.findIndex(JSFunction.of((JSString x) ->
                 JSBoolean.of(Objects.equals(x.asString(), "z"))));
-        int foundLastIndex = findArray1.findLastIndex(JSFunction.fromFunc((JSString x) ->
+        int foundLastIndex = findArray1.findLastIndex(JSFunction.of((JSString x) ->
                 JSBoolean.of(Objects.equals(x.asString(), "X"))));
 
         assertEquals("z", found);
@@ -288,7 +396,7 @@ public class JSArrayTest {
 
     public static void testFlatFlatMap() {
         JSArray flattened = NESTED.flat(10);
-        JSArray flatMapped = BASE.flatMap(JSFunction.fromFunc((JSString x) -> JSArray.of(x.asString(), x.asString())));
+        JSArray flatMapped = BASE.flatMap(JSFunction.of((JSString x) -> JSArray.of(x.asString(), x.asString())));
 
         AssertArray.assertArray(flattened, String.class, "deep");
         AssertArray.assertArray(flatMapped, String.class, "a", "a", "b", "b", "c", "c", "d", "d", "e", "e");
@@ -298,7 +406,7 @@ public class JSArrayTest {
         List<String> forEachOutput = new ArrayList<>();
         AtomicReference<List<String>> forEachOutputRef = new AtomicReference<>(forEachOutput);
 
-        BASE.forEach(JSFunction.fromCons((JSString arg) -> forEachOutputRef.get().add(arg.asString())));
+        BASE.forEach(JSFunction.of((JSString arg) -> forEachOutputRef.get().add(arg.asString())));
 
         assertEquals(List.of("a", "b", "c", "d", "e"), forEachOutputRef.get());
     }
@@ -348,10 +456,10 @@ public class JSArrayTest {
 
     public static void testSomeEvery() {
         JSArray numbers = JSArray.of(5, 10, 15, 20);
-        JSFunction containsD = JSFunction.fromFunc((JSString arg) -> JSBoolean.of(arg.asString().equals("d")));
-        JSFunction containsX = JSFunction.fromFunc((JSString arg) -> JSBoolean.of(arg.asString().equals("x")));
-        JSFunction divideBy5 = JSFunction.fromFunc((JSNumber arg) -> JSBoolean.of(arg.asInt() % 5 == 0));
-        JSFunction divideBy2 = JSFunction.fromFunc((JSNumber arg) -> JSBoolean.of(arg.asInt() % 2 == 0));
+        JSFunction containsD = JSFunction.of((JSString arg) -> JSBoolean.of(arg.asString().equals("d")));
+        JSFunction containsX = JSFunction.of((JSString arg) -> JSBoolean.of(arg.asString().equals("x")));
+        JSFunction divideBy5 = JSFunction.of((JSNumber arg) -> JSBoolean.of(arg.asInt() % 5 == 0));
+        JSFunction divideBy2 = JSFunction.of((JSNumber arg) -> JSBoolean.of(arg.asInt() % 2 == 0));
 
         boolean some1 = BASE.some(containsD);
         boolean some2 = BASE.some(containsX);
@@ -400,8 +508,8 @@ public class JSArrayTest {
 
     public static void testFilter() {
         JSArray filterTest = JSArray.of("apple", "banana", "cherry");
-        JSFunction startsWithB = JSFunction.fromFunc((JSString str) -> JSBoolean.of(str.asString().startsWith("b")));
-        JSFunction alwaysFalse = JSFunction.fromFunc((JSString _) -> JSBoolean.of(false));
+        JSFunction startsWithB = JSFunction.of((JSString str) -> JSBoolean.of(str.asString().startsWith("b")));
+        JSFunction alwaysFalse = JSFunction.of((JSString _) -> JSBoolean.of(false));
 
         JSArray filtered1 = filterTest.filter(startsWithB);
         JSArray filtered2 = MAP_UNDEFINED.filter(alwaysFalse);

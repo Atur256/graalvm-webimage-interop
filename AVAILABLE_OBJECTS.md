@@ -11,7 +11,6 @@ This document lists all Java wrappers provided by the **WebImage Interop Extensi
 | `JSArray` | `Array` | Conversion, iteration, and composition utilities |
 | `JSDate` | `Date` | Time manipulation, formatting, and timestamps |
 | `JSError` | `Error` | Structured exception handling and diagnostics |
-| `JSEval` | `eval` | Controlled execution of dynamic JavaScript expressions |
 | `JSFunction` | `Function` | Callback interop and dynamic invocation |
 | `JSIntl` | `Intl` | Locale-aware date, number, and message formatting |
 | `JSIterator` | Iterator protocol | Iteration over arrays, maps, and sets |
@@ -45,13 +44,6 @@ Provides access to time manipulation, formatting, and timestamp utilities.
 Java wrapper for JavaScript’s `Error`.  
 Supports structured exception handling and stack trace inspection.  
 [View Implementation](https://github.com/Atur256/graalvm-webimage-interop/blob/master/src/main/java/io/github/atur256/webimageinterop/builtin/JSError.java)
-
----
-
-### JSEval
-Java wrapper for JavaScript’s `eval`.  
-Allows controlled execution of dynamic JavaScript expressions within GraalVM-managed runtimes.  
-[View Implementation](https://github.com/Atur256/graalvm-webimage-interop/blob/master/src/main/java/io/github/atur256/webimageinterop/builtin/JSEval.java)
 
 ---
 
