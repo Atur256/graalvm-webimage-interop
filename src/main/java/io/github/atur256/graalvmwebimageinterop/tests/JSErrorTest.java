@@ -60,7 +60,7 @@ public class JSErrorTest {
         String str = err.toString();
 
         assertEquals("JSError", err.getClass().getSimpleName());
-        assertTrue(err.get("stack").toString().contains("Something went wrong"));
+        assertTrue(err.get("stack", String.class).contains("Something went wrong"));
         assertEquals("Error: Something went wrong", str);
     }
 
@@ -80,12 +80,12 @@ public class JSErrorTest {
     }
 
     private static void assertMessage(JSError err, String expected) {
-        String actual = JSValue.checkedCoerce(err.get("message"), String.class);
+        String actual = err.get("message", String.class);
         assertEquals(expected, actual);
     }
 
     private static void assertStackContains(JSError err, String expectedSubstring) {
-        String stack = JSValue.checkedCoerce(err.get("stack"), String.class);
+        String stack = err.get("stack", String.class);
         assertTrue(stack.contains(expectedSubstring));
     }
 

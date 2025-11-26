@@ -201,39 +201,39 @@ public class JSPromiseTest {
 
         settled1.then(JSFunction.of((JSValue value) -> {
             JSArray results = JSValue.checkedCoerce(value, JSArray.class);
-            JSObject first = JSValue.checkedCoerce(results.get(0), JSObject.class);
-            JSObject second = JSValue.checkedCoerce(results.get(1), JSObject.class);
-            assertEquals("fulfilled", JSValue.checkedCoerce(first.get("status"), String.class));
-            assertEquals("ok", JSValue.checkedCoerce(first.get("value"), String.class));
-            assertEquals("rejected", JSValue.checkedCoerce(second.get("status"), String.class));
-            assertEquals("fail", JSValue.checkedCoerce(second.get("reason"), String.class));
+            JSObject first = results.get(0, JSObject.class);
+            JSObject second = results.get(1, JSObject.class);
+            assertEquals("fulfilled", first.get("status", String.class));
+            assertEquals("ok", first.get("value", String.class));
+            assertEquals("rejected", second.get("status", String.class));
+            assertEquals("fail", second.get("reason", String.class));
         }));
         settled2.then(JSFunction.of((JSValue value) -> {
             JSArray results = JSValue.checkedCoerce(value, JSArray.class);
-            JSObject first = JSValue.checkedCoerce(results.get(0), JSObject.class);
-            JSObject second = JSValue.checkedCoerce(results.get(1), JSObject.class);
-            assertEquals("fulfilled", JSValue.checkedCoerce(first.get("status"), String.class));
-            assertEquals(Integer.valueOf(1), JSValue.checkedCoerce(first.get("value"), Integer.class));
-            assertEquals("rejected", JSValue.checkedCoerce(second.get("status"), String.class));
-            assertEquals(Integer.valueOf(2), JSValue.checkedCoerce(second.get("reason"), Integer.class));
+            JSObject first = results.get(0, JSObject.class);
+            JSObject second = results.get(1, JSObject.class);
+            assertEquals("fulfilled", first.get("status", String.class));
+            assertEquals(Integer.valueOf(1), first.get("value", Integer.class));
+            assertEquals("rejected", second.get("status", String.class));
+            assertEquals(Integer.valueOf(2), second.get("reason", Integer.class));
         }));
         settled3.then(JSFunction.of((JSValue value) -> {
             JSArray results = JSValue.checkedCoerce(value, JSArray.class);
-            JSObject first = JSValue.checkedCoerce(results.get(0), JSObject.class);
-            JSObject second = JSValue.checkedCoerce(results.get(1), JSObject.class);
-            assertEquals("fulfilled", JSValue.checkedCoerce(first.get("status"), String.class));
-            assertEquals("ok", JSValue.checkedCoerce(first.get("value"), String.class));
-            assertEquals("rejected", JSValue.checkedCoerce(second.get("status"), String.class));
-            assertEquals("fail", JSValue.checkedCoerce(second.get("reason"), String.class));
+            JSObject first = results.get(0, JSObject.class);
+            JSObject second = results.get(1, JSObject.class);
+            assertEquals("fulfilled", first.get("status", String.class));
+            assertEquals("ok", first.get("value", String.class));
+            assertEquals("rejected", second.get("status", String.class));
+            assertEquals("fail", second.get("reason", String.class));
         }));
         settled4.then(JSFunction.of((JSValue value) -> {
             JSArray results = JSValue.checkedCoerce(value, JSArray.class);
-            JSObject first = JSValue.checkedCoerce(results.get(0), JSObject.class);
-            JSObject second = JSValue.checkedCoerce(results.get(1), JSObject.class);
-            assertEquals("fulfilled", JSValue.checkedCoerce(first.get("status"), String.class));
-            assertTrue(JSValue.checkedCoerce(first.get("value"), Boolean.class));
-            assertEquals("rejected", JSValue.checkedCoerce(second.get("status"), String.class));
-            assertFalse(JSValue.checkedCoerce(second.get("reason"), Boolean.class));
+            JSObject first = results.get(0, JSObject.class);
+            JSObject second = results.get(1, JSObject.class);
+            assertEquals("fulfilled", first.get("status", String.class));
+            assertTrue(first.get("value", Boolean.class));
+            assertEquals("rejected", second.get("status", String.class));
+            assertFalse(second.get("reason", Boolean.class));
         }));
         emptySettled.then(
                 JSFunction.of((JSValue value) ->
@@ -263,7 +263,7 @@ public class JSPromiseTest {
                 assertEquals("Third", result.as(String.class))));
         anyFail.catch_(JSFunction.of((JSValue value) ->
                 assertEquals("All promises were rejected",
-                        JSValue.checkedCoerce(value.as(JSObject.class).get("message"), String.class))));
+                        value.as(JSObject.class).get("message", String.class))));
     }
 
     public static void testRace() {
@@ -289,15 +289,15 @@ public class JSPromiseTest {
 
     public static void testWithResolvers() {
         JSObject resolvedPair = JSPromise.withResolvers();
-        JSFunction resolve = JSValue.checkedCoerce(resolvedPair.get("resolve"), JSFunction.class);
-        JSPromise resolvedPromise = JSValue.checkedCoerce(resolvedPair.get("promise"), JSPromise.class);
+        JSFunction resolve = resolvedPair.get("resolve", JSFunction.class);
+        JSPromise resolvedPromise = resolvedPair.get("promise", JSPromise.class);
         resolvedPromise
                 .then(JSFunction.of((JSValue value) ->
                         assertEquals("manual resolution", JSValue.checkedCoerce(value, String.class))))
                 .catch_(JSFunction.of((JSValue _) -> fail()));
         JSObject rejectedPair = JSPromise.withResolvers();
-        JSFunction reject = JSValue.checkedCoerce(rejectedPair.get("reject"), JSFunction.class);
-        JSPromise rejectedPromise = JSValue.checkedCoerce(rejectedPair.get("promise"), JSPromise.class);
+        JSFunction reject = rejectedPair.get("reject", JSFunction.class);
+        JSPromise rejectedPromise = rejectedPair.get("promise", JSPromise.class);
         rejectedPromise
                 .then(JSFunction.of((JSValue _) -> fail()))
                 .catch_(JSFunction.of((JSValue value) ->

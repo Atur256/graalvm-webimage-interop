@@ -307,7 +307,7 @@ public class JSFunctionTest {
         JSFunction fun1 = JSFunction.withThis((Object this_) ->
                 "Value of this_.value: " + ((TestObject) this_).value);
         JSFunction fun2 = JSFunction.withThis((JSObject this_) ->
-                JSString.of("Value of this_.value: " + JSValue.checkedCoerce(this_.get("value"), Integer.class)));
+                JSString.of("Value of this_.value: " + this_.get("value", Integer.class)));
 
         String result1 = fun1.call(String.class, testObject);
         String result2 = fun2.callRaw(String.class, testJSObject);
@@ -322,8 +322,7 @@ public class JSFunctionTest {
         JSFunction fun1 = JSFunction.withThis((Object this_, Integer arg) ->
                 "Value of this_.value * arg: " + ((TestObject) this_).value * arg);
         JSFunction fun2 = JSFunction.withThis((JSObject this_, JSNumber arg) ->
-                JSString.of("Value of this_.value * arg: " +
-                        JSValue.checkedCoerce(this_.get("value"), Integer.class) * arg.asInt()));
+                JSString.of("Value of this_.value * arg: " + this_.get("value", Integer.class) * arg.asInt()));
 
         String result1 = fun1.call(String.class, testObject, 5);
         String result2 = fun2.callRaw(String.class, testJSObject, JSNumber.of(5));
@@ -340,7 +339,7 @@ public class JSFunctionTest {
                 "Value of this_.value * arg1 + arg2: " + (((TestObject) this_).value * arg1 + arg2));
         JSFunction fun2 = JSFunction.withThis((JSObject this_, JSNumber arg1, JSNumber arg2) ->
                 JSString.of("Value of this_.value * arg1 + arg2: " +
-                        ((JSValue.checkedCoerce(this_.get("value"), Integer.class)) * arg1.asInt() + arg2.asInt())));
+                        ((this_.get("value", Integer.class)) * arg1.asInt() + arg2.asInt())));
 
         String result1 = fun1.call(String.class, testObject, 5, 5);
         String result2 = fun2.callRaw(String.class, testJSObject, JSNumber.of(5), JSNumber.of(10));
@@ -357,7 +356,7 @@ public class JSFunctionTest {
         JSFunction fun1 = JSFunction.withThis((Object this_) ->
                 captured1.set(((TestObject) this_).value));
         JSFunction fun2 = JSFunction.withThis((JSObject this_) ->
-                captured2.set(JSValue.checkedCoerce(this_.get("value"), Integer.class)));
+                captured2.set(this_.get("value", Integer.class)));
 
         fun1.call(testObject);
         fun2.callRaw(testJSObject);
@@ -406,16 +405,16 @@ public class JSFunctionTest {
         JSFunction fun1 = JSFunction.withThis((Object this_) ->
                 "Value of this_.value: " + ((TestObject) this_).value);
         JSFunction fun2 = JSFunction.withThis((JSObject this_) ->
-                JSNumber.of(JSValue.checkedCoerce(this_.get("value"), Integer.class)));
+                JSNumber.of(this_.get("value", Integer.class)));
         JSFunction fun3 = JSFunction.withThis((Object this_, Integer arg) ->
                 ((TestObject) this_).value > arg);
         JSFunction fun4 = JSFunction.withThis((JSObject this_, JSNumber arg) ->
                 JSString.of("Value of this_.value * arg: " +
-                        JSValue.checkedCoerce(this_.get("value"), Integer.class) * arg.asInt()));
+                        this_.get("value", Integer.class) * arg.asInt()));
         JSFunction fun5 = JSFunction.withThis((Object this_, Integer arg1, Integer arg2) ->
                 (((TestObject) this_).value * arg1 + arg2));
         JSFunction fun6 = JSFunction.withThis((JSObject this_, JSNumber arg1, JSNumber arg2) ->
-                JSBoolean.of(JSValue.checkedCoerce(this_.get("value"), Integer.class) > (arg1.asInt() * arg2.asInt())));
+                JSBoolean.of(this_.get("value", Integer.class) > (arg1.asInt() * arg2.asInt())));
 
         String result1 = fun1.call(String.class, testObject);
         int result2 = fun2.callRaw(Integer.class, testJSObject);

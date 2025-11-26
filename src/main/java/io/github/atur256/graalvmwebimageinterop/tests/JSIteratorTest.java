@@ -190,12 +190,12 @@ public class JSIteratorTest {
         JSObject third = iter.next();
         JSObject done = iter.next();
 
-        assertFalse(((JSBoolean) first.get("done")).as(Boolean.class));
-        assertEquals(Integer.valueOf(10), ((JSNumber) first.get("value")).as(Integer.class));
-        assertEquals(Integer.valueOf(20), ((JSNumber) second.get("value")).as(Integer.class));
-        assertEquals(Integer.valueOf(30), ((JSNumber) third.get("value")).as(Integer.class));
-        assertTrue(((JSBoolean) done.get("done")).as(Boolean.class));
-        assertEquals(JSUndefined.undefined(), JSValue.checkedCoerce(done.get("value"), JSUndefined.class));
+        assertFalse(first.get("done", Boolean.class));
+        assertEquals(Integer.valueOf(10), first.get("value", Integer.class));
+        assertEquals(Integer.valueOf(20), second.get("value", Integer.class));
+        assertEquals(Integer.valueOf(30), third.get("value", Integer.class));
+        assertTrue(done.get("done", Boolean.class));
+        assertEquals(JSUndefined.undefined(), done.get("value", JSUndefined.class));
         assertEquals(Integer.valueOf(1), iter2.nextValue(Integer.class));
         assertEquals(Integer.valueOf(2), iter2.nextValue(Integer.class));
         assertNull(iter2.nextValue(Integer.class));

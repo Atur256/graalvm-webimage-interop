@@ -46,9 +46,9 @@ public class JSRegExpTest {
 
         JSObject result = JSValue.checkedCoerce(regex.exec("123-abc"), JSObject.class);
 
-        assertEquals("123-abc", JSValue.checkedCoerce(result.get(0), String.class));
-        assertEquals("123", JSValue.checkedCoerce(result.get(1), String.class));
-        assertEquals("abc", JSValue.checkedCoerce(result.get(2), String.class));
+        assertEquals("123-abc", result.get(0, String.class));
+        assertEquals("123", result.get(1, String.class));
+        assertEquals("abc", result.get(2, String.class));
     }
 
     static void testFlagsAndProperties() {
@@ -73,9 +73,9 @@ public class JSRegExpTest {
         JSObject first = JSValue.checkedCoerce(regex.exec("123 456"), JSObject.class);
         JSObject second = JSValue.checkedCoerce(regex.exec("123 456"), JSObject.class);
 
-        assertEquals("123", JSValue.checkedCoerce(first.get(0), String.class));
+        assertEquals("123", first.get(0, String.class));
         assertTrue(regex.lastIndex > 0);
-        assertEquals("456", JSValue.checkedCoerce(second.get(0), String.class));
+        assertEquals("456", second.get(0, String.class));
         assertTrue(regex.lastIndex > 0);
     }
 

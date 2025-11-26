@@ -165,31 +165,31 @@ public class JSSetTest {
         JSIterator keys = set.setKeys();
         JSIterator values = set.values();
         JSIterator entries = set.entries();
-        JSArray entry1 = JSValue.checkedCoerce(entries.next().get("value"), JSArray.class);
-        JSArray entry2 = JSValue.checkedCoerce(entries.next().get("value"), JSArray.class);
-        JSArray entry3 = JSValue.checkedCoerce(entries.next().get("value"), JSArray.class);
+        JSArray entry1 = entries.next().get("value", JSArray.class);
+        JSArray entry2 = entries.next().get("value", JSArray.class);
+        JSArray entry3 = entries.next().get("value", JSArray.class);
         set.entries().forEach(JSFunction.of((JSObject obj) -> {
             JSArray entry = JSValue.checkedCoerce(obj, JSArray.class);
-            String key = JSValue.checkedCoerce(entry.get(0), String.class);
-            String value = JSValue.checkedCoerce(entry.get(1), String.class);
+            String key = entry.get(0, String.class);
+            String value = entry.get(1, String.class);
             results.addLast("Key: " + key + " value: " + value);
         }));
 
-        assertEquals("one", JSValue.checkedCoerce(keys.next().get("value"), String.class));
-        assertEquals("two", JSValue.checkedCoerce(keys.next().get("value"), String.class));
-        assertEquals("three", JSValue.checkedCoerce(keys.next().get("value"), String.class));
-        assertEquals(JSUndefined.undefined(), JSValue.checkedCoerce(keys.next().get("value"), JSUndefined.class));
-        assertEquals("one", JSValue.checkedCoerce(values.next().get("value"), String.class));
-        assertEquals("two", JSValue.checkedCoerce(values.next().get("value"), String.class));
-        assertEquals("three", JSValue.checkedCoerce(values.next().get("value"), String.class));
-        assertEquals(JSUndefined.undefined(), JSValue.checkedCoerce(values.next().get("value"), JSUndefined.class));
-        assertEquals("one", JSValue.checkedCoerce(entry1.get(0), String.class));
-        assertEquals("one", JSValue.checkedCoerce(entry1.get(1), String.class));
-        assertEquals("two", JSValue.checkedCoerce(entry2.get(0), String.class));
-        assertEquals("two", JSValue.checkedCoerce(entry2.get(1), String.class));
-        assertEquals("three", JSValue.checkedCoerce(entry3.get(0), String.class));
-        assertEquals("three", JSValue.checkedCoerce(entry3.get(1), String.class));
-        assertEquals(JSUndefined.undefined(), JSValue.checkedCoerce(entries.next().get("value"), JSUndefined.class));
+        assertEquals("one", keys.next().get("value", String.class));
+        assertEquals("two", keys.next().get("value", String.class));
+        assertEquals("three", keys.next().get("value", String.class));
+        assertEquals(JSUndefined.undefined(), keys.next().get("value", JSUndefined.class));
+        assertEquals("one", values.next().get("value", String.class));
+        assertEquals("two", values.next().get("value", String.class));
+        assertEquals("three", values.next().get("value", String.class));
+        assertEquals(JSUndefined.undefined(), values.next().get("value", JSUndefined.class));
+        assertEquals("one", entry1.get(0, String.class));
+        assertEquals("one", entry1.get(1, String.class));
+        assertEquals("two", entry2.get(0, String.class));
+        assertEquals("two", entry2.get(1, String.class));
+        assertEquals("three", entry3.get(0, String.class));
+        assertEquals("three", entry3.get(1, String.class));
+        assertEquals(JSUndefined.undefined(), entries.next().get("value", JSUndefined.class));
         assertEquals(List.of("Key: one value: one", "Key: two value: two", "Key: three value: three"), results);
     }
 

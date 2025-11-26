@@ -17,7 +17,6 @@
 package io.github.atur256.graalvmwebimageinterop.builtin;
 
 import org.graalvm.webimage.api.JS;
-import org.graalvm.webimage.api.JSBoolean;
 import org.graalvm.webimage.api.JSObject;
 import org.graalvm.webimage.api.JSValue;
 
@@ -234,8 +233,8 @@ public class JSIterator extends JSObject {
      */
     public <T> T nextValue(Class<T> cls) {
         JSObject result = next();
-        if(((JSBoolean) result.get("done")).as(Boolean.class)) return null;
-        return ((JSValue) result.get("value")).as(cls);
+        if(result.get("done", Boolean.class)) return null;
+        return result.get("value", cls);
     }
 
     // === Conversion Method ===

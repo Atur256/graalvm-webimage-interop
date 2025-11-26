@@ -213,26 +213,26 @@ public class JSMapTest {
         JSIterator keys = map.mapKeys();
         JSIterator values = map.values();
         JSIterator entries = map.entries();
-        JSArray entry1 = JSValue.checkedCoerce(entries.next().get("value"), JSArray.class);
-        JSArray entry2 = JSValue.checkedCoerce(entries.next().get("value"), JSArray.class);
+        JSArray entry1 = entries.next().get("value", JSArray.class);
+        JSArray entry2 = entries.next().get("value", JSArray.class);
         map.entries().forEach(JSFunction.of((JSObject obj) -> {
             JSArray entry = JSValue.checkedCoerce(obj, JSArray.class);
-            String key = JSValue.checkedCoerce(entry.get(0), String.class);
-            int value = JSValue.checkedCoerce(entry.get(1), Integer.class);
+            String key = entry.get(0, String.class);
+            int value = entry.get(1, Integer.class);
             results.addLast("Key: " + key + " value: " + value);
         }));
 
-        assertEquals("x", JSValue.checkedCoerce(keys.next().get("value"), String.class));
-        assertEquals("y", JSValue.checkedCoerce(keys.next().get("value"), String.class));
-        assertEquals(JSUndefined.undefined(), JSValue.checkedCoerce(keys.next().get("value"), JSUndefined.class));
-        assertEquals(Integer.valueOf(10), JSValue.checkedCoerce(values.next().get("value"), Integer.class));
-        assertEquals(Integer.valueOf(20), JSValue.checkedCoerce(values.next().get("value"), Integer.class));
-        assertEquals(JSUndefined.undefined(), JSValue.checkedCoerce(values.next().get("value"), JSUndefined.class));
-        assertEquals("x", JSValue.checkedCoerce(entry1.get(0), String.class));
-        assertEquals(Integer.valueOf(10), JSValue.checkedCoerce(entry1.get(1), Integer.class));
-        assertEquals("y", JSValue.checkedCoerce(entry2.get(0), String.class));
-        assertEquals(Integer.valueOf(20), JSValue.checkedCoerce(entry2.get(1), Integer.class));
-        assertEquals(JSUndefined.undefined(), JSValue.checkedCoerce(entries.next().get("value"), JSUndefined.class));
+        assertEquals("x", keys.next().get("value", String.class));
+        assertEquals("y", keys.next().get("value", String.class));
+        assertEquals(JSUndefined.undefined(), keys.next().get("value", JSUndefined.class));
+        assertEquals(Integer.valueOf(10), values.next().get("value", Integer.class));
+        assertEquals(Integer.valueOf(20), values.next().get("value", Integer.class));
+        assertEquals(JSUndefined.undefined(), values.next().get("value", JSUndefined.class));
+        assertEquals("x", entry1.get(0, String.class));
+        assertEquals(Integer.valueOf(10), entry1.get(1, Integer.class));
+        assertEquals("y", entry2.get(0, String.class));
+        assertEquals(Integer.valueOf(20), entry2.get(1, Integer.class));
+        assertEquals(JSUndefined.undefined(), entries.next().get("value", JSUndefined.class));
         assertEquals(List.of("Key: x value: 10", "Key: y value: 20"), results);
     }
 

@@ -521,14 +521,14 @@ public class JSArrayTest {
     public static void testEntries() {
         JSArray entries = STRINGS.entries().toArray();
 
-        JSArray pair0 = JSValue.checkedCoerce(entries.get(0), JSArray.class);
-        JSArray pair1 = JSValue.checkedCoerce(entries.get(1), JSArray.class);
-        JSArray pair2 = JSValue.checkedCoerce(entries.get(2), JSArray.class);
-        assertEquals(Integer.valueOf(0), JSValue.checkedCoerce(pair0.get(0), Integer.class));
-        assertEquals("x", JSValue.checkedCoerce(pair0.get(1), String.class));
-        assertEquals(Integer.valueOf(1), JSValue.checkedCoerce(pair1.get(0), Integer.class));
-        assertEquals("y", JSValue.checkedCoerce(pair1.get(1), String.class));
-        assertEquals(Integer.valueOf(2), JSValue.checkedCoerce(pair2.get(0), Integer.class));
-        assertEquals("z", JSValue.checkedCoerce(pair2.get(1), String.class));
+        JSArray pair0 = entries.get(0, JSArray.class);
+        JSArray pair1 = entries.get(1, JSArray.class);
+        JSArray pair2 = entries.get(2, JSArray.class);
+        assertEquals(Integer.valueOf(0), pair0.get(0, Integer.class));
+        assertEquals("x", pair0.get(1, String.class));
+        assertEquals(Integer.valueOf(1), pair1.get(0, Integer.class));
+        assertEquals("y", pair1.get(1, String.class));
+        assertEquals(Integer.valueOf(2), pair2.get(0, Integer.class));
+        assertEquals("z", pair2.get(1, String.class));
     }
 }

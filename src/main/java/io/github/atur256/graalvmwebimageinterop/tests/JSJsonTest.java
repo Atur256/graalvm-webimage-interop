@@ -43,8 +43,8 @@ public class JSJsonTest {
         JSValue array = JSJson.parse("[1,2,3]");
 
         assertThrows(ThrownFromJavaScript.class, () -> JSJson.parse("{ invalid }"));
-        assertEquals("Alice", ((JSString) parsed.get("name")).as(String.class));
-        assertEquals(Integer.valueOf(30), ((JSNumber) parsed.get("age")).as(Integer.class));
+        assertEquals("Alice", parsed.get("name", String.class));
+        assertEquals(Integer.valueOf(30), parsed.get("age", Integer.class));
         assertEquals(0, JSValue.checkedCoerce(empty.keys(), JSArray.class).length);
         assertNull(parsedNull);
         assertEquals("[1,2,3]", JSJson.stringify(array));
@@ -61,8 +61,8 @@ public class JSJsonTest {
         JSObject revived = (JSObject) JSJson.parse("{\"name\":\"Bob\",\"age\":40}", reviver);
         JSValue revivedArray = JSJson.parse("[10,20]", reviver);
 
-        assertEquals("Bob", ((JSString) revived.get("name")).as(String.class));
-        assertEquals(Integer.valueOf(41), ((JSNumber) revived.get("age")).as(Integer.class));
+        assertEquals("Bob", revived.get("name", String.class));
+        assertEquals(Integer.valueOf(41), revived.get("age", Integer.class));
         assertEquals("[10,20]", JSJson.stringify(revivedArray));
     }
 
