@@ -18,14 +18,8 @@ It offers a consistent and idiomatic interface for JavaScript interop within Gra
 
 ## Build & GraalVM Requirements
 
-This project depends on a version of GraalVM that has **not yet been officially released**.  
-It cannot be pulled from Maven Central or other standard repositories.
-
-To build and use this library you must:
-
-1. **Download or build the latest GraalVM version** from the [official GraalVM GitHub repository](https://github.com/oracle/graal).
-2. **Compile the project locally** against this GraalVM build.
-3. Use the provided `build.sh` script to simplify compilation and testing.
+This project depends on a **GraalVM snapshot release** that is not available on Maven Central or other standard repositories.
+**Download the latest GraalVM snapshot release** from the (official GraalVM Early Access GitHub releases)[https://github.com/graalvm/oracle-graalvm-ea-builds/releases/tag/jdk-25e1-25.0.1-ea.06].
 
 ---
 
