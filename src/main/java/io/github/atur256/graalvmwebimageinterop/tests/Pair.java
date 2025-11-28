@@ -13,20 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.atur256.graalvmwebimageinterop.tests.testUtils;
+package io.github.atur256.graalvmwebimageinterop.tests;
 
-import io.github.atur256.graalvmwebimageinterop.builtin.JSArray;
+public record Pair<A, B>(A a, B b) {
 
-import static org.junit.Assert.assertEquals;
-
-
-public class AssertArray {
-
-    @SafeVarargs
-    public static <T> void assertArray(JSArray array, Class<T> cls, T... values) {
-        assertEquals(values.length, array.length);
-        for(int i = 0; i < values.length; i++) {
-            assertEquals(values[i], array.get(i, cls));
-        }
+    public static <A, B> Pair<A, B> of(A a, B b) {
+        return new Pair<>(a, b);
     }
 }

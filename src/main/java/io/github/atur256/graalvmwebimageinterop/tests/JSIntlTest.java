@@ -13,15 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package io.github.atur256.graalvmwebimageinterop.tests;
 
 import io.github.atur256.graalvmwebimageinterop.builtin.JSArray;
 import io.github.atur256.graalvmwebimageinterop.builtin.JSIntl;
-import io.github.atur256.graalvmwebimageinterop.tests.testUtils.AssertArray;
 import org.graalvm.webimage.api.ThrownFromJavaScript;
 
-import static org.junit.Assert.*;
+import static io.github.atur256.graalvmwebimageinterop.tests.Asserts.*;
 
 
 public class JSIntlTest {
@@ -35,7 +33,7 @@ public class JSIntlTest {
     static void testGetCanonicalLocales() {
         JSArray result = JSIntl.getCanonicalLocales("EN-us", "de", "fr-FR", "zh-hans");
 
-        AssertArray.assertArray(result, String.class, "en-US", "de", "fr-FR", "zh-Hans");
+        assertArray(result, String.class, "en-US", "de", "fr-FR", "zh-Hans");
     }
 
     static void testSupportedValuesOf() {

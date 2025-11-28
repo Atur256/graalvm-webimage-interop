@@ -13,11 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package io.github.atur256.graalvmwebimageinterop.tests;
 
 import io.github.atur256.graalvmwebimageinterop.builtin.*;
-import io.github.atur256.graalvmwebimageinterop.tests.testUtils.AssertArray;
 import org.graalvm.webimage.api.JSObject;
 import org.graalvm.webimage.api.JSString;
 import org.graalvm.webimage.api.JSUndefined;
@@ -27,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static io.github.atur256.graalvmwebimageinterop.tests.Asserts.*;
 
 
 public class JSMapTest {
@@ -304,23 +302,23 @@ public class JSMapTest {
         JSMap groupedFromArray = JSMap.groupBy(jsArray, callback1);
         JSMap groupedFromList = JSMap.groupBy(fruits, callback2);
 
-        AssertArray.assertArray(JSValue.checkedCoerce(
+        assertArray(JSValue.checkedCoerce(
                 groupedFromIterator.getValue("a"), JSArray.class), String.class, "apple", "apricot");
-        AssertArray.assertArray(JSValue.checkedCoerce(
+        assertArray(JSValue.checkedCoerce(
                 groupedFromIterator.getValue("b"), JSArray.class), String.class, "blueberry", "banana");
-        AssertArray.assertArray(JSValue.checkedCoerce(
+        assertArray(JSValue.checkedCoerce(
                 groupedFromIterator.getValue("c"), JSArray.class), String.class, "cherry");
-        AssertArray.assertArray(JSValue.checkedCoerce(
+        assertArray(JSValue.checkedCoerce(
                 groupedFromArray.getValue("a"), JSArray.class), String.class, "apple", "apricot");
-        AssertArray.assertArray(JSValue.checkedCoerce(
+        assertArray(JSValue.checkedCoerce(
                 groupedFromArray.getValue("b"), JSArray.class), String.class, "blueberry", "banana");
-        AssertArray.assertArray(JSValue.checkedCoerce(
+        assertArray(JSValue.checkedCoerce(
                 groupedFromArray.getValue("c"), JSArray.class), String.class, "cherry");
-        AssertArray.assertArray(JSValue.checkedCoerce(
+        assertArray(JSValue.checkedCoerce(
                 groupedFromList.getValue("a"), JSArray.class), String.class, "apple", "apricot");
-        AssertArray.assertArray(JSValue.checkedCoerce(
+        assertArray(JSValue.checkedCoerce(
                 groupedFromList.getValue("b"), JSArray.class), String.class, "blueberry", "banana");
-        AssertArray.assertArray(JSValue.checkedCoerce(
+        assertArray(JSValue.checkedCoerce(
                 groupedFromList.getValue("c"), JSArray.class), String.class, "cherry");
     }
 

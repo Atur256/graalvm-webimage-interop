@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package io.github.atur256.graalvmwebimageinterop.tests;
 
 /**
@@ -22,6 +21,7 @@ package io.github.atur256.graalvmwebimageinterop.tests;
 public class TestRunner {
 
     public static void main(String[] args) {
+
 
         System.out.println("Running all WebImage interop tests...\n");
 

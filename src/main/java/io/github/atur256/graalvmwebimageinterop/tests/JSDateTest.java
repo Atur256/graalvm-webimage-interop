@@ -13,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package io.github.atur256.graalvmwebimageinterop.tests;
 
 import io.github.atur256.graalvmwebimageinterop.builtin.JSDate;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static io.github.atur256.graalvmwebimageinterop.tests.Asserts.assertEquals;
+import static io.github.atur256.graalvmwebimageinterop.tests.Asserts.assertThrows;
 
 
 public class JSDateTest {

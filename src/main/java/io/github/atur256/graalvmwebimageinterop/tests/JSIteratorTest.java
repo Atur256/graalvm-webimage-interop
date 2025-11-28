@@ -13,17 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package io.github.atur256.graalvmwebimageinterop.tests;
 
 import io.github.atur256.graalvmwebimageinterop.builtin.*;
-import io.github.atur256.graalvmwebimageinterop.tests.testUtils.AssertArray;
 import org.graalvm.webimage.api.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import static io.github.atur256.graalvmwebimageinterop.tests.Asserts.*;
 
 
 public class JSIteratorTest {
@@ -49,8 +47,8 @@ public class JSIteratorTest {
         JSArray result1 = iterator1.toArray();
         JSArray result2 = iterator2.toArray();
 
-        AssertArray.assertArray(result1, Integer.class, 1, 2, 3);
-        AssertArray.assertArray(result2, String.class, "apple", "banana", "cherry");
+        assertArray(result1, Integer.class, 1, 2, 3);
+        assertArray(result2, String.class, "apple", "banana", "cherry");
     }
 
     public static void testDropAndTake() {
@@ -64,10 +62,10 @@ public class JSIteratorTest {
 
         assertThrows(ThrownFromJavaScript.class, () -> iterator1.drop(-3));
         assertThrows(ThrownFromJavaScript.class, () -> iterator2.take(-1));
-        AssertArray.assertArray(dropped1, Integer.class, 30, 40);
-        AssertArray.assertArray(taken1, String.class, "apple", "banana");
-        AssertArray.assertArray(dropped2, Integer.class);
-        AssertArray.assertArray(taken2, String.class, "cherry");
+        assertArray(dropped1, Integer.class, 30, 40);
+        assertArray(taken1, String.class, "apple", "banana");
+        assertArray(dropped2, Integer.class);
+        assertArray(taken2, String.class, "cherry");
     }
 
     public static void testMapAndFlatMap() {
@@ -83,9 +81,9 @@ public class JSIteratorTest {
 
         assertThrows(ThrownFromJavaScript.class, () -> JSIterator.from(JSArray.of()).map(null));
         assertThrows(ThrownFromJavaScript.class, () -> JSIterator.from(arr).flatMap(errorFun).toArray());
-        AssertArray.assertArray(mapped1, Integer.class, 2, 4, 6);
-        AssertArray.assertArray(mapped2, Integer.class);
-        AssertArray.assertArray(flatMapped1, Integer.class, 1, 2, 2, 4, 3, 6);
+        assertArray(mapped1, Integer.class, 2, 4, 6);
+        assertArray(mapped2, Integer.class);
+        assertArray(flatMapped1, Integer.class, 1, 2, 2, 4, 3, 6);
     }
 
     public static void testFilterAndFind() {
@@ -98,8 +96,8 @@ public class JSIteratorTest {
         int found1 = JSIterator.from(arr).find(gt3, Integer.class);
         JSUndefined found2 = JSIterator.from(arr).find(gt10, JSUndefined.class);
 
-        AssertArray.assertArray(filtered1, Integer.class, 4, 5, 6);
-        AssertArray.assertArray(filtered2, Integer.class);
+        assertArray(filtered1, Integer.class, 4, 5, 6);
+        assertArray(filtered2, Integer.class);
         assertEquals(4, found1);
         assertEquals(JSUndefined.undefined(), found2);
     }
@@ -148,7 +146,7 @@ public class JSIteratorTest {
         assertFalse(andResult);
         try {
             JSIterator.from(JSArray.of()).reduce(andFunction, Boolean.class);
-            fail();
+            fail("Should not reach here!");
         } catch (ThrownFromJavaScript thrownFromJavaScript) {
             assertTrue(thrownFromJavaScript.getMessage().contains("TypeError: Reduce of a done iterator with no initial value"));
         }

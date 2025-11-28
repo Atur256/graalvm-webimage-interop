@@ -13,16 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package io.github.atur256.graalvmwebimageinterop.tests;
 
 import io.github.atur256.graalvmwebimageinterop.builtin.*;
-import io.github.atur256.graalvmwebimageinterop.tests.testUtils.AssertArray;
 import org.graalvm.webimage.api.*;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static io.github.atur256.graalvmwebimageinterop.tests.Asserts.*;
 
 
 public class JSPromiseTest {
@@ -151,7 +149,7 @@ public class JSPromiseTest {
                     return num;
                 }))
                 .catch_(JSFunction.of((JSNumber num) -> {
-                    fail();
+                    fail("Should not reach here!");
                     return num;
                 }))
                 .finally_(JSFunction.of((JSUndefined undefined) ->
@@ -175,13 +173,13 @@ public class JSPromiseTest {
         JSPromise emptyAll = JSPromise.all(JSArray.of());
 
         allFromJSIterator.then(JSFunction.of((JSValue result) ->
-                AssertArray.assertArray(result.as(JSArray.class), String.class, "One", "Two", "Three")));
+                assertArray(result.as(JSArray.class), String.class, "One", "Two", "Three")));
         allFromJSArray.then(JSFunction.of((JSValue result) ->
-                AssertArray.assertArray(result.as(JSArray.class), Integer.class, 1, 2, 3, 4)));
+                assertArray(result.as(JSArray.class), Integer.class, 1, 2, 3, 4)));
         allFromVarargs.then(JSFunction.of((JSValue result) ->
-                AssertArray.assertArray(result.as(JSArray.class), String.class, "One", "Two", "Three")));
+                assertArray(result.as(JSArray.class), String.class, "One", "Two", "Three")));
         allFromList.then(JSFunction.of((JSValue result) ->
-                AssertArray.assertArray(result.as(JSArray.class), Boolean.class, false, true)));
+                assertArray(result.as(JSArray.class), Boolean.class, false, true)));
         emptyAll.then(JSFunction.of((JSValue value) ->
                 assertEquals(0, JSValue.checkedCoerce(value, JSArray.class).length)));
     }
@@ -294,12 +292,12 @@ public class JSPromiseTest {
         resolvedPromise
                 .then(JSFunction.of((JSValue value) ->
                         assertEquals("manual resolution", JSValue.checkedCoerce(value, String.class))))
-                .catch_(JSFunction.of((JSValue _) -> fail()));
+                .catch_(JSFunction.of((JSValue _) -> fail("Should not reach here!")));
         JSObject rejectedPair = JSPromise.withResolvers();
         JSFunction reject = rejectedPair.get("reject", JSFunction.class);
         JSPromise rejectedPromise = rejectedPair.get("promise", JSPromise.class);
         rejectedPromise
-                .then(JSFunction.of((JSValue _) -> fail()))
+                .then(JSFunction.of((JSValue _) -> fail("Should not reach here!")))
                 .catch_(JSFunction.of((JSValue value) ->
                         assertEquals("manual rejection", JSValue.checkedCoerce(value, String.class))));
 

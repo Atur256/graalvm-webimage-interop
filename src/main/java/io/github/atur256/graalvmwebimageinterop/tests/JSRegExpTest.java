@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package io.github.atur256.graalvmwebimageinterop.tests;
 
 import io.github.atur256.graalvmwebimageinterop.builtin.JSRegExp;
@@ -21,7 +20,7 @@ import org.graalvm.webimage.api.JSObject;
 import org.graalvm.webimage.api.JSValue;
 import org.graalvm.webimage.api.ThrownFromJavaScript;
 
-import static org.junit.Assert.*;
+import static io.github.atur256.graalvmwebimageinterop.tests.Asserts.*;
 
 
 public class JSRegExpTest {

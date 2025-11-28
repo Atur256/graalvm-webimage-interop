@@ -18,13 +18,12 @@ package io.github.atur256.graalvmwebimageinterop.tests;
 import io.github.atur256.graalvmwebimageinterop.builtin.JSArray;
 import io.github.atur256.graalvmwebimageinterop.builtin.JSFunction;
 import io.github.atur256.graalvmwebimageinterop.builtin.JSPromise;
-import io.github.atur256.graalvmwebimageinterop.tests.testUtils.AssertArray;
 import org.graalvm.webimage.api.*;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static org.junit.Assert.*;
+import static io.github.atur256.graalvmwebimageinterop.tests.Asserts.*;
 
 
 public class JSArrayTest {
@@ -74,10 +73,10 @@ public class JSArrayTest {
         JSArray testArr3 = JSArray.of(1.1, 2.2, 3.3, 4.4);
         JSArray testArr4 = JSArray.of(true, false, false);
 
-        AssertArray.assertArray(testArr1, String.class, "a", "b", "c", "d", "e");
-        AssertArray.assertArray(testArr2, Integer.class, 1, 2, 3, 4);
-        AssertArray.assertArray(testArr3, Double.class, 1.1, 2.2, 3.3, 4.4);
-        AssertArray.assertArray(testArr4, Boolean.class, true, false, false);
+        assertArray(testArr1, String.class, "a", "b", "c", "d", "e");
+        assertArray(testArr2, Integer.class, 1, 2, 3, 4);
+        assertArray(testArr3, Double.class, 1.1, 2.2, 3.3, 4.4);
+        assertArray(testArr4, Boolean.class, true, false, false);
     }
 
     public static void testLength() {
@@ -115,19 +114,19 @@ public class JSArrayTest {
         JSPromise promiseObj = JSArray.fromAsync(obj);
 
         assertEquals(0, fromNull.length);
-        AssertArray.assertArray(fromJSArray, Integer.class, 1, 2, 3);
-        AssertArray.assertArray(fromString, String.class, "a", "b", "c");
-        AssertArray.assertArray(fromJSValues, Integer.class, 1, 2);
-        AssertArray.assertArray(fromObjArray, String.class, "x", "y");
-        AssertArray.assertArray(fromIntArray, Integer.class, 1, 2);
-        AssertArray.assertArray(fromDoubleArray, Double.class, 1.5, 2.5);
-        AssertArray.assertArray(fromBooleanArray, Boolean.class, true, false);
-        AssertArray.assertArray(fromCharArray, String.class, "a", "b");
-        AssertArray.assertArray(fromByteArray, Byte.class, (byte) 1, (byte) 2);
-        AssertArray.assertArray(fromShortArray, Short.class, (short) 3, (short) 4);
-        AssertArray.assertArray(fromLongArray, Long.class, 5L, 6L);
-        AssertArray.assertArray(fromFloatArray, Float.class, 7.5f, 8.5f);
-        AssertArray.assertArray(fromIterable, String.class, "foo", "bar");
+        assertArray(fromJSArray, Integer.class, 1, 2, 3);
+        assertArray(fromString, String.class, "a", "b", "c");
+        assertArray(fromJSValues, Integer.class, 1, 2);
+        assertArray(fromObjArray, String.class, "x", "y");
+        assertArray(fromIntArray, Integer.class, 1, 2);
+        assertArray(fromDoubleArray, Double.class, 1.5, 2.5);
+        assertArray(fromBooleanArray, Boolean.class, true, false);
+        assertArray(fromCharArray, String.class, "a", "b");
+        assertArray(fromByteArray, Byte.class, (byte) 1, (byte) 2);
+        assertArray(fromShortArray, Short.class, (short) 3, (short) 4);
+        assertArray(fromLongArray, Long.class, 5L, 6L);
+        assertArray(fromFloatArray, Float.class, 7.5f, 8.5f);
+        assertArray(fromIterable, String.class, "foo", "bar");
         assertEquals(1, fromObj.length);
         assertEquals(obj, fromObj.at(0));
         assertEquals("JavaScript<object; [object Promise]>", promise.toString());
@@ -222,7 +221,7 @@ public class JSArrayTest {
         JSArray baseClone = JSArray.from(BASE);
         JSArray copied = JSArray.from(baseClone).copyWithin(0, 3, 5);
 
-        AssertArray.assertArray(copied, String.class, "d", "e", "c", "d", "e");
+        assertArray(copied, String.class, "d", "e", "c", "d", "e");
     }
 
     public static void testIndexAccess() {
@@ -265,8 +264,8 @@ public class JSArrayTest {
             // Do nothing
         }));
 
-        AssertArray.assertArray(mapped, String.class, "A", "B", "C", "D", "E");
-        AssertArray.assertArray(result, JSUndefined.class, JSUndefined.undefined(), JSUndefined.undefined());
+        assertArray(mapped, String.class, "A", "B", "C", "D", "E");
+        assertArray(result, JSUndefined.class, JSUndefined.undefined(), JSUndefined.undefined());
     }
 
     public static void testPopPush() {
@@ -312,9 +311,9 @@ public class JSArrayTest {
         JSArray reversed = baseClone.reverse();
         JSArray toReversed = BASE.toReversed();
 
-        AssertArray.assertArray(baseClone, String.class, "e", "d", "c", "b", "a");
-        AssertArray.assertArray(reversed, String.class, "e", "d", "c", "b", "a");
-        AssertArray.assertArray(toReversed, String.class, "e", "d", "c", "b", "a");
+        assertArray(baseClone, String.class, "e", "d", "c", "b", "a");
+        assertArray(reversed, String.class, "e", "d", "c", "b", "a");
+        assertArray(toReversed, String.class, "e", "d", "c", "b", "a");
     }
 
     public static void testShiftUnshift() {
@@ -348,12 +347,12 @@ public class JSArrayTest {
         JSArray filled4 = arr4.fill(false, -1, 10);
         JSArray filled5 = arr5.fill("X", 2, 5);
 
-        AssertArray.assertArray(filled1, JSValue.class, JSNumber.of(1), JSString.of("Hello World"),
+        assertArray(filled1, JSValue.class, JSNumber.of(1), JSString.of("Hello World"),
                 JSString.of("Hello World"), JSNumber.of(4), JSNumber.of(5));
-        AssertArray.assertArray(filled2, Integer.class, 1, 2, 3, 0, 0);
-        AssertArray.assertArray(filled3, Double.class, 0.0, 0.0, 0.0, 0.0, 0.0);
-        AssertArray.assertArray(filled4, Boolean.class, true, true, true, false);
-        AssertArray.assertArray(filled5, String.class, "Alice", "Bob", "X");
+        assertArray(filled2, Integer.class, 1, 2, 3, 0, 0);
+        assertArray(filled3, Double.class, 0.0, 0.0, 0.0, 0.0, 0.0);
+        assertArray(filled4, Boolean.class, true, true, true, false);
+        assertArray(filled5, String.class, "Alice", "Bob", "X");
     }
 
     public static void testSliceSplice() {
@@ -365,12 +364,12 @@ public class JSArrayTest {
         JSArray splicedExcess = baseClone2.splice(1, 10);
         JSArray toSpliced = baseClone1.toSpliced(1, 2);
 
-        AssertArray.assertArray(sliced, String.class, "b", "c");
-        AssertArray.assertArray(baseClone1, String.class, "a", "b", "d", "e");
-        AssertArray.assertArray(spliced, String.class, "c");
-        AssertArray.assertArray(baseClone2, String.class, "a");
-        AssertArray.assertArray(splicedExcess, String.class, "b", "c", "d", "e");
-        AssertArray.assertArray(toSpliced, String.class, "a", "e");
+        assertArray(sliced, String.class, "b", "c");
+        assertArray(baseClone1, String.class, "a", "b", "d", "e");
+        assertArray(spliced, String.class, "c");
+        assertArray(baseClone2, String.class, "a");
+        assertArray(splicedExcess, String.class, "b", "c", "d", "e");
+        assertArray(toSpliced, String.class, "a", "e");
     }
 
     public static void testFindMethods() {
@@ -398,8 +397,8 @@ public class JSArrayTest {
         JSArray flattened = NESTED.flat(10);
         JSArray flatMapped = BASE.flatMap(JSFunction.of((JSString x) -> JSArray.of(x.asString(), x.asString())));
 
-        AssertArray.assertArray(flattened, String.class, "deep");
-        AssertArray.assertArray(flatMapped, String.class, "a", "a", "b", "b", "c", "c", "d", "d", "e", "e");
+        assertArray(flattened, String.class, "deep");
+        assertArray(flatMapped, String.class, "a", "a", "b", "b", "c", "c", "d", "d", "e", "e");
     }
 
     public static void testForEach() {
@@ -435,8 +434,8 @@ public class JSArrayTest {
         JSArray values = BASE.values().toArray();
         JSArray entries = BASE.entries().toArray();
 
-        AssertArray.assertArray(keys, Integer.class, 0, 1, 2, 3, 4);
-        AssertArray.assertArray(values, String.class, "a", "b", "c", "d", "e");
+        assertArray(keys, Integer.class, 0, 1, 2, 3, 4);
+        assertArray(values, String.class, "a", "b", "c", "d", "e");
         JSArray pair0 = JSValue.checkedCoerce(entries.at(0), JSArray.class);
         JSArray pair1 = JSValue.checkedCoerce(entries.at(1), JSArray.class);
         JSArray pair2 = JSValue.checkedCoerce(entries.at(2), JSArray.class);
@@ -478,9 +477,9 @@ public class JSArrayTest {
         JSArray sorted = unsortedClone.sort();
         JSArray toSorted = UNSORTED.toSorted();
 
-        AssertArray.assertArray(sorted, String.class, "a", "b", "c");
-        AssertArray.assertArray(unsortedClone, String.class, "a", "b", "c");
-        AssertArray.assertArray(toSorted, String.class, "a", "b", "c");
+        assertArray(sorted, String.class, "a", "b", "c");
+        assertArray(unsortedClone, String.class, "a", "b", "c");
+        assertArray(toSorted, String.class, "a", "b", "c");
     }
 
     public static void testToLocaleStringToString() {
@@ -514,8 +513,8 @@ public class JSArrayTest {
         JSArray filtered1 = filterTest.filter(startsWithB);
         JSArray filtered2 = MAP_UNDEFINED.filter(alwaysFalse);
 
-        AssertArray.assertArray(filtered1, String.class, "banana");
-        AssertArray.assertArray(filtered2, String.class);
+        assertArray(filtered1, String.class, "banana");
+        assertArray(filtered2, String.class);
     }
 
     public static void testEntries() {

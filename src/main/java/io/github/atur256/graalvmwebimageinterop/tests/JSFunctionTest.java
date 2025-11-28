@@ -13,21 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package io.github.atur256.graalvmwebimageinterop.tests;
 
 import io.github.atur256.graalvmwebimageinterop.builtin.JSArray;
 import io.github.atur256.graalvmwebimageinterop.builtin.JSFunction;
-import io.github.atur256.graalvmwebimageinterop.tests.testUtils.CustomClass;
-import io.github.atur256.graalvmwebimageinterop.tests.testUtils.Pair;
-import io.github.atur256.graalvmwebimageinterop.tests.testUtils.Triple;
 import org.graalvm.webimage.api.*;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiFunction;
 
-import static org.junit.Assert.*;
+import static io.github.atur256.graalvmwebimageinterop.tests.Asserts.*;
 
 
 public class JSFunctionTest {

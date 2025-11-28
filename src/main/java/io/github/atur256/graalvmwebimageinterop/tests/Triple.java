@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.atur256.graalvmwebimageinterop.tests.testUtils;
+package io.github.atur256.graalvmwebimageinterop.tests;
 
-public record Pair<A, B>(A a, B b) {
+public record Triple<A, B, C>(A a, B b, C c) {
 
-    public static <A, B> Pair<A, B> of(A a, B b) {
-        return new Pair<>(a, b);
+    public static <A, B, C> Triple<A, B, C> of(A a, B b, C c) {
+        return new Triple<>(a, b, c);
     }
 }
