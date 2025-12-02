@@ -17,8 +17,8 @@ package io.github.atur256.graalvmwebimageinterop.tests;
 
 import io.github.atur256.graalvmwebimageinterop.builtin.JSDate;
 
-import static io.github.atur256.graalvmwebimageinterop.tests.Asserts.assertEquals;
-import static io.github.atur256.graalvmwebimageinterop.tests.Asserts.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 public class JSDateTest {

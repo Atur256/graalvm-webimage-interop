@@ -20,7 +20,7 @@ import org.graalvm.webimage.api.JSObject;
 import org.graalvm.webimage.api.JSValue;
 import org.graalvm.webimage.api.ThrownFromJavaScript;
 
-import static io.github.atur256.graalvmwebimageinterop.tests.Asserts.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class JSRegExpTest {

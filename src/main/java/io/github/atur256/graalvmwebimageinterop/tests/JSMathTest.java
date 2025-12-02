@@ -17,8 +17,7 @@ package io.github.atur256.graalvmwebimageinterop.tests;
 
 import io.github.atur256.graalvmwebimageinterop.builtin.JSMath;
 
-import static io.github.atur256.graalvmwebimageinterop.tests.Asserts.assertEquals;
-import static io.github.atur256.graalvmwebimageinterop.tests.Asserts.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class JSMathTest {

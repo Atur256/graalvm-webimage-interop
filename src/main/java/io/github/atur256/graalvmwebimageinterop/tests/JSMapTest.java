@@ -25,7 +25,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static io.github.atur256.graalvmwebimageinterop.tests.Asserts.*;
+import static io.github.atur256.graalvmwebimageinterop.tests.AssertArrayUtils.assertArray;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class JSMapTest {

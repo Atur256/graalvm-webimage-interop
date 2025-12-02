@@ -5,7 +5,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.atur256.graalvmwebimageinterop</groupId>
+    <groupId>io.github.atur256.graalvm-webimage-interop</groupId>
     <artifactId>graalvm-webimage-interop</artifactId>
     <version>0.0.1</version>
     <packaging>jar</packaging>
@@ -26,7 +26,7 @@
         <developer>
             <id>atur256</id>
             <name>Arthur Schwaiger</name>
-            <email>-</email> <!-- TODO: replace this -->
+            <email>-</email>
             <url>https://github.com/atur256</url>
         </developer>
     </developers>
@@ -38,37 +38,68 @@
     </scm>
 
     <properties>
-        <!-- Adjust to match your installed JDK version -->
         <java.version>25</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <graalvm.version>25.3.0</graalvm.version>
     </properties>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.graalvm.sdk/webimage-preview -->
-        <dependency>
-            <groupId>org.graalvm.sdk</groupId>
-            <artifactId>webimage-preview</artifactId>
-            <version>25.1.0-SNAPSHOT</version>
-        </dependency>
-
-        <!--        <dependency>-->
-        <!--            <groupId>org.graalvm.sdk</groupId>-->
-        <!--            <artifactId>webimage-preview</artifactId>-->
-        <!--            <version>25.0.1</version>-->
-        <!--        </dependency>-->
-
-        <!-- JetBrains annotations (stable version) -->
+        <!-- JetBrains annotations -->
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>24.0.1</version>
         </dependency>
+
+        <!-- JUnit 5 for tests -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>6.1.0-M1</version>
+            <!--            <scope>test</scope>-->
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
+
+            <!-- GraalVM Native Plugin -->
+            <plugin>
+                <groupId>org.graalvm.buildtools</groupId>
+                <artifactId>native-maven-plugin</artifactId>
+                <version>0.11.3</version>
+                <extensions>true</extensions>
+                <executions>
+                    <execution>
+                        <id>build-native</id>
+                        <goals>
+                            <goal>compile-no-fork</goal>
+                        </goals>
+                        <phase>package</phase>
+                    </execution>
+
+<!--                    <execution>-->
+<!--                        <id>test-native</id>-->
+<!--                        <goals>-->
+<!--                            <goal>test</goal>-->
+<!--                        </goals>-->
+<!--                        <phase>test</phase>-->
+<!--                    </execution>-->
+
+                </executions>
+                <configuration>
+                    <mainClass>io.github.atur256.graalvmwebimageinterop.tests.TestRunner</mainClass>
+                </configuration>
+            </plugin>
+
+            <!--                    <plugin>-->
+            <!--                        <groupId>org.apache.maven.plugins</groupId>-->
+            <!--                        <artifactId>maven-surefire-plugin</artifactId>-->
+            <!--                        <version>3.5.4</version>-->
+            <!--                    </plugin>-->
+
             <!-- Compiler plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -157,7 +188,7 @@
                 </executions>
             </plugin>
 
-            <!-- Copy test dependencies (JUnit) -->
+            <!-- Copy test dependencies -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>

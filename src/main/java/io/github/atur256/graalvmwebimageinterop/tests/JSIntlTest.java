@@ -19,7 +19,8 @@ import io.github.atur256.graalvmwebimageinterop.builtin.JSArray;
 import io.github.atur256.graalvmwebimageinterop.builtin.JSIntl;
 import org.graalvm.webimage.api.ThrownFromJavaScript;
 
-import static io.github.atur256.graalvmwebimageinterop.tests.Asserts.*;
+import static io.github.atur256.graalvmwebimageinterop.tests.AssertArrayUtils.assertArray;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class JSIntlTest {

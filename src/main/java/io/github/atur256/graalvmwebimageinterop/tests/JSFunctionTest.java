@@ -23,7 +23,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiFunction;
 
-import static io.github.atur256.graalvmwebimageinterop.tests.Asserts.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class JSFunctionTest {

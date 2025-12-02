@@ -21,8 +21,8 @@ import org.graalvm.webimage.api.JSObject;
 import org.graalvm.webimage.api.JSUndefined;
 import org.graalvm.webimage.api.JSValue;
 
-import static io.github.atur256.graalvmwebimageinterop.tests.Asserts.assertEquals;
-import static io.github.atur256.graalvmwebimageinterop.tests.Asserts.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class JSErrorTest {

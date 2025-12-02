@@ -21,7 +21,7 @@ import org.graalvm.webimage.api.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static io.github.atur256.graalvmwebimageinterop.tests.Asserts.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class JSSetTest {

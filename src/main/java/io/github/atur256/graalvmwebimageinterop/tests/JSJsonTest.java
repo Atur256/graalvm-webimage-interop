@@ -18,7 +18,7 @@ package io.github.atur256.graalvmwebimageinterop.tests;
 import io.github.atur256.graalvmwebimageinterop.builtin.*;
 import org.graalvm.webimage.api.*;
 
-import static io.github.atur256.graalvmwebimageinterop.tests.Asserts.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class JSJsonTest {

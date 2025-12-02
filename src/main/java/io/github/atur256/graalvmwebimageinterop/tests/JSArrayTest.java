@@ -23,7 +23,8 @@ import org.graalvm.webimage.api.*;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static io.github.atur256.graalvmwebimageinterop.tests.Asserts.*;
+import static io.github.atur256.graalvmwebimageinterop.tests.AssertArrayUtils.assertArray;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class JSArrayTest {

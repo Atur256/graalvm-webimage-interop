@@ -21,7 +21,8 @@ import org.graalvm.webimage.api.*;
 import java.util.HashSet;
 import java.util.Set;
 
-import static io.github.atur256.graalvmwebimageinterop.tests.Asserts.*;
+import static io.github.atur256.graalvmwebimageinterop.tests.AssertArrayUtils.assertArray;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class JSIteratorTest {
