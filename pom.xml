@@ -72,6 +72,9 @@
                     <compilerArgs>
                         <arg>-parameters</arg>
                     </compilerArgs>
+                    <!--                    <excludes>-->
+                    <!--                        <excludes>**/tests/**</excludes>-->
+                    <!--                    </excludes>-->
                 </configuration>
             </plugin>
 
@@ -133,6 +136,20 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <!-- Exclude test sources from compilation in the main build -->
+                            <excludes>
+                                <exclude>**/tests/**</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
 
         <!-- Profile for building only test package via GraalVM -->
@@ -142,6 +159,8 @@
                 <activeByDefault>false</activeByDefault>
             </activation>
             <build>
+                <!-- Rename, to clarify that this version includes the code for the tests -->
+                <finalName>${project.artifactId}-native-tests</finalName>
                 <plugins>
                     <!-- Maven Antrun plugin to create JS directory -->
                     <plugin>
