@@ -46,19 +46,16 @@
     </properties>
 
     <dependencies>
-        <!-- JetBrains annotations -->
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>24.0.1</version>
         </dependency>
 
-        <!-- JUnit 5 for tests -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
+            <artifactId>junit-jupiter</artifactId>
             <version>6.1.0-M1</version>
-            <!--            <scope>test</scope>-->
         </dependency>
     </dependencies>
 
@@ -75,16 +72,6 @@
                     <compilerArgs>
                         <arg>-parameters</arg>
                     </compilerArgs>
-                </configuration>
-            </plugin>
-
-            <!-- Surefire -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.1.2</version>
-                <configuration>
-                    <useModulePath>false</useModulePath>
                 </configuration>
             </plugin>
 
@@ -135,79 +122,48 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <!-- Test JAR plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.3.0</version>
-                <executions>
-                    <execution>
-                        <id>test-jar</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>test-jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- Copy test dependencies -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.6.1</version>
-                <executions>
-                    <execution>
-                        <id>copy-test-dependencies</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <includeScope>test</includeScope>
-                            <outputDirectory>${project.build.directory}/test-deps</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- Shade plugin for executable JAR -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.5.0</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <transformers>
-                                <transformer
-                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>TestRunner</mainClass>
-                                </transformer>
-                            </transformers>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
-    <!-- profile: native -->
+    <!-- Profiles -->
     <profiles>
+        <!-- Profile for normal JAR build without tests -->
         <profile>
-            <id>native</id>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+
+        <!-- Profile for building only test package via GraalVM -->
+        <profile>
+            <id>test-native</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
-
             <build>
                 <plugins>
+                    <!-- Maven Antrun plugin to create JS directory -->
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>mkdir-js-dir</id>
+                                <phase>generate-sources</phase>
+                                <configuration>
+                                    <target>
+                                        <mkdir dir="${project.build.directory}/native-tests"/>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- GraalVM native plugin for test package -->
                     <plugin>
                         <groupId>org.graalvm.buildtools</groupId>
                         <artifactId>native-maven-plugin</artifactId>
@@ -215,22 +171,23 @@
                         <extensions>true</extensions>
                         <executions>
                             <execution>
-                                <id>build-native</id>
+                                <id>build-native-tests</id>
                                 <phase>package</phase>
                                 <goals>
                                     <goal>compile-no-fork</goal>
                                 </goals>
                             </execution>
-                            <execution>
-                                <id>test-native</id>
-                                <goals>
-                                    <goal>test</goal>
-                                </goals>
-                                <phase>test</phase>
-                            </execution>
                         </executions>
                         <configuration>
                             <mainClass>io.github.atur256.graalvmwebimageinterop.tests.TestRunner</mainClass>
+                            <buildArgs>
+                                <option>--tool:svm-wasm</option>
+                                <option>-Dcom.oracle.graalvm.iswebimage=true</option>
+                                <option>-H:+UnlockExperimentalVMOptions</option>
+                                <option>-o</option>
+                                <option>${project.build.directory}/native-tests/tests</option>
+                                <option>-H:-ClosureCompiler</option>
+                            </buildArgs>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -250,4 +207,5 @@
             <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
+
 </project>
