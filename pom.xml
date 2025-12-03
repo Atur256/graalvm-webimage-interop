@@ -64,42 +64,6 @@
 
     <build>
         <plugins>
-
-            <!-- GraalVM Native Plugin -->
-            <plugin>
-                <groupId>org.graalvm.buildtools</groupId>
-                <artifactId>native-maven-plugin</artifactId>
-                <version>0.11.3</version>
-                <extensions>true</extensions>
-                <executions>
-                    <execution>
-                        <id>build-native</id>
-                        <goals>
-                            <goal>compile-no-fork</goal>
-                        </goals>
-                        <phase>package</phase>
-                    </execution>
-
-<!--                    <execution>-->
-<!--                        <id>test-native</id>-->
-<!--                        <goals>-->
-<!--                            <goal>test</goal>-->
-<!--                        </goals>-->
-<!--                        <phase>test</phase>-->
-<!--                    </execution>-->
-
-                </executions>
-                <configuration>
-                    <mainClass>io.github.atur256.graalvmwebimageinterop.tests.TestRunner</mainClass>
-                </configuration>
-            </plugin>
-
-            <!--                    <plugin>-->
-            <!--                        <groupId>org.apache.maven.plugins</groupId>-->
-            <!--                        <artifactId>maven-surefire-plugin</artifactId>-->
-            <!--                        <version>3.5.4</version>-->
-            <!--                    </plugin>-->
-
             <!-- Compiler plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -114,7 +78,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Surefire plugin for running tests -->
+            <!-- Surefire -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -233,6 +197,46 @@
             </plugin>
         </plugins>
     </build>
+
+    <!-- profile: native -->
+    <profiles>
+        <profile>
+            <id>native</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.graalvm.buildtools</groupId>
+                        <artifactId>native-maven-plugin</artifactId>
+                        <version>0.11.3</version>
+                        <extensions>true</extensions>
+                        <executions>
+                            <execution>
+                                <id>build-native</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>compile-no-fork</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>test-native</id>
+                                <goals>
+                                    <goal>test</goal>
+                                </goals>
+                                <phase>test</phase>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <mainClass>io.github.atur256.graalvmwebimageinterop.tests.TestRunner</mainClass>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <distributionManagement>
         <repository>
