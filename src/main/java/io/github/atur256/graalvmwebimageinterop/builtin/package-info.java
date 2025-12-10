@@ -18,7 +18,7 @@
  * Provides Java bindings for core JavaScript objects and functions within the WebImage interop layer.
  * <p>
  * This package enables seamless interaction between Java and JavaScript using GraalVM's {@link org.graalvm.webimage.api.JS} annotations.
- * Each class in this package corresponds to a native JavaScript construct—such as {@code Array}, {@code Promise}, {@code Function}, or {@code Math}—
+ * Each class in this package corresponds to a native JavaScript construct, such as {@code Array}, {@code Promise}, {@code Function}, or {@code Math},
  * and exposes its behavior through idiomatic Java interfaces.
  * </p>
  *

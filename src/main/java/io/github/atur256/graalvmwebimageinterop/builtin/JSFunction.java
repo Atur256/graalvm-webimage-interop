@@ -27,7 +27,7 @@ import java.util.function.*;
  *
  * <p><b>Example Usage:</b></p>
  * <pre>{@code
- * JSFunction jsFunc = JSFunction.fromRun(() -> JSNumber.of(42));
+ * JSFunction jsFunc = JSFunction.of(() -> JSNumber.of(42));
  * int result = jsFunc.invoke(Integer.class);
  * }</pre>
  *
