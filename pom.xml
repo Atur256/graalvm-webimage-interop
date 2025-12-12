@@ -94,7 +94,45 @@
                 </executions>
             </plugin>
 
+<!--            &lt;!&ndash; Javadoc JAR &ndash;&gt;-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-javadoc-plugin</artifactId>-->
+<!--                <version>3.5.0</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>attach-javadocs</id>-->
+<!--                        <phase>verify</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>jar</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
             <!-- Javadoc JAR -->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-javadoc-plugin</artifactId>-->
+<!--                <version>3.5.0</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>attach-javadocs</id>-->
+<!--                        <phase>verify</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>jar</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            &lt;!&ndash; Only include main sources &ndash;&gt;-->
+<!--                            <sourcepath>${project.build.sourceDirectory}</sourcepath>-->
+<!--                            &lt;!&ndash; Exclude test sources &ndash;&gt;-->
+<!--                            <excludePackageNames>io.github.atur256.graalvmwebimageinterop.tests.*</excludePackageNames>-->
+<!--                            <encoding>UTF-8</encoding>-->
+<!--                            <docencoding>UTF-8</docencoding>-->
+<!--                            <charset>UTF-8</charset>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -106,9 +144,18 @@
                         <goals>
                             <goal>jar</goal>
                         </goals>
+                        <configuration>
+                            <sourcepath>${project.build.sourceDirectory}</sourcepath>
+                            <subpackages>io.github.atur256.graalvmwebimageinterop.builtin</subpackages>
+                            <encoding>UTF-8</encoding>
+                            <docencoding>UTF-8</docencoding>
+                            <charset>UTF-8</charset>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
+
+
 
             <!-- GPG signing -->
             <plugin>
