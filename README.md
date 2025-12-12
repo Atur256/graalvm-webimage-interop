@@ -11,7 +11,7 @@ It offers a consistent and idiomatic interface for JavaScript interop within Gra
 - Idiomatic Java interfaces for core JavaScript objects
 - Type-safe conversion, evaluation, and iteration utilities
 - Full GraalVM WebImage runtime compatibility
-- Dedicated, per-class JUnit test coverage
+- Dedicated, per-class test coverage
 - Extensible structure for future ECMAScript wrappers
 
 ---
@@ -22,68 +22,23 @@ This project depends on a **GraalVM snapshot release** that is currently not ava
 
 **Download the latest GraalVM snapshot release** from the [official GraalVM Early Access GitHub releases](https://github.com/graalvm/oracle-graalvm-ea-builds/releases/tag/jdk-25e1-25.0.1-ea.06).
 
+The [GraalVM Maven Plugin](https://graalvm.github.io/native-build-tools/latest/maven-plugin.html) is used for both compilation and for generating native test artifacts.
+
 ---
 
-### Build Script
+### Build
 
-The build script `build-script/build.sh` automates compilation and testing against unreleased GraalVM builds.
-
-#### Configuration
-
-The script requires two paths:
-- `GRAALVM_BIN`: Path to the GraalVM `bin` directory (where `web-image` resides).
-- `JAVA_HOME_OVERRIDE`: Path to the JDK you want to force for compilation. (Can be skipped)
-
-#### Input Options
-
-You can provide configuration either:
-
-1. **Command-line arguments**:
-   ```bash
-   ./build.sh <GRAALVM_BIN> <JAVA_HOME_OVERRIDE> [--skip-tests]
-   ```
-2. **Configuration file (build.config)**:
-  
-    Define `GRAALVM_BIN` and `JAVA_HOME_OVERRIDE` in `build.config`. 
-
-    Example:
-    ```bash
-    # === GraalVM Build Configuration ===
-    # Path to GraalVM bin directory
-    GRAALVM_BIN=/home/<user>/Oracle/graal/sdk/mxbuild/linux-amd64/GRAALVM_181A492ACC_JAVA25/graalvm-181a492acc-java25-25.1.0-dev/bin
-
-    # Override JAVA_HOME (optional)
-    JAVA_HOME_OVERRIDE=/usr/lib/jvm/java-25-openjdk
-    ```
-#### Flags
-
-- `--skip-tests`: Skips test compilation and execution.
-
-#### Steps Performed
-1. **Compile with Maven**
-
-   Runs `mvn clean package` with GraalVM native access enabled.
-2. **Compile and Run Tests (optional)**
-
-   Uses GraalVM `web-image` to compile the test runner into a JavaScript bundle, then executes it with [Node.js](https://nodejs.org/en).
-3. **Copy Artifacts**
-
-   Places the compiled library JAR (and test bundle if enabled) into the `output/` directory.
-
-#### Example Usage
+To build the library normally, simply run:
 ```bash
-# Using command-line arguments
-./build.sh /path/to/graalvm/bin /usr/lib/jvm/java-25-openjdk
-
-# Using build.config
-./build.sh
+mvn clean package
 ```
 
-After completion, the compiled JAR and test bundle will be available in:
-
-```bash
-output/
+This performs a standard Maven build using the GraalVM plugin and produces the main JAR file in:
 ```
+target/
+```
+**No native-image test bundles** are created executed in this mode.
+
 ---
 
 ## Available JavaScript Wrappers
@@ -110,7 +65,7 @@ This library is designed around several guiding principles:
 ## Skipped or Deferred Functions
 
 Certain JavaScript features are intentionally excluded due to non-standardization, limited interop value, or lack of GraalVM runtime support.
-If needed, they can still be accessed using the `JSEval` or `JSFunction.fromBody(...)` utilities.
+If needed, they can still be accessed using the `JSFunction.fromBody(...)` utilities.
 
 **JSError**
 
@@ -132,10 +87,26 @@ The following feature is skipped:
 
 ## Testing
 
-Each JavaScript wrapper has its own dedicated test class.
+Native-image-based tests are built using the `test-native` Maven profile:
 
-- **Per-class testing:** Each test class corresponds to a single wrapper (e.g., `JSArrayTest`).
-- **Full test suite:** The `RunAllTests` class aggregates all test classes and runs the complete suite.
+```bash
+mvn clean package -Ptest-native
+```
+
+### What this does:
+- Compiles the project
+- Uses the GraalVM Maven plugin to build the **native-image test bundle**
+- Places the test bundle into:
+```
+target/native-tests/
+```
+
+### Running the Tests
+The test bundle can be executed directly using [Node.js](https://nodejs.org/en):
+```bash
+node target/native-tests/tests.js
+```
+This bundle includes the **full native-image-compiled test runner** and require no additional tooling beyond Node.js.
 
 See the [RunAllTests class](https://github.com/Atur256/graalvm-webimage-interop/blob/master/src/main/java/io/github/atur256/webimageinterop/tests/RunAllTests.java)
 
