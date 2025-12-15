@@ -61,5 +61,5 @@ jobs:
       - name: Run generated Node.js tests
         run: |
           echo "Running tests.js from target/native-test..."
-          node /home/runner/work/test-gitaction-repo/test-gitaction-repo/target/native-tests/tests.js
+          node /home/runner/work/graalvm-webimage-interop/graalvm-webimage-interop/target/native-tests/tests.js
 
