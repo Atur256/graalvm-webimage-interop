@@ -69,7 +69,7 @@ public class JSArrayTest {
 
 
     public static void testOf() {
-        JSArray testArr1 = JSArray.of("a", "o", "c", "d", "e");
+        JSArray testArr1 = JSArray.of("a", "b", "c", "d", "e");
         JSArray testArr2 = JSArray.of(1, 2, 3, 4);
         JSArray testArr3 = JSArray.of(1.1, 2.2, 3.3, 4.4);
         JSArray testArr4 = JSArray.of(true, false, false);
