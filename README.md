@@ -33,7 +33,7 @@ To build the library normally, simply run:
 mvn clean package
 ```
 
-This performs a standard Maven build using the GraalVM plugin and produces the main JAR file in:
+This performs a standard Maven build and produces the main JAR file in:
 ```
 target/
 ```
