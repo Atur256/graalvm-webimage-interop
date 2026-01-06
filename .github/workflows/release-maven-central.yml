@@ -22,24 +22,52 @@ jobs:
           mvn versions:set -DnewVersion=$VERSION
           mvn versions:commit
 
-      - name: Set up Java
-        uses: actions/setup-java@v4
+      # ---------------------------
+      # Setup GraalVM Java 25
+      # ---------------------------
+      - name: Cache GraalVM
+        id: graalvm-cache
+        uses: actions/cache@v3
         with:
-          distribution: 'temurin'
-          java-version: '25'
-          server-id: ossrh
+          path: /opt/graalvm-jdk-25e1-25.0.1-ea.06
+          key: graalvm-25e1-${{ runner.os }}-v1
 
+      - name: Download Oracle GraalVM 25e1 EA
+        if: steps.graalvm-cache.outputs.cache-hit != 'true'
+        run: |
+          curl -L -o graalvm.tar.gz \
+            https://github.com/graalvm/oracle-graalvm-ea-builds/releases/download/jdk-25e1-25.0.1-ea.06/graalvm-jdk-25e1-25.0.1-ea.06_linux-x64_bin.tar.gz
+          sudo tar -xzf graalvm.tar.gz -C /opt
+
+      - name: Set GraalVM environment
+        run: |
+          EXTRACTED_DIR=$(tar -tzf graalvm.tar.gz | head -1 | cut -f1 -d"/")
+          echo "GRAALVM_HOME=/opt/$EXTRACTED_DIR" >> $GITHUB_ENV
+          echo "JAVA_HOME=/opt/$EXTRACTED_DIR" >> $GITHUB_ENV
+          echo "/opt/$EXTRACTED_DIR/bin" >> $GITHUB_PATH
+
+      - name: Verify GraalVM
+        run: |
+          java --version
+          javac --version
+          native-image --version || true
+
+      # ---------------------------
+      # Import GPG key
+      # ---------------------------
       - name: Import GPG key
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
         run: |
           mkdir -p ~/.gnupg
           chmod 700 ~/.gnupg
-          # Use printf to preserve line breaks and ignore warnings
           printf "%b" "$GPG_PRIVATE_KEY" | gpg --batch --import || true
           echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
           gpg --list-secret-keys --keyid-format LONG
 
+      # ---------------------------
+      # Publish to Maven Central
+      # ---------------------------
       - name: Publish to Maven Central
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
@@ -50,4 +78,3 @@ jobs:
             -Prelease,test-native \
             -Dgpg.passphrase=$MAVEN_GPG_PASSPHRASE \
             --settings settings.xml
-
