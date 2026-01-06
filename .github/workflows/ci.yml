@@ -2,6 +2,7 @@ name: GraalVM Native Build & Node Test
 
 on:
   push:
+     - '**'
   pull_request:
 
 jobs:
