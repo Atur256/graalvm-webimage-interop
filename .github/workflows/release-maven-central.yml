@@ -43,5 +43,5 @@ jobs:
           MAVEN_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: |
-          mvn clean deploy -Prelease,test-native -Dgpg.passphrase=$MAVEN_GPG_PASSPHRASE --settings settings.xml
+          mvn clean deploy -e -Prelease,test-native -Dgpg.passphrase=$MAVEN_GPG_PASSPHRASE --settings settings.xml
 
