@@ -25,8 +25,8 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '21'
+          distribution: 'openjdk'
+          java-version: '25'
           server-id: ossrh
 
       - name: Import GPG key
