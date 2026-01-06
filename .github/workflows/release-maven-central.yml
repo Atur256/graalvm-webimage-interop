@@ -10,31 +10,38 @@ jobs:
     uses: ./.github/workflows/reusable-build-test.yml
 
   publish:
-    needs: build-test
-    runs-on: ubuntu-latest
+  needs: build-test
+  runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v4
+  steps:
+    - uses: actions/checkout@v4
 
-      - name: Set release version from tag
-        run: |
-          VERSION=${GITHUB_REF_NAME#v}
-          mvn versions:set -DnewVersion=$VERSION
+    - name: Set release version from tag
+      run: |
+        VERSION=${GITHUB_REF_NAME#v}
+        mvn versions:set -DnewVersion=$VERSION
+        mvn versions:commit
 
-      - name: Set up Java for publishing
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '21'
-          server-id: ossrh
-          server-username: MAVEN_USERNAME
-          server-password: MAVEN_PASSWORD
-          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
-          gpg-passphrase: MAVEN_GPG_PASSPHRASE
+    - name: Set up Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '25'
+        server-id: ossrh
 
-      - name: Publish to Maven Central
-        run: mvn clean package -Ptest-native,release deploy
-        env:
-          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          MAVEN_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+    - name: Import GPG key
+      env:
+        GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+        GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+      run: |
+        echo "$GPG_PRIVATE_KEY" | gpg --batch --import
+        echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
+
+    - name: Publish to Maven Central
+      env:
+        MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+        MAVEN_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+        MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+      run: |
+        mvn clean deploy -Prelease,test-native -Dgpg.passphrase=$MAVEN_GPG_PASSPHRASE --settings settings.xml
+
