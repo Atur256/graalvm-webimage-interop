@@ -62,19 +62,6 @@
 
     <build>
         <plugins>
-            <!-- Central Publishing Plugin -->
-            <plugin>
-                <groupId>org.sonatype.central</groupId>
-                <artifactId>central-publishing-maven-plugin</artifactId>
-                <version>0.9.0</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <publishingServerId>central</publishingServerId>
-                    <autoPublish>false</autoPublish>
-                    <waitUntil>published</waitUntil>
-                </configuration>
-            </plugin>
-
             <!-- Compiler plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -88,6 +75,7 @@
                     </compilerArgs>
                 </configuration>
             </plugin>
+
             <!-- Source Attachment Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -117,14 +105,11 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <!-- Retrieves passphrase from settings.xml -->
                     <passphraseServerId>gpg.passphrase</passphraseServerId>
-                    <!-- Required for gpg2 to avoid GUI prompts -->
                     <gpgArguments>
                         <arg>--pinentry-mode</arg>
                         <arg>loopback</arg>
                     </gpgArguments>
-                    <!-- Ensure correct GPG binary is used -->
                     <executable>gpg</executable>
                 </configuration>
             </plugin>
@@ -150,13 +135,12 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
 
     <!-- Profiles -->
     <profiles>
-        <!-- Profile for normal JAR build without tests -->
+        <!-- Default build (no tests) -->
         <profile>
             <id>default</id>
             <activation>
@@ -168,7 +152,6 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-compiler-plugin</artifactId>
                         <configuration>
-                            <!-- Exclude test sources from compilation in the main build -->
                             <excludes>
                                 <exclude>**/tests/**</exclude>
                             </excludes>
@@ -178,17 +161,15 @@
             </build>
         </profile>
 
-        <!-- Profile for building only test package via GraalVM -->
+        <!-- GraalVM native tests -->
         <profile>
             <id>test-native</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
             <build>
-                <!-- Rename, to clarify that this version includes the code for the tests -->
                 <finalName>${project.artifactId}-with-native-tests</finalName>
                 <plugins>
-                    <!-- Maven Antrun plugin to create JS directory -->
                     <plugin>
                         <artifactId>maven-antrun-plugin</artifactId>
                         <version>3.1.0</version>
@@ -208,7 +189,6 @@
                         </executions>
                     </plugin>
 
-                    <!-- GraalVM native plugin for test package -->
                     <plugin>
                         <groupId>org.graalvm.buildtools</groupId>
                         <artifactId>native-maven-plugin</artifactId>
@@ -233,6 +213,29 @@
                                 <option>${project.build.directory}/native-tests/tests</option>
                                 <option>-H:-ClosureCompiler</option>
                             </buildArgs>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Release / publishing profile -->
+        <profile>
+            <id>release</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.9.0</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>ossrh</publishingServerId>
+                            <autoPublish>false</autoPublish>
+                            <waitUntil>published</waitUntil>
                         </configuration>
                     </plugin>
                 </plugins>
