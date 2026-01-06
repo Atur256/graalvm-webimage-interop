@@ -42,7 +42,7 @@ jobs:
 
       # Build & native tests
       - name: Build with Maven
-        run: mvn clean package -Ptest-native
+        run: mvn clean package -e -Ptest-native
 
       # Setup Node.js
       - name: Setup Node.js
