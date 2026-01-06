@@ -32,10 +32,13 @@ jobs:
       - name: Import GPG key
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: |
-          echo "$GPG_PRIVATE_KEY" | gpg --batch --import
+          mkdir -p ~/.gnupg
+          chmod 700 ~/.gnupg
+          # Use printf to preserve line breaks and ignore warnings
+          printf "%b" "$GPG_PRIVATE_KEY" | gpg --batch --import || true
           echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
+          gpg --list-secret-keys --keyid-format LONG
 
       - name: Publish to Maven Central
         env:
@@ -43,5 +46,8 @@ jobs:
           MAVEN_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: |
-          mvn clean deploy -e -Prelease,test-native -Dgpg.passphrase=$MAVEN_GPG_PASSPHRASE --settings settings.xml
+          mvn clean deploy -e \
+            -Prelease,test-native \
+            -Dgpg.passphrase=$MAVEN_GPG_PASSPHRASE \
+            --settings settings.xml
 
