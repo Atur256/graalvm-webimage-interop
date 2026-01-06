@@ -2,64 +2,8 @@ name: GraalVM Native Build & Node Test
 
 on:
   push:
-    branches:
-      - main
-      - development-arthur
-      - add-github-action
   pull_request:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      # Checkout repo
-      - uses: actions/checkout@v4
-
-      # Cache GraalVM
-      - name: Cache GraalVM
-        id: graalvm-cache
-        uses: actions/cache@v3
-        with:
-          path: /opt/graalvm-jdk-25e1-25.0.1-ea.06
-          key: graalvm-25e1-{{ runner.os }}-v1
-
-      # Download GraalVM (Temporary solution until GraalVM EE builds are available for GitHub Action)
-      - name: Download Oracle GraalVM 25e1 EA
-        if: steps.graalvm-cache.outputs.cache-hit != 'true'
-        run: |
-          curl -L -o graalvm.tar.gz \
-            https://github.com/graalvm/oracle-graalvm-ea-builds/releases/download/jdk-25e1-25.0.1-ea.06/graalvm-jdk-25e1-25.0.1-ea.06_linux-x64_bin.tar.gz
-          sudo tar -xzf graalvm.tar.gz -C /opt
-
-      # Set environment variables for GraalVM
-      - name: Set GraalVM environment
-        run: |
-          EXTRACTED_DIR=$(tar -tzf graalvm.tar.gz | head -1 | cut -f1 -d"/")
-          echo "GRAALVM_HOME=/opt/$EXTRACTED_DIR" >> $GITHUB_ENV
-          echo "JAVA_HOME=/opt/$EXTRACTED_DIR" >> $GITHUB_ENV
-          echo "/opt/$EXTRACTED_DIR/bin" >> $GITHUB_PATH
-
-      # Verify GraalVM
-      - name: Verify GraalVM
-        run: |
-          echo "GRAALVM_HOME: $GRAALVM_HOME"
-          java --version
-          $GRAALVM_HOME/bin/native-image --version
-
-      # Build with Maven
-      - name: Build with Maven
-        run: mvn clean package -Ptest-native
-
-      # Setup Node.js
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22.21.1'
-
-      # Run generated tests.js using Node
-      - name: Run generated Node.js tests
-        run: |
-          echo "Running tests.js from target/native-test..."
-          node /home/runner/work/graalvm-webimage-interop/graalvm-webimage-interop/target/native-tests/tests.js
-
+  build-test:
+    uses: ./.github/workflows/reusable-build-test.yml
