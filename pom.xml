@@ -7,7 +7,7 @@
 
     <groupId>io.github.atur256.graalvm-webimage-interop</groupId>
     <artifactId>graalvm-webimage-interop</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>graalvm-webimage-interop</name>
@@ -26,7 +26,7 @@
         <developer>
             <id>atur256</id>
             <name>Arthur Schwaiger</name>
-            <email>-</email>
+            <email>arthur@schwaiger-fam.net</email>
             <url>https://github.com/atur256</url>
         </developer>
     </developers>
@@ -35,6 +35,7 @@
         <connection>scm:git:https://github.com/Atur256/graalvm-webimage-interop.git</connection>
         <developerConnection>scm:git:https://github.com/Atur256/graalvm-webimage-interop.git</developerConnection>
         <url>https://github.com/Atur256/graalvm-webimage-interop</url>
+        <tag>HEAD</tag>
     </scm>
 
     <properties>
@@ -61,6 +62,19 @@
 
     <build>
         <plugins>
+            <!-- Central Publishing Plugin -->
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.9.0</version>
+                <extensions>false</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                    <autoPublish>false</autoPublish>
+                    <waitUntil>published</waitUntil>
+                </configuration>
+            </plugin>
+
             <!-- Compiler plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -74,24 +88,48 @@
                     </compilerArgs>
                 </configuration>
             </plugin>
-
-            <!-- Source JAR -->
+            <!-- Source Attachment Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.2.1</version>
+                <version>3.3.1</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
-                        <phase>verify</phase>
                         <goals>
-                            <goal>jar</goal>
+                            <goal>jar-no-fork</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
 
-            <!-- Javadoc JAR -->
+            <!-- GPG signing -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- Retrieves passphrase from settings.xml -->
+                    <passphraseServerId>gpg.passphrase</passphraseServerId>
+                    <!-- Required for gpg2 to avoid GUI prompts -->
+                    <gpgArguments>
+                        <arg>--pinentry-mode</arg>
+                        <arg>loopback</arg>
+                    </gpgArguments>
+                    <!-- Ensure correct GPG binary is used -->
+                    <executable>gpg</executable>
+                </configuration>
+            </plugin>
+
+            <!-- Javadoc Generation Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -99,7 +137,6 @@
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
-                        <phase>verify</phase>
                         <goals>
                             <goal>jar</goal>
                         </goals>
@@ -114,21 +151,6 @@
                 </executions>
             </plugin>
 
-            <!-- GPG signing -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
