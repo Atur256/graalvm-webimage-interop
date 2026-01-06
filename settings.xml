@@ -4,18 +4,18 @@
                               https://maven.apache.org/xsd/settings-1.0.0.xsd">
 
     <servers>
-        <!-- OSSRH server for deploying artifacts -->
+        <!-- Release repository -->
         <server>
             <id>ossrh</id>
             <username>${env.MAVEN_USERNAME}</username>
             <password>${env.MAVEN_PASSWORD}</password>
         </server>
 
-        <!-- GPG passphrase for signing -->
+        <!-- Snapshot repository -->
         <server>
-            <id>gpg.passphrase</id>
-            <passphrase>${env.MAVEN_GPG_PASSPHRASE}</passphrase>
+            <id>ossrh-snapshots</id>
+            <username>${env.MAVEN_USERNAME}</username>
+            <password>${env.MAVEN_PASSWORD}</password>
         </server>
     </servers>
-
 </settings>
