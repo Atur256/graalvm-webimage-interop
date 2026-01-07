@@ -10,15 +10,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-     # Setup GraalVM with caching
-      - name: Setup Oracle GraalVM EA
-        uses: graalvm/setup-graalvm@v1
-        with:
-          java-version: '25e1-ea'
-          distribution: 'graalvm'
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          native-image-job-reports: 'true'
-          cache: true
+      # Setup GraalVM caching
+      - name: Cache GraalVM
+ 	uses: actions/cache@v3
+  	with:
+    	  path: ${{ runner.tool_cache }}/graalvm
+   	  key: graalvm-25e1-ea-${{ runner.os }}-v1
+
+      # Setup GraalVM
+      - name: Setup GraalVM
+ 	uses: graalvm/setup-graalvm@v1
+ 	with:
+    	  java-version: 'latest-ea'
+    	  distribution: 'graalvm'
+    	  github-token: ${{ secrets.GITHUB_TOKEN }}
+    	  native-image-job-reports: 'true'
 
       # Set GraalVM environment
       - name: Set GraalVM environment
