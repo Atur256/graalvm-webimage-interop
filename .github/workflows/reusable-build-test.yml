@@ -10,29 +10,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Setup GraalVM caching
+      # Cache GraalVM manually
       - name: Cache GraalVM
- 	uses: actions/cache@v3
-  	with:
-    	  path: ${{ runner.tool_cache }}/graalvm
-   	  key: graalvm-25e1-ea-${{ runner.os }}-v1
+        uses: actions/cache@v3
+        with:
+          path: ${{ runner.tool_cache }}/graalvm
+          key: graalvm-25e1-ea-${{ runner.os }}-v1
 
       # Setup GraalVM
       - name: Setup GraalVM
- 	uses: graalvm/setup-graalvm@v1
- 	with:
-    	  java-version: 'latest-ea'
-    	  distribution: 'graalvm'
-    	  github-token: ${{ secrets.GITHUB_TOKEN }}
-    	  native-image-job-reports: 'true'
-
-      # Set GraalVM environment
-      - name: Set GraalVM environment
-        run: |
-          EXTRACTED_DIR=$(tar -tzf graalvm.tar.gz | head -1 | cut -f1 -d"/")
-          echo "GRAALVM_HOME=/opt/$EXTRACTED_DIR" >> $GITHUB_ENV
-          echo "JAVA_HOME=/opt/$EXTRACTED_DIR" >> $GITHUB_ENV
-          echo "/opt/$EXTRACTED_DIR/bin" >> $GITHUB_PATH
+        uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: 'latest-ea'
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          native-image-job-reports: 'true'
 
       # Verify GraalVM installation
       - name: Verify GraalVM
@@ -48,8 +40,9 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 'lts'
+          node-version: 'lts'  # always latest LTS version
 
       # Run Node tests
       - name: Run generated Node.js tests
         run: node target/native-tests/tests.js
+
