@@ -22,19 +22,13 @@ jobs:
           mvn versions:set -DnewVersion=$VERSION
           mvn versions:commit
 
-      # Cache GraalVM manually
-      - name: Cache GraalVM
-        uses: actions/cache@v3
-        with:
-          path: ${{ runner.tool_cache }}/graalvm
-          key: graalvm-25e1-ea-${{ runner.os }}-v1
-
       # Setup GraalVM
       - name: Setup GraalVM
         uses: graalvm/setup-graalvm@v1
         with:
           java-version: '25e1-ea'
           distribution: 'graalvm'
+          cache: 'maven'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           native-image-job-reports: 'true'
 
