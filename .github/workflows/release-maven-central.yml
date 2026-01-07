@@ -21,24 +21,23 @@ jobs:
           VERSION=${GITHUB_REF_NAME#v}
           mvn versions:set -DnewVersion=$VERSION
           mvn versions:commit
-
-      # ---------------------------
-      # Setup GraalVM Java 25
-      # ---------------------------
+      # Cache GraalVM
       - name: Cache GraalVM
         id: graalvm-cache
         uses: actions/cache@v3
         with:
           path: /opt/graalvm-jdk-25e1-25.0.1-ea.06
           key: graalvm-25e1-${{ runner.os }}-v1
-
+      
+      # Download GraalVM
       - name: Download Oracle GraalVM 25e1 EA
         if: steps.graalvm-cache.outputs.cache-hit != 'true'
         run: |
           curl -L -o graalvm.tar.gz \
             https://github.com/graalvm/oracle-graalvm-ea-builds/releases/download/jdk-25e1-25.0.1-ea.06/graalvm-jdk-25e1-25.0.1-ea.06_linux-x64_bin.tar.gz
           sudo tar -xzf graalvm.tar.gz -C /opt
-
+      
+      # Set GraalVM environment
       - name: Set GraalVM environment
         run: |
           EXTRACTED_DIR=$(tar -tzf graalvm.tar.gz | head -1 | cut -f1 -d"/")
@@ -46,15 +45,14 @@ jobs:
           echo "JAVA_HOME=/opt/$EXTRACTED_DIR" >> $GITHUB_ENV
           echo "/opt/$EXTRACTED_DIR/bin" >> $GITHUB_PATH
 
+      # Verify GraalVM
       - name: Verify GraalVM
         run: |
           java --version
           javac --version
           native-image --version || true
 
-      # ---------------------------
       # Import GPG key
-      # ---------------------------
       - name: Import GPG key
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
@@ -65,13 +63,11 @@ jobs:
           echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
           gpg --list-secret-keys --keyid-format LONG
 
-      # ---------------------------
       # Publish to Maven Central
-      # ---------------------------
       - name: Publish to Maven Central
         env:
-          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          MAVEN_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+          MAVEN_USERNAME: ${{ secrets.TOKEN_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.TOKEN_PASSWORD }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: |
           mvn clean deploy -e \

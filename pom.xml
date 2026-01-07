@@ -38,6 +38,22 @@
         <tag>HEAD</tag>
     </scm>
 
+    <distributionManagement>
+        <!-- Release repository (staging) -->
+        <repository>
+            <id>central</id>
+            <name>OSSRH Staging</name>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+
+        <!-- Snapshot repository -->
+        <snapshotRepository>
+            <id>central-snapshot</id>
+            <name>OSSRH Snapshots</name>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <properties>
         <java.version>25</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -95,10 +111,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <id>sign-artifacts</id>
+                        <phase>verify</phase>
                         <goals>
                             <goal>sign</goal>
                         </goals>
@@ -106,6 +123,7 @@
                 </executions>
                 <configuration>
                     <passphraseServerId>gpg.passphrase</passphraseServerId>
+                    <keyname>93773B24DA96561A</keyname>
                     <gpgArguments>
                         <arg>--pinentry-mode</arg>
                         <arg>loopback</arg>
@@ -219,7 +237,7 @@
             </build>
         </profile>
 
-        <!-- Release / publishing profile -->
+        <!-- Release profile -->
         <profile>
             <id>release</id>
             <activation>
@@ -233,8 +251,8 @@
                         <version>0.9.0</version>
                         <extensions>true</extensions>
                         <configuration>
-                            <publishingServerId>ossrh</publishingServerId>
-                            <autoPublish>false</autoPublish>
+                            <publishingServerId>central</publishingServerId>
+                            <autoPublish>false</autoPublish> <!-- do not auto publish -->
                             <waitUntil>published</waitUntil>
                         </configuration>
                     </plugin>
@@ -242,18 +260,4 @@
             </build>
         </profile>
     </profiles>
-
-    <distributionManagement>
-        <repository>
-            <id>ossrh</id>
-            <name>OSSRH Repository</name>
-            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-        <snapshotRepository>
-            <id>ossrh-snapshots</id>
-            <name>OSSRH Snapshot Repository</name>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
-
 </project>
