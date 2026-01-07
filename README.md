@@ -20,7 +20,7 @@ It offers a consistent and idiomatic interface for JavaScript interop within Gra
 
 This project depends on a **GraalVM snapshot release** that is currently not available on Maven Central.
 
-**Download the latest GraalVM snapshot release** from the [official GraalVM Early Access GitHub releases](https://github.com/graalvm/oracle-graalvm-ea-builds/releases/tag/jdk-25e1-25.0.1-ea.06).
+**Download the latest GraalVM snapshot release** from the [official GraalVM Early Access GitHub releases](https://github.com/graalvm/oracle-graalvm-ea-builds/releases).
 
 The [GraalVM Maven Plugin](https://graalvm.github.io/native-build-tools/latest/maven-plugin.html) is used for both compilation and for generating native test artifacts.
 
