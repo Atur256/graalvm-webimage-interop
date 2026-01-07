@@ -70,7 +70,5 @@ jobs:
           MAVEN_PASSWORD: ${{ secrets.TOKEN_PASSWORD }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: |
-          mvn clean deploy -e \
-            -Prelease,test-native \
-            -Dgpg.passphrase=$MAVEN_GPG_PASSPHRASE \
-            --settings settings.xml
+          mvn clean deploy -P release \
+            -Dgpg.passphrase=$MAVEN_GPG_PASSPHRASE
