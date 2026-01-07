@@ -39,7 +39,7 @@
     </scm>
 
     <distributionManagement>
-        <!-- Release repository (staging) -->
+        <!-- Release repository -->
         <repository>
             <id>central</id>
             <name>OSSRH Staging</name>
