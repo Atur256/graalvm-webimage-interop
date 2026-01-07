@@ -31,6 +31,13 @@ import org.graalvm.webimage.api.JS;
  */
 public class JSUri {
 
+    /**
+     * Creates a new, empty {@link JSUri}.
+     */
+    protected JSUri() {
+        super();
+    }
+
     // === URI Encoding/Decoding ===
 
     /**

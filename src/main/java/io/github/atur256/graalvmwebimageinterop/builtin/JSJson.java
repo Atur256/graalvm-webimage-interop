@@ -37,6 +37,13 @@ import org.graalvm.webimage.api.JSValue;
 @JS.Import("JSON")
 public class JSJson extends JSObject {
 
+    /**
+     * Creates a new, empty {@link JSJson}.
+     */
+    protected JSJson() {
+        super();
+    }
+
     // === Parsing Methods ===
 
     /**

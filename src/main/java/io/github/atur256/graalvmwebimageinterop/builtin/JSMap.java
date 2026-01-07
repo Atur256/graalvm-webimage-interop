@@ -37,6 +37,13 @@ import java.util.List;
 public class JSMap extends JSObject {
 
     /**
+     * Creates a new, empty {@link JSMap}.
+     */
+    public JSMap() {
+        super();
+    }
+
+    /**
      * The number of key-value pairs in the map.
      */
     public int size;
@@ -218,6 +225,7 @@ public class JSMap extends JSObject {
      *
      * @param key   the object key
      * @param value the object value
+     * @return this {@link JSMap} instance for chaining
      */
     @JS.Coerce
     @JS("return this.set(key, value);")

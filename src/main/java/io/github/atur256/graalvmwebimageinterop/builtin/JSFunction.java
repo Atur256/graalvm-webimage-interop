@@ -37,6 +37,13 @@ import java.util.function.*;
 public class JSFunction extends JSObject {
 
     /**
+     * Creates a new, empty {@link JSFunction}.
+     */
+    protected JSFunction() {
+        super();
+    }
+
+    /**
      * The number of expected arguments.
      */
     public int length;

@@ -36,6 +36,13 @@ import org.graalvm.webimage.api.JSObject;
 public class JSSet extends JSObject {
 
     /**
+     * Creates a new, empty {@link JSSet}.
+     */
+    public JSSet() {
+        super();
+    }
+
+    /**
      * The number of elements in the set.
      */
     public int size;

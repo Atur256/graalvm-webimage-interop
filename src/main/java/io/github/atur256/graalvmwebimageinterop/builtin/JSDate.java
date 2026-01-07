@@ -37,6 +37,13 @@ import org.graalvm.webimage.api.JSObject;
 @JS.Import("Date")
 public class JSDate extends JSObject {
 
+    /**
+     * Creates a new, empty {@link JSDate}.
+     */
+    protected JSDate() {
+        super();
+    }
+
     // === Factory Methods ===
 
     /**
@@ -527,7 +534,8 @@ public class JSDate extends JSObject {
      */
     public int getUTCMilliseconds() {
         JSNumber utcMilliseconds = getUTCMillisecondsImpl();
-        if(JSNumber.isNaN(utcMilliseconds)) throw new IllegalStateException("Cannot get UTC milliseconds: JSDate is invalid");
+        if(JSNumber.isNaN(utcMilliseconds))
+            throw new IllegalStateException("Cannot get UTC milliseconds: JSDate is invalid");
         return utcMilliseconds.asInt();
     }
 

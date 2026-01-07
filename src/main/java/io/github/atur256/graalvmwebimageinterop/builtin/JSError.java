@@ -37,6 +37,13 @@ import org.graalvm.webimage.api.JSObject;
 public class JSError extends JSObject {
 
     /**
+     * Creates a new, empty {@link JSError}.
+     */
+    protected JSError() {
+        super();
+    }
+
+    /**
      * The error message.
      */
     public String message;

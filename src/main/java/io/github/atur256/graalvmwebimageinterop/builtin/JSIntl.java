@@ -34,6 +34,13 @@ import org.graalvm.webimage.api.JSObject;
 @JS.Import("Intl")
 public class JSIntl extends JSObject {
 
+    /**
+     * Creates a new, empty {@link JSIntl}.
+     */
+    protected JSIntl() {
+        super();
+    }
+
     // === Locale Utilities ===
 
     /**

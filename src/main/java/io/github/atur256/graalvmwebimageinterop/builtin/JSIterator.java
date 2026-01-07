@@ -36,6 +36,13 @@ import org.graalvm.webimage.api.JSValue;
 @JS.Import("Iterator")
 public class JSIterator extends JSObject {
 
+    /**
+     * Creates a new, empty {@link JSIterator}.
+     */
+    protected JSIterator() {
+        super();
+    }
+
     // === Factory Method ===
 
     /**

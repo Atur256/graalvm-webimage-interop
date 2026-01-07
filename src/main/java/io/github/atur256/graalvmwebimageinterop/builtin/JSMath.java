@@ -34,10 +34,19 @@ import org.graalvm.webimage.api.JSObject;
 @JS.Import("Math")
 public class JSMath extends JSObject {
 
+    /**
+     * Creates a new, empty {@link JSMath}.
+     */
+    protected JSMath() {
+        super();
+    }
+
     // === Constants ===
 
     /**
      * Euler's number (e ≈ 2.718).
+     *
+     * @return the value of Euler's number
      */
     @JS.Coerce
     @JS("return Math.E;")
@@ -45,6 +54,8 @@ public class JSMath extends JSObject {
 
     /**
      * Natural logarithm of 2 (ln(2)).
+     *
+     * @return the value of ln(2)
      */
     @JS.Coerce
     @JS("return Math.LN2;")
@@ -52,6 +63,8 @@ public class JSMath extends JSObject {
 
     /**
      * Natural logarithm of 10 (ln(10)).
+     *
+     * @return the value of ln(10)
      */
     @JS.Coerce
     @JS("return Math.LN10;")
@@ -59,6 +72,8 @@ public class JSMath extends JSObject {
 
     /**
      * Base-2 logarithm of e (log₂(e)).
+     *
+     * @return the value of log₂(e)
      */
     @JS.Coerce
     @JS("return Math.LOG2E;")
@@ -66,6 +81,8 @@ public class JSMath extends JSObject {
 
     /**
      * Base-10 logarithm of e (log₁₀(e)).
+     *
+     * @return the value of log₁₀(e)
      */
     @JS.Coerce
     @JS("return Math.LOG10E;")
@@ -73,6 +90,8 @@ public class JSMath extends JSObject {
 
     /**
      * The mathematical constant π (pi).
+     *
+     * @return the value of π
      */
     @JS.Coerce
     @JS("return Math.PI;")
@@ -80,6 +99,8 @@ public class JSMath extends JSObject {
 
     /**
      * Square root of 1/2 (√0.5).
+     *
+     * @return the value of √0.5
      */
     @JS.Coerce
     @JS("return Math.SQRT1_2;")
@@ -87,6 +108,8 @@ public class JSMath extends JSObject {
 
     /**
      * Square root of 2 (√2).
+     *
+     * @return the value of √2
      */
     @JS.Coerce
     @JS("return Math.SQRT2;")

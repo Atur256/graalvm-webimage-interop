@@ -36,6 +36,13 @@ import org.graalvm.webimage.api.JSValue;
 @JS.Import("RegExp")
 public class JSRegExp extends JSObject {
 
+    /**
+     * Creates a new, empty {@link JSRegExp}.
+     */
+    protected JSRegExp() {
+        super();
+    }
+
     // === Factory Method ===
 
     /**

@@ -44,6 +44,13 @@ import java.util.List;
 public class JSArray extends JSObject {
 
     /**
+     * Creates a new, empty {@link JSArray}.
+     */
+    protected JSArray() {
+        super();
+    }
+
+    /**
      * The {@code length} property of the JavaScript array.
      */
     public int length;
@@ -564,6 +571,7 @@ public class JSArray extends JSObject {
      *
      * @param callback a {@link JSFunction} to test each element
      * @param cls      the target class
+     * @param <R>      the type to coerce the result to
      * @return the coerced result
      */
     public <R> R find(JSFunction callback, Class<R> cls) {
@@ -595,6 +603,7 @@ public class JSArray extends JSObject {
      *
      * @param callback a {@link JSFunction} to test each element
      * @param cls      the target class
+     * @param <R>      the type to coerce the result to
      * @return the coerced result
      */
     public <R> R findLast(JSFunction callback, Class<R> cls) {
@@ -709,6 +718,7 @@ public class JSArray extends JSObject {
      * Removes and coerces the last element.
      *
      * @param cls the target class
+     * @param <R> the type to coerce the result to
      * @return the coerced result
      */
     public <R> R pop(Class<R> cls) {
@@ -738,6 +748,7 @@ public class JSArray extends JSObject {
      * Removes and coerces the first element.
      *
      * @param cls the target class
+     * @param <R> the type to coerce the result to
      * @return the coerced result
      */
     public <R> R shift(Class<R> cls) {

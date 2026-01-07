@@ -47,6 +47,13 @@ import java.util.List;
 @JS.Import("Promise")
 public class JSPromise extends JSObject {
 
+    /**
+     * Creates a new, empty {@link JSPromise}.
+     */
+    protected JSPromise() {
+        super();
+    }
+
     // === Constructors ===
 
     /**
@@ -109,7 +116,7 @@ public class JSPromise extends JSObject {
      */
     private static JSArray fromPromises(JSPromise[] promises) {
         JSArray jsArr = JSArray.of();
-        for (JSPromise promise : promises) {
+        for(JSPromise promise : promises) {
             jsArr.push(promise);
         }
         return jsArr;
