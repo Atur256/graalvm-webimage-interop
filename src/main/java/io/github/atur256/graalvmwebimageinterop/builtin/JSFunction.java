@@ -80,8 +80,19 @@ public class JSFunction extends JSObject {
      * @return a new {@code JSFunction}
      */
     @JS.Coerce
-    @JS("return new Function(...Array.from(params), body);")
+    @JS("return new Function(...params, body);")
     public static native JSFunction fromArgs(String[] params, String body);
+
+    /**
+     * Creates a new JavaScript function from a comma-separated list of parameter names and a function body.
+     *
+     * @param param a comma-separated list of function parameter names, e.g., "a,b,c"
+     * @param body  the JavaScript function body
+     * @return a new {@code JSFunction}
+     */
+    public static JSFunction fromArgs(String param, String body) {
+        return fromArgs(new String[]{param}, body);
+    }
 
     /**
      * Wraps a generic Java object into a JavaScript function.

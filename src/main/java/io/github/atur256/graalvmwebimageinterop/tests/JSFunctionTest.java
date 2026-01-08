@@ -61,11 +61,14 @@ public class JSFunctionTest {
     }
 
     public static void testFromArgs() {
-        JSFunction fun = JSFunction.fromArgs(new String[]{"a", "b"}, "return a + b;");
+        JSFunction fun1 = JSFunction.fromArgs(new String[]{"a", "b"}, "return a + b;");
+        JSFunction fun2 = JSFunction.fromArgs("a, b", "return a * b;");
 
-        int result = fun.invokeRaw(Integer.class, JSNumber.of(5), JSNumber.of(7));
+        int result1 = fun1.invokeRaw(Integer.class, JSNumber.of(5), JSNumber.of(7));
+        int result2 = fun2.invokeRaw(Integer.class, JSNumber.of(5), JSNumber.of(7));
 
-        assertEquals(12, result);
+        assertEquals(12, result1);
+        assertEquals(35, result2);
     }
 
     public static void testGenericOf() {
