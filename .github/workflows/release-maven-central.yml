@@ -47,8 +47,8 @@ jobs:
             <servers>
               <server>
                 <id>central</id>
-                <username>${{ secrets.MAVEN_USERNAME }}</username>
-                <password>${{ secrets.MAVEN_PASSWORD }}</password>
+                <username>${{ secrets.TOKEN_USERNAME }}</username>
+                <password>${{ secrets.TOKEN_PASSWORD }}</password>
               </server>
             </servers>
           </settings>
@@ -68,8 +68,6 @@ jobs:
       # Publish to Maven Central
       - name: Publish to Maven Central
         env:
-          MAVEN_USERNAME: ${{ secrets.TOKEN_USERNAME }}
-          MAVEN_PASSWORD: ${{ secrets.TOKEN_PASSWORD }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: |
           mvn clean deploy -P release \
