@@ -37,6 +37,22 @@ jobs:
         run: |
           java --version
           native-image --version
+      
+      # Create sttings.xml file
+      - name: Configure Maven Settings
+        run: |
+          mkdir -p ~/.m2
+          cat > ~/.m2/settings.xml <<EOF
+          <settings>
+            <servers>
+              <server>
+                <id>central</id>
+                <username>${{ secrets.CENTRAL_TOKEN_USERNAME }}</username>
+                <password>${{ secrets.CENTRAL_TOKEN_PASSWORD }}</password>
+              </server>
+            </servers>
+          </settings>
+          EOF
 
       # Import GPG key
       - name: Import GPG key
