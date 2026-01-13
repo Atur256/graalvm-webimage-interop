@@ -108,7 +108,7 @@ node target/native-tests/tests.js
 ```
 This bundle includes the **full native-image-compiled test runner** and require no additional tooling beyond Node.js.
 
-See the [RunAllTests class](https://github.com/Atur256/graalvm-webimage-interop/blob/master/src/main/java/io/github/atur256/webimageinterop/tests/RunAllTests.java)
+See the [RunAllTests class](https://github.com/Atur256/graalvm-webimage-interop/blob/master/src/main/java/io/github/atur256/graalvmwebimageinterop/tests/TestRunner.java)
 
 ---
 
