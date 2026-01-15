@@ -41,6 +41,30 @@ target/
 
 ---
 
+## Maven Releases
+
+Stable releases of this library are published to **Maven Central**.
+
+### Maven Dependency
+
+```xml
+<!-- Source: https://mvnrepository.com/artifact/io.github.atur256.graalvm-webimage-interop/graalvm-webimage-interop -->
+<dependency>
+    <groupId>io.github.atur256.graalvm-webimage-interop</groupId>
+    <artifactId>graalvm-webimage-interop</artifactId>
+    <version>RELEASE_VERSION</version>
+    <scope>compile</scope>
+</dependency>
+```
+
+Replace `RELEASE_VERSION` with the desired version.
+
+### Maven Central
+
+All released versions of [GraalVM WebImage Interop](https://mvnrepository.com/artifact/io.github.atur256.graalvm-webimage-interop/graalvm-webimage-interop) are available on Maven Central.
+
+---
+
 ## Available JavaScript Wrappers
 
 This project provides Java wrappers for many standard ECMAScript global objects, such as arrays, maps, dates, promises, and regular expressions.
