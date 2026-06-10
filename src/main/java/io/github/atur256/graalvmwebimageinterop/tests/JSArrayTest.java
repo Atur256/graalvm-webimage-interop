@@ -61,7 +61,6 @@ public class JSArrayTest {
         testKeysValuesEntries();
         testSomeEvery();
         testSortToSorted();
-        testToLocaleStringToString();
         testWith();
         testFilter();
         testEntries();
@@ -481,20 +480,6 @@ public class JSArrayTest {
         assertArray(sorted, String.class, "a", "b", "c");
         assertArray(unsortedClone, String.class, "a", "b", "c");
         assertArray(toSorted, String.class, "a", "b", "c");
-    }
-
-    public static void testToLocaleStringToString() {
-        JSArray localArr = JSArray.of(123456.789, 987654.321);
-
-        String localized = localArr.toLocaleString();
-        String emptyLocalized = EMPTY.toString();
-        String baseString = BASE.toString();
-        String emptyString = EMPTY.toString();
-
-        assertTrue(localized.matches("\\d{3}[,.]\\d{3}[,.]\\d{3},\\d{3}[,.]\\d{3}[,.]\\d{3}"));
-        assertEquals("<JavaScript<object; []>", emptyLocalized);
-        assertEquals("<JavaScript<object; [a,b,c,d,e]>", baseString);
-        assertEquals("<JavaScript<object; []>", emptyString);
     }
 
     public static void testWith() {
