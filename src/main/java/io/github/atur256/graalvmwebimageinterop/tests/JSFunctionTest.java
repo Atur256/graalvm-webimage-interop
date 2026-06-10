@@ -455,14 +455,22 @@ public class JSFunctionTest {
     }
 
     private static <A, B> void assertPair(Pair<A, B> pair, A value1, B value2) {
-        assertEquals(value1, pair.a());
-        assertEquals(value2, pair.b());
+        assertObjectEquals(value1, pair.a());
+        assertObjectEquals(value2, pair.b());
     }
 
     private static <A, B, C> void assertTriple(Triple<A, B, C> triple, A value1, B value2, C value3) {
-        assertEquals(value1, triple.a());
-        assertEquals(value2, triple.b());
-        assertEquals(value3, triple.c());
+        assertObjectEquals(value1, triple.a());
+        assertObjectEquals(value2, triple.b());
+        assertObjectEquals(value3, triple.c());
+    }
+
+    private static void assertObjectEquals(Object expected, Object actual) {
+        if (expected instanceof JSObject && actual instanceof JSObject) {
+            assertTrue(((JSObject) expected).equalsJavaScript((JSObject) actual));
+        } else {
+            assertEquals(expected, actual);
+        }
     }
 
     private static class TestObject {

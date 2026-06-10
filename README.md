@@ -4,6 +4,8 @@ This library extends the [Oracle GraalVM WebImage API](https://www.graalvm.org/s
 
 It offers a consistent and idiomatic interface for JavaScript interop within GraalVM-managed runtimes, focusing on clarity, type safety, and maintainability. The goal is to make Java–JavaScript interoperability predictable, testable, and straightforward.
 
+
+> **Note:** This project was developed as part of a bachelor thesis and **may not see further updates or active development**. While contributions are welcome, there is **no guarantee of ongoing maintenance or new feature additions**.
 ---
 
 ## Features
